@@ -218,6 +218,7 @@ uint8_t os_get_running_tid(void) {
     return running_tid;
 }
 
+//TODO(mthompkins): I don't see where unit tests so I reccomend removal of this
 #ifdef UNIT_TEST
 void os_run() {
     running = 1;

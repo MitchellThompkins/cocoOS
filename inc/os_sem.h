@@ -48,7 +48,7 @@ extern "C" {
 #define SEM_OFS1 20000
 #define SEM_OFS2 21000
 
-#define OS_WAIT_SEM(sem)		do {\
+#define OS_WAIT_SEM(sem)        do {\
                                     if ( os_sem_larger_than_zero( sem )  ){\
                                         os_sem_decrement( sem );\
                                     }\
