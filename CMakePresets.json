@@ -13,7 +13,7 @@
         {
             "name": "cortex-a9",
             "inherits": "default",
-            "toolchainFile": "test/platforms/arm/cortex-a9/toolchain/cortex_a9.cmake",
+            "toolchainFile": "tests/platforms/arm/cortex-a9/toolchain/cortex_a9.cmake",
             "cacheVariables": {
                 "PLATFORM": "CORTEX_A9"
             }
@@ -21,7 +21,7 @@
         {
             "name": "cortex-m4",
             "inherits": "default",
-            "toolchainFile": "test/platforms/arm/cortex-m4/toolchain/cortex_m4.cmake",
+            "toolchainFile": "tests/platforms/arm/cortex-m4/toolchain/cortex_m4.cmake",
             "cacheVariables": {
                 "PLATFORM": "CORTEX_M4"
             }
@@ -29,7 +29,7 @@
         {
             "name": "x86-64",
             "inherits": "default",
-            "toolchainFile": "test/platforms/x86_64/toolchain/x86_64.cmake",
+            "toolchainFile": "tests/platforms/x86_64/toolchain/x86_64.cmake",
             "cacheVariables": {
                 "PLATFORM": "X86_64"
             }
