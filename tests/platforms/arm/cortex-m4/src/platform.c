@@ -10,7 +10,7 @@ static void tick(void)
 {
 }
 
-void platform_setup_timer(void)
+error_code_t platform_setup_timer(const uint16_t interval_ms)
 {
 }
 

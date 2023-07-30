@@ -1,3 +1,4 @@
+#include "error.h"
 #include "platform.h"
 
 #include <pthread.h>
@@ -11,7 +12,6 @@ extern "C" {
 
 static pthread_t thread;
 static bool timer_enable = false;
-static int interval_ms = 3000;
 
 static void *tick(void *interval_ms)
 {
@@ -21,16 +21,19 @@ static void *tick(void *interval_ms)
 
         for(;;)
         {
-            printf("ticking system time linux: %llu\n", get_system_time());
             tick_system_time();
             usleep(interval_us);
         }
     }
 }
 
-void platform_setup_timer(void)
+error_code_t platform_setup_timer(const uint16_t interval_ms)
 {
-    pthread_create(&thread, NULL, tick, &interval_ms);
+    // otherwise compiler complains about discarding const with a ptr to a
+    // uint16_t
+    uint16_t interval_ms_copy = interval_ms;
+    int status = pthread_create(&thread, NULL, tick, &interval_ms_copy);
+    return (status == (int)NO_ERR) ? NO_ERR : CONFIG_ERR;
 }
 
 void platform_enable_timer(void)

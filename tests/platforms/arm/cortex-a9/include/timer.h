@@ -5,6 +5,7 @@
 #include <stdint.h>
 
 #include "cpu_a9.h"
+#include "error.h"
 #include "irq.h"
 
 #ifdef __cplusplus

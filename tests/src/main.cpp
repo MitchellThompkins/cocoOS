@@ -31,7 +31,9 @@ static void hello_task(void)
 
 int main(int argc, char *argv[])
 {
-    platform_setup_timer();
+    const uint16_t interval_ms = 250;
+
+    platform_setup_timer(interval_ms);
     platform_enable_timer();
 
     os_init();

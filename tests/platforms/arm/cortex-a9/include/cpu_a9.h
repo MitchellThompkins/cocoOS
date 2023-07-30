@@ -41,13 +41,6 @@ static inline void cpu_disable_interrupts(void)
     _asm ("cpsid if");
 }
 
-typedef enum
-{
-    NO_ERR = 0,
-    CONFIG_ERR,
-
-} error_code_t;
-
 #ifdef __cplusplus
 }
 #endif
