@@ -39,22 +39,22 @@
 
 
 struct tcb {
-	taskproctype taskproc;
-	TaskState_t state;					///< current runstate
-  TaskState_t savedState;				///< saves the task state when suspending
-  uint16_t internal_state;			///< is set when calling OS_SCHEDULE
-  uint32_t time;
-  uint8_t tid;
-  uint8_t prio;
-  Sem_t semaphore;
-  MsgQ_t msgQ;
-  MsgQ_t waitQ;                       ///< The queue the task is waiting for (post or receive)
-  Evt_t msgChangeEvent;               ///< The change event of the message queue the task is waiting for
-  uint8_t msgResult;                  ///< The result of msg_receive or msg_post
-  uint8_t waitSingleEvent;
-	uint8_t clockId;
-	EventQueue_t eventQueue;
-	void *data;
+    taskproctype taskproc;
+    TaskState_t state;       ///< current runstate
+    TaskState_t savedState;  ///< saves the task state when suspending
+    uint16_t internal_state; ///< is set when calling OS_SCHEDULE
+    uint32_t time;
+    uint8_t tid;
+    uint8_t prio;
+    Sem_t semaphore;
+    MsgQ_t msgQ;
+    MsgQ_t waitQ;            ///< The queue the task is waiting for (post or receive)
+    Evt_t msgChangeEvent;    ///< The change event of the message queue the task is waiting for
+    uint8_t msgResult;       ///< The result of msg_receive or msg_post
+    uint8_t waitSingleEvent;
+    uint8_t clockId;
+    EventQueue_t eventQueue;
+    void *data;
 };
 
 
@@ -122,10 +122,10 @@ void os_task_init( void ) {
 *   static Msg_t msgpool_1[ POOL_SIZE ];
 
 int main(void) {
-	system_init();
-	os_init();
-	taskId = task_create( myTaskProc, 0, 1, msgpool_1, POOL_SIZE, sizeof(Msg_t) );
-	...
+    system_init();
+    os_init();
+    taskId = task_create( myTaskProc, 0, 1, msgpool_1, POOL_SIZE, sizeof(Msg_t) );
+    ...
 }
 @endcode
 *       
@@ -145,9 +145,9 @@ uint8_t task_create( taskproctype taskproc, void *data, uint8_t prio, Msg_t *msg
     while ( taskId != 0 ) {
         --taskId;
         os_assert( task_list[ taskId ].prio != prio );
-    } 
-    
-    
+    }
+
+
     task = &task_list[ nTasks ];
 
     task->tid = nTasks;
