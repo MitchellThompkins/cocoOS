@@ -1,0 +1,9 @@
+add_library(cocoOS
+    os_assert.c
+    os_cbk.c
+    os_event.c
+    os_kernel.c
+    os_msgqueue.c
+    os_sem.c
+    os_task.c
+)

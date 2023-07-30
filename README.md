@@ -158,26 +158,22 @@ int main(void) {
 
 ## Scheduling
 When a task has finished it gives the CPU control to another task by calling one of the scheduling macros:
- 
     - task_wait()
-
     - task_wait_id()
-    - event_wait()
 
+    - event_wait()
     - event_wait_timeout()
     - event_wait_multiple()
     - event_signal()
+
     - sem_wait()
     - sem_signal()
+
     - msg_q_get()
     - msg_q_give()
-
     - msg_post()
-
     - msg_post_in()
-
     - msg_post_every()
-
     - msg_receive()
 
 

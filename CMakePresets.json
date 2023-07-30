@@ -1,0 +1,79 @@
+{
+    "version": 3,
+    "configurePresets": [
+        {
+            "name": "default",
+            "hidden": true,
+            "generator": "Ninja",
+            "binaryDir": "build/${presetName}",
+            "cacheVariables": {
+                "CMAKE_EXPORT_COMPILE_COMMANDS": true
+            }
+        },
+        {
+            "name": "cortex-a9",
+            "inherits": "default",
+            "toolchainFile": "tests/platforms/arm/cortex-a9/toolchain/cortex_a9.cmake",
+            "cacheVariables": {
+                "PLATFORM": "CORTEX_A9"
+            }
+        },
+        {
+            "name": "cortex-m4",
+            "inherits": "default",
+            "toolchainFile": "tests/platforms/arm/cortex-m4/toolchain/cortex_m4.cmake",
+            "cacheVariables": {
+                "PLATFORM": "CORTEX_M4"
+            }
+        },
+        {
+            "name": "x86-64",
+            "inherits": "default",
+            "toolchainFile": "tests/platforms/x86_64/toolchain/x86_64.cmake",
+            "cacheVariables": {
+                "PLATFORM": "X86_64"
+            }
+        },
+        {
+            "name": "x86_64",
+            "inherits": "x86-64",
+            "environment": {
+                "CFLAGS": "-O0 -g3",
+                "CXXFLAGS": "-O0 -g3"
+            }
+        },
+        {
+            "name": "a9",
+            "inherits": "cortex-a9",
+            "environment": {
+                "CFLAGS": "-O0 -g3",
+                "CXXFLAGS": "-O0 -g3"
+            }
+        },
+        {
+            "name": "m4",
+            "inherits": "cortex-m4",
+            "environment": {
+                "CFLAGS": "-O0 -g3",
+                "CXXFLAGS": "-O0 -g3"
+            }
+        }
+    ],
+    "buildPresets": [
+        {
+            "name": "x86_64",
+            "targets": "test",
+            "configurePreset": "x86_64"
+        },
+        {
+            "name": "a9",
+            "targets": "test",
+            "configurePreset": "a9"
+        },
+        {
+            "name": "m4",
+            "targets": "test",
+            "configurePreset": "m4"
+        }
+    ]
+}
