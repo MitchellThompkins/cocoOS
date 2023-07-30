@@ -1,4 +1,5 @@
 add_subdirectory(platforms)
+add_subdirectory(mocks)
 
 include(FetchContent)
 FetchContent_Declare(
@@ -13,12 +14,14 @@ FetchContent_MakeAvailable(CppUTest)
 
 add_executable(test
     src/main.cpp
+    src/os_task.test.cpp
 )
 
 target_link_libraries(test
     PRIVATE
         cocoOS
         platform
+        mocks
         CppUTest::CppUTest
         CppUTest::CppUTestExt
 )

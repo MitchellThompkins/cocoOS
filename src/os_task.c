@@ -37,6 +37,9 @@
 #include "cocoos.h"
 #include <stdlib.h>
 
+#ifdef __cplusplus
+extern "C" {
+#endif
 
 struct tcb {
     taskproctype taskproc;
@@ -168,7 +171,7 @@ uint8_t task_create( taskproctype taskproc, void *data, uint8_t prio, Msg_t *msg
 
     task->data = data;
     os_task_clear_wait_queue( nTasks );
-    
+
     nTasks++;
     return task->tid;
 }
@@ -703,3 +706,7 @@ static void task_waiting_event_timeout_set( tcb *task ) {
 static void task_killed_set( uint8_t tid ) {
     task_list[ tid ].state = KILLED;
 }
+
+#ifdef __cplusplus
+}
+#endif
