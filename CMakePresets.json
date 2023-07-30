@@ -35,7 +35,7 @@
             }
         },
         {
-            "name": "test_x86_64",
+            "name": "x86_64",
             "inherits": "x86-64",
             "environment": {
                 "CFLAGS": "-O0 -g3",
@@ -43,7 +43,7 @@
             }
         },
         {
-            "name": "test_a9",
+            "name": "a9",
             "inherits": "cortex-a9",
             "environment": {
                 "CFLAGS": "-O0 -g3",
@@ -51,7 +51,7 @@
             }
         },
         {
-            "name": "test_m4",
+            "name": "m4",
             "inherits": "cortex-m4",
             "environment": {
                 "CFLAGS": "-O0 -g3",
@@ -61,19 +61,19 @@
     ],
     "buildPresets": [
         {
-            "name": "test_x86_64",
+            "name": "x86_64",
             "targets": "test",
-            "configurePreset": "test_x86_64"
+            "configurePreset": "x86_64"
         },
         {
-            "name": "test_a9",
+            "name": "a9",
             "targets": "test",
-            "configurePreset": "test_a9"
+            "configurePreset": "a9"
         },
         {
-            "name": "test_m4",
+            "name": "m4",
             "targets": "test",
-            "configurePreset": "test_m4"
+            "configurePreset": "m4"
         }
     ]
 }

@@ -44,7 +44,7 @@ qemu-debug.%:
 		-d guest_errors\
 		--semihosting \
 		-semihosting-config enable=on,target=native \
-		-kernel build/temp_$*/temp.elf
+		-kernel build/$*/temp.elf
 
 .PHONY: qemu-run.%
 qemu-run.%:
@@ -58,7 +58,7 @@ qemu-run.%:
 		-m 12M \
 		--semihosting \
 		-semihosting-config enable=on,target=native \
-		-kernel build/test_$*/test.elf
+		-kernel build/$*/test.elf
 
 .PHONY: gdb-debug.%
 gdb-debug.%:

@@ -20,3 +20,17 @@ set(CMAKE_VERBOSE_MAKEFILE ON)
 list(APPEND CMAKE_MODULE_PATH ${CMAKE_CURRENT_LIST_DIR})
 
 add_subdirectory(test)
+
+add_library(cocoOS
+    src/os_assert.c
+    src/os_cbk.c
+    src/os_event.c
+    src/os_kernel.c
+    src/os_msgqueue.c
+    src/os_sem.c
+    src/os_task.c
+)
+
+target_include_directories(cocoOS
+    PUBLIC
+        inc)
