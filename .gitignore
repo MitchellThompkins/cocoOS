@@ -1,2 +1,4 @@
 .project
 *.swp
+compile_commands.json
+build/
