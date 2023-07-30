@@ -9,12 +9,38 @@
 #include <vector>
 #include <iostream>
 
+#define N_TASKS  1
+#define N_QUEUES 0
+#define N_SEMAPHORES 0
+#define N_EVENTS 0
+#define ROUND_ROBIN 0
+#define Mem_t uint32_t
+
+static void hello_task(void)
+{
+    task_open();
+
+    for(;;)
+    {
+        printf("hello world\n");
+        task_wait( 20 );
+    }
+
+    task_close();
+}
+
 int main(int argc, char *argv[])
 {
-    printf("hello world\n");
-
     platform_setup_timer();
     platform_enable_timer();
+
+    os_init();
+
+    /* Create kernel objects */
+    task_create( hello_task, NULL, 1, NULL, 0, 0 );
+
+
+    os_start();
 
     for(volatile uint16_t a;;a++)
     {

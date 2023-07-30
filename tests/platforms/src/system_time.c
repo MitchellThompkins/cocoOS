@@ -1,4 +1,5 @@
 #include "system_time.h"
+#include "cocoos.h"
 
 #ifdef __cplusplus
 extern "C" {
@@ -8,6 +9,7 @@ static uint64_t system_time = 0;
 
 void tick_system_time(void)
 {
+    os_tick();
     system_time++;
 }
 
