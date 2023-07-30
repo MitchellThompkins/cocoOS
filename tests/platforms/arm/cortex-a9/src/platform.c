@@ -14,7 +14,7 @@ static void tick(void)
     tick_system_time();
 }
 
-error_code_t platform_setup_timer(uint16_t interval_ms)
+error_code_t platform_setup_timer(const uint16_t interval_ms)
 {
     gic_init();
     gic_enable_interrupt(PTIMER_INTERRUPT_ID);

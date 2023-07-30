@@ -11,7 +11,7 @@
 extern "C" {
 #endif
 
-error_code_t platform_setup_timer(uint16_t interval_ms);
+error_code_t platform_setup_timer(const uint16_t interval_ms);
 void platform_enable_timer(void);
 
 #ifdef __cplusplus
