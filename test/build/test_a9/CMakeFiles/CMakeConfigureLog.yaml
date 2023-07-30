@@ -1,0 +1,1032 @@
+
+---
+events:
+  -
+    kind: "message-v1"
+    backtrace:
+      - "/opt/cmake-3.27.0-rc4-linux-x86_64/share/cmake-3.27/Modules/CMakeDetermineSystem.cmake:211 (message)"
+      - "CMakeLists.txt:6 (project)"
+    message: |
+      The system is: Linux - 5.15.0-76-generic - x86_64
+  -
+    kind: "message-v1"
+    backtrace:
+      - "/opt/cmake-3.27.0-rc4-linux-x86_64/share/cmake-3.27/Modules/CMakeDetermineCompilerId.cmake:17 (message)"
+      - "/opt/cmake-3.27.0-rc4-linux-x86_64/share/cmake-3.27/Modules/CMakeDetermineCompilerId.cmake:64 (__determine_compiler_id_test)"
+      - "/opt/cmake-3.27.0-rc4-linux-x86_64/share/cmake-3.27/Modules/CMakeDetermineCXXCompiler.cmake:126 (CMAKE_DETERMINE_COMPILER_ID)"
+      - "CMakeLists.txt:6 (project)"
+    message: |
+      Compiling the CXX compiler identification source file "CMakeCXXCompilerId.cpp" failed.
+      Compiler: /opt/arm-gnu-toolchain-12.2.rel1-x86_64-arm-none-eabi/bin/arm-none-eabi-g++ 
+      Build flags: -O0;-g3
+      Id flags:  
+      
+      The output was:
+      1
+      /opt/arm-gnu-toolchain-12.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/12.2.1/../../../../arm-none-eabi/bin/ld: /opt/arm-gnu-toolchain-12.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/12.2.1/../../../../arm-none-eabi/lib/libg.a(libc_a-exit.o): in function `exit':
+      exit.c:(.text.exit+0x28): undefined reference to `_exit'
+      /opt/arm-gnu-toolchain-12.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/12.2.1/../../../../arm-none-eabi/bin/ld: /opt/arm-gnu-toolchain-12.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/12.2.1/../../../../arm-none-eabi/lib/libg.a(libc_a-writer.o): in function `_write_r':
+      writer.c:(.text._write_r+0x24): undefined reference to `_write'
+      /opt/arm-gnu-toolchain-12.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/12.2.1/../../../../arm-none-eabi/bin/ld: /opt/arm-gnu-toolchain-12.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/12.2.1/../../../../arm-none-eabi/lib/libg.a(libc_a-closer.o): in function `_close_r':
+      closer.c:(.text._close_r+0x18): undefined reference to `_close'
+      /opt/arm-gnu-toolchain-12.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/12.2.1/../../../../arm-none-eabi/bin/ld: /opt/arm-gnu-toolchain-12.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/12.2.1/../../../../arm-none-eabi/lib/libg.a(libc_a-lseekr.o): in function `_lseek_r':
+      lseekr.c:(.text._lseek_r+0x24): undefined reference to `_lseek'
+      /opt/arm-gnu-toolchain-12.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/12.2.1/../../../../arm-none-eabi/bin/ld: /opt/arm-gnu-toolchain-12.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/12.2.1/../../../../arm-none-eabi/lib/libg.a(libc_a-readr.o): in function `_read_r':
+      readr.c:(.text._read_r+0x24): undefined reference to `_read'
+      /opt/arm-gnu-toolchain-12.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/12.2.1/../../../../arm-none-eabi/bin/ld: /opt/arm-gnu-toolchain-12.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/12.2.1/../../../../arm-none-eabi/lib/libg.a(libc_a-sbrkr.o): in function `_sbrk_r':
+      sbrkr.c:(.text._sbrk_r+0x18): undefined reference to `_sbrk'
+      collect2: error: ld returned 1 exit status
+      
+      
+  -
+    kind: "message-v1"
+    backtrace:
+      - "/opt/cmake-3.27.0-rc4-linux-x86_64/share/cmake-3.27/Modules/CMakeDetermineCompilerId.cmake:17 (message)"
+      - "/opt/cmake-3.27.0-rc4-linux-x86_64/share/cmake-3.27/Modules/CMakeDetermineCompilerId.cmake:64 (__determine_compiler_id_test)"
+      - "/opt/cmake-3.27.0-rc4-linux-x86_64/share/cmake-3.27/Modules/CMakeDetermineCXXCompiler.cmake:126 (CMAKE_DETERMINE_COMPILER_ID)"
+      - "CMakeLists.txt:6 (project)"
+    message: |
+      Compiling the CXX compiler identification source file "CMakeCXXCompilerId.cpp" succeeded.
+      Compiler: /opt/arm-gnu-toolchain-12.2.rel1-x86_64-arm-none-eabi/bin/arm-none-eabi-g++ 
+      Build flags: -O0;-g3
+      Id flags: -c 
+      
+      The output was:
+      0
+      
+      
+      Compilation of the CXX compiler identification source "CMakeCXXCompilerId.cpp" produced "CMakeCXXCompilerId.o"
+      
+      The CXX compiler identification is GNU, found in:
+        /home/mthompkins/workspace/cocoOS/test/build/test_a9/CMakeFiles/3.27.0-rc4/CompilerIdCXX/CMakeCXXCompilerId.o
+      
+  -
+    kind: "message-v1"
+    backtrace:
+      - "/opt/cmake-3.27.0-rc4-linux-x86_64/share/cmake-3.27/Modules/CMakeDetermineCompilerId.cmake:17 (message)"
+      - "/opt/cmake-3.27.0-rc4-linux-x86_64/share/cmake-3.27/Modules/CMakeDetermineCompilerId.cmake:64 (__determine_compiler_id_test)"
+      - "/opt/cmake-3.27.0-rc4-linux-x86_64/share/cmake-3.27/Modules/CMakeDetermineCCompiler.cmake:123 (CMAKE_DETERMINE_COMPILER_ID)"
+      - "CMakeLists.txt:6 (project)"
+    message: |
+      Compiling the C compiler identification source file "CMakeCCompilerId.c" failed.
+      Compiler: /opt/arm-gnu-toolchain-12.2.rel1-x86_64-arm-none-eabi/bin/arm-none-eabi-gcc 
+      Build flags: -O0;-g3
+      Id flags:  
+      
+      The output was:
+      1
+      /opt/arm-gnu-toolchain-12.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/12.2.1/../../../../arm-none-eabi/bin/ld: /opt/arm-gnu-toolchain-12.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/12.2.1/../../../../arm-none-eabi/lib/libg.a(libc_a-exit.o): in function `exit':
+      exit.c:(.text.exit+0x28): undefined reference to `_exit'
+      /opt/arm-gnu-toolchain-12.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/12.2.1/../../../../arm-none-eabi/bin/ld: /opt/arm-gnu-toolchain-12.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/12.2.1/../../../../arm-none-eabi/lib/libg.a(libc_a-writer.o): in function `_write_r':
+      writer.c:(.text._write_r+0x24): undefined reference to `_write'
+      /opt/arm-gnu-toolchain-12.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/12.2.1/../../../../arm-none-eabi/bin/ld: /opt/arm-gnu-toolchain-12.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/12.2.1/../../../../arm-none-eabi/lib/libg.a(libc_a-closer.o): in function `_close_r':
+      closer.c:(.text._close_r+0x18): undefined reference to `_close'
+      /opt/arm-gnu-toolchain-12.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/12.2.1/../../../../arm-none-eabi/bin/ld: /opt/arm-gnu-toolchain-12.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/12.2.1/../../../../arm-none-eabi/lib/libg.a(libc_a-lseekr.o): in function `_lseek_r':
+      lseekr.c:(.text._lseek_r+0x24): undefined reference to `_lseek'
+      /opt/arm-gnu-toolchain-12.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/12.2.1/../../../../arm-none-eabi/bin/ld: /opt/arm-gnu-toolchain-12.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/12.2.1/../../../../arm-none-eabi/lib/libg.a(libc_a-readr.o): in function `_read_r':
+      readr.c:(.text._read_r+0x24): undefined reference to `_read'
+      /opt/arm-gnu-toolchain-12.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/12.2.1/../../../../arm-none-eabi/bin/ld: /opt/arm-gnu-toolchain-12.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/12.2.1/../../../../arm-none-eabi/lib/libg.a(libc_a-sbrkr.o): in function `_sbrk_r':
+      sbrkr.c:(.text._sbrk_r+0x18): undefined reference to `_sbrk'
+      collect2: error: ld returned 1 exit status
+      
+      
+  -
+    kind: "message-v1"
+    backtrace:
+      - "/opt/cmake-3.27.0-rc4-linux-x86_64/share/cmake-3.27/Modules/CMakeDetermineCompilerId.cmake:17 (message)"
+      - "/opt/cmake-3.27.0-rc4-linux-x86_64/share/cmake-3.27/Modules/CMakeDetermineCompilerId.cmake:64 (__determine_compiler_id_test)"
+      - "/opt/cmake-3.27.0-rc4-linux-x86_64/share/cmake-3.27/Modules/CMakeDetermineCCompiler.cmake:123 (CMAKE_DETERMINE_COMPILER_ID)"
+      - "CMakeLists.txt:6 (project)"
+    message: |
+      Compiling the C compiler identification source file "CMakeCCompilerId.c" succeeded.
+      Compiler: /opt/arm-gnu-toolchain-12.2.rel1-x86_64-arm-none-eabi/bin/arm-none-eabi-gcc 
+      Build flags: -O0;-g3
+      Id flags: -c 
+      
+      The output was:
+      0
+      
+      
+      Compilation of the C compiler identification source "CMakeCCompilerId.c" produced "CMakeCCompilerId.o"
+      
+      The C compiler identification is GNU, found in:
+        /home/mthompkins/workspace/cocoOS/test/build/test_a9/CMakeFiles/3.27.0-rc4/CompilerIdC/CMakeCCompilerId.o
+      
+  -
+    kind: "message-v1"
+    backtrace:
+      - "/opt/cmake-3.27.0-rc4-linux-x86_64/share/cmake-3.27/Modules/CMakeDetermineCompilerId.cmake:1107 (message)"
+      - "/opt/cmake-3.27.0-rc4-linux-x86_64/share/cmake-3.27/Modules/CMakeDetermineASMCompiler.cmake:127 (CMAKE_DETERMINE_COMPILER_ID_VENDOR)"
+      - "CMakeLists.txt:6 (project)"
+    message: |
+      Checking whether the ASM compiler is GNU using "--version" matched "(GNU assembler)|(GCC)|(Free Software Foundation)":
+      arm-none-eabi-gcc (Arm GNU Toolchain 12.2.Rel1 (Build arm-12.24)) 12.2.1 20221205
+      Copyright (C) 2022 Free Software Foundation, Inc.
+      This is free software; see the source for copying conditions.  There is NO
+      warranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+      
+  -
+    kind: "try_compile-v1"
+    backtrace:
+      - "/opt/cmake-3.27.0-rc4-linux-x86_64/share/cmake-3.27/Modules/CMakeDetermineCompilerABI.cmake:57 (try_compile)"
+      - "/opt/cmake-3.27.0-rc4-linux-x86_64/share/cmake-3.27/Modules/CMakeTestCXXCompiler.cmake:26 (CMAKE_DETERMINE_COMPILER_ABI)"
+      - "CMakeLists.txt:6 (project)"
+    checks:
+      - "Detecting CXX compiler ABI info"
+    directories:
+      source: "/home/mthompkins/workspace/cocoOS/test/build/test_a9/CMakeFiles/CMakeScratch/TryCompile-PyuJCu"
+      binary: "/home/mthompkins/workspace/cocoOS/test/build/test_a9/CMakeFiles/CMakeScratch/TryCompile-PyuJCu"
+    cmakeVariables:
+      CMAKE_CXX_FLAGS: "-O0 -g3 -march=armv7-a -marm -DCPU_A9"
+      CMAKE_CXX_FLAGS_DEBUG: "-g"
+      CMAKE_EXE_LINKER_FLAGS: "--specs=rdimon.specs -nostartfiles"
+    buildResult:
+      variable: "CMAKE_CXX_ABI_COMPILED"
+      cached: true
+      stdout: |
+        Change Dir: '/home/mthompkins/workspace/cocoOS/test/build/test_a9/CMakeFiles/CMakeScratch/TryCompile-PyuJCu'
+        
+        Run Build Command(s): /usr/bin/ninja-build -v cmTC_b4231
+        [1/2] /opt/arm-gnu-toolchain-12.2.rel1-x86_64-arm-none-eabi/bin/arm-none-eabi-g++   -O0 -g3 -march=armv7-a -marm -DCPU_A9    -v -o CMakeFiles/cmTC_b4231.dir/CMakeCXXCompilerABI.cpp.o -c /opt/cmake-3.27.0-rc4-linux-x86_64/share/cmake-3.27/Modules/CMakeCXXCompilerABI.cpp
+        Using built-in specs.
+        COLLECT_GCC=/opt/arm-gnu-toolchain-12.2.rel1-x86_64-arm-none-eabi/bin/arm-none-eabi-g++
+        Target: arm-none-eabi
+        Configured with: /data/jenkins/workspace/GNU-toolchain/arm-12/src/gcc/configure --target=arm-none-eabi --prefix=/data/jenkins/workspace/GNU-toolchain/arm-12/build-arm-none-eabi/install --with-gmp=/data/jenkins/workspace/GNU-toolchain/arm-12/build-arm-none-eabi/host-tools --with-mpfr=/data/jenkins/workspace/GNU-toolchain/arm-12/build-arm-none-eabi/host-tools --with-mpc=/data/jenkins/workspace/GNU-toolchain/arm-12/build-arm-none-eabi/host-tools --with-isl=/data/jenkins/workspace/GNU-toolchain/arm-12/build-arm-none-eabi/host-tools --disable-shared --disable-nls --disable-threads --disable-tls --enable-checking=release --enable-languages=c,c++,fortran --with-newlib --with-gnu-as --with-gnu-ld --with-sysroot=/data/jenkins/workspace/GNU-toolchain/arm-12/build-arm-none-eabi/install/arm-none-eabi --with-multilib-list=aprofile,rmprofile --with-pkgversion='Arm GNU Toolchain 12.2.Rel1 (Build arm-12.24)' --with-bugurl=https://bugs.linaro.org/
+        Thread model: single
+        Supported LTO compression algorithms: zlib
+        gcc version 12.2.1 20221205 (Arm GNU Toolchain 12.2.Rel1 (Build arm-12.24)) 
+        COLLECT_GCC_OPTIONS='-O0' '-g3'  '-marm' '-D' 'CPU_A9' '-v' '-o' 'CMakeFiles/cmTC_b4231.dir/CMakeCXXCompilerABI.cpp.o' '-c' '-mfloat-abi=soft' '-mlibarch=armv7-a' '-march=armv7-a' '-dumpdir' 'CMakeFiles/cmTC_b4231.dir/'
+         /opt/arm-gnu-toolchain-12.2.rel1-x86_64-arm-none-eabi/bin/../libexec/gcc/arm-none-eabi/12.2.1/cc1plus -quiet -v -imultilib thumb/v7-a/nofp -iprefix /opt/arm-gnu-toolchain-12.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/12.2.1/ -isysroot /opt/arm-gnu-toolchain-12.2.rel1-x86_64-arm-none-eabi/bin/../arm-none-eabi -dD -D__USES_INITFINI__ -D CPU_A9 /opt/cmake-3.27.0-rc4-linux-x86_64/share/cmake-3.27/Modules/CMakeCXXCompilerABI.cpp -quiet -dumpdir CMakeFiles/cmTC_b4231.dir/ -dumpbase CMakeCXXCompilerABI.cpp.cpp -dumpbase-ext .cpp -marm -mfloat-abi=soft -mlibarch=armv7-a -march=armv7-a -g3 -O0 -version -o /tmp/cclufNc4.s
+        GNU C++17 (Arm GNU Toolchain 12.2.Rel1 (Build arm-12.24)) version 12.2.1 20221205 (arm-none-eabi)
+        	compiled by GNU C version 4.8.5 20150623 (Red Hat 4.8.5-44), GMP version 6.2.1, MPFR version 3.1.6, MPC version 1.0.3, isl version isl-0.15-1-g835ea3a-GMP
+        
+        GGC heuristics: --param ggc-min-expand=100 --param ggc-min-heapsize=131072
+        ignoring duplicate directory "/opt/arm-gnu-toolchain-12.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/../../lib/gcc/arm-none-eabi/12.2.1/../../../../arm-none-eabi/include/c++/12.2.1"
+        ignoring duplicate directory "/opt/arm-gnu-toolchain-12.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/../../lib/gcc/arm-none-eabi/12.2.1/../../../../arm-none-eabi/include/c++/12.2.1/arm-none-eabi/thumb/v7-a/nofp"
+        ignoring duplicate directory "/opt/arm-gnu-toolchain-12.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/../../lib/gcc/arm-none-eabi/12.2.1/../../../../arm-none-eabi/include/c++/12.2.1/backward"
+        ignoring duplicate directory "/opt/arm-gnu-toolchain-12.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/../../lib/gcc/arm-none-eabi/12.2.1/include"
+        ignoring nonexistent directory "/opt/arm-gnu-toolchain-12.2.rel1-x86_64-arm-none-eabi/bin/../arm-none-eabi/usr/local/include"
+        ignoring duplicate directory "/opt/arm-gnu-toolchain-12.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/../../lib/gcc/arm-none-eabi/12.2.1/include-fixed"
+        ignoring duplicate directory "/opt/arm-gnu-toolchain-12.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/../../lib/gcc/arm-none-eabi/12.2.1/../../../../arm-none-eabi/include"
+        ignoring nonexistent directory "/opt/arm-gnu-toolchain-12.2.rel1-x86_64-arm-none-eabi/bin/../arm-none-eabi/usr/include"
+        #include "..." search starts here:
+        #include <...> search starts here:
+         /opt/arm-gnu-toolchain-12.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/12.2.1/../../../../arm-none-eabi/include/c++/12.2.1
+         /opt/arm-gnu-toolchain-12.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/12.2.1/../../../../arm-none-eabi/include/c++/12.2.1/arm-none-eabi/thumb/v7-a/nofp
+         /opt/arm-gnu-toolchain-12.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/12.2.1/../../../../arm-none-eabi/include/c++/12.2.1/backward
+         /opt/arm-gnu-toolchain-12.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/12.2.1/include
+         /opt/arm-gnu-toolchain-12.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/12.2.1/include-fixed
+         /opt/arm-gnu-toolchain-12.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/12.2.1/../../../../arm-none-eabi/include
+        End of search list.
+        GNU C++17 (Arm GNU Toolchain 12.2.Rel1 (Build arm-12.24)) version 12.2.1 20221205 (arm-none-eabi)
+        	compiled by GNU C version 4.8.5 20150623 (Red Hat 4.8.5-44), GMP version 6.2.1, MPFR version 3.1.6, MPC version 1.0.3, isl version isl-0.15-1-g835ea3a-GMP
+        
+        GGC heuristics: --param ggc-min-expand=100 --param ggc-min-heapsize=131072
+        Compiler executable checksum: 1739522f0a9e455162f7f995fd318a21
+        COLLECT_GCC_OPTIONS='-O0' '-g3'  '-marm' '-D' 'CPU_A9' '-v' '-o' 'CMakeFiles/cmTC_b4231.dir/CMakeCXXCompilerABI.cpp.o' '-c' '-mfloat-abi=soft' '-mlibarch=armv7-a' '-march=armv7-a' '-dumpdir' 'CMakeFiles/cmTC_b4231.dir/'
+         /opt/arm-gnu-toolchain-12.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/12.2.1/../../../../arm-none-eabi/bin/as -v -march=armv7-a -mfloat-abi=soft -meabi=5 -o CMakeFiles/cmTC_b4231.dir/CMakeCXXCompilerABI.cpp.o /tmp/cclufNc4.s
+        GNU assembler version 2.39.0 (arm-none-eabi) using BFD version (Arm GNU Toolchain 12.2.Rel1 (Build arm-12.24)) 2.39.0.20221210
+        COMPILER_PATH=/opt/arm-gnu-toolchain-12.2.rel1-x86_64-arm-none-eabi/bin/../libexec/gcc/arm-none-eabi/12.2.1/:/opt/arm-gnu-toolchain-12.2.rel1-x86_64-arm-none-eabi/bin/../libexec/gcc/:/opt/arm-gnu-toolchain-12.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/12.2.1/../../../../arm-none-eabi/bin/
+        LIBRARY_PATH=/opt/arm-gnu-toolchain-12.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/12.2.1/thumb/v7-a/nofp/:/opt/arm-gnu-toolchain-12.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/12.2.1/../../../../arm-none-eabi/lib/thumb/v7-a/nofp/:/opt/arm-gnu-toolchain-12.2.rel1-x86_64-arm-none-eabi/bin/../arm-none-eabi/lib/thumb/v7-a/nofp/:/opt/arm-gnu-toolchain-12.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/12.2.1/:/opt/arm-gnu-toolchain-12.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/:/opt/arm-gnu-toolchain-12.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/12.2.1/../../../../arm-none-eabi/lib/:/opt/arm-gnu-toolchain-12.2.rel1-x86_64-arm-none-eabi/bin/../arm-none-eabi/lib/
+        COLLECT_GCC_OPTIONS='-O0' '-g3'  '-marm' '-D' 'CPU_A9' '-v' '-o' 'CMakeFiles/cmTC_b4231.dir/CMakeCXXCompilerABI.cpp.o' '-c' '-mfloat-abi=soft' '-mlibarch=armv7-a' '-march=armv7-a' '-dumpdir' 'CMakeFiles/cmTC_b4231.dir/CMakeCXXCompilerABI.cpp.'
+        [2/2] : && /opt/arm-gnu-toolchain-12.2.rel1-x86_64-arm-none-eabi/bin/arm-none-eabi-g++ -O0 -g3 -march=armv7-a -marm -DCPU_A9 --specs=rdimon.specs -nostartfiles -v CMakeFiles/cmTC_b4231.dir/CMakeCXXCompilerABI.cpp.o -o cmTC_b4231.elf   && :
+        Using built-in specs.
+        Reading specs from /opt/arm-gnu-toolchain-12.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/12.2.1/../../../../arm-none-eabi/lib/rdimon.specs
+        rename spec link_gcc_c_sequence to rdimon_link_gcc_c_sequence
+        COLLECT_GCC=/opt/arm-gnu-toolchain-12.2.rel1-x86_64-arm-none-eabi/bin/arm-none-eabi-g++
+        COLLECT_LTO_WRAPPER=/opt/arm-gnu-toolchain-12.2.rel1-x86_64-arm-none-eabi/bin/../libexec/gcc/arm-none-eabi/12.2.1/lto-wrapper
+        Target: arm-none-eabi
+        Configured with: /data/jenkins/workspace/GNU-toolchain/arm-12/src/gcc/configure --target=arm-none-eabi --prefix=/data/jenkins/workspace/GNU-toolchain/arm-12/build-arm-none-eabi/install --with-gmp=/data/jenkins/workspace/GNU-toolchain/arm-12/build-arm-none-eabi/host-tools --with-mpfr=/data/jenkins/workspace/GNU-toolchain/arm-12/build-arm-none-eabi/host-tools --with-mpc=/data/jenkins/workspace/GNU-toolchain/arm-12/build-arm-none-eabi/host-tools --with-isl=/data/jenkins/workspace/GNU-toolchain/arm-12/build-arm-none-eabi/host-tools --disable-shared --disable-nls --disable-threads --disable-tls --enable-checking=release --enable-languages=c,c++,fortran --with-newlib --with-gnu-as --with-gnu-ld --with-sysroot=/data/jenkins/workspace/GNU-toolchain/arm-12/build-arm-none-eabi/install/arm-none-eabi --with-multilib-list=aprofile,rmprofile --with-pkgversion='Arm GNU Toolchain 12.2.Rel1 (Build arm-12.24)' --with-bugurl=https://bugs.linaro.org/
+        Thread model: single
+        Supported LTO compression algorithms: zlib
+        gcc version 12.2.1 20221205 (Arm GNU Toolchain 12.2.Rel1 (Build arm-12.24)) 
+        COMPILER_PATH=/opt/arm-gnu-toolchain-12.2.rel1-x86_64-arm-none-eabi/bin/../libexec/gcc/arm-none-eabi/12.2.1/:/opt/arm-gnu-toolchain-12.2.rel1-x86_64-arm-none-eabi/bin/../libexec/gcc/:/opt/arm-gnu-toolchain-12.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/12.2.1/../../../../arm-none-eabi/bin/
+        LIBRARY_PATH=/opt/arm-gnu-toolchain-12.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/12.2.1/thumb/v7-a/nofp/:/opt/arm-gnu-toolchain-12.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/12.2.1/../../../../arm-none-eabi/lib/thumb/v7-a/nofp/:/opt/arm-gnu-toolchain-12.2.rel1-x86_64-arm-none-eabi/bin/../arm-none-eabi/lib/thumb/v7-a/nofp/:/opt/arm-gnu-toolchain-12.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/12.2.1/:/opt/arm-gnu-toolchain-12.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/:/opt/arm-gnu-toolchain-12.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/12.2.1/../../../../arm-none-eabi/lib/:/opt/arm-gnu-toolchain-12.2.rel1-x86_64-arm-none-eabi/bin/../arm-none-eabi/lib/
+        COLLECT_GCC_OPTIONS='-O0' '-g3'  '-marm' '-D' 'CPU_A9' '-specs=rdimon.specs' '-nostartfiles' '-v' '-o' 'cmTC_b4231.elf' '-mfloat-abi=soft' '-mlibarch=armv7-a' '-march=armv7-a' '-dumpdir' 'cmTC_b4231.elf.'
+         /opt/arm-gnu-toolchain-12.2.rel1-x86_64-arm-none-eabi/bin/../libexec/gcc/arm-none-eabi/12.2.1/collect2 -plugin /opt/arm-gnu-toolchain-12.2.rel1-x86_64-arm-none-eabi/bin/../libexec/gcc/arm-none-eabi/12.2.1/liblto_plugin.so -plugin-opt=/opt/arm-gnu-toolchain-12.2.rel1-x86_64-arm-none-eabi/bin/../libexec/gcc/arm-none-eabi/12.2.1/lto-wrapper -plugin-opt=-fresolution=/tmp/cctsBrhs.res -plugin-opt=-pass-through=-lgcc -plugin-opt=-pass-through=-lg -plugin-opt=-pass-through=-lc -plugin-opt=-pass-through=-lgcc -plugin-opt=-pass-through=-lc -plugin-opt=-pass-through=-lrdimon --sysroot=/opt/arm-gnu-toolchain-12.2.rel1-x86_64-arm-none-eabi/bin/../arm-none-eabi -X -o cmTC_b4231.elf -L/opt/arm-gnu-toolchain-12.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/12.2.1/thumb/v7-a/nofp -L/opt/arm-gnu-toolchain-12.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/12.2.1/../../../../arm-none-eabi/lib/thumb/v7-a/nofp -L/opt/arm-gnu-toolchain-12.2.rel1-x86_64-arm-none-eabi/bin/../arm-none-eabi/lib/thumb/v7-a/nofp -L/opt/arm-gnu-toolchain-12.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/12.2.1 -L/opt/arm-gnu-toolchain-12.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc -L/opt/arm-gnu-toolchain-12.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/12.2.1/../../../../arm-none-eabi/lib -L/opt/arm-gnu-toolchain-12.2.rel1-x86_64-arm-none-eabi/bin/../arm-none-eabi/lib CMakeFiles/cmTC_b4231.dir/CMakeCXXCompilerABI.cpp.o -lstdc++ -lm --start-group -lgcc -lg -lc --end-group --start-group -lgcc -lc -lrdimon --end-group
+        /opt/arm-gnu-toolchain-12.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/12.2.1/../../../../arm-none-eabi/bin/ld: warning: cannot find entry symbol _start; defaulting to 0000000000008000
+        COLLECT_GCC_OPTIONS='-O0' '-g3'  '-marm' '-D' 'CPU_A9' '-specs=rdimon.specs' '-nostartfiles' '-v' '-o' 'cmTC_b4231.elf' '-mfloat-abi=soft' '-mlibarch=armv7-a' '-march=armv7-a' '-dumpdir' 'cmTC_b4231.elf.'
+        
+      exitCode: 0
+  -
+    kind: "message-v1"
+    backtrace:
+      - "/opt/cmake-3.27.0-rc4-linux-x86_64/share/cmake-3.27/Modules/CMakeDetermineCompilerABI.cmake:127 (message)"
+      - "/opt/cmake-3.27.0-rc4-linux-x86_64/share/cmake-3.27/Modules/CMakeTestCXXCompiler.cmake:26 (CMAKE_DETERMINE_COMPILER_ABI)"
+      - "CMakeLists.txt:6 (project)"
+    message: |
+      Parsed CXX implicit include dir info: rv=done
+        found start of include info
+        found start of implicit include info
+          add: [/opt/arm-gnu-toolchain-12.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/12.2.1/../../../../arm-none-eabi/include/c++/12.2.1]
+          add: [/opt/arm-gnu-toolchain-12.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/12.2.1/../../../../arm-none-eabi/include/c++/12.2.1/arm-none-eabi/thumb/v7-a/nofp]
+          add: [/opt/arm-gnu-toolchain-12.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/12.2.1/../../../../arm-none-eabi/include/c++/12.2.1/backward]
+          add: [/opt/arm-gnu-toolchain-12.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/12.2.1/include]
+          add: [/opt/arm-gnu-toolchain-12.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/12.2.1/include-fixed]
+          add: [/opt/arm-gnu-toolchain-12.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/12.2.1/../../../../arm-none-eabi/include]
+        end of search list found
+        collapse include dir [/opt/arm-gnu-toolchain-12.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/12.2.1/../../../../arm-none-eabi/include/c++/12.2.1] ==> [/opt/arm-gnu-toolchain-12.2.rel1-x86_64-arm-none-eabi/arm-none-eabi/include/c++/12.2.1]
+        collapse include dir [/opt/arm-gnu-toolchain-12.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/12.2.1/../../../../arm-none-eabi/include/c++/12.2.1/arm-none-eabi/thumb/v7-a/nofp] ==> [/opt/arm-gnu-toolchain-12.2.rel1-x86_64-arm-none-eabi/arm-none-eabi/include/c++/12.2.1/arm-none-eabi/thumb/v7-a/nofp]
+        collapse include dir [/opt/arm-gnu-toolchain-12.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/12.2.1/../../../../arm-none-eabi/include/c++/12.2.1/backward] ==> [/opt/arm-gnu-toolchain-12.2.rel1-x86_64-arm-none-eabi/arm-none-eabi/include/c++/12.2.1/backward]
+        collapse include dir [/opt/arm-gnu-toolchain-12.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/12.2.1/include] ==> [/opt/arm-gnu-toolchain-12.2.rel1-x86_64-arm-none-eabi/lib/gcc/arm-none-eabi/12.2.1/include]
+        collapse include dir [/opt/arm-gnu-toolchain-12.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/12.2.1/include-fixed] ==> [/opt/arm-gnu-toolchain-12.2.rel1-x86_64-arm-none-eabi/lib/gcc/arm-none-eabi/12.2.1/include-fixed]
+        collapse include dir [/opt/arm-gnu-toolchain-12.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/12.2.1/../../../../arm-none-eabi/include] ==> [/opt/arm-gnu-toolchain-12.2.rel1-x86_64-arm-none-eabi/arm-none-eabi/include]
+        implicit include dirs: [/opt/arm-gnu-toolchain-12.2.rel1-x86_64-arm-none-eabi/arm-none-eabi/include/c++/12.2.1;/opt/arm-gnu-toolchain-12.2.rel1-x86_64-arm-none-eabi/arm-none-eabi/include/c++/12.2.1/arm-none-eabi/thumb/v7-a/nofp;/opt/arm-gnu-toolchain-12.2.rel1-x86_64-arm-none-eabi/arm-none-eabi/include/c++/12.2.1/backward;/opt/arm-gnu-toolchain-12.2.rel1-x86_64-arm-none-eabi/lib/gcc/arm-none-eabi/12.2.1/include;/opt/arm-gnu-toolchain-12.2.rel1-x86_64-arm-none-eabi/lib/gcc/arm-none-eabi/12.2.1/include-fixed;/opt/arm-gnu-toolchain-12.2.rel1-x86_64-arm-none-eabi/arm-none-eabi/include]
+      
+      
+  -
+    kind: "message-v1"
+    backtrace:
+      - "/opt/cmake-3.27.0-rc4-linux-x86_64/share/cmake-3.27/Modules/CMakeDetermineCompilerABI.cmake:152 (message)"
+      - "/opt/cmake-3.27.0-rc4-linux-x86_64/share/cmake-3.27/Modules/CMakeTestCXXCompiler.cmake:26 (CMAKE_DETERMINE_COMPILER_ABI)"
+      - "CMakeLists.txt:6 (project)"
+    message: |
+      Parsed CXX implicit link information:
+        link line regex: [^( *|.*[/\\])(arm-none-eabi-ld|CMAKE_LINK_STARTFILE-NOTFOUND|([^/\\]+-)?ld|collect2)[^/\\]*( |$)]
+        ignore line: [Change Dir: '/home/mthompkins/workspace/cocoOS/test/build/test_a9/CMakeFiles/CMakeScratch/TryCompile-PyuJCu']
+        ignore line: []
+        ignore line: [Run Build Command(s): /usr/bin/ninja-build -v cmTC_b4231]
+        ignore line: [[1/2] /opt/arm-gnu-toolchain-12.2.rel1-x86_64-arm-none-eabi/bin/arm-none-eabi-g++   -O0 -g3 -march=armv7-a -marm -DCPU_A9    -v -o CMakeFiles/cmTC_b4231.dir/CMakeCXXCompilerABI.cpp.o -c /opt/cmake-3.27.0-rc4-linux-x86_64/share/cmake-3.27/Modules/CMakeCXXCompilerABI.cpp]
+        ignore line: [Using built-in specs.]
+        ignore line: [COLLECT_GCC=/opt/arm-gnu-toolchain-12.2.rel1-x86_64-arm-none-eabi/bin/arm-none-eabi-g++]
+        ignore line: [Target: arm-none-eabi]
+        ignore line: [Configured with: /data/jenkins/workspace/GNU-toolchain/arm-12/src/gcc/configure --target=arm-none-eabi --prefix=/data/jenkins/workspace/GNU-toolchain/arm-12/build-arm-none-eabi/install --with-gmp=/data/jenkins/workspace/GNU-toolchain/arm-12/build-arm-none-eabi/host-tools --with-mpfr=/data/jenkins/workspace/GNU-toolchain/arm-12/build-arm-none-eabi/host-tools --with-mpc=/data/jenkins/workspace/GNU-toolchain/arm-12/build-arm-none-eabi/host-tools --with-isl=/data/jenkins/workspace/GNU-toolchain/arm-12/build-arm-none-eabi/host-tools --disable-shared --disable-nls --disable-threads --disable-tls --enable-checking=release --enable-languages=c,c++,fortran --with-newlib --with-gnu-as --with-gnu-ld --with-sysroot=/data/jenkins/workspace/GNU-toolchain/arm-12/build-arm-none-eabi/install/arm-none-eabi --with-multilib-list=aprofile,rmprofile --with-pkgversion='Arm GNU Toolchain 12.2.Rel1 (Build arm-12.24)' --with-bugurl=https://bugs.linaro.org/]
+        ignore line: [Thread model: single]
+        ignore line: [Supported LTO compression algorithms: zlib]
+        ignore line: [gcc version 12.2.1 20221205 (Arm GNU Toolchain 12.2.Rel1 (Build arm-12.24)) ]
+        ignore line: [COLLECT_GCC_OPTIONS='-O0' '-g3'  '-marm' '-D' 'CPU_A9' '-v' '-o' 'CMakeFiles/cmTC_b4231.dir/CMakeCXXCompilerABI.cpp.o' '-c' '-mfloat-abi=soft' '-mlibarch=armv7-a' '-march=armv7-a' '-dumpdir' 'CMakeFiles/cmTC_b4231.dir/']
+        ignore line: [ /opt/arm-gnu-toolchain-12.2.rel1-x86_64-arm-none-eabi/bin/../libexec/gcc/arm-none-eabi/12.2.1/cc1plus -quiet -v -imultilib thumb/v7-a/nofp -iprefix /opt/arm-gnu-toolchain-12.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/12.2.1/ -isysroot /opt/arm-gnu-toolchain-12.2.rel1-x86_64-arm-none-eabi/bin/../arm-none-eabi -dD -D__USES_INITFINI__ -D CPU_A9 /opt/cmake-3.27.0-rc4-linux-x86_64/share/cmake-3.27/Modules/CMakeCXXCompilerABI.cpp -quiet -dumpdir CMakeFiles/cmTC_b4231.dir/ -dumpbase CMakeCXXCompilerABI.cpp.cpp -dumpbase-ext .cpp -marm -mfloat-abi=soft -mlibarch=armv7-a -march=armv7-a -g3 -O0 -version -o /tmp/cclufNc4.s]
+        ignore line: [GNU C++17 (Arm GNU Toolchain 12.2.Rel1 (Build arm-12.24)) version 12.2.1 20221205 (arm-none-eabi)]
+        ignore line: [	compiled by GNU C version 4.8.5 20150623 (Red Hat 4.8.5-44)  GMP version 6.2.1  MPFR version 3.1.6  MPC version 1.0.3  isl version isl-0.15-1-g835ea3a-GMP]
+        ignore line: []
+        ignore line: [GGC heuristics: --param ggc-min-expand=100 --param ggc-min-heapsize=131072]
+        ignore line: [ignoring duplicate directory "/opt/arm-gnu-toolchain-12.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/../../lib/gcc/arm-none-eabi/12.2.1/../../../../arm-none-eabi/include/c++/12.2.1"]
+        ignore line: [ignoring duplicate directory "/opt/arm-gnu-toolchain-12.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/../../lib/gcc/arm-none-eabi/12.2.1/../../../../arm-none-eabi/include/c++/12.2.1/arm-none-eabi/thumb/v7-a/nofp"]
+        ignore line: [ignoring duplicate directory "/opt/arm-gnu-toolchain-12.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/../../lib/gcc/arm-none-eabi/12.2.1/../../../../arm-none-eabi/include/c++/12.2.1/backward"]
+        ignore line: [ignoring duplicate directory "/opt/arm-gnu-toolchain-12.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/../../lib/gcc/arm-none-eabi/12.2.1/include"]
+        ignore line: [ignoring nonexistent directory "/opt/arm-gnu-toolchain-12.2.rel1-x86_64-arm-none-eabi/bin/../arm-none-eabi/usr/local/include"]
+        ignore line: [ignoring duplicate directory "/opt/arm-gnu-toolchain-12.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/../../lib/gcc/arm-none-eabi/12.2.1/include-fixed"]
+        ignore line: [ignoring duplicate directory "/opt/arm-gnu-toolchain-12.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/../../lib/gcc/arm-none-eabi/12.2.1/../../../../arm-none-eabi/include"]
+        ignore line: [ignoring nonexistent directory "/opt/arm-gnu-toolchain-12.2.rel1-x86_64-arm-none-eabi/bin/../arm-none-eabi/usr/include"]
+        ignore line: [#include "..." search starts here:]
+        ignore line: [#include <...> search starts here:]
+        ignore line: [ /opt/arm-gnu-toolchain-12.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/12.2.1/../../../../arm-none-eabi/include/c++/12.2.1]
+        ignore line: [ /opt/arm-gnu-toolchain-12.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/12.2.1/../../../../arm-none-eabi/include/c++/12.2.1/arm-none-eabi/thumb/v7-a/nofp]
+        ignore line: [ /opt/arm-gnu-toolchain-12.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/12.2.1/../../../../arm-none-eabi/include/c++/12.2.1/backward]
+        ignore line: [ /opt/arm-gnu-toolchain-12.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/12.2.1/include]
+        ignore line: [ /opt/arm-gnu-toolchain-12.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/12.2.1/include-fixed]
+        ignore line: [ /opt/arm-gnu-toolchain-12.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/12.2.1/../../../../arm-none-eabi/include]
+        ignore line: [End of search list.]
+        ignore line: [GNU C++17 (Arm GNU Toolchain 12.2.Rel1 (Build arm-12.24)) version 12.2.1 20221205 (arm-none-eabi)]
+        ignore line: [	compiled by GNU C version 4.8.5 20150623 (Red Hat 4.8.5-44)  GMP version 6.2.1  MPFR version 3.1.6  MPC version 1.0.3  isl version isl-0.15-1-g835ea3a-GMP]
+        ignore line: []
+        ignore line: [GGC heuristics: --param ggc-min-expand=100 --param ggc-min-heapsize=131072]
+        ignore line: [Compiler executable checksum: 1739522f0a9e455162f7f995fd318a21]
+        ignore line: [COLLECT_GCC_OPTIONS='-O0' '-g3'  '-marm' '-D' 'CPU_A9' '-v' '-o' 'CMakeFiles/cmTC_b4231.dir/CMakeCXXCompilerABI.cpp.o' '-c' '-mfloat-abi=soft' '-mlibarch=armv7-a' '-march=armv7-a' '-dumpdir' 'CMakeFiles/cmTC_b4231.dir/']
+        ignore line: [ /opt/arm-gnu-toolchain-12.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/12.2.1/../../../../arm-none-eabi/bin/as -v -march=armv7-a -mfloat-abi=soft -meabi=5 -o CMakeFiles/cmTC_b4231.dir/CMakeCXXCompilerABI.cpp.o /tmp/cclufNc4.s]
+        ignore line: [GNU assembler version 2.39.0 (arm-none-eabi) using BFD version (Arm GNU Toolchain 12.2.Rel1 (Build arm-12.24)) 2.39.0.20221210]
+        ignore line: [COMPILER_PATH=/opt/arm-gnu-toolchain-12.2.rel1-x86_64-arm-none-eabi/bin/../libexec/gcc/arm-none-eabi/12.2.1/:/opt/arm-gnu-toolchain-12.2.rel1-x86_64-arm-none-eabi/bin/../libexec/gcc/:/opt/arm-gnu-toolchain-12.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/12.2.1/../../../../arm-none-eabi/bin/]
+        ignore line: [LIBRARY_PATH=/opt/arm-gnu-toolchain-12.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/12.2.1/thumb/v7-a/nofp/:/opt/arm-gnu-toolchain-12.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/12.2.1/../../../../arm-none-eabi/lib/thumb/v7-a/nofp/:/opt/arm-gnu-toolchain-12.2.rel1-x86_64-arm-none-eabi/bin/../arm-none-eabi/lib/thumb/v7-a/nofp/:/opt/arm-gnu-toolchain-12.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/12.2.1/:/opt/arm-gnu-toolchain-12.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/:/opt/arm-gnu-toolchain-12.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/12.2.1/../../../../arm-none-eabi/lib/:/opt/arm-gnu-toolchain-12.2.rel1-x86_64-arm-none-eabi/bin/../arm-none-eabi/lib/]
+        ignore line: [COLLECT_GCC_OPTIONS='-O0' '-g3'  '-marm' '-D' 'CPU_A9' '-v' '-o' 'CMakeFiles/cmTC_b4231.dir/CMakeCXXCompilerABI.cpp.o' '-c' '-mfloat-abi=soft' '-mlibarch=armv7-a' '-march=armv7-a' '-dumpdir' 'CMakeFiles/cmTC_b4231.dir/CMakeCXXCompilerABI.cpp.']
+        ignore line: [[2/2] : && /opt/arm-gnu-toolchain-12.2.rel1-x86_64-arm-none-eabi/bin/arm-none-eabi-g++ -O0 -g3 -march=armv7-a -marm -DCPU_A9 --specs=rdimon.specs -nostartfiles -v CMakeFiles/cmTC_b4231.dir/CMakeCXXCompilerABI.cpp.o -o cmTC_b4231.elf   && :]
+        ignore line: [Using built-in specs.]
+        ignore line: [Reading specs from /opt/arm-gnu-toolchain-12.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/12.2.1/../../../../arm-none-eabi/lib/rdimon.specs]
+        ignore line: [rename spec link_gcc_c_sequence to rdimon_link_gcc_c_sequence]
+        ignore line: [COLLECT_GCC=/opt/arm-gnu-toolchain-12.2.rel1-x86_64-arm-none-eabi/bin/arm-none-eabi-g++]
+        ignore line: [COLLECT_LTO_WRAPPER=/opt/arm-gnu-toolchain-12.2.rel1-x86_64-arm-none-eabi/bin/../libexec/gcc/arm-none-eabi/12.2.1/lto-wrapper]
+        ignore line: [Target: arm-none-eabi]
+        ignore line: [Configured with: /data/jenkins/workspace/GNU-toolchain/arm-12/src/gcc/configure --target=arm-none-eabi --prefix=/data/jenkins/workspace/GNU-toolchain/arm-12/build-arm-none-eabi/install --with-gmp=/data/jenkins/workspace/GNU-toolchain/arm-12/build-arm-none-eabi/host-tools --with-mpfr=/data/jenkins/workspace/GNU-toolchain/arm-12/build-arm-none-eabi/host-tools --with-mpc=/data/jenkins/workspace/GNU-toolchain/arm-12/build-arm-none-eabi/host-tools --with-isl=/data/jenkins/workspace/GNU-toolchain/arm-12/build-arm-none-eabi/host-tools --disable-shared --disable-nls --disable-threads --disable-tls --enable-checking=release --enable-languages=c,c++,fortran --with-newlib --with-gnu-as --with-gnu-ld --with-sysroot=/data/jenkins/workspace/GNU-toolchain/arm-12/build-arm-none-eabi/install/arm-none-eabi --with-multilib-list=aprofile,rmprofile --with-pkgversion='Arm GNU Toolchain 12.2.Rel1 (Build arm-12.24)' --with-bugurl=https://bugs.linaro.org/]
+        ignore line: [Thread model: single]
+        ignore line: [Supported LTO compression algorithms: zlib]
+        ignore line: [gcc version 12.2.1 20221205 (Arm GNU Toolchain 12.2.Rel1 (Build arm-12.24)) ]
+        ignore line: [COMPILER_PATH=/opt/arm-gnu-toolchain-12.2.rel1-x86_64-arm-none-eabi/bin/../libexec/gcc/arm-none-eabi/12.2.1/:/opt/arm-gnu-toolchain-12.2.rel1-x86_64-arm-none-eabi/bin/../libexec/gcc/:/opt/arm-gnu-toolchain-12.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/12.2.1/../../../../arm-none-eabi/bin/]
+        ignore line: [LIBRARY_PATH=/opt/arm-gnu-toolchain-12.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/12.2.1/thumb/v7-a/nofp/:/opt/arm-gnu-toolchain-12.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/12.2.1/../../../../arm-none-eabi/lib/thumb/v7-a/nofp/:/opt/arm-gnu-toolchain-12.2.rel1-x86_64-arm-none-eabi/bin/../arm-none-eabi/lib/thumb/v7-a/nofp/:/opt/arm-gnu-toolchain-12.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/12.2.1/:/opt/arm-gnu-toolchain-12.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/:/opt/arm-gnu-toolchain-12.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/12.2.1/../../../../arm-none-eabi/lib/:/opt/arm-gnu-toolchain-12.2.rel1-x86_64-arm-none-eabi/bin/../arm-none-eabi/lib/]
+        ignore line: [COLLECT_GCC_OPTIONS='-O0' '-g3'  '-marm' '-D' 'CPU_A9' '-specs=rdimon.specs' '-nostartfiles' '-v' '-o' 'cmTC_b4231.elf' '-mfloat-abi=soft' '-mlibarch=armv7-a' '-march=armv7-a' '-dumpdir' 'cmTC_b4231.elf.']
+        link line: [ /opt/arm-gnu-toolchain-12.2.rel1-x86_64-arm-none-eabi/bin/../libexec/gcc/arm-none-eabi/12.2.1/collect2 -plugin /opt/arm-gnu-toolchain-12.2.rel1-x86_64-arm-none-eabi/bin/../libexec/gcc/arm-none-eabi/12.2.1/liblto_plugin.so -plugin-opt=/opt/arm-gnu-toolchain-12.2.rel1-x86_64-arm-none-eabi/bin/../libexec/gcc/arm-none-eabi/12.2.1/lto-wrapper -plugin-opt=-fresolution=/tmp/cctsBrhs.res -plugin-opt=-pass-through=-lgcc -plugin-opt=-pass-through=-lg -plugin-opt=-pass-through=-lc -plugin-opt=-pass-through=-lgcc -plugin-opt=-pass-through=-lc -plugin-opt=-pass-through=-lrdimon --sysroot=/opt/arm-gnu-toolchain-12.2.rel1-x86_64-arm-none-eabi/bin/../arm-none-eabi -X -o cmTC_b4231.elf -L/opt/arm-gnu-toolchain-12.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/12.2.1/thumb/v7-a/nofp -L/opt/arm-gnu-toolchain-12.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/12.2.1/../../../../arm-none-eabi/lib/thumb/v7-a/nofp -L/opt/arm-gnu-toolchain-12.2.rel1-x86_64-arm-none-eabi/bin/../arm-none-eabi/lib/thumb/v7-a/nofp -L/opt/arm-gnu-toolchain-12.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/12.2.1 -L/opt/arm-gnu-toolchain-12.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc -L/opt/arm-gnu-toolchain-12.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/12.2.1/../../../../arm-none-eabi/lib -L/opt/arm-gnu-toolchain-12.2.rel1-x86_64-arm-none-eabi/bin/../arm-none-eabi/lib CMakeFiles/cmTC_b4231.dir/CMakeCXXCompilerABI.cpp.o -lstdc++ -lm --start-group -lgcc -lg -lc --end-group --start-group -lgcc -lc -lrdimon --end-group]
+          arg [/opt/arm-gnu-toolchain-12.2.rel1-x86_64-arm-none-eabi/bin/../libexec/gcc/arm-none-eabi/12.2.1/collect2] ==> ignore
+          arg [-plugin] ==> ignore
+          arg [/opt/arm-gnu-toolchain-12.2.rel1-x86_64-arm-none-eabi/bin/../libexec/gcc/arm-none-eabi/12.2.1/liblto_plugin.so] ==> ignore
+          arg [-plugin-opt=/opt/arm-gnu-toolchain-12.2.rel1-x86_64-arm-none-eabi/bin/../libexec/gcc/arm-none-eabi/12.2.1/lto-wrapper] ==> ignore
+          arg [-plugin-opt=-fresolution=/tmp/cctsBrhs.res] ==> ignore
+          arg [-plugin-opt=-pass-through=-lgcc] ==> ignore
+          arg [-plugin-opt=-pass-through=-lg] ==> ignore
+          arg [-plugin-opt=-pass-through=-lc] ==> ignore
+          arg [-plugin-opt=-pass-through=-lgcc] ==> ignore
+          arg [-plugin-opt=-pass-through=-lc] ==> ignore
+          arg [-plugin-opt=-pass-through=-lrdimon] ==> ignore
+          arg [--sysroot=/opt/arm-gnu-toolchain-12.2.rel1-x86_64-arm-none-eabi/bin/../arm-none-eabi] ==> ignore
+          arg [-X] ==> ignore
+          arg [-o] ==> ignore
+          arg [cmTC_b4231.elf] ==> ignore
+          arg [-L/opt/arm-gnu-toolchain-12.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/12.2.1/thumb/v7-a/nofp] ==> dir [/opt/arm-gnu-toolchain-12.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/12.2.1/thumb/v7-a/nofp]
+          arg [-L/opt/arm-gnu-toolchain-12.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/12.2.1/../../../../arm-none-eabi/lib/thumb/v7-a/nofp] ==> dir [/opt/arm-gnu-toolchain-12.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/12.2.1/../../../../arm-none-eabi/lib/thumb/v7-a/nofp]
+          arg [-L/opt/arm-gnu-toolchain-12.2.rel1-x86_64-arm-none-eabi/bin/../arm-none-eabi/lib/thumb/v7-a/nofp] ==> dir [/opt/arm-gnu-toolchain-12.2.rel1-x86_64-arm-none-eabi/bin/../arm-none-eabi/lib/thumb/v7-a/nofp]
+          arg [-L/opt/arm-gnu-toolchain-12.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/12.2.1] ==> dir [/opt/arm-gnu-toolchain-12.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/12.2.1]
+          arg [-L/opt/arm-gnu-toolchain-12.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc] ==> dir [/opt/arm-gnu-toolchain-12.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc]
+          arg [-L/opt/arm-gnu-toolchain-12.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/12.2.1/../../../../arm-none-eabi/lib] ==> dir [/opt/arm-gnu-toolchain-12.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/12.2.1/../../../../arm-none-eabi/lib]
+          arg [-L/opt/arm-gnu-toolchain-12.2.rel1-x86_64-arm-none-eabi/bin/../arm-none-eabi/lib] ==> dir [/opt/arm-gnu-toolchain-12.2.rel1-x86_64-arm-none-eabi/bin/../arm-none-eabi/lib]
+          arg [CMakeFiles/cmTC_b4231.dir/CMakeCXXCompilerABI.cpp.o] ==> ignore
+          arg [-lstdc++] ==> lib [stdc++]
+          arg [-lm] ==> lib [m]
+          arg [--start-group] ==> ignore
+          arg [-lgcc] ==> lib [gcc]
+          arg [-lg] ==> lib [g]
+          arg [-lc] ==> lib [c]
+          arg [--end-group] ==> ignore
+          arg [--start-group] ==> ignore
+          arg [-lgcc] ==> lib [gcc]
+          arg [-lc] ==> lib [c]
+          arg [-lrdimon] ==> lib [rdimon]
+          arg [--end-group] ==> ignore
+        collapse library dir [/opt/arm-gnu-toolchain-12.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/12.2.1/thumb/v7-a/nofp] ==> [/opt/arm-gnu-toolchain-12.2.rel1-x86_64-arm-none-eabi/lib/gcc/arm-none-eabi/12.2.1/thumb/v7-a/nofp]
+        collapse library dir [/opt/arm-gnu-toolchain-12.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/12.2.1/../../../../arm-none-eabi/lib/thumb/v7-a/nofp] ==> [/opt/arm-gnu-toolchain-12.2.rel1-x86_64-arm-none-eabi/arm-none-eabi/lib/thumb/v7-a/nofp]
+        collapse library dir [/opt/arm-gnu-toolchain-12.2.rel1-x86_64-arm-none-eabi/bin/../arm-none-eabi/lib/thumb/v7-a/nofp] ==> [/opt/arm-gnu-toolchain-12.2.rel1-x86_64-arm-none-eabi/arm-none-eabi/lib/thumb/v7-a/nofp]
+        collapse library dir [/opt/arm-gnu-toolchain-12.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/12.2.1] ==> [/opt/arm-gnu-toolchain-12.2.rel1-x86_64-arm-none-eabi/lib/gcc/arm-none-eabi/12.2.1]
+        collapse library dir [/opt/arm-gnu-toolchain-12.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc] ==> [/opt/arm-gnu-toolchain-12.2.rel1-x86_64-arm-none-eabi/lib/gcc]
+        collapse library dir [/opt/arm-gnu-toolchain-12.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/12.2.1/../../../../arm-none-eabi/lib] ==> [/opt/arm-gnu-toolchain-12.2.rel1-x86_64-arm-none-eabi/arm-none-eabi/lib]
+        collapse library dir [/opt/arm-gnu-toolchain-12.2.rel1-x86_64-arm-none-eabi/bin/../arm-none-eabi/lib] ==> [/opt/arm-gnu-toolchain-12.2.rel1-x86_64-arm-none-eabi/arm-none-eabi/lib]
+        implicit libs: [stdc++;m;gcc;g;c;gcc;c;rdimon]
+        implicit objs: []
+        implicit dirs: [/opt/arm-gnu-toolchain-12.2.rel1-x86_64-arm-none-eabi/lib/gcc/arm-none-eabi/12.2.1/thumb/v7-a/nofp;/opt/arm-gnu-toolchain-12.2.rel1-x86_64-arm-none-eabi/arm-none-eabi/lib/thumb/v7-a/nofp;/opt/arm-gnu-toolchain-12.2.rel1-x86_64-arm-none-eabi/lib/gcc/arm-none-eabi/12.2.1;/opt/arm-gnu-toolchain-12.2.rel1-x86_64-arm-none-eabi/lib/gcc;/opt/arm-gnu-toolchain-12.2.rel1-x86_64-arm-none-eabi/arm-none-eabi/lib]
+        implicit fwks: []
+      
+      
+  -
+    kind: "try_compile-v1"
+    backtrace:
+      - "/opt/cmake-3.27.0-rc4-linux-x86_64/share/cmake-3.27/Modules/CMakeDetermineCompilerABI.cmake:57 (try_compile)"
+      - "/opt/cmake-3.27.0-rc4-linux-x86_64/share/cmake-3.27/Modules/CMakeTestCCompiler.cmake:26 (CMAKE_DETERMINE_COMPILER_ABI)"
+      - "CMakeLists.txt:6 (project)"
+    checks:
+      - "Detecting C compiler ABI info"
+    directories:
+      source: "/home/mthompkins/workspace/cocoOS/test/build/test_a9/CMakeFiles/CMakeScratch/TryCompile-kqotMW"
+      binary: "/home/mthompkins/workspace/cocoOS/test/build/test_a9/CMakeFiles/CMakeScratch/TryCompile-kqotMW"
+    cmakeVariables:
+      CMAKE_C_FLAGS: "-O0 -g3 -march=armv7-a -marm -DCPU_A9"
+      CMAKE_C_FLAGS_DEBUG: "-g"
+      CMAKE_EXE_LINKER_FLAGS: "--specs=rdimon.specs -nostartfiles"
+    buildResult:
+      variable: "CMAKE_C_ABI_COMPILED"
+      cached: true
+      stdout: |
+        Change Dir: '/home/mthompkins/workspace/cocoOS/test/build/test_a9/CMakeFiles/CMakeScratch/TryCompile-kqotMW'
+        
+        Run Build Command(s): /usr/bin/ninja-build -v cmTC_7d5a8
+        [1/2] /opt/arm-gnu-toolchain-12.2.rel1-x86_64-arm-none-eabi/bin/arm-none-eabi-gcc   -O0 -g3 -march=armv7-a -marm -DCPU_A9    -v -o CMakeFiles/cmTC_7d5a8.dir/CMakeCCompilerABI.c.o -c /opt/cmake-3.27.0-rc4-linux-x86_64/share/cmake-3.27/Modules/CMakeCCompilerABI.c
+        Using built-in specs.
+        COLLECT_GCC=/opt/arm-gnu-toolchain-12.2.rel1-x86_64-arm-none-eabi/bin/arm-none-eabi-gcc
+        Target: arm-none-eabi
+        Configured with: /data/jenkins/workspace/GNU-toolchain/arm-12/src/gcc/configure --target=arm-none-eabi --prefix=/data/jenkins/workspace/GNU-toolchain/arm-12/build-arm-none-eabi/install --with-gmp=/data/jenkins/workspace/GNU-toolchain/arm-12/build-arm-none-eabi/host-tools --with-mpfr=/data/jenkins/workspace/GNU-toolchain/arm-12/build-arm-none-eabi/host-tools --with-mpc=/data/jenkins/workspace/GNU-toolchain/arm-12/build-arm-none-eabi/host-tools --with-isl=/data/jenkins/workspace/GNU-toolchain/arm-12/build-arm-none-eabi/host-tools --disable-shared --disable-nls --disable-threads --disable-tls --enable-checking=release --enable-languages=c,c++,fortran --with-newlib --with-gnu-as --with-gnu-ld --with-sysroot=/data/jenkins/workspace/GNU-toolchain/arm-12/build-arm-none-eabi/install/arm-none-eabi --with-multilib-list=aprofile,rmprofile --with-pkgversion='Arm GNU Toolchain 12.2.Rel1 (Build arm-12.24)' --with-bugurl=https://bugs.linaro.org/
+        Thread model: single
+        Supported LTO compression algorithms: zlib
+        gcc version 12.2.1 20221205 (Arm GNU Toolchain 12.2.Rel1 (Build arm-12.24)) 
+        COLLECT_GCC_OPTIONS='-O0' '-g3'  '-marm' '-D' 'CPU_A9' '-v' '-o' 'CMakeFiles/cmTC_7d5a8.dir/CMakeCCompilerABI.c.o' '-c' '-mfloat-abi=soft' '-mlibarch=armv7-a' '-march=armv7-a' '-dumpdir' 'CMakeFiles/cmTC_7d5a8.dir/'
+         /opt/arm-gnu-toolchain-12.2.rel1-x86_64-arm-none-eabi/bin/../libexec/gcc/arm-none-eabi/12.2.1/cc1 -quiet -v -imultilib thumb/v7-a/nofp -iprefix /opt/arm-gnu-toolchain-12.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/12.2.1/ -isysroot /opt/arm-gnu-toolchain-12.2.rel1-x86_64-arm-none-eabi/bin/../arm-none-eabi -dD -D__USES_INITFINI__ -D CPU_A9 /opt/cmake-3.27.0-rc4-linux-x86_64/share/cmake-3.27/Modules/CMakeCCompilerABI.c -quiet -dumpdir CMakeFiles/cmTC_7d5a8.dir/ -dumpbase CMakeCCompilerABI.c.c -dumpbase-ext .c -marm -mfloat-abi=soft -mlibarch=armv7-a -march=armv7-a -g3 -O0 -version -o /tmp/cctn8Clr.s
+        GNU C17 (Arm GNU Toolchain 12.2.Rel1 (Build arm-12.24)) version 12.2.1 20221205 (arm-none-eabi)
+        	compiled by GNU C version 4.8.5 20150623 (Red Hat 4.8.5-44), GMP version 6.2.1, MPFR version 3.1.6, MPC version 1.0.3, isl version isl-0.15-1-g835ea3a-GMP
+        
+        GGC heuristics: --param ggc-min-expand=100 --param ggc-min-heapsize=131072
+        ignoring duplicate directory "/opt/arm-gnu-toolchain-12.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/../../lib/gcc/arm-none-eabi/12.2.1/include"
+        ignoring nonexistent directory "/opt/arm-gnu-toolchain-12.2.rel1-x86_64-arm-none-eabi/bin/../arm-none-eabi/usr/local/include"
+        ignoring duplicate directory "/opt/arm-gnu-toolchain-12.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/../../lib/gcc/arm-none-eabi/12.2.1/include-fixed"
+        ignoring duplicate directory "/opt/arm-gnu-toolchain-12.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/../../lib/gcc/arm-none-eabi/12.2.1/../../../../arm-none-eabi/include"
+        ignoring nonexistent directory "/opt/arm-gnu-toolchain-12.2.rel1-x86_64-arm-none-eabi/bin/../arm-none-eabi/usr/include"
+        #include "..." search starts here:
+        #include <...> search starts here:
+         /opt/arm-gnu-toolchain-12.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/12.2.1/include
+         /opt/arm-gnu-toolchain-12.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/12.2.1/include-fixed
+         /opt/arm-gnu-toolchain-12.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/12.2.1/../../../../arm-none-eabi/include
+        End of search list.
+        GNU C17 (Arm GNU Toolchain 12.2.Rel1 (Build arm-12.24)) version 12.2.1 20221205 (arm-none-eabi)
+        	compiled by GNU C version 4.8.5 20150623 (Red Hat 4.8.5-44), GMP version 6.2.1, MPFR version 3.1.6, MPC version 1.0.3, isl version isl-0.15-1-g835ea3a-GMP
+        
+        GGC heuristics: --param ggc-min-expand=100 --param ggc-min-heapsize=131072
+        Compiler executable checksum: f168295002905d7c051350240df03ac6
+        COLLECT_GCC_OPTIONS='-O0' '-g3'  '-marm' '-D' 'CPU_A9' '-v' '-o' 'CMakeFiles/cmTC_7d5a8.dir/CMakeCCompilerABI.c.o' '-c' '-mfloat-abi=soft' '-mlibarch=armv7-a' '-march=armv7-a' '-dumpdir' 'CMakeFiles/cmTC_7d5a8.dir/'
+         /opt/arm-gnu-toolchain-12.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/12.2.1/../../../../arm-none-eabi/bin/as -v -march=armv7-a -mfloat-abi=soft -meabi=5 -o CMakeFiles/cmTC_7d5a8.dir/CMakeCCompilerABI.c.o /tmp/cctn8Clr.s
+        GNU assembler version 2.39.0 (arm-none-eabi) using BFD version (Arm GNU Toolchain 12.2.Rel1 (Build arm-12.24)) 2.39.0.20221210
+        COMPILER_PATH=/opt/arm-gnu-toolchain-12.2.rel1-x86_64-arm-none-eabi/bin/../libexec/gcc/arm-none-eabi/12.2.1/:/opt/arm-gnu-toolchain-12.2.rel1-x86_64-arm-none-eabi/bin/../libexec/gcc/:/opt/arm-gnu-toolchain-12.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/12.2.1/../../../../arm-none-eabi/bin/
+        LIBRARY_PATH=/opt/arm-gnu-toolchain-12.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/12.2.1/thumb/v7-a/nofp/:/opt/arm-gnu-toolchain-12.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/12.2.1/../../../../arm-none-eabi/lib/thumb/v7-a/nofp/:/opt/arm-gnu-toolchain-12.2.rel1-x86_64-arm-none-eabi/bin/../arm-none-eabi/lib/thumb/v7-a/nofp/:/opt/arm-gnu-toolchain-12.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/12.2.1/:/opt/arm-gnu-toolchain-12.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/:/opt/arm-gnu-toolchain-12.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/12.2.1/../../../../arm-none-eabi/lib/:/opt/arm-gnu-toolchain-12.2.rel1-x86_64-arm-none-eabi/bin/../arm-none-eabi/lib/
+        COLLECT_GCC_OPTIONS='-O0' '-g3'  '-marm' '-D' 'CPU_A9' '-v' '-o' 'CMakeFiles/cmTC_7d5a8.dir/CMakeCCompilerABI.c.o' '-c' '-mfloat-abi=soft' '-mlibarch=armv7-a' '-march=armv7-a' '-dumpdir' 'CMakeFiles/cmTC_7d5a8.dir/CMakeCCompilerABI.c.'
+        [2/2] : && /opt/arm-gnu-toolchain-12.2.rel1-x86_64-arm-none-eabi/bin/arm-none-eabi-gcc -O0 -g3 -march=armv7-a -marm -DCPU_A9 --specs=rdimon.specs -nostartfiles -v CMakeFiles/cmTC_7d5a8.dir/CMakeCCompilerABI.c.o -o cmTC_7d5a8.elf   && :
+        Using built-in specs.
+        Reading specs from /opt/arm-gnu-toolchain-12.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/12.2.1/../../../../arm-none-eabi/lib/rdimon.specs
+        rename spec link_gcc_c_sequence to rdimon_link_gcc_c_sequence
+        COLLECT_GCC=/opt/arm-gnu-toolchain-12.2.rel1-x86_64-arm-none-eabi/bin/arm-none-eabi-gcc
+        COLLECT_LTO_WRAPPER=/opt/arm-gnu-toolchain-12.2.rel1-x86_64-arm-none-eabi/bin/../libexec/gcc/arm-none-eabi/12.2.1/lto-wrapper
+        Target: arm-none-eabi
+        Configured with: /data/jenkins/workspace/GNU-toolchain/arm-12/src/gcc/configure --target=arm-none-eabi --prefix=/data/jenkins/workspace/GNU-toolchain/arm-12/build-arm-none-eabi/install --with-gmp=/data/jenkins/workspace/GNU-toolchain/arm-12/build-arm-none-eabi/host-tools --with-mpfr=/data/jenkins/workspace/GNU-toolchain/arm-12/build-arm-none-eabi/host-tools --with-mpc=/data/jenkins/workspace/GNU-toolchain/arm-12/build-arm-none-eabi/host-tools --with-isl=/data/jenkins/workspace/GNU-toolchain/arm-12/build-arm-none-eabi/host-tools --disable-shared --disable-nls --disable-threads --disable-tls --enable-checking=release --enable-languages=c,c++,fortran --with-newlib --with-gnu-as --with-gnu-ld --with-sysroot=/data/jenkins/workspace/GNU-toolchain/arm-12/build-arm-none-eabi/install/arm-none-eabi --with-multilib-list=aprofile,rmprofile --with-pkgversion='Arm GNU Toolchain 12.2.Rel1 (Build arm-12.24)' --with-bugurl=https://bugs.linaro.org/
+        Thread model: single
+        Supported LTO compression algorithms: zlib
+        gcc version 12.2.1 20221205 (Arm GNU Toolchain 12.2.Rel1 (Build arm-12.24)) 
+        COMPILER_PATH=/opt/arm-gnu-toolchain-12.2.rel1-x86_64-arm-none-eabi/bin/../libexec/gcc/arm-none-eabi/12.2.1/:/opt/arm-gnu-toolchain-12.2.rel1-x86_64-arm-none-eabi/bin/../libexec/gcc/:/opt/arm-gnu-toolchain-12.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/12.2.1/../../../../arm-none-eabi/bin/
+        LIBRARY_PATH=/opt/arm-gnu-toolchain-12.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/12.2.1/thumb/v7-a/nofp/:/opt/arm-gnu-toolchain-12.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/12.2.1/../../../../arm-none-eabi/lib/thumb/v7-a/nofp/:/opt/arm-gnu-toolchain-12.2.rel1-x86_64-arm-none-eabi/bin/../arm-none-eabi/lib/thumb/v7-a/nofp/:/opt/arm-gnu-toolchain-12.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/12.2.1/:/opt/arm-gnu-toolchain-12.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/:/opt/arm-gnu-toolchain-12.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/12.2.1/../../../../arm-none-eabi/lib/:/opt/arm-gnu-toolchain-12.2.rel1-x86_64-arm-none-eabi/bin/../arm-none-eabi/lib/
+        COLLECT_GCC_OPTIONS='-O0' '-g3'  '-marm' '-D' 'CPU_A9' '-specs=rdimon.specs' '-nostartfiles' '-v' '-o' 'cmTC_7d5a8.elf' '-mfloat-abi=soft' '-mlibarch=armv7-a' '-march=armv7-a' '-dumpdir' 'cmTC_7d5a8.elf.'
+         /opt/arm-gnu-toolchain-12.2.rel1-x86_64-arm-none-eabi/bin/../libexec/gcc/arm-none-eabi/12.2.1/collect2 -plugin /opt/arm-gnu-toolchain-12.2.rel1-x86_64-arm-none-eabi/bin/../libexec/gcc/arm-none-eabi/12.2.1/liblto_plugin.so -plugin-opt=/opt/arm-gnu-toolchain-12.2.rel1-x86_64-arm-none-eabi/bin/../libexec/gcc/arm-none-eabi/12.2.1/lto-wrapper -plugin-opt=-fresolution=/tmp/ccTxW0Ee.res -plugin-opt=-pass-through=-lgcc -plugin-opt=-pass-through=-lg -plugin-opt=-pass-through=-lc -plugin-opt=-pass-through=-lgcc -plugin-opt=-pass-through=-lc -plugin-opt=-pass-through=-lrdimon --sysroot=/opt/arm-gnu-toolchain-12.2.rel1-x86_64-arm-none-eabi/bin/../arm-none-eabi -X -o cmTC_7d5a8.elf -L/opt/arm-gnu-toolchain-12.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/12.2.1/thumb/v7-a/nofp -L/opt/arm-gnu-toolchain-12.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/12.2.1/../../../../arm-none-eabi/lib/thumb/v7-a/nofp -L/opt/arm-gnu-toolchain-12.2.rel1-x86_64-arm-none-eabi/bin/../arm-none-eabi/lib/thumb/v7-a/nofp -L/opt/arm-gnu-toolchain-12.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/12.2.1 -L/opt/arm-gnu-toolchain-12.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc -L/opt/arm-gnu-toolchain-12.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/12.2.1/../../../../arm-none-eabi/lib -L/opt/arm-gnu-toolchain-12.2.rel1-x86_64-arm-none-eabi/bin/../arm-none-eabi/lib CMakeFiles/cmTC_7d5a8.dir/CMakeCCompilerABI.c.o --start-group -lgcc -lg -lc --end-group --start-group -lgcc -lc -lrdimon --end-group
+        /opt/arm-gnu-toolchain-12.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/12.2.1/../../../../arm-none-eabi/bin/ld: warning: cannot find entry symbol _start; defaulting to 0000000000008000
+        COLLECT_GCC_OPTIONS='-O0' '-g3'  '-marm' '-D' 'CPU_A9' '-specs=rdimon.specs' '-nostartfiles' '-v' '-o' 'cmTC_7d5a8.elf' '-mfloat-abi=soft' '-mlibarch=armv7-a' '-march=armv7-a' '-dumpdir' 'cmTC_7d5a8.elf.'
+        
+      exitCode: 0
+  -
+    kind: "message-v1"
+    backtrace:
+      - "/opt/cmake-3.27.0-rc4-linux-x86_64/share/cmake-3.27/Modules/CMakeDetermineCompilerABI.cmake:127 (message)"
+      - "/opt/cmake-3.27.0-rc4-linux-x86_64/share/cmake-3.27/Modules/CMakeTestCCompiler.cmake:26 (CMAKE_DETERMINE_COMPILER_ABI)"
+      - "CMakeLists.txt:6 (project)"
+    message: |
+      Parsed C implicit include dir info: rv=done
+        found start of include info
+        found start of implicit include info
+          add: [/opt/arm-gnu-toolchain-12.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/12.2.1/include]
+          add: [/opt/arm-gnu-toolchain-12.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/12.2.1/include-fixed]
+          add: [/opt/arm-gnu-toolchain-12.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/12.2.1/../../../../arm-none-eabi/include]
+        end of search list found
+        collapse include dir [/opt/arm-gnu-toolchain-12.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/12.2.1/include] ==> [/opt/arm-gnu-toolchain-12.2.rel1-x86_64-arm-none-eabi/lib/gcc/arm-none-eabi/12.2.1/include]
+        collapse include dir [/opt/arm-gnu-toolchain-12.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/12.2.1/include-fixed] ==> [/opt/arm-gnu-toolchain-12.2.rel1-x86_64-arm-none-eabi/lib/gcc/arm-none-eabi/12.2.1/include-fixed]
+        collapse include dir [/opt/arm-gnu-toolchain-12.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/12.2.1/../../../../arm-none-eabi/include] ==> [/opt/arm-gnu-toolchain-12.2.rel1-x86_64-arm-none-eabi/arm-none-eabi/include]
+        implicit include dirs: [/opt/arm-gnu-toolchain-12.2.rel1-x86_64-arm-none-eabi/lib/gcc/arm-none-eabi/12.2.1/include;/opt/arm-gnu-toolchain-12.2.rel1-x86_64-arm-none-eabi/lib/gcc/arm-none-eabi/12.2.1/include-fixed;/opt/arm-gnu-toolchain-12.2.rel1-x86_64-arm-none-eabi/arm-none-eabi/include]
+      
+      
+  -
+    kind: "message-v1"
+    backtrace:
+      - "/opt/cmake-3.27.0-rc4-linux-x86_64/share/cmake-3.27/Modules/CMakeDetermineCompilerABI.cmake:152 (message)"
+      - "/opt/cmake-3.27.0-rc4-linux-x86_64/share/cmake-3.27/Modules/CMakeTestCCompiler.cmake:26 (CMAKE_DETERMINE_COMPILER_ABI)"
+      - "CMakeLists.txt:6 (project)"
+    message: |
+      Parsed C implicit link information:
+        link line regex: [^( *|.*[/\\])(arm-none-eabi-ld|CMAKE_LINK_STARTFILE-NOTFOUND|([^/\\]+-)?ld|collect2)[^/\\]*( |$)]
+        ignore line: [Change Dir: '/home/mthompkins/workspace/cocoOS/test/build/test_a9/CMakeFiles/CMakeScratch/TryCompile-kqotMW']
+        ignore line: []
+        ignore line: [Run Build Command(s): /usr/bin/ninja-build -v cmTC_7d5a8]
+        ignore line: [[1/2] /opt/arm-gnu-toolchain-12.2.rel1-x86_64-arm-none-eabi/bin/arm-none-eabi-gcc   -O0 -g3 -march=armv7-a -marm -DCPU_A9    -v -o CMakeFiles/cmTC_7d5a8.dir/CMakeCCompilerABI.c.o -c /opt/cmake-3.27.0-rc4-linux-x86_64/share/cmake-3.27/Modules/CMakeCCompilerABI.c]
+        ignore line: [Using built-in specs.]
+        ignore line: [COLLECT_GCC=/opt/arm-gnu-toolchain-12.2.rel1-x86_64-arm-none-eabi/bin/arm-none-eabi-gcc]
+        ignore line: [Target: arm-none-eabi]
+        ignore line: [Configured with: /data/jenkins/workspace/GNU-toolchain/arm-12/src/gcc/configure --target=arm-none-eabi --prefix=/data/jenkins/workspace/GNU-toolchain/arm-12/build-arm-none-eabi/install --with-gmp=/data/jenkins/workspace/GNU-toolchain/arm-12/build-arm-none-eabi/host-tools --with-mpfr=/data/jenkins/workspace/GNU-toolchain/arm-12/build-arm-none-eabi/host-tools --with-mpc=/data/jenkins/workspace/GNU-toolchain/arm-12/build-arm-none-eabi/host-tools --with-isl=/data/jenkins/workspace/GNU-toolchain/arm-12/build-arm-none-eabi/host-tools --disable-shared --disable-nls --disable-threads --disable-tls --enable-checking=release --enable-languages=c,c++,fortran --with-newlib --with-gnu-as --with-gnu-ld --with-sysroot=/data/jenkins/workspace/GNU-toolchain/arm-12/build-arm-none-eabi/install/arm-none-eabi --with-multilib-list=aprofile,rmprofile --with-pkgversion='Arm GNU Toolchain 12.2.Rel1 (Build arm-12.24)' --with-bugurl=https://bugs.linaro.org/]
+        ignore line: [Thread model: single]
+        ignore line: [Supported LTO compression algorithms: zlib]
+        ignore line: [gcc version 12.2.1 20221205 (Arm GNU Toolchain 12.2.Rel1 (Build arm-12.24)) ]
+        ignore line: [COLLECT_GCC_OPTIONS='-O0' '-g3'  '-marm' '-D' 'CPU_A9' '-v' '-o' 'CMakeFiles/cmTC_7d5a8.dir/CMakeCCompilerABI.c.o' '-c' '-mfloat-abi=soft' '-mlibarch=armv7-a' '-march=armv7-a' '-dumpdir' 'CMakeFiles/cmTC_7d5a8.dir/']
+        ignore line: [ /opt/arm-gnu-toolchain-12.2.rel1-x86_64-arm-none-eabi/bin/../libexec/gcc/arm-none-eabi/12.2.1/cc1 -quiet -v -imultilib thumb/v7-a/nofp -iprefix /opt/arm-gnu-toolchain-12.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/12.2.1/ -isysroot /opt/arm-gnu-toolchain-12.2.rel1-x86_64-arm-none-eabi/bin/../arm-none-eabi -dD -D__USES_INITFINI__ -D CPU_A9 /opt/cmake-3.27.0-rc4-linux-x86_64/share/cmake-3.27/Modules/CMakeCCompilerABI.c -quiet -dumpdir CMakeFiles/cmTC_7d5a8.dir/ -dumpbase CMakeCCompilerABI.c.c -dumpbase-ext .c -marm -mfloat-abi=soft -mlibarch=armv7-a -march=armv7-a -g3 -O0 -version -o /tmp/cctn8Clr.s]
+        ignore line: [GNU C17 (Arm GNU Toolchain 12.2.Rel1 (Build arm-12.24)) version 12.2.1 20221205 (arm-none-eabi)]
+        ignore line: [	compiled by GNU C version 4.8.5 20150623 (Red Hat 4.8.5-44)  GMP version 6.2.1  MPFR version 3.1.6  MPC version 1.0.3  isl version isl-0.15-1-g835ea3a-GMP]
+        ignore line: []
+        ignore line: [GGC heuristics: --param ggc-min-expand=100 --param ggc-min-heapsize=131072]
+        ignore line: [ignoring duplicate directory "/opt/arm-gnu-toolchain-12.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/../../lib/gcc/arm-none-eabi/12.2.1/include"]
+        ignore line: [ignoring nonexistent directory "/opt/arm-gnu-toolchain-12.2.rel1-x86_64-arm-none-eabi/bin/../arm-none-eabi/usr/local/include"]
+        ignore line: [ignoring duplicate directory "/opt/arm-gnu-toolchain-12.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/../../lib/gcc/arm-none-eabi/12.2.1/include-fixed"]
+        ignore line: [ignoring duplicate directory "/opt/arm-gnu-toolchain-12.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/../../lib/gcc/arm-none-eabi/12.2.1/../../../../arm-none-eabi/include"]
+        ignore line: [ignoring nonexistent directory "/opt/arm-gnu-toolchain-12.2.rel1-x86_64-arm-none-eabi/bin/../arm-none-eabi/usr/include"]
+        ignore line: [#include "..." search starts here:]
+        ignore line: [#include <...> search starts here:]
+        ignore line: [ /opt/arm-gnu-toolchain-12.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/12.2.1/include]
+        ignore line: [ /opt/arm-gnu-toolchain-12.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/12.2.1/include-fixed]
+        ignore line: [ /opt/arm-gnu-toolchain-12.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/12.2.1/../../../../arm-none-eabi/include]
+        ignore line: [End of search list.]
+        ignore line: [GNU C17 (Arm GNU Toolchain 12.2.Rel1 (Build arm-12.24)) version 12.2.1 20221205 (arm-none-eabi)]
+        ignore line: [	compiled by GNU C version 4.8.5 20150623 (Red Hat 4.8.5-44)  GMP version 6.2.1  MPFR version 3.1.6  MPC version 1.0.3  isl version isl-0.15-1-g835ea3a-GMP]
+        ignore line: []
+        ignore line: [GGC heuristics: --param ggc-min-expand=100 --param ggc-min-heapsize=131072]
+        ignore line: [Compiler executable checksum: f168295002905d7c051350240df03ac6]
+        ignore line: [COLLECT_GCC_OPTIONS='-O0' '-g3'  '-marm' '-D' 'CPU_A9' '-v' '-o' 'CMakeFiles/cmTC_7d5a8.dir/CMakeCCompilerABI.c.o' '-c' '-mfloat-abi=soft' '-mlibarch=armv7-a' '-march=armv7-a' '-dumpdir' 'CMakeFiles/cmTC_7d5a8.dir/']
+        ignore line: [ /opt/arm-gnu-toolchain-12.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/12.2.1/../../../../arm-none-eabi/bin/as -v -march=armv7-a -mfloat-abi=soft -meabi=5 -o CMakeFiles/cmTC_7d5a8.dir/CMakeCCompilerABI.c.o /tmp/cctn8Clr.s]
+        ignore line: [GNU assembler version 2.39.0 (arm-none-eabi) using BFD version (Arm GNU Toolchain 12.2.Rel1 (Build arm-12.24)) 2.39.0.20221210]
+        ignore line: [COMPILER_PATH=/opt/arm-gnu-toolchain-12.2.rel1-x86_64-arm-none-eabi/bin/../libexec/gcc/arm-none-eabi/12.2.1/:/opt/arm-gnu-toolchain-12.2.rel1-x86_64-arm-none-eabi/bin/../libexec/gcc/:/opt/arm-gnu-toolchain-12.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/12.2.1/../../../../arm-none-eabi/bin/]
+        ignore line: [LIBRARY_PATH=/opt/arm-gnu-toolchain-12.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/12.2.1/thumb/v7-a/nofp/:/opt/arm-gnu-toolchain-12.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/12.2.1/../../../../arm-none-eabi/lib/thumb/v7-a/nofp/:/opt/arm-gnu-toolchain-12.2.rel1-x86_64-arm-none-eabi/bin/../arm-none-eabi/lib/thumb/v7-a/nofp/:/opt/arm-gnu-toolchain-12.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/12.2.1/:/opt/arm-gnu-toolchain-12.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/:/opt/arm-gnu-toolchain-12.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/12.2.1/../../../../arm-none-eabi/lib/:/opt/arm-gnu-toolchain-12.2.rel1-x86_64-arm-none-eabi/bin/../arm-none-eabi/lib/]
+        ignore line: [COLLECT_GCC_OPTIONS='-O0' '-g3'  '-marm' '-D' 'CPU_A9' '-v' '-o' 'CMakeFiles/cmTC_7d5a8.dir/CMakeCCompilerABI.c.o' '-c' '-mfloat-abi=soft' '-mlibarch=armv7-a' '-march=armv7-a' '-dumpdir' 'CMakeFiles/cmTC_7d5a8.dir/CMakeCCompilerABI.c.']
+        ignore line: [[2/2] : && /opt/arm-gnu-toolchain-12.2.rel1-x86_64-arm-none-eabi/bin/arm-none-eabi-gcc -O0 -g3 -march=armv7-a -marm -DCPU_A9 --specs=rdimon.specs -nostartfiles -v CMakeFiles/cmTC_7d5a8.dir/CMakeCCompilerABI.c.o -o cmTC_7d5a8.elf   && :]
+        ignore line: [Using built-in specs.]
+        ignore line: [Reading specs from /opt/arm-gnu-toolchain-12.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/12.2.1/../../../../arm-none-eabi/lib/rdimon.specs]
+        ignore line: [rename spec link_gcc_c_sequence to rdimon_link_gcc_c_sequence]
+        ignore line: [COLLECT_GCC=/opt/arm-gnu-toolchain-12.2.rel1-x86_64-arm-none-eabi/bin/arm-none-eabi-gcc]
+        ignore line: [COLLECT_LTO_WRAPPER=/opt/arm-gnu-toolchain-12.2.rel1-x86_64-arm-none-eabi/bin/../libexec/gcc/arm-none-eabi/12.2.1/lto-wrapper]
+        ignore line: [Target: arm-none-eabi]
+        ignore line: [Configured with: /data/jenkins/workspace/GNU-toolchain/arm-12/src/gcc/configure --target=arm-none-eabi --prefix=/data/jenkins/workspace/GNU-toolchain/arm-12/build-arm-none-eabi/install --with-gmp=/data/jenkins/workspace/GNU-toolchain/arm-12/build-arm-none-eabi/host-tools --with-mpfr=/data/jenkins/workspace/GNU-toolchain/arm-12/build-arm-none-eabi/host-tools --with-mpc=/data/jenkins/workspace/GNU-toolchain/arm-12/build-arm-none-eabi/host-tools --with-isl=/data/jenkins/workspace/GNU-toolchain/arm-12/build-arm-none-eabi/host-tools --disable-shared --disable-nls --disable-threads --disable-tls --enable-checking=release --enable-languages=c,c++,fortran --with-newlib --with-gnu-as --with-gnu-ld --with-sysroot=/data/jenkins/workspace/GNU-toolchain/arm-12/build-arm-none-eabi/install/arm-none-eabi --with-multilib-list=aprofile,rmprofile --with-pkgversion='Arm GNU Toolchain 12.2.Rel1 (Build arm-12.24)' --with-bugurl=https://bugs.linaro.org/]
+        ignore line: [Thread model: single]
+        ignore line: [Supported LTO compression algorithms: zlib]
+        ignore line: [gcc version 12.2.1 20221205 (Arm GNU Toolchain 12.2.Rel1 (Build arm-12.24)) ]
+        ignore line: [COMPILER_PATH=/opt/arm-gnu-toolchain-12.2.rel1-x86_64-arm-none-eabi/bin/../libexec/gcc/arm-none-eabi/12.2.1/:/opt/arm-gnu-toolchain-12.2.rel1-x86_64-arm-none-eabi/bin/../libexec/gcc/:/opt/arm-gnu-toolchain-12.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/12.2.1/../../../../arm-none-eabi/bin/]
+        ignore line: [LIBRARY_PATH=/opt/arm-gnu-toolchain-12.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/12.2.1/thumb/v7-a/nofp/:/opt/arm-gnu-toolchain-12.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/12.2.1/../../../../arm-none-eabi/lib/thumb/v7-a/nofp/:/opt/arm-gnu-toolchain-12.2.rel1-x86_64-arm-none-eabi/bin/../arm-none-eabi/lib/thumb/v7-a/nofp/:/opt/arm-gnu-toolchain-12.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/12.2.1/:/opt/arm-gnu-toolchain-12.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/:/opt/arm-gnu-toolchain-12.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/12.2.1/../../../../arm-none-eabi/lib/:/opt/arm-gnu-toolchain-12.2.rel1-x86_64-arm-none-eabi/bin/../arm-none-eabi/lib/]
+        ignore line: [COLLECT_GCC_OPTIONS='-O0' '-g3'  '-marm' '-D' 'CPU_A9' '-specs=rdimon.specs' '-nostartfiles' '-v' '-o' 'cmTC_7d5a8.elf' '-mfloat-abi=soft' '-mlibarch=armv7-a' '-march=armv7-a' '-dumpdir' 'cmTC_7d5a8.elf.']
+        link line: [ /opt/arm-gnu-toolchain-12.2.rel1-x86_64-arm-none-eabi/bin/../libexec/gcc/arm-none-eabi/12.2.1/collect2 -plugin /opt/arm-gnu-toolchain-12.2.rel1-x86_64-arm-none-eabi/bin/../libexec/gcc/arm-none-eabi/12.2.1/liblto_plugin.so -plugin-opt=/opt/arm-gnu-toolchain-12.2.rel1-x86_64-arm-none-eabi/bin/../libexec/gcc/arm-none-eabi/12.2.1/lto-wrapper -plugin-opt=-fresolution=/tmp/ccTxW0Ee.res -plugin-opt=-pass-through=-lgcc -plugin-opt=-pass-through=-lg -plugin-opt=-pass-through=-lc -plugin-opt=-pass-through=-lgcc -plugin-opt=-pass-through=-lc -plugin-opt=-pass-through=-lrdimon --sysroot=/opt/arm-gnu-toolchain-12.2.rel1-x86_64-arm-none-eabi/bin/../arm-none-eabi -X -o cmTC_7d5a8.elf -L/opt/arm-gnu-toolchain-12.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/12.2.1/thumb/v7-a/nofp -L/opt/arm-gnu-toolchain-12.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/12.2.1/../../../../arm-none-eabi/lib/thumb/v7-a/nofp -L/opt/arm-gnu-toolchain-12.2.rel1-x86_64-arm-none-eabi/bin/../arm-none-eabi/lib/thumb/v7-a/nofp -L/opt/arm-gnu-toolchain-12.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/12.2.1 -L/opt/arm-gnu-toolchain-12.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc -L/opt/arm-gnu-toolchain-12.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/12.2.1/../../../../arm-none-eabi/lib -L/opt/arm-gnu-toolchain-12.2.rel1-x86_64-arm-none-eabi/bin/../arm-none-eabi/lib CMakeFiles/cmTC_7d5a8.dir/CMakeCCompilerABI.c.o --start-group -lgcc -lg -lc --end-group --start-group -lgcc -lc -lrdimon --end-group]
+          arg [/opt/arm-gnu-toolchain-12.2.rel1-x86_64-arm-none-eabi/bin/../libexec/gcc/arm-none-eabi/12.2.1/collect2] ==> ignore
+          arg [-plugin] ==> ignore
+          arg [/opt/arm-gnu-toolchain-12.2.rel1-x86_64-arm-none-eabi/bin/../libexec/gcc/arm-none-eabi/12.2.1/liblto_plugin.so] ==> ignore
+          arg [-plugin-opt=/opt/arm-gnu-toolchain-12.2.rel1-x86_64-arm-none-eabi/bin/../libexec/gcc/arm-none-eabi/12.2.1/lto-wrapper] ==> ignore
+          arg [-plugin-opt=-fresolution=/tmp/ccTxW0Ee.res] ==> ignore
+          arg [-plugin-opt=-pass-through=-lgcc] ==> ignore
+          arg [-plugin-opt=-pass-through=-lg] ==> ignore
+          arg [-plugin-opt=-pass-through=-lc] ==> ignore
+          arg [-plugin-opt=-pass-through=-lgcc] ==> ignore
+          arg [-plugin-opt=-pass-through=-lc] ==> ignore
+          arg [-plugin-opt=-pass-through=-lrdimon] ==> ignore
+          arg [--sysroot=/opt/arm-gnu-toolchain-12.2.rel1-x86_64-arm-none-eabi/bin/../arm-none-eabi] ==> ignore
+          arg [-X] ==> ignore
+          arg [-o] ==> ignore
+          arg [cmTC_7d5a8.elf] ==> ignore
+          arg [-L/opt/arm-gnu-toolchain-12.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/12.2.1/thumb/v7-a/nofp] ==> dir [/opt/arm-gnu-toolchain-12.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/12.2.1/thumb/v7-a/nofp]
+          arg [-L/opt/arm-gnu-toolchain-12.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/12.2.1/../../../../arm-none-eabi/lib/thumb/v7-a/nofp] ==> dir [/opt/arm-gnu-toolchain-12.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/12.2.1/../../../../arm-none-eabi/lib/thumb/v7-a/nofp]
+          arg [-L/opt/arm-gnu-toolchain-12.2.rel1-x86_64-arm-none-eabi/bin/../arm-none-eabi/lib/thumb/v7-a/nofp] ==> dir [/opt/arm-gnu-toolchain-12.2.rel1-x86_64-arm-none-eabi/bin/../arm-none-eabi/lib/thumb/v7-a/nofp]
+          arg [-L/opt/arm-gnu-toolchain-12.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/12.2.1] ==> dir [/opt/arm-gnu-toolchain-12.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/12.2.1]
+          arg [-L/opt/arm-gnu-toolchain-12.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc] ==> dir [/opt/arm-gnu-toolchain-12.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc]
+          arg [-L/opt/arm-gnu-toolchain-12.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/12.2.1/../../../../arm-none-eabi/lib] ==> dir [/opt/arm-gnu-toolchain-12.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/12.2.1/../../../../arm-none-eabi/lib]
+          arg [-L/opt/arm-gnu-toolchain-12.2.rel1-x86_64-arm-none-eabi/bin/../arm-none-eabi/lib] ==> dir [/opt/arm-gnu-toolchain-12.2.rel1-x86_64-arm-none-eabi/bin/../arm-none-eabi/lib]
+          arg [CMakeFiles/cmTC_7d5a8.dir/CMakeCCompilerABI.c.o] ==> ignore
+          arg [--start-group] ==> ignore
+          arg [-lgcc] ==> lib [gcc]
+          arg [-lg] ==> lib [g]
+          arg [-lc] ==> lib [c]
+          arg [--end-group] ==> ignore
+          arg [--start-group] ==> ignore
+          arg [-lgcc] ==> lib [gcc]
+          arg [-lc] ==> lib [c]
+          arg [-lrdimon] ==> lib [rdimon]
+          arg [--end-group] ==> ignore
+        collapse library dir [/opt/arm-gnu-toolchain-12.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/12.2.1/thumb/v7-a/nofp] ==> [/opt/arm-gnu-toolchain-12.2.rel1-x86_64-arm-none-eabi/lib/gcc/arm-none-eabi/12.2.1/thumb/v7-a/nofp]
+        collapse library dir [/opt/arm-gnu-toolchain-12.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/12.2.1/../../../../arm-none-eabi/lib/thumb/v7-a/nofp] ==> [/opt/arm-gnu-toolchain-12.2.rel1-x86_64-arm-none-eabi/arm-none-eabi/lib/thumb/v7-a/nofp]
+        collapse library dir [/opt/arm-gnu-toolchain-12.2.rel1-x86_64-arm-none-eabi/bin/../arm-none-eabi/lib/thumb/v7-a/nofp] ==> [/opt/arm-gnu-toolchain-12.2.rel1-x86_64-arm-none-eabi/arm-none-eabi/lib/thumb/v7-a/nofp]
+        collapse library dir [/opt/arm-gnu-toolchain-12.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/12.2.1] ==> [/opt/arm-gnu-toolchain-12.2.rel1-x86_64-arm-none-eabi/lib/gcc/arm-none-eabi/12.2.1]
+        collapse library dir [/opt/arm-gnu-toolchain-12.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc] ==> [/opt/arm-gnu-toolchain-12.2.rel1-x86_64-arm-none-eabi/lib/gcc]
+        collapse library dir [/opt/arm-gnu-toolchain-12.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/12.2.1/../../../../arm-none-eabi/lib] ==> [/opt/arm-gnu-toolchain-12.2.rel1-x86_64-arm-none-eabi/arm-none-eabi/lib]
+        collapse library dir [/opt/arm-gnu-toolchain-12.2.rel1-x86_64-arm-none-eabi/bin/../arm-none-eabi/lib] ==> [/opt/arm-gnu-toolchain-12.2.rel1-x86_64-arm-none-eabi/arm-none-eabi/lib]
+        implicit libs: [gcc;g;c;gcc;c;rdimon]
+        implicit objs: []
+        implicit dirs: [/opt/arm-gnu-toolchain-12.2.rel1-x86_64-arm-none-eabi/lib/gcc/arm-none-eabi/12.2.1/thumb/v7-a/nofp;/opt/arm-gnu-toolchain-12.2.rel1-x86_64-arm-none-eabi/arm-none-eabi/lib/thumb/v7-a/nofp;/opt/arm-gnu-toolchain-12.2.rel1-x86_64-arm-none-eabi/lib/gcc/arm-none-eabi/12.2.1;/opt/arm-gnu-toolchain-12.2.rel1-x86_64-arm-none-eabi/lib/gcc;/opt/arm-gnu-toolchain-12.2.rel1-x86_64-arm-none-eabi/arm-none-eabi/lib]
+        implicit fwks: []
+      
+      
+  -
+    kind: "try_compile-v1"
+    backtrace:
+      - "/opt/cmake-3.27.0-rc4-linux-x86_64/share/cmake-3.27/Modules/CheckIncludeFile.cmake:90 (try_compile)"
+      - "/opt/cmake-3.27.0-rc4-linux-x86_64/share/cmake-3.27/Modules/CheckTypeSize.cmake:250 (check_include_file)"
+      - "build/test_a9/_deps/cpputest-src/CMakeLists.txt:42 (check_type_size)"
+    checks:
+      - "Looking for sys/types.h"
+    directories:
+      source: "/home/mthompkins/workspace/cocoOS/test/build/test_a9/CMakeFiles/CMakeScratch/TryCompile-AKq4WS"
+      binary: "/home/mthompkins/workspace/cocoOS/test/build/test_a9/CMakeFiles/CMakeScratch/TryCompile-AKq4WS"
+    cmakeVariables:
+      CMAKE_C_FLAGS: "-O0 -g3 -march=armv7-a -marm -DCPU_A9"
+      CMAKE_C_FLAGS_DEBUG: "-g"
+      CMAKE_EXE_LINKER_FLAGS: "--specs=rdimon.specs -nostartfiles"
+      CMAKE_MODULE_PATH: "/home/mthompkins/workspace/cocoOS/test/cmake;/home/mthompkins/workspace/cocoOS/test"
+    buildResult:
+      variable: "HAVE_SYS_TYPES_H"
+      cached: true
+      stdout: |
+        Change Dir: '/home/mthompkins/workspace/cocoOS/test/build/test_a9/CMakeFiles/CMakeScratch/TryCompile-AKq4WS'
+        
+        Run Build Command(s): /usr/bin/ninja-build -v cmTC_ab003
+        [1/2] /opt/arm-gnu-toolchain-12.2.rel1-x86_64-arm-none-eabi/bin/arm-none-eabi-gcc   -O0 -g3 -march=armv7-a -marm -DCPU_A9 -o CMakeFiles/cmTC_ab003.dir/CheckIncludeFile.c.o -c /home/mthompkins/workspace/cocoOS/test/build/test_a9/CMakeFiles/CMakeScratch/TryCompile-AKq4WS/CheckIncludeFile.c
+        [2/2] : && /opt/arm-gnu-toolchain-12.2.rel1-x86_64-arm-none-eabi/bin/arm-none-eabi-gcc -O0 -g3 -march=armv7-a -marm -DCPU_A9 --specs=rdimon.specs -nostartfiles CMakeFiles/cmTC_ab003.dir/CheckIncludeFile.c.o -o cmTC_ab003.elf   && :
+        /opt/arm-gnu-toolchain-12.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/12.2.1/../../../../arm-none-eabi/bin/ld: warning: cannot find entry symbol _start; defaulting to 0000000000008000
+        
+      exitCode: 0
+  -
+    kind: "try_compile-v1"
+    backtrace:
+      - "/opt/cmake-3.27.0-rc4-linux-x86_64/share/cmake-3.27/Modules/CheckIncludeFile.cmake:90 (try_compile)"
+      - "/opt/cmake-3.27.0-rc4-linux-x86_64/share/cmake-3.27/Modules/CheckTypeSize.cmake:251 (check_include_file)"
+      - "build/test_a9/_deps/cpputest-src/CMakeLists.txt:42 (check_type_size)"
+    checks:
+      - "Looking for stdint.h"
+    directories:
+      source: "/home/mthompkins/workspace/cocoOS/test/build/test_a9/CMakeFiles/CMakeScratch/TryCompile-UtVBWo"
+      binary: "/home/mthompkins/workspace/cocoOS/test/build/test_a9/CMakeFiles/CMakeScratch/TryCompile-UtVBWo"
+    cmakeVariables:
+      CMAKE_C_FLAGS: "-O0 -g3 -march=armv7-a -marm -DCPU_A9"
+      CMAKE_C_FLAGS_DEBUG: "-g"
+      CMAKE_EXE_LINKER_FLAGS: "--specs=rdimon.specs -nostartfiles"
+      CMAKE_MODULE_PATH: "/home/mthompkins/workspace/cocoOS/test/cmake;/home/mthompkins/workspace/cocoOS/test"
+    buildResult:
+      variable: "HAVE_STDINT_H"
+      cached: true
+      stdout: |
+        Change Dir: '/home/mthompkins/workspace/cocoOS/test/build/test_a9/CMakeFiles/CMakeScratch/TryCompile-UtVBWo'
+        
+        Run Build Command(s): /usr/bin/ninja-build -v cmTC_c9d7a
+        [1/2] /opt/arm-gnu-toolchain-12.2.rel1-x86_64-arm-none-eabi/bin/arm-none-eabi-gcc   -O0 -g3 -march=armv7-a -marm -DCPU_A9 -o CMakeFiles/cmTC_c9d7a.dir/CheckIncludeFile.c.o -c /home/mthompkins/workspace/cocoOS/test/build/test_a9/CMakeFiles/CMakeScratch/TryCompile-UtVBWo/CheckIncludeFile.c
+        [2/2] : && /opt/arm-gnu-toolchain-12.2.rel1-x86_64-arm-none-eabi/bin/arm-none-eabi-gcc -O0 -g3 -march=armv7-a -marm -DCPU_A9 --specs=rdimon.specs -nostartfiles CMakeFiles/cmTC_c9d7a.dir/CheckIncludeFile.c.o -o cmTC_c9d7a.elf   && :
+        /opt/arm-gnu-toolchain-12.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/12.2.1/../../../../arm-none-eabi/bin/ld: warning: cannot find entry symbol _start; defaulting to 0000000000008000
+        
+      exitCode: 0
+  -
+    kind: "try_compile-v1"
+    backtrace:
+      - "/opt/cmake-3.27.0-rc4-linux-x86_64/share/cmake-3.27/Modules/CheckIncludeFile.cmake:90 (try_compile)"
+      - "/opt/cmake-3.27.0-rc4-linux-x86_64/share/cmake-3.27/Modules/CheckTypeSize.cmake:252 (check_include_file)"
+      - "build/test_a9/_deps/cpputest-src/CMakeLists.txt:42 (check_type_size)"
+    checks:
+      - "Looking for stddef.h"
+    directories:
+      source: "/home/mthompkins/workspace/cocoOS/test/build/test_a9/CMakeFiles/CMakeScratch/TryCompile-FjYO3f"
+      binary: "/home/mthompkins/workspace/cocoOS/test/build/test_a9/CMakeFiles/CMakeScratch/TryCompile-FjYO3f"
+    cmakeVariables:
+      CMAKE_C_FLAGS: "-O0 -g3 -march=armv7-a -marm -DCPU_A9"
+      CMAKE_C_FLAGS_DEBUG: "-g"
+      CMAKE_EXE_LINKER_FLAGS: "--specs=rdimon.specs -nostartfiles"
+      CMAKE_MODULE_PATH: "/home/mthompkins/workspace/cocoOS/test/cmake;/home/mthompkins/workspace/cocoOS/test"
+    buildResult:
+      variable: "HAVE_STDDEF_H"
+      cached: true
+      stdout: |
+        Change Dir: '/home/mthompkins/workspace/cocoOS/test/build/test_a9/CMakeFiles/CMakeScratch/TryCompile-FjYO3f'
+        
+        Run Build Command(s): /usr/bin/ninja-build -v cmTC_c03cb
+        [1/2] /opt/arm-gnu-toolchain-12.2.rel1-x86_64-arm-none-eabi/bin/arm-none-eabi-gcc   -O0 -g3 -march=armv7-a -marm -DCPU_A9 -o CMakeFiles/cmTC_c03cb.dir/CheckIncludeFile.c.o -c /home/mthompkins/workspace/cocoOS/test/build/test_a9/CMakeFiles/CMakeScratch/TryCompile-FjYO3f/CheckIncludeFile.c
+        [2/2] : && /opt/arm-gnu-toolchain-12.2.rel1-x86_64-arm-none-eabi/bin/arm-none-eabi-gcc -O0 -g3 -march=armv7-a -marm -DCPU_A9 --specs=rdimon.specs -nostartfiles CMakeFiles/cmTC_c03cb.dir/CheckIncludeFile.c.o -o cmTC_c03cb.elf   && :
+        /opt/arm-gnu-toolchain-12.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/12.2.1/../../../../arm-none-eabi/bin/ld: warning: cannot find entry symbol _start; defaulting to 0000000000008000
+        
+      exitCode: 0
+  -
+    kind: "try_compile-v1"
+    backtrace:
+      - "/opt/cmake-3.27.0-rc4-linux-x86_64/share/cmake-3.27/Modules/CheckTypeSize.cmake:146 (try_compile)"
+      - "/opt/cmake-3.27.0-rc4-linux-x86_64/share/cmake-3.27/Modules/CheckTypeSize.cmake:271 (__check_type_size_impl)"
+      - "build/test_a9/_deps/cpputest-src/CMakeLists.txt:42 (check_type_size)"
+    checks:
+      - "Check size of long long"
+    directories:
+      source: "/home/mthompkins/workspace/cocoOS/test/build/test_a9/CMakeFiles/CMakeScratch/TryCompile-HdneRM"
+      binary: "/home/mthompkins/workspace/cocoOS/test/build/test_a9/CMakeFiles/CMakeScratch/TryCompile-HdneRM"
+    cmakeVariables:
+      CMAKE_C_FLAGS: "-O0 -g3 -march=armv7-a -marm -DCPU_A9"
+      CMAKE_C_FLAGS_DEBUG: "-g"
+      CMAKE_EXE_LINKER_FLAGS: "--specs=rdimon.specs -nostartfiles"
+      CMAKE_MODULE_PATH: "/home/mthompkins/workspace/cocoOS/test/cmake;/home/mthompkins/workspace/cocoOS/test"
+    buildResult:
+      variable: "HAVE_SIZEOF_LONGLONG"
+      cached: true
+      stdout: |
+        Change Dir: '/home/mthompkins/workspace/cocoOS/test/build/test_a9/CMakeFiles/CMakeScratch/TryCompile-HdneRM'
+        
+        Run Build Command(s): /usr/bin/ninja-build -v cmTC_4eb37
+        [1/2] /opt/arm-gnu-toolchain-12.2.rel1-x86_64-arm-none-eabi/bin/arm-none-eabi-gcc   -O0 -g3 -march=armv7-a -marm -DCPU_A9 -o CMakeFiles/cmTC_4eb37.dir/SIZEOF_LONGLONG.c.o -c /home/mthompkins/workspace/cocoOS/test/build/test_a9/CMakeFiles/CMakeScratch/TryCompile-HdneRM/SIZEOF_LONGLONG.c
+        [2/2] : && /opt/arm-gnu-toolchain-12.2.rel1-x86_64-arm-none-eabi/bin/arm-none-eabi-gcc -O0 -g3 -march=armv7-a -marm -DCPU_A9 --specs=rdimon.specs -nostartfiles CMakeFiles/cmTC_4eb37.dir/SIZEOF_LONGLONG.c.o -o cmTC_4eb37.elf   && :
+        /opt/arm-gnu-toolchain-12.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/12.2.1/../../../../arm-none-eabi/bin/ld: warning: cannot find entry symbol _start; defaulting to 0000000000008000
+        
+      exitCode: 0
+  -
+    kind: "try_compile-v1"
+    backtrace:
+      - "/opt/cmake-3.27.0-rc4-linux-x86_64/share/cmake-3.27/Modules/CheckSymbolExists.cmake:140 (try_compile)"
+      - "/opt/cmake-3.27.0-rc4-linux-x86_64/share/cmake-3.27/Modules/CheckCXXSymbolExists.cmake:72 (__CHECK_SYMBOL_EXISTS_IMPL)"
+      - "build/test_a9/_deps/cpputest-src/CMakeLists.txt:91 (check_cxx_symbol_exists)"
+    checks:
+      - "Looking for fopen_s"
+    directories:
+      source: "/home/mthompkins/workspace/cocoOS/test/build/test_a9/CMakeFiles/CMakeScratch/TryCompile-Yo9uND"
+      binary: "/home/mthompkins/workspace/cocoOS/test/build/test_a9/CMakeFiles/CMakeScratch/TryCompile-Yo9uND"
+    cmakeVariables:
+      CMAKE_CXX_FLAGS: "-O0 -g3 -march=armv7-a -marm -DCPU_A9"
+      CMAKE_CXX_FLAGS_DEBUG: "-g"
+      CMAKE_EXE_LINKER_FLAGS: "--specs=rdimon.specs -nostartfiles"
+      CMAKE_MODULE_PATH: "/home/mthompkins/workspace/cocoOS/test/cmake;/home/mthompkins/workspace/cocoOS/test"
+    buildResult:
+      variable: "CPPUTEST_HAVE_SECURE_STDLIB"
+      cached: true
+      stdout: |
+        Change Dir: '/home/mthompkins/workspace/cocoOS/test/build/test_a9/CMakeFiles/CMakeScratch/TryCompile-Yo9uND'
+        
+        Run Build Command(s): /usr/bin/ninja-build -v cmTC_c4c14
+        [1/2] /opt/arm-gnu-toolchain-12.2.rel1-x86_64-arm-none-eabi/bin/arm-none-eabi-g++   -O0 -g3 -march=armv7-a -marm -DCPU_A9 -o CMakeFiles/cmTC_c4c14.dir/CheckSymbolExists.cxx.o -c /home/mthompkins/workspace/cocoOS/test/build/test_a9/CMakeFiles/CMakeScratch/TryCompile-Yo9uND/CheckSymbolExists.cxx
+        FAILED: CMakeFiles/cmTC_c4c14.dir/CheckSymbolExists.cxx.o 
+        /opt/arm-gnu-toolchain-12.2.rel1-x86_64-arm-none-eabi/bin/arm-none-eabi-g++   -O0 -g3 -march=armv7-a -marm -DCPU_A9 -o CMakeFiles/cmTC_c4c14.dir/CheckSymbolExists.cxx.o -c /home/mthompkins/workspace/cocoOS/test/build/test_a9/CMakeFiles/CMakeScratch/TryCompile-Yo9uND/CheckSymbolExists.cxx
+        /home/mthompkins/workspace/cocoOS/test/build/test_a9/CMakeFiles/CMakeScratch/TryCompile-Yo9uND/CheckSymbolExists.cxx: In function 'int main(int, char**)':
+        /home/mthompkins/workspace/cocoOS/test/build/test_a9/CMakeFiles/CMakeScratch/TryCompile-Yo9uND/CheckSymbolExists.cxx:8:19: error: 'fopen_s' was not declared in this scope; did you mean 'fopen'?
+            8 |   return ((int*)(&fopen_s))[argc];
+              |                   ^~~~~~~
+              |                   fopen
+        ninja: build stopped: subcommand failed.
+        
+      exitCode: 1
+  -
+    kind: "try_compile-v1"
+    backtrace:
+      - "/opt/cmake-3.27.0-rc4-linux-x86_64/share/cmake-3.27/Modules/CheckSymbolExists.cmake:140 (try_compile)"
+      - "/opt/cmake-3.27.0-rc4-linux-x86_64/share/cmake-3.27/Modules/CheckCXXSymbolExists.cmake:72 (__CHECK_SYMBOL_EXISTS_IMPL)"
+      - "build/test_a9/_deps/cpputest-src/CMakeLists.txt:109 (check_cxx_symbol_exists)"
+    checks:
+      - "Looking for fork"
+    directories:
+      source: "/home/mthompkins/workspace/cocoOS/test/build/test_a9/CMakeFiles/CMakeScratch/TryCompile-jbi5Bq"
+      binary: "/home/mthompkins/workspace/cocoOS/test/build/test_a9/CMakeFiles/CMakeScratch/TryCompile-jbi5Bq"
+    cmakeVariables:
+      CMAKE_CXX_FLAGS: "-O0 -g3 -march=armv7-a -marm -DCPU_A9"
+      CMAKE_CXX_FLAGS_DEBUG: "-g"
+      CMAKE_EXE_LINKER_FLAGS: "--specs=rdimon.specs -nostartfiles"
+      CMAKE_MODULE_PATH: "/home/mthompkins/workspace/cocoOS/test/cmake;/home/mthompkins/workspace/cocoOS/test;/home/mthompkins/workspace/cocoOS/test/build/test_a9/_deps/cpputest-src/cmake/Modules"
+    buildResult:
+      variable: "CPPUTEST_HAVE_FORK"
+      cached: true
+      stdout: |
+        Change Dir: '/home/mthompkins/workspace/cocoOS/test/build/test_a9/CMakeFiles/CMakeScratch/TryCompile-jbi5Bq'
+        
+        Run Build Command(s): /usr/bin/ninja-build -v cmTC_0ec04
+        [1/2] /opt/arm-gnu-toolchain-12.2.rel1-x86_64-arm-none-eabi/bin/arm-none-eabi-g++   -O0 -g3 -march=armv7-a -marm -DCPU_A9 -O0 -g3 -march=armv7-a -marm -DCPU_A9 -o CMakeFiles/cmTC_0ec04.dir/CheckSymbolExists.cxx.o -c /home/mthompkins/workspace/cocoOS/test/build/test_a9/CMakeFiles/CMakeScratch/TryCompile-jbi5Bq/CheckSymbolExists.cxx
+        [2/2] : && /opt/arm-gnu-toolchain-12.2.rel1-x86_64-arm-none-eabi/bin/arm-none-eabi-g++ -O0 -g3 -march=armv7-a -marm -DCPU_A9 -O0 -g3 -march=armv7-a -marm -DCPU_A9 --specs=rdimon.specs -nostartfiles CMakeFiles/cmTC_0ec04.dir/CheckSymbolExists.cxx.o -o cmTC_0ec04.elf   && :
+        FAILED: cmTC_0ec04.elf 
+        : && /opt/arm-gnu-toolchain-12.2.rel1-x86_64-arm-none-eabi/bin/arm-none-eabi-g++ -O0 -g3 -march=armv7-a -marm -DCPU_A9 -O0 -g3 -march=armv7-a -marm -DCPU_A9 --specs=rdimon.specs -nostartfiles CMakeFiles/cmTC_0ec04.dir/CheckSymbolExists.cxx.o -o cmTC_0ec04.elf   && :
+        /opt/arm-gnu-toolchain-12.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/12.2.1/../../../../arm-none-eabi/bin/ld: warning: cannot find entry symbol _start; defaulting to 0000000000008000
+        /opt/arm-gnu-toolchain-12.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/12.2.1/../../../../arm-none-eabi/bin/ld: /opt/arm-gnu-toolchain-12.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/12.2.1/../../../../arm-none-eabi/lib/thumb/v7-a/nofp/libg.a(libc_a-execr.o): in function `_execve_r':
+        execr.c:(.text._execve_r+0x1a): undefined reference to `_execve'
+        /opt/arm-gnu-toolchain-12.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/12.2.1/../../../../arm-none-eabi/bin/ld: /opt/arm-gnu-toolchain-12.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/12.2.1/../../../../arm-none-eabi/lib/thumb/v7-a/nofp/libg.a(libc_a-execr.o): in function `_fork_r':
+        execr.c:(.text._fork_r+0x10): undefined reference to `_fork'
+        /opt/arm-gnu-toolchain-12.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/12.2.1/../../../../arm-none-eabi/bin/ld: /opt/arm-gnu-toolchain-12.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/12.2.1/../../../../arm-none-eabi/lib/thumb/v7-a/nofp/libg.a(libc_a-execr.o): in function `_wait_r':
+        execr.c:(.text._wait_r+0x12): undefined reference to `_wait'
+        collect2: error: ld returned 1 exit status
+        ninja: build stopped: subcommand failed.
+        
+      exitCode: 1
+  -
+    kind: "try_compile-v1"
+    backtrace:
+      - "/opt/cmake-3.27.0-rc4-linux-x86_64/share/cmake-3.27/Modules/CheckSymbolExists.cmake:140 (try_compile)"
+      - "/opt/cmake-3.27.0-rc4-linux-x86_64/share/cmake-3.27/Modules/CheckCXXSymbolExists.cmake:72 (__CHECK_SYMBOL_EXISTS_IMPL)"
+      - "build/test_a9/_deps/cpputest-src/CMakeLists.txt:110 (check_cxx_symbol_exists)"
+    checks:
+      - "Looking for waitpid"
+    directories:
+      source: "/home/mthompkins/workspace/cocoOS/test/build/test_a9/CMakeFiles/CMakeScratch/TryCompile-mCuRf9"
+      binary: "/home/mthompkins/workspace/cocoOS/test/build/test_a9/CMakeFiles/CMakeScratch/TryCompile-mCuRf9"
+    cmakeVariables:
+      CMAKE_CXX_FLAGS: "-O0 -g3 -march=armv7-a -marm -DCPU_A9"
+      CMAKE_CXX_FLAGS_DEBUG: "-g"
+      CMAKE_EXE_LINKER_FLAGS: "--specs=rdimon.specs -nostartfiles"
+      CMAKE_MODULE_PATH: "/home/mthompkins/workspace/cocoOS/test/cmake;/home/mthompkins/workspace/cocoOS/test;/home/mthompkins/workspace/cocoOS/test/build/test_a9/_deps/cpputest-src/cmake/Modules"
+    buildResult:
+      variable: "CPPUTEST_HAVE_WAITPID"
+      cached: true
+      stdout: |
+        Change Dir: '/home/mthompkins/workspace/cocoOS/test/build/test_a9/CMakeFiles/CMakeScratch/TryCompile-mCuRf9'
+        
+        Run Build Command(s): /usr/bin/ninja-build -v cmTC_2ed4e
+        [1/2] /opt/arm-gnu-toolchain-12.2.rel1-x86_64-arm-none-eabi/bin/arm-none-eabi-g++   -O0 -g3 -march=armv7-a -marm -DCPU_A9 -O0 -g3 -march=armv7-a -marm -DCPU_A9 -o CMakeFiles/cmTC_2ed4e.dir/CheckSymbolExists.cxx.o -c /home/mthompkins/workspace/cocoOS/test/build/test_a9/CMakeFiles/CMakeScratch/TryCompile-mCuRf9/CheckSymbolExists.cxx
+        [2/2] : && /opt/arm-gnu-toolchain-12.2.rel1-x86_64-arm-none-eabi/bin/arm-none-eabi-g++ -O0 -g3 -march=armv7-a -marm -DCPU_A9 -O0 -g3 -march=armv7-a -marm -DCPU_A9 --specs=rdimon.specs -nostartfiles CMakeFiles/cmTC_2ed4e.dir/CheckSymbolExists.cxx.o -o cmTC_2ed4e.elf   && :
+        FAILED: cmTC_2ed4e.elf 
+        : && /opt/arm-gnu-toolchain-12.2.rel1-x86_64-arm-none-eabi/bin/arm-none-eabi-g++ -O0 -g3 -march=armv7-a -marm -DCPU_A9 -O0 -g3 -march=armv7-a -marm -DCPU_A9 --specs=rdimon.specs -nostartfiles CMakeFiles/cmTC_2ed4e.dir/CheckSymbolExists.cxx.o -o cmTC_2ed4e.elf   && :
+        /opt/arm-gnu-toolchain-12.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/12.2.1/../../../../arm-none-eabi/bin/ld: warning: cannot find entry symbol _start; defaulting to 0000000000008000
+        /opt/arm-gnu-toolchain-12.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/12.2.1/../../../../arm-none-eabi/bin/ld: CMakeFiles/cmTC_2ed4e.dir/CheckSymbolExists.cxx.o: in function `main':
+        /home/mthompkins/workspace/cocoOS/test/build/test_a9/CMakeFiles/CMakeScratch/TryCompile-mCuRf9/CheckSymbolExists.cxx:8: undefined reference to `waitpid'
+        /opt/arm-gnu-toolchain-12.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/12.2.1/../../../../arm-none-eabi/bin/ld: /home/mthompkins/workspace/cocoOS/test/build/test_a9/CMakeFiles/CMakeScratch/TryCompile-mCuRf9/CheckSymbolExists.cxx:8: undefined reference to `waitpid'
+        collect2: error: ld returned 1 exit status
+        ninja: build stopped: subcommand failed.
+        
+      exitCode: 1
+  -
+    kind: "try_compile-v1"
+    backtrace:
+      - "/opt/cmake-3.27.0-rc4-linux-x86_64/share/cmake-3.27/Modules/CheckSymbolExists.cmake:140 (try_compile)"
+      - "/opt/cmake-3.27.0-rc4-linux-x86_64/share/cmake-3.27/Modules/CheckCXXSymbolExists.cmake:72 (__CHECK_SYMBOL_EXISTS_IMPL)"
+      - "build/test_a9/_deps/cpputest-src/CMakeLists.txt:111 (check_cxx_symbol_exists)"
+    checks:
+      - "Looking for gettimeofday"
+    directories:
+      source: "/home/mthompkins/workspace/cocoOS/test/build/test_a9/CMakeFiles/CMakeScratch/TryCompile-sRAc9f"
+      binary: "/home/mthompkins/workspace/cocoOS/test/build/test_a9/CMakeFiles/CMakeScratch/TryCompile-sRAc9f"
+    cmakeVariables:
+      CMAKE_CXX_FLAGS: "-O0 -g3 -march=armv7-a -marm -DCPU_A9"
+      CMAKE_CXX_FLAGS_DEBUG: "-g"
+      CMAKE_EXE_LINKER_FLAGS: "--specs=rdimon.specs -nostartfiles"
+      CMAKE_MODULE_PATH: "/home/mthompkins/workspace/cocoOS/test/cmake;/home/mthompkins/workspace/cocoOS/test;/home/mthompkins/workspace/cocoOS/test/build/test_a9/_deps/cpputest-src/cmake/Modules"
+    buildResult:
+      variable: "CPPUTEST_HAVE_GETTIMEOFDAY"
+      cached: true
+      stdout: |
+        Change Dir: '/home/mthompkins/workspace/cocoOS/test/build/test_a9/CMakeFiles/CMakeScratch/TryCompile-sRAc9f'
+        
+        Run Build Command(s): /usr/bin/ninja-build -v cmTC_25ca1
+        [1/2] /opt/arm-gnu-toolchain-12.2.rel1-x86_64-arm-none-eabi/bin/arm-none-eabi-g++   -O0 -g3 -march=armv7-a -marm -DCPU_A9 -O0 -g3 -march=armv7-a -marm -DCPU_A9 -o CMakeFiles/cmTC_25ca1.dir/CheckSymbolExists.cxx.o -c /home/mthompkins/workspace/cocoOS/test/build/test_a9/CMakeFiles/CMakeScratch/TryCompile-sRAc9f/CheckSymbolExists.cxx
+        [2/2] : && /opt/arm-gnu-toolchain-12.2.rel1-x86_64-arm-none-eabi/bin/arm-none-eabi-g++ -O0 -g3 -march=armv7-a -marm -DCPU_A9 -O0 -g3 -march=armv7-a -marm -DCPU_A9 --specs=rdimon.specs -nostartfiles CMakeFiles/cmTC_25ca1.dir/CheckSymbolExists.cxx.o -o cmTC_25ca1.elf   && :
+        /opt/arm-gnu-toolchain-12.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/12.2.1/../../../../arm-none-eabi/bin/ld: warning: cannot find entry symbol _start; defaulting to 0000000000008000
+        
+      exitCode: 0
+  -
+    kind: "try_compile-v1"
+    backtrace:
+      - "/opt/cmake-3.27.0-rc4-linux-x86_64/share/cmake-3.27/Modules/CheckSymbolExists.cmake:140 (try_compile)"
+      - "/opt/cmake-3.27.0-rc4-linux-x86_64/share/cmake-3.27/Modules/CheckCXXSymbolExists.cmake:72 (__CHECK_SYMBOL_EXISTS_IMPL)"
+      - "build/test_a9/_deps/cpputest-src/CMakeLists.txt:112 (check_cxx_symbol_exists)"
+    checks:
+      - "Looking for pthread_mutex_lock"
+    directories:
+      source: "/home/mthompkins/workspace/cocoOS/test/build/test_a9/CMakeFiles/CMakeScratch/TryCompile-POLcsb"
+      binary: "/home/mthompkins/workspace/cocoOS/test/build/test_a9/CMakeFiles/CMakeScratch/TryCompile-POLcsb"
+    cmakeVariables:
+      CMAKE_CXX_FLAGS: "-O0 -g3 -march=armv7-a -marm -DCPU_A9"
+      CMAKE_CXX_FLAGS_DEBUG: "-g"
+      CMAKE_EXE_LINKER_FLAGS: "--specs=rdimon.specs -nostartfiles"
+      CMAKE_MODULE_PATH: "/home/mthompkins/workspace/cocoOS/test/cmake;/home/mthompkins/workspace/cocoOS/test;/home/mthompkins/workspace/cocoOS/test/build/test_a9/_deps/cpputest-src/cmake/Modules"
+    buildResult:
+      variable: "CPPUTEST_HAVE_PTHREAD_MUTEX_LOCK"
+      cached: true
+      stdout: |
+        Change Dir: '/home/mthompkins/workspace/cocoOS/test/build/test_a9/CMakeFiles/CMakeScratch/TryCompile-POLcsb'
+        
+        Run Build Command(s): /usr/bin/ninja-build -v cmTC_11f5f
+        [1/2] /opt/arm-gnu-toolchain-12.2.rel1-x86_64-arm-none-eabi/bin/arm-none-eabi-g++   -O0 -g3 -march=armv7-a -marm -DCPU_A9 -O0 -g3 -march=armv7-a -marm -DCPU_A9 -o CMakeFiles/cmTC_11f5f.dir/CheckSymbolExists.cxx.o -c /home/mthompkins/workspace/cocoOS/test/build/test_a9/CMakeFiles/CMakeScratch/TryCompile-POLcsb/CheckSymbolExists.cxx
+        FAILED: CMakeFiles/cmTC_11f5f.dir/CheckSymbolExists.cxx.o 
+        /opt/arm-gnu-toolchain-12.2.rel1-x86_64-arm-none-eabi/bin/arm-none-eabi-g++   -O0 -g3 -march=armv7-a -marm -DCPU_A9 -O0 -g3 -march=armv7-a -marm -DCPU_A9 -o CMakeFiles/cmTC_11f5f.dir/CheckSymbolExists.cxx.o -c /home/mthompkins/workspace/cocoOS/test/build/test_a9/CMakeFiles/CMakeScratch/TryCompile-POLcsb/CheckSymbolExists.cxx
+        /home/mthompkins/workspace/cocoOS/test/build/test_a9/CMakeFiles/CMakeScratch/TryCompile-POLcsb/CheckSymbolExists.cxx: In function 'int main(int, char**)':
+        /home/mthompkins/workspace/cocoOS/test/build/test_a9/CMakeFiles/CMakeScratch/TryCompile-POLcsb/CheckSymbolExists.cxx:8:19: error: 'pthread_mutex_lock' was not declared in this scope; did you mean 'pthread_mutex_t'?
+            8 |   return ((int*)(&pthread_mutex_lock))[argc];
+              |                   ^~~~~~~~~~~~~~~~~~
+              |                   pthread_mutex_t
+        ninja: build stopped: subcommand failed.
+        
+      exitCode: 1
+  -
+    kind: "try_compile-v1"
+    backtrace:
+      - "/opt/cmake-3.27.0-rc4-linux-x86_64/share/cmake-3.27/Modules/CheckSymbolExists.cmake:140 (try_compile)"
+      - "/opt/cmake-3.27.0-rc4-linux-x86_64/share/cmake-3.27/Modules/CheckCXXSymbolExists.cmake:72 (__CHECK_SYMBOL_EXISTS_IMPL)"
+      - "build/test_a9/_deps/cpputest-src/CMakeLists.txt:115 (check_cxx_symbol_exists)"
+    checks:
+      - "Looking for strdup"
+    directories:
+      source: "/home/mthompkins/workspace/cocoOS/test/build/test_a9/CMakeFiles/CMakeScratch/TryCompile-8etOfJ"
+      binary: "/home/mthompkins/workspace/cocoOS/test/build/test_a9/CMakeFiles/CMakeScratch/TryCompile-8etOfJ"
+    cmakeVariables:
+      CMAKE_CXX_FLAGS: "-O0 -g3 -march=armv7-a -marm -DCPU_A9"
+      CMAKE_CXX_FLAGS_DEBUG: "-g"
+      CMAKE_EXE_LINKER_FLAGS: "--specs=rdimon.specs -nostartfiles"
+      CMAKE_MODULE_PATH: "/home/mthompkins/workspace/cocoOS/test/cmake;/home/mthompkins/workspace/cocoOS/test;/home/mthompkins/workspace/cocoOS/test/build/test_a9/_deps/cpputest-src/cmake/Modules"
+    buildResult:
+      variable: "CPPUTEST_HAVE_STRDUP"
+      cached: true
+      stdout: |
+        Change Dir: '/home/mthompkins/workspace/cocoOS/test/build/test_a9/CMakeFiles/CMakeScratch/TryCompile-8etOfJ'
+        
+        Run Build Command(s): /usr/bin/ninja-build -v cmTC_3258d
+        [1/2] /opt/arm-gnu-toolchain-12.2.rel1-x86_64-arm-none-eabi/bin/arm-none-eabi-g++   -O0 -g3 -march=armv7-a -marm -DCPU_A9 -O0 -g3 -march=armv7-a -marm -DCPU_A9 -o CMakeFiles/cmTC_3258d.dir/CheckSymbolExists.cxx.o -c /home/mthompkins/workspace/cocoOS/test/build/test_a9/CMakeFiles/CMakeScratch/TryCompile-8etOfJ/CheckSymbolExists.cxx
+        [2/2] : && /opt/arm-gnu-toolchain-12.2.rel1-x86_64-arm-none-eabi/bin/arm-none-eabi-g++ -O0 -g3 -march=armv7-a -marm -DCPU_A9 -O0 -g3 -march=armv7-a -marm -DCPU_A9 --specs=rdimon.specs -nostartfiles CMakeFiles/cmTC_3258d.dir/CheckSymbolExists.cxx.o -o cmTC_3258d.elf   && :
+        /opt/arm-gnu-toolchain-12.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/12.2.1/../../../../arm-none-eabi/bin/ld: warning: cannot find entry symbol _start; defaulting to 0000000000008000
+        
+      exitCode: 0
+  -
+    kind: "try_compile-v1"
+    backtrace:
+      - "/opt/cmake-3.27.0-rc4-linux-x86_64/share/cmake-3.27/Modules/Internal/CheckSourceCompiles.cmake:101 (try_compile)"
+      - "/opt/cmake-3.27.0-rc4-linux-x86_64/share/cmake-3.27/Modules/CheckCSourceCompiles.cmake:52 (cmake_check_source_compiles)"
+      - "/opt/cmake-3.27.0-rc4-linux-x86_64/share/cmake-3.27/Modules/FindThreads.cmake:97 (CHECK_C_SOURCE_COMPILES)"
+      - "/opt/cmake-3.27.0-rc4-linux-x86_64/share/cmake-3.27/Modules/FindThreads.cmake:163 (_threads_check_libc)"
+      - "build/test_a9/_deps/cpputest-src/src/CppUTest/CMakeLists.txt:82 (find_package)"
+    checks:
+      - "Performing Test CMAKE_HAVE_LIBC_PTHREAD"
+    directories:
+      source: "/home/mthompkins/workspace/cocoOS/test/build/test_a9/CMakeFiles/CMakeScratch/TryCompile-r01Dlb"
+      binary: "/home/mthompkins/workspace/cocoOS/test/build/test_a9/CMakeFiles/CMakeScratch/TryCompile-r01Dlb"
+    cmakeVariables:
+      CMAKE_C_FLAGS: "-O0 -g3 -march=armv7-a -marm -DCPU_A9"
+      CMAKE_C_FLAGS_DEBUG: "-g"
+      CMAKE_EXE_LINKER_FLAGS: "--specs=rdimon.specs -nostartfiles"
+      CMAKE_MODULE_PATH: "/home/mthompkins/workspace/cocoOS/test/cmake;/home/mthompkins/workspace/cocoOS/test;/home/mthompkins/workspace/cocoOS/test/build/test_a9/_deps/cpputest-src/cmake/Modules"
+    buildResult:
+      variable: "CMAKE_HAVE_LIBC_PTHREAD"
+      cached: true
+      stdout: |
+        Change Dir: '/home/mthompkins/workspace/cocoOS/test/build/test_a9/CMakeFiles/CMakeScratch/TryCompile-r01Dlb'
+        
+        Run Build Command(s): /usr/bin/ninja-build -v cmTC_f0b7c
+        [1/2] /opt/arm-gnu-toolchain-12.2.rel1-x86_64-arm-none-eabi/bin/arm-none-eabi-gcc -DCMAKE_HAVE_LIBC_PTHREAD  -O0 -g3 -march=armv7-a -marm -DCPU_A9 -O0 -g3 -march=armv7-a -marm -DCPU_A9 -o CMakeFiles/cmTC_f0b7c.dir/src.c.o -c /home/mthompkins/workspace/cocoOS/test/build/test_a9/CMakeFiles/CMakeScratch/TryCompile-r01Dlb/src.c
+        /home/mthompkins/workspace/cocoOS/test/build/test_a9/CMakeFiles/CMakeScratch/TryCompile-r01Dlb/src.c: In function 'main':
+        /home/mthompkins/workspace/cocoOS/test/build/test_a9/CMakeFiles/CMakeScratch/TryCompile-r01Dlb/src.c:11:3: warning: implicit declaration of function 'pthread_create' [-Wimplicit-function-declaration]
+           11 |   pthread_create(&thread, NULL, test_func, NULL);
+              |   ^~~~~~~~~~~~~~
+        /home/mthompkins/workspace/cocoOS/test/build/test_a9/CMakeFiles/CMakeScratch/TryCompile-r01Dlb/src.c:12:3: warning: implicit declaration of function 'pthread_detach' [-Wimplicit-function-declaration]
+           12 |   pthread_detach(thread);
+              |   ^~~~~~~~~~~~~~
+        /home/mthompkins/workspace/cocoOS/test/build/test_a9/CMakeFiles/CMakeScratch/TryCompile-r01Dlb/src.c:13:3: warning: implicit declaration of function 'pthread_cancel' [-Wimplicit-function-declaration]
+           13 |   pthread_cancel(thread);
+              |   ^~~~~~~~~~~~~~
+        /home/mthompkins/workspace/cocoOS/test/build/test_a9/CMakeFiles/CMakeScratch/TryCompile-r01Dlb/src.c:14:3: warning: implicit declaration of function 'pthread_join'; did you mean 'pthread_atfork'? [-Wimplicit-function-declaration]
+           14 |   pthread_join(thread, NULL);
+              |   ^~~~~~~~~~~~
+              |   pthread_atfork
+        /home/mthompkins/workspace/cocoOS/test/build/test_a9/CMakeFiles/CMakeScratch/TryCompile-r01Dlb/src.c:16:3: warning: implicit declaration of function 'pthread_exit' [-Wimplicit-function-declaration]
+           16 |   pthread_exit(NULL);
+              |   ^~~~~~~~~~~~
+        [2/2] : && /opt/arm-gnu-toolchain-12.2.rel1-x86_64-arm-none-eabi/bin/arm-none-eabi-gcc -O0 -g3 -march=armv7-a -marm -DCPU_A9 -O0 -g3 -march=armv7-a -marm -DCPU_A9 --specs=rdimon.specs -nostartfiles CMakeFiles/cmTC_f0b7c.dir/src.c.o -o cmTC_f0b7c.elf   && :
+        FAILED: cmTC_f0b7c.elf 
+        : && /opt/arm-gnu-toolchain-12.2.rel1-x86_64-arm-none-eabi/bin/arm-none-eabi-gcc -O0 -g3 -march=armv7-a -marm -DCPU_A9 -O0 -g3 -march=armv7-a -marm -DCPU_A9 --specs=rdimon.specs -nostartfiles CMakeFiles/cmTC_f0b7c.dir/src.c.o -o cmTC_f0b7c.elf   && :
+        /opt/arm-gnu-toolchain-12.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/12.2.1/../../../../arm-none-eabi/bin/ld: warning: cannot find entry symbol _start; defaulting to 0000000000008000
+        /opt/arm-gnu-toolchain-12.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/12.2.1/../../../../arm-none-eabi/bin/ld: CMakeFiles/cmTC_f0b7c.dir/src.c.o: in function `main':
+        /home/mthompkins/workspace/cocoOS/test/build/test_a9/CMakeFiles/CMakeScratch/TryCompile-r01Dlb/src.c:11: undefined reference to `pthread_create'
+        /opt/arm-gnu-toolchain-12.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/12.2.1/../../../../arm-none-eabi/bin/ld: /home/mthompkins/workspace/cocoOS/test/build/test_a9/CMakeFiles/CMakeScratch/TryCompile-r01Dlb/src.c:12: undefined reference to `pthread_detach'
+        /opt/arm-gnu-toolchain-12.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/12.2.1/../../../../arm-none-eabi/bin/ld: /home/mthompkins/workspace/cocoOS/test/build/test_a9/CMakeFiles/CMakeScratch/TryCompile-r01Dlb/src.c:13: undefined reference to `pthread_cancel'
+        /opt/arm-gnu-toolchain-12.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/12.2.1/../../../../arm-none-eabi/bin/ld: /home/mthompkins/workspace/cocoOS/test/build/test_a9/CMakeFiles/CMakeScratch/TryCompile-r01Dlb/src.c:14: undefined reference to `pthread_join'
+        /opt/arm-gnu-toolchain-12.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/12.2.1/../../../../arm-none-eabi/bin/ld: /home/mthompkins/workspace/cocoOS/test/build/test_a9/CMakeFiles/CMakeScratch/TryCompile-r01Dlb/src.c:15: undefined reference to `pthread_atfork'
+        /opt/arm-gnu-toolchain-12.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/12.2.1/../../../../arm-none-eabi/bin/ld: /home/mthompkins/workspace/cocoOS/test/build/test_a9/CMakeFiles/CMakeScratch/TryCompile-r01Dlb/src.c:16: undefined reference to `pthread_exit'
+        collect2: error: ld returned 1 exit status
+        ninja: build stopped: subcommand failed.
+        
+      exitCode: 1
+  -
+    kind: "try_compile-v1"
+    backtrace:
+      - "/opt/cmake-3.27.0-rc4-linux-x86_64/share/cmake-3.27/Modules/FindThreads.cmake:136 (try_compile)"
+      - "/opt/cmake-3.27.0-rc4-linux-x86_64/share/cmake-3.27/Modules/FindThreads.cmake:169 (_threads_check_flag_pthread)"
+      - "build/test_a9/_deps/cpputest-src/src/CppUTest/CMakeLists.txt:82 (find_package)"
+    checks:
+      - "Check if compiler accepts -pthread"
+    directories:
+      source: "/home/mthompkins/workspace/cocoOS/test/build/test_a9/CMakeFiles/CMakeScratch/TryCompile-m6Qfif"
+      binary: "/home/mthompkins/workspace/cocoOS/test/build/test_a9/CMakeFiles/CMakeScratch/TryCompile-m6Qfif"
+    cmakeVariables:
+      CMAKE_C_FLAGS: "-O0 -g3 -march=armv7-a -marm -DCPU_A9"
+      CMAKE_C_FLAGS_DEBUG: "-g"
+      CMAKE_EXE_LINKER_FLAGS: "--specs=rdimon.specs -nostartfiles"
+      CMAKE_MODULE_PATH: "/home/mthompkins/workspace/cocoOS/test/cmake;/home/mthompkins/workspace/cocoOS/test;/home/mthompkins/workspace/cocoOS/test/build/test_a9/_deps/cpputest-src/cmake/Modules"
+    buildResult:
+      variable: "THREADS_HAVE_PTHREAD_ARG"
+      cached: true
+      stdout: |
+        Change Dir: '/home/mthompkins/workspace/cocoOS/test/build/test_a9/CMakeFiles/CMakeScratch/TryCompile-m6Qfif'
+        
+        Run Build Command(s): /usr/bin/ninja-build -v cmTC_82925
+        [1/2] /opt/arm-gnu-toolchain-12.2.rel1-x86_64-arm-none-eabi/bin/arm-none-eabi-gcc   -O0 -g3 -march=armv7-a -marm -DCPU_A9 -o CMakeFiles/cmTC_82925.dir/CheckForPthreads.c.o -c /home/mthompkins/workspace/cocoOS/test/build/test_a9/CMakeFiles/CMakeScratch/TryCompile-m6Qfif/CheckForPthreads.c
+        /home/mthompkins/workspace/cocoOS/test/build/test_a9/CMakeFiles/CMakeScratch/TryCompile-m6Qfif/CheckForPthreads.c: In function 'main':
+        /home/mthompkins/workspace/cocoOS/test/build/test_a9/CMakeFiles/CMakeScratch/TryCompile-m6Qfif/CheckForPthreads.c:12:3: warning: implicit declaration of function 'pthread_create' [-Wimplicit-function-declaration]
+           12 |   pthread_create(&thread, 0, start_routine, 0);
+              |   ^~~~~~~~~~~~~~
+        /home/mthompkins/workspace/cocoOS/test/build/test_a9/CMakeFiles/CMakeScratch/TryCompile-m6Qfif/CheckForPthreads.c:13:3: warning: implicit declaration of function 'pthread_join'; did you mean 'pthread_atfork'? [-Wimplicit-function-declaration]
+           13 |   pthread_join(thread, 0);
+              |   ^~~~~~~~~~~~
+              |   pthread_atfork
+        [2/2] : && /opt/arm-gnu-toolchain-12.2.rel1-x86_64-arm-none-eabi/bin/arm-none-eabi-gcc -O0 -g3 -march=armv7-a -marm -DCPU_A9 --specs=rdimon.specs -nostartfiles CMakeFiles/cmTC_82925.dir/CheckForPthreads.c.o -o cmTC_82925.elf  -pthread && :
+        FAILED: cmTC_82925.elf 
+        : && /opt/arm-gnu-toolchain-12.2.rel1-x86_64-arm-none-eabi/bin/arm-none-eabi-gcc -O0 -g3 -march=armv7-a -marm -DCPU_A9 --specs=rdimon.specs -nostartfiles CMakeFiles/cmTC_82925.dir/CheckForPthreads.c.o -o cmTC_82925.elf  -pthread && :
+        arm-none-eabi-gcc: error: unrecognized command-line option '-pthread'
+        ninja: build stopped: subcommand failed.
+        
+      exitCode: 1
+  -
+    kind: "try_compile-v1"
+    backtrace:
+      - "/opt/cmake-3.27.0-rc4-linux-x86_64/share/cmake-3.27/Modules/CheckLibraryExists.cmake:69 (try_compile)"
+      - "/opt/cmake-3.27.0-rc4-linux-x86_64/share/cmake-3.27/Modules/FindThreads.cmake:112 (CHECK_LIBRARY_EXISTS)"
+      - "/opt/cmake-3.27.0-rc4-linux-x86_64/share/cmake-3.27/Modules/FindThreads.cmake:175 (_threads_check_lib)"
+      - "build/test_a9/_deps/cpputest-src/src/CppUTest/CMakeLists.txt:82 (find_package)"
+    checks:
+      - "Looking for pthread_create in pthreads"
+    directories:
+      source: "/home/mthompkins/workspace/cocoOS/test/build/test_a9/CMakeFiles/CMakeScratch/TryCompile-SLhiE1"
+      binary: "/home/mthompkins/workspace/cocoOS/test/build/test_a9/CMakeFiles/CMakeScratch/TryCompile-SLhiE1"
+    cmakeVariables:
+      CMAKE_C_FLAGS: "-O0 -g3 -march=armv7-a -marm -DCPU_A9"
+      CMAKE_C_FLAGS_DEBUG: "-g"
+      CMAKE_EXE_LINKER_FLAGS: "--specs=rdimon.specs -nostartfiles"
+      CMAKE_MODULE_PATH: "/home/mthompkins/workspace/cocoOS/test/cmake;/home/mthompkins/workspace/cocoOS/test;/home/mthompkins/workspace/cocoOS/test/build/test_a9/_deps/cpputest-src/cmake/Modules"
+    buildResult:
+      variable: "CMAKE_HAVE_PTHREADS_CREATE"
+      cached: true
+      stdout: |
+        Change Dir: '/home/mthompkins/workspace/cocoOS/test/build/test_a9/CMakeFiles/CMakeScratch/TryCompile-SLhiE1'
+        
+        Run Build Command(s): /usr/bin/ninja-build -v cmTC_e42b7
+        [1/2] /opt/arm-gnu-toolchain-12.2.rel1-x86_64-arm-none-eabi/bin/arm-none-eabi-gcc   -O0 -g3 -march=armv7-a -marm -DCPU_A9 -DCHECK_FUNCTION_EXISTS=pthread_create -O0 -g3 -march=armv7-a -marm -DCPU_A9 -o CMakeFiles/cmTC_e42b7.dir/CheckFunctionExists.c.o -c /home/mthompkins/workspace/cocoOS/test/build/test_a9/CMakeFiles/CMakeScratch/TryCompile-SLhiE1/CheckFunctionExists.c
+        [2/2] : && /opt/arm-gnu-toolchain-12.2.rel1-x86_64-arm-none-eabi/bin/arm-none-eabi-gcc -O0 -g3 -march=armv7-a -marm -DCPU_A9 -DCHECK_FUNCTION_EXISTS=pthread_create -O0 -g3 -march=armv7-a -marm -DCPU_A9 --specs=rdimon.specs -nostartfiles CMakeFiles/cmTC_e42b7.dir/CheckFunctionExists.c.o -o cmTC_e42b7.elf  -lpthreads && :
+        FAILED: cmTC_e42b7.elf 
+        : && /opt/arm-gnu-toolchain-12.2.rel1-x86_64-arm-none-eabi/bin/arm-none-eabi-gcc -O0 -g3 -march=armv7-a -marm -DCPU_A9 -DCHECK_FUNCTION_EXISTS=pthread_create -O0 -g3 -march=armv7-a -marm -DCPU_A9 --specs=rdimon.specs -nostartfiles CMakeFiles/cmTC_e42b7.dir/CheckFunctionExists.c.o -o cmTC_e42b7.elf  -lpthreads && :
+        /opt/arm-gnu-toolchain-12.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/12.2.1/../../../../arm-none-eabi/bin/ld: cannot find -lpthreads: No such file or directory
+        collect2: error: ld returned 1 exit status
+        ninja: build stopped: subcommand failed.
+        
+      exitCode: 1
+  -
+    kind: "try_compile-v1"
+    backtrace:
+      - "/opt/cmake-3.27.0-rc4-linux-x86_64/share/cmake-3.27/Modules/CheckLibraryExists.cmake:69 (try_compile)"
+      - "/opt/cmake-3.27.0-rc4-linux-x86_64/share/cmake-3.27/Modules/FindThreads.cmake:112 (CHECK_LIBRARY_EXISTS)"
+      - "/opt/cmake-3.27.0-rc4-linux-x86_64/share/cmake-3.27/Modules/FindThreads.cmake:176 (_threads_check_lib)"
+      - "build/test_a9/_deps/cpputest-src/src/CppUTest/CMakeLists.txt:82 (find_package)"
+    checks:
+      - "Looking for pthread_create in pthread"
+    directories:
+      source: "/home/mthompkins/workspace/cocoOS/test/build/test_a9/CMakeFiles/CMakeScratch/TryCompile-VOeo1G"
+      binary: "/home/mthompkins/workspace/cocoOS/test/build/test_a9/CMakeFiles/CMakeScratch/TryCompile-VOeo1G"
+    cmakeVariables:
+      CMAKE_C_FLAGS: "-O0 -g3 -march=armv7-a -marm -DCPU_A9"
+      CMAKE_C_FLAGS_DEBUG: "-g"
+      CMAKE_EXE_LINKER_FLAGS: "--specs=rdimon.specs -nostartfiles"
+      CMAKE_MODULE_PATH: "/home/mthompkins/workspace/cocoOS/test/cmake;/home/mthompkins/workspace/cocoOS/test;/home/mthompkins/workspace/cocoOS/test/build/test_a9/_deps/cpputest-src/cmake/Modules"
+    buildResult:
+      variable: "CMAKE_HAVE_PTHREAD_CREATE"
+      cached: true
+      stdout: |
+        Change Dir: '/home/mthompkins/workspace/cocoOS/test/build/test_a9/CMakeFiles/CMakeScratch/TryCompile-VOeo1G'
+        
+        Run Build Command(s): /usr/bin/ninja-build -v cmTC_09817
+        [1/2] /opt/arm-gnu-toolchain-12.2.rel1-x86_64-arm-none-eabi/bin/arm-none-eabi-gcc   -O0 -g3 -march=armv7-a -marm -DCPU_A9 -DCHECK_FUNCTION_EXISTS=pthread_create -O0 -g3 -march=armv7-a -marm -DCPU_A9 -o CMakeFiles/cmTC_09817.dir/CheckFunctionExists.c.o -c /home/mthompkins/workspace/cocoOS/test/build/test_a9/CMakeFiles/CMakeScratch/TryCompile-VOeo1G/CheckFunctionExists.c
+        [2/2] : && /opt/arm-gnu-toolchain-12.2.rel1-x86_64-arm-none-eabi/bin/arm-none-eabi-gcc -O0 -g3 -march=armv7-a -marm -DCPU_A9 -DCHECK_FUNCTION_EXISTS=pthread_create -O0 -g3 -march=armv7-a -marm -DCPU_A9 --specs=rdimon.specs -nostartfiles CMakeFiles/cmTC_09817.dir/CheckFunctionExists.c.o -o cmTC_09817.elf  -lpthread && :
+        FAILED: cmTC_09817.elf 
+        : && /opt/arm-gnu-toolchain-12.2.rel1-x86_64-arm-none-eabi/bin/arm-none-eabi-gcc -O0 -g3 -march=armv7-a -marm -DCPU_A9 -DCHECK_FUNCTION_EXISTS=pthread_create -O0 -g3 -march=armv7-a -marm -DCPU_A9 --specs=rdimon.specs -nostartfiles CMakeFiles/cmTC_09817.dir/CheckFunctionExists.c.o -o cmTC_09817.elf  -lpthread && :
+        /opt/arm-gnu-toolchain-12.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/12.2.1/../../../../arm-none-eabi/bin/ld: cannot find -lpthread: No such file or directory
+        collect2: error: ld returned 1 exit status
+        ninja: build stopped: subcommand failed.
+        
+      exitCode: 1
+...

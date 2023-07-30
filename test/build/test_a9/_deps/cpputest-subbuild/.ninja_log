@@ -1,0 +1,21 @@
+# ninja log v5
+1	9	1690690180	cpputest-populate-prefix/src/cpputest-populate-stamp/cpputest-populate-mkdir	9aa200a6649e9178
+1	9	1690690180	/home/mthompkins/workspace/cocoOS/test/build/test_a9/_deps/cpputest-subbuild/cpputest-populate-prefix/src/cpputest-populate-stamp/cpputest-populate-mkdir	9aa200a6649e9178
+10	6649	1690690187	cpputest-populate-prefix/src/cpputest-populate-stamp/cpputest-populate-download	9fdf5d6d2a581f42
+10	6649	1690690187	/home/mthompkins/workspace/cocoOS/test/build/test_a9/_deps/cpputest-subbuild/cpputest-populate-prefix/src/cpputest-populate-stamp/cpputest-populate-download	9fdf5d6d2a581f42
+6649	12177	0	cpputest-populate-prefix/src/cpputest-populate-stamp/cpputest-populate-update	aa876eed6e7038d
+6649	12177	0	/home/mthompkins/workspace/cocoOS/test/build/test_a9/_deps/cpputest-subbuild/cpputest-populate-prefix/src/cpputest-populate-stamp/cpputest-populate-update	aa876eed6e7038d
+12177	12184	1690690192	cpputest-populate-prefix/src/cpputest-populate-stamp/cpputest-populate-patch	a776a3fde769894b
+12177	12184	1690690192	/home/mthompkins/workspace/cocoOS/test/build/test_a9/_deps/cpputest-subbuild/cpputest-populate-prefix/src/cpputest-populate-stamp/cpputest-populate-patch	a776a3fde769894b
+12184	12191	1690690192	cpputest-populate-prefix/src/cpputest-populate-stamp/cpputest-populate-configure	9525857f7c5a41c7
+12184	12191	1690690192	/home/mthompkins/workspace/cocoOS/test/build/test_a9/_deps/cpputest-subbuild/cpputest-populate-prefix/src/cpputest-populate-stamp/cpputest-populate-configure	9525857f7c5a41c7
+12191	12197	1690690192	cpputest-populate-prefix/src/cpputest-populate-stamp/cpputest-populate-build	874e20ad694da54d
+12191	12197	1690690192	/home/mthompkins/workspace/cocoOS/test/build/test_a9/_deps/cpputest-subbuild/cpputest-populate-prefix/src/cpputest-populate-stamp/cpputest-populate-build	874e20ad694da54d
+12197	12205	1690690192	cpputest-populate-prefix/src/cpputest-populate-stamp/cpputest-populate-install	4f658f02471d4310
+12197	12205	1690690192	/home/mthompkins/workspace/cocoOS/test/build/test_a9/_deps/cpputest-subbuild/cpputest-populate-prefix/src/cpputest-populate-stamp/cpputest-populate-install	4f658f02471d4310
+12205	12212	1690690192	cpputest-populate-prefix/src/cpputest-populate-stamp/cpputest-populate-test	80636e8e06c0c5a3
+12205	12212	1690690192	/home/mthompkins/workspace/cocoOS/test/build/test_a9/_deps/cpputest-subbuild/cpputest-populate-prefix/src/cpputest-populate-stamp/cpputest-populate-test	80636e8e06c0c5a3
+12212	12220	1690690192	CMakeFiles/cpputest-populate-complete	2282882cdada0db6
+12212	12220	1690690192	cpputest-populate-prefix/src/cpputest-populate-stamp/cpputest-populate-done	2282882cdada0db6
+12212	12220	1690690192	/home/mthompkins/workspace/cocoOS/test/build/test_a9/_deps/cpputest-subbuild/CMakeFiles/cpputest-populate-complete	2282882cdada0db6
+12212	12220	1690690192	/home/mthompkins/workspace/cocoOS/test/build/test_a9/_deps/cpputest-subbuild/cpputest-populate-prefix/src/cpputest-populate-stamp/cpputest-populate-done	2282882cdada0db6
