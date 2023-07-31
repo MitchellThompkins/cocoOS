@@ -1,7 +1,11 @@
 .project
 *.swp
 *.swo
+.gdbinit
+.gdb_history
 compile_commands.json
+CMakeCache.txt
 tags
 
 build/
+CMakeFiles/
