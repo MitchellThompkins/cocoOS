@@ -20,7 +20,5 @@ set(CMAKE_VERBOSE_MAKEFILE ON)
 
 list(APPEND CMAKE_MODULE_PATH ${CMAKE_CURRENT_LIST_DIR})
 
+add_subdirectory(cocoOS)
 add_subdirectory(tests)
-
-add_subdirectory(src)
-add_subdirectory(inc)
