@@ -2,6 +2,7 @@
 #include "CppUTestExt/MockSupport.h"
 #include "mocks.hpp"
 
+#include "platform.h"
 #include "cocoos.h"
 
 #define N_TASKS  1
@@ -28,8 +29,13 @@ TEST_GROUP(TestOsTask)
 
 TEST(TestOsTask, task_create_fail)
 {
+    set_tick_limit_before_exit(10);
+
     mock().expectOneCall("os_assert");
+
     task_create( dummy_task, NULL, 1, NULL, 0, 0 );
+    task_create( dummy_task, NULL, 1, NULL, 0, 0 );
+
     mock().checkExpectations();
     mock().clear();
 
