@@ -1,6 +1,6 @@
 #include "CppUTest/TestHarness.h"
 #include "CppUTestExt/MockSupport.h"
-#include "mocks.hpp"
+//#include "mocks.hpp"
 
 #include "platform.h"
 #include "cocoos.h"
@@ -11,6 +11,12 @@
 #define N_EVENTS 0
 #define ROUND_ROBIN 0
 #define Mem_t uint32_t
+
+void os_on_assert()
+{
+    printf("called mock");
+    mock().actualCall("os_on_assert");
+}
 
 static void dummy_task(void)
 {}
@@ -31,7 +37,7 @@ TEST(TestOsTask, task_create_fail)
 {
     set_tick_limit_before_exit(10);
 
-    mock().expectOneCall("os_assert");
+    mock().expectOneCall("os_on_assert");
 
     task_create( dummy_task, NULL, 1, NULL, 0, 0 );
     task_create( dummy_task, NULL, 1, NULL, 0, 0 );
