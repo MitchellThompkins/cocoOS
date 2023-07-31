@@ -35,7 +35,17 @@
  
 
 
-#include "cocoos.h"
+//#include "cocoos.h"
+//#include <stdint.h>
+//#include "os_port.h"
+//#include "os_typedef.h"
+//#include "os_defines.h"
+//#include "os_event.h"
+//#include "os_sem.h"
+//#include "os_task.h"
+//#include "os_assert.h"
+//#include "os_msgqueue.h"
+//#include "os_applAPI.h"
 
 static void os_schedule( void );
 

@@ -1,7 +1,6 @@
 #include "stdio.h"
 #include "stdlib.h"
 #include "platform.h"
-#include "cocoos.h"
 
 #include "CppUTest/CommandLineTestRunner.h"
 
