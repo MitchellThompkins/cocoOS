@@ -13,5 +13,5 @@ target_sources(platform
 
 target_link_libraries(platform
     PRIVATE
-        cocoOS
+        os_kernel
 )

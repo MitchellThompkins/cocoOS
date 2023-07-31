@@ -1,5 +1,5 @@
 #include "system_time.h"
-#include "cocoos.h"
+#include "os_applAPI.h"
 
 #ifdef __cplusplus
 extern "C" {
