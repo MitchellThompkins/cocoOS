@@ -39,7 +39,6 @@
 
 /** @file os_event.h Event header file*/
 
-#include "cocoos.h"
 #include "stdarg.h"
 
 #ifdef __cplusplus

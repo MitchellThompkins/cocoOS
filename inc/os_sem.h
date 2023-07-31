@@ -39,8 +39,6 @@
 
 /** @file os_sem.h Semaphore header file*/
 
-#include "cocoos.h"
-
 #ifdef __cplusplus
 extern "C" {
 #endif
