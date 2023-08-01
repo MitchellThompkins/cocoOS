@@ -37,7 +37,8 @@
 #ifndef _os_applapi_h__
 #define _os_applapi_h__
 
-#include "cocoos.h"
+//#include "cocoos.h"
+#include <stdint.h>
 
 #ifdef __cplusplus
 extern "C" {

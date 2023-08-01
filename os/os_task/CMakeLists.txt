@@ -3,6 +3,11 @@ add_library(os_task
 )
 
 target_include_directories(os_task
-    PUBLIC
+    PRIVATE
         include
+)
+
+target_link_libraries(os_task
+    PRIVATE
+        os_utils
 )

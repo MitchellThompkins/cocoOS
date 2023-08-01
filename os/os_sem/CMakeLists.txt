@@ -3,6 +3,6 @@ add_library(os_sem
 )
 
 target_include_directories(os_sem
-    PUBLIC
+    PRIVATE
         include
 )

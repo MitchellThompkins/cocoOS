@@ -72,7 +72,7 @@ uint8_t running;
 *		 */
 /*********************************************************************************/
 void os_init( void ) {
-	running_tid = NO_TID;
+    running_tid = NO_TID;
     last_running_task = NO_TID;
     running = 0;
     os_sem_init();
@@ -229,26 +229,26 @@ uint8_t os_get_running_tid(void) {
 }
 
 //TODO(mthompkins): I don't see where unit tests so I reccomend removal of this
-#ifdef UNIT_TEST
-void os_run() {
-    running = 1;
-    os_enable_interrupts();
-    os_schedule();
-}
-
-void os_run_until_taskState(uint8_t taskId, TaskState_t state) {
-    running = 1;
-    os_enable_interrupts();
-    do {
-        os_schedule();
-    } while ( state != task_state_get(taskId) );
-}
-
-TaskState_t os_get_task_state(uint8_t taskId) {
-    return task_state_get(taskId);
-}
-
-
-
-
-#endif
+//#ifdef UNIT_TEST
+//void os_run() {
+//    running = 1;
+//    os_enable_interrupts();
+//    os_schedule();
+//}
+//
+//void os_run_until_taskState(uint8_t taskId, TaskState_t state) {
+//    running = 1;
+//    os_enable_interrupts();
+//    do {
+//        os_schedule();
+//    } while ( state != task_state_get(taskId) );
+//}
+//
+//TaskState_t os_get_task_state(uint8_t taskId) {
+//    return task_state_get(taskId);
+//}
+//
+//
+//
+//
+//#endif

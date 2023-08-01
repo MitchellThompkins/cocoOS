@@ -3,6 +3,6 @@ add_library(os_msgqueue
 )
 
 target_include_directories(os_msgqueue
-    PUBLIC
+    PRIVATE
         include
 )

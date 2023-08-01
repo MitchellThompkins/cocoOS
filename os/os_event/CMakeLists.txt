@@ -3,6 +3,6 @@ add_library(os_event
 )
 
 target_include_directories(os_event
-    PUBLIC
+    PRIVATE
         include
 )

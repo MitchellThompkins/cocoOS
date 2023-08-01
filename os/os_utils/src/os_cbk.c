@@ -34,7 +34,8 @@
  */
  
 
-#include "cocoos.h"
+//#include "cocoos.h"
+#include "os_applAPI.h"
 
 /************************************************************** *******************/
 /*  void os_cbkSleep( void )    *//**

@@ -35,7 +35,8 @@
  
 
 
-#include "cocoos.h"
+//#include "cocoos.h"
+#include <stdint.h>
 
 static void (*user_callback)(const char*, uint16_t, const char*) = (void*)0;
 

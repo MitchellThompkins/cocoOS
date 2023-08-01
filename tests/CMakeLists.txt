@@ -18,9 +18,11 @@ add_executable(test
 )
 
 target_link_libraries(test
-    PRIVATE
+    PUBLIC
         platform
-        mocks
+        os_kernel
+        os_task
+        os_utils
         CppUTest::CppUTest
         CppUTest::CppUTestExt
 )
