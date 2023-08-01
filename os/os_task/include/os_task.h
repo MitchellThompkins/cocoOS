@@ -3,6 +3,8 @@
 
 /** @file os_task.h Task header file*/
 
+#include "stdint.h"
+
 #include "os_defines.h"
 #include "os_msgqueue.h"
 
@@ -46,72 +48,34 @@ typedef enum {
 
 
 void os_task_init(void);
-
 uint8_t os_task_highest_prio_ready_task( void );
-
 uint8_t os_task_next_ready_task( void );
-
 void os_task_ready_set( uint8_t tid );
-
-void os_task_wait_sem_set( uint8_t tid,
-                           Sem_t sem );
-
+void os_task_wait_sem_set( uint8_t tid, Sem_t sem );
 void os_task_suspend( uint8_t tid );
-
 void os_task_resume( uint8_t tid );
-
 void os_task_kill( uint8_t tid );
-
 uint8_t os_task_prio_get( uint8_t tid );
-
 void os_task_clear_wait_queue( uint8_t tid );
-
-void os_task_wait_time_set( uint8_t tid,
-                            uint8_t id,
-                            uint32_t time );
-
-void os_task_wait_event( uint8_t tid,
-                         Evt_t eventId,
-                         uint8_t waitSingleEvent,
-                         uint32_t timeout );
-
-void os_task_tick( uint8_t id,
-                   uint32_t tickSize );
-
+void os_task_wait_time_set( uint8_t tid, uint8_t id, uint32_t time );
+void os_task_wait_event( uint8_t tid, Evt_t eventId, uint8_t waitSingleEvent, uint32_t timeout );
+void os_task_tick( uint8_t id, uint32_t tickSize );
 void os_task_signal_event( Evt_t eventId );
-
 void os_task_run( void );
-
 uint16_t os_task_internal_state_get( uint8_t tid );
-
-void os_task_internal_state_set( uint8_t tid,
-                                 uint16_t state );
-
+void os_task_internal_state_set( uint8_t tid, uint16_t state );
 void os_task_release_waiting_task( Sem_t sem );
-
 uint8_t os_task_waiting_this_semaphore( Sem_t sem );
-
-void os_task_set_wait_queue( uint8_t tid,
-                             MsgQ_t queue);
-
-void os_task_set_change_event( uint8_t tid,
-                               Evt_t event);
-
-void os_task_set_msg_result( uint8_t tid,
-                             uint8_t result);
-
-uint8_t os_task_get_msg_result( uint8_t tid);
-
-uint32_t os_task_timeout_get( uint8_t tid);
-
 MsgQ_t os_task_msgQ_get( uint8_t tid );
-
+void os_task_set_wait_queue(uint8_t tid, MsgQ_t queue);
 MsgQ_t os_task_get_wait_queue(uint8_t tid);
-
+void os_task_set_change_event(uint8_t tid, Evt_t event);
 Evt_t os_task_get_change_event(uint8_t tid);
+void os_task_set_msg_result(uint8_t tid, uint8_t result);
+uint8_t os_task_get_msg_result(uint8_t tid);
+uint32_t os_task_timeout_get(uint8_t tid);
 
-void get_task( const uint8_t tid,
-               const tcb** ptask_list);
+
 
 #ifdef __cplusplus
 }

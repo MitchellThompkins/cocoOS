@@ -1,8 +1,15 @@
-add_library(os_event
-    src/os_event.c
+# Interface
+add_library(os_event_intf INTERFACE)
+target_include_directories(os_event_intf
+    INTERFACE
+        include
 )
 
-target_include_directories(os_event
+# Implementation
+add_library(os_event_impl
+    src/os_event.c
+)
+target_link_libraries(os_event_impl
     PRIVATE
-        include
+        os_utils
 )

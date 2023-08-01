@@ -672,12 +672,6 @@ static void task_killed_set( uint8_t tid ) {
     task_list[ tid ].state = KILLED;
 }
 
-void get_task( const uint8_t tid,
-               const tcb** ptask_list)
-{
-    *ptask_list = &task_list[ tid ];
-}
-
 #ifdef __cplusplus
 }
 #endif

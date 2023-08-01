@@ -1,8 +1,15 @@
-add_library(os_sem
-    src/os_sem.c
+# Interface
+add_library(os_sem_intf INTERFACE)
+target_include_directories(os_sem_intf
+    INTERFACE
+        include
 )
 
-target_include_directories(os_sem
-    PRIVATE
-        include
+# Implementation
+add_library(os_sem_impl
+    src/os_sem.c
+)
+target_link_libraries(os_sem_impl
+    PUBLIC
+        os_sem_intf
 )

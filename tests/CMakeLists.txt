@@ -20,9 +20,12 @@ add_executable(test
 target_link_libraries(test
     PUBLIC
         platform
-        os_kernel
-        os_task
-        os_utils
+
+        os_kernel_impl
+        os_sem_impl
+        os_task_impl
+        os_utils_impl
+
         CppUTest::CppUTest
         CppUTest::CppUTestExt
 )
