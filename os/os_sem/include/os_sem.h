@@ -3,6 +3,8 @@
 
 /** @file os_sem.h Semaphore header file*/
 
+#include "stdint.h"
+
 #ifdef __cplusplus
 extern "C" {
 #endif
