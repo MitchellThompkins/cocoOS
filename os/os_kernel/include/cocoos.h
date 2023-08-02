@@ -8,21 +8,13 @@
 #include "os_task.h"
 
 #ifdef __cplusplus
-
 extern "C" {
-
 #endif
 
 #define NO_TID	        255
 #define NO_EVENT        255
 #define NO_QUEUE        255
 #define NO_SEM          255
-
-
-
-
-
-
 
 #define OS_BEGIN            uint16_t os_task_state = os_task_internal_state_get(running_tid); switch ( os_task_state ) { case 0:
 

@@ -1,6 +1,7 @@
 #include <stdlib.h>
 
 #include "cocoos.h"
+#include "os_assert.h"
 #include "os_task.h"
 #include "os_typedef.h"
 

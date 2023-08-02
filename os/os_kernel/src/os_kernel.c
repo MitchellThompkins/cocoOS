@@ -1,6 +1,11 @@
 #include <stdint.h>
 
 #include "cocoos.h"
+#include "os_applAPI.h"
+#include "os_event.h"
+#include "os_msgqueue.h"
+#include "os_port.h"
+#include "os_sem.h"
 #include "os_task.h"
 
 static void os_schedule( void );

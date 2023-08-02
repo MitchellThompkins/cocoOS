@@ -1,5 +1,5 @@
-//TODO(@tthompkins): remove
-//#include "cocoos.h"
+#include "cocoos.h"
+#include "os_msgqueue.h"
 
 typedef struct {
     Mem_t *list;            ///< Storage buffer for messages
