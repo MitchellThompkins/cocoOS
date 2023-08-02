@@ -13,4 +13,5 @@ target_link_libraries(os_kernel_impl
     PUBLIC
         os_kernel_intf
         os_task_intf
+        os_utils_intf
 )
