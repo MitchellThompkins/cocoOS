@@ -16,6 +16,10 @@ build.cmake.%: | build.cmake/%/CMakeCache.txt
 
 build.%: build.cmake.%
 	echo "build $*"
+
+build.graph:
+	cmake --graphviz=test.dot . -DPLATFORM=CORTEX_A9
+
 #######################################
 ### Container #########################
 #######################################
