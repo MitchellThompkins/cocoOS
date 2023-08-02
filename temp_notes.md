@@ -42,49 +42,53 @@ subgraph clusterLegend {
     "node3" -> "node0" [ style = dotted ] // mocks -> CppUTest
     "node3" -> "node2" [ style = dotted ] // mocks -> CppUTestExt
     "node4" [ label = "os_event_impl", shape = octagon ];
-    "node5" [ label = "os_utils", shape = septagon ];
-    "node4" -> "node5" [ style = dotted ] // os_event_impl -> os_utils
-    "node6" [ label = "os_event_intf", shape = pentagon ];
-    "node7" [ label = "os_kernel_impl", shape = octagon ];
-    "node8" [ label = "os_kernel_intf", shape = pentagon ];
-    "node9" [ label = "os_msgqueue_intf", shape = pentagon ];
-    "node9" -> "node6" [ style = dashed ] // os_msgqueue_intf -> os_event_intf
-    "node8" -> "node9" [ style = dashed ] // os_kernel_intf -> os_msgqueue_intf
-    "node10" [ label = "os_sem_intf", shape = pentagon ];
-    "node8" -> "node10" [ style = dashed ] // os_kernel_intf -> os_sem_intf
-    "node11" [ label = "os_task_intf", shape = pentagon ];
-    "node11" -> "node6" [ style = dashed ] // os_task_intf -> os_event_intf
-    "node11" -> "node9" [ style = dashed ] // os_task_intf -> os_msgqueue_intf
-    "node11" -> "node10" [ style = dashed ] // os_task_intf -> os_sem_intf
-    "node12" [ label = "os_utils_intf", shape = pentagon ];
-    "node11" -> "node12" [ style = dashed ] // os_task_intf -> os_utils_intf
-    "node8" -> "node11" [ style = dashed ] // os_kernel_intf -> os_task_intf
-    "node7" -> "node8"  // os_kernel_impl -> os_kernel_intf
-    "node7" -> "node11"  // os_kernel_impl -> os_task_intf
-    "node13" [ label = "os_utils_impl", shape = octagon ];
-    "node13" -> "node8"  // os_utils_impl -> os_kernel_intf
-    "node13" -> "node12"  // os_utils_impl -> os_utils_intf
-    "node7" -> "node13"  // os_kernel_impl -> os_utils_impl
-    "node7" -> "node12"  // os_kernel_impl -> os_utils_intf
-    "node14" [ label = "os_msgqueue_impl", shape = octagon ];
-    "node14" -> "node9"  // os_msgqueue_impl -> os_msgqueue_intf
-    "node15" [ label = "os_sem_impl", shape = octagon ];
-    "node15" -> "node10"  // os_sem_impl -> os_sem_intf
-    "node16" [ label = "os_task_impl", shape = octagon ];
-    "node16" -> "node8"  // os_task_impl -> os_kernel_intf
-    "node16" -> "node10"  // os_task_impl -> os_sem_intf
-    "node16" -> "node11"  // os_task_impl -> os_task_intf
-    "node16" -> "node12"  // os_task_impl -> os_utils_intf
-    "node17" [ label = "platform", shape = octagon ];
-    "node17" -> "node8" [ style = dotted ] // platform -> os_kernel_intf
-    "node18" [ label = "test", shape = egg ];
-    "node18" -> "node0" [ style = dotted ] // test -> CppUTest
-    "node18" -> "node2" [ style = dotted ] // test -> CppUTestExt
-    "node18" -> "node7" [ style = dotted ] // test -> os_kernel_impl
-    "node18" -> "node15" [ style = dotted ] // test -> os_sem_impl
-    "node18" -> "node16" [ style = dotted ] // test -> os_task_impl
-    "node18" -> "node13" [ style = dotted ] // test -> os_utils_impl
-    "node18" -> "node17" [ style = dotted ] // test -> platform
-    "node18" -> "node18"  // test -> test
+    "node5" [ label = "os_event_intf", shape = pentagon ];
+    "node4" -> "node5" [ style = dotted ] // os_event_impl -> os_event_intf
+    "node6" [ label = "os_kernel_intf", shape = pentagon ];
+    "node7" [ label = "os_msgqueue_intf", shape = pentagon ];
+    "node7" -> "node5" [ style = dashed ] // os_msgqueue_intf -> os_event_intf
+    "node8" [ label = "os_utils_intf", shape = pentagon ];
+    "node7" -> "node8" [ style = dashed ] // os_msgqueue_intf -> os_utils_intf
+    "node6" -> "node7" [ style = dashed ] // os_kernel_intf -> os_msgqueue_intf
+    "node9" [ label = "os_sem_intf", shape = pentagon ];
+    "node6" -> "node9" [ style = dashed ] // os_kernel_intf -> os_sem_intf
+    "node10" [ label = "os_task_intf", shape = pentagon ];
+    "node10" -> "node5" [ style = dashed ] // os_task_intf -> os_event_intf
+    "node10" -> "node7" [ style = dashed ] // os_task_intf -> os_msgqueue_intf
+    "node10" -> "node9" [ style = dashed ] // os_task_intf -> os_sem_intf
+    "node10" -> "node8" [ style = dashed ] // os_task_intf -> os_utils_intf
+    "node6" -> "node10" [ style = dashed ] // os_kernel_intf -> os_task_intf
+    "node4" -> "node6" [ style = dotted ] // os_event_impl -> os_kernel_intf
+    "node11" [ label = "os_kernel_impl", shape = octagon ];
+    "node11" -> "node5"  // os_kernel_impl -> os_event_intf
+    "node11" -> "node6"  // os_kernel_impl -> os_kernel_intf
+    "node11" -> "node10"  // os_kernel_impl -> os_task_intf
+    "node11" -> "node8"  // os_kernel_impl -> os_utils_intf
+    "node12" [ label = "os_msgqueue_impl", shape = octagon ];
+    "node12" -> "node6"  // os_msgqueue_impl -> os_kernel_intf
+    "node12" -> "node7"  // os_msgqueue_impl -> os_msgqueue_intf
+    "node13" [ label = "os_sem_impl", shape = octagon ];
+    "node13" -> "node9"  // os_sem_impl -> os_sem_intf
+    "node14" [ label = "os_task_impl", shape = octagon ];
+    "node14" -> "node6"  // os_task_impl -> os_kernel_intf
+    "node14" -> "node9"  // os_task_impl -> os_sem_intf
+    "node14" -> "node10"  // os_task_impl -> os_task_intf
+    "node14" -> "node8"  // os_task_impl -> os_utils_intf
+    "node15" [ label = "os_utils_impl", shape = octagon ];
+    "node15" -> "node6"  // os_utils_impl -> os_kernel_intf
+    "node15" -> "node8"  // os_utils_impl -> os_utils_intf
+    "node16" [ label = "platform", shape = octagon ];
+    "node16" -> "node6" [ style = dotted ] // platform -> os_kernel_intf
+    "node17" [ label = "test", shape = egg ];
+    "node17" -> "node0" [ style = dotted ] // test -> CppUTest
+    "node17" -> "node2" [ style = dotted ] // test -> CppUTestExt
+    "node17" -> "node4" [ style = dotted ] // test -> os_event_impl
+    "node17" -> "node11" [ style = dotted ] // test -> os_kernel_impl
+    "node17" -> "node12" [ style = dotted ] // test -> os_msgqueue_impl
+    "node17" -> "node13" [ style = dotted ] // test -> os_sem_impl
+    "node17" -> "node14" [ style = dotted ] // test -> os_task_impl
+    "node17" -> "node15" [ style = dotted ] // test -> os_utils_impl
+    "node17" -> "node16" [ style = dotted ] // test -> platform
+    "node17" -> "node17"  // test -> test
 }
 ```
