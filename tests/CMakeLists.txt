@@ -21,6 +21,7 @@ target_link_libraries(test
     PUBLIC
         platform
 
+        # The linkage order matters :(
         os_kernel_impl
         os_event_impl
         os_msgqueue_impl
