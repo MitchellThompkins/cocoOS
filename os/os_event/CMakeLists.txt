@@ -13,5 +13,4 @@ target_link_libraries(os_event_impl
     PRIVATE
         os_event_intf
         os_kernel_intf
-        os_utils_impl
 )

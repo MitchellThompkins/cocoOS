@@ -21,8 +21,8 @@ target_link_libraries(test
     PUBLIC
         platform
 
-        os_event_impl
         os_kernel_impl
+        os_event_impl
         os_msgqueue_impl
         os_sem_impl
         os_task_impl
