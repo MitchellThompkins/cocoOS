@@ -4,6 +4,12 @@ target_include_directories(os_kernel_intf
     INTERFACE
         include
 )
+target_link_libraries(os_kernel_intf
+    INTERFACE
+        os_msgqueue_intf
+        os_task_intf
+        os_sem_intf
+)
 
 # Implementation
 add_library(os_kernel_impl
@@ -14,4 +20,5 @@ target_link_libraries(os_kernel_impl
         os_kernel_intf
         os_task_intf
         os_utils_intf
+        os_utils_impl
 )

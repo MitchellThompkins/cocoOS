@@ -9,6 +9,7 @@ tags
 
 build/
 CMakeFiles/
+_deps/
 
 *cmake_install*
 Makefile

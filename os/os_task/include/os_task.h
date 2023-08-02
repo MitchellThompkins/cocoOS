@@ -6,7 +6,9 @@
 #include "stdint.h"
 
 #include "os_defines.h"
+#include "os_event.h"
 #include "os_msgqueue.h"
+#include "os_sem.h"
 
 #ifdef __cplusplus
 extern "C" {

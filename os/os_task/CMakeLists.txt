@@ -21,4 +21,5 @@ target_link_libraries(os_task_impl
         os_task_intf
         os_sem_intf
         os_utils_intf
+        os_kernel_intf
 )

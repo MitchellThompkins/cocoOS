@@ -1,8 +1,12 @@
 #ifndef _os_applapi_h__
 #define _os_applapi_h__
 
-//#include "cocoos.h"
 #include <stdint.h>
+
+#include "os_typedef.h"
+#include "os_msgqueue.h"
+#include "os_sem.h"
+#include "os_task.h"
 
 #ifdef __cplusplus
 extern "C" {
