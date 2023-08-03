@@ -1,5 +1,6 @@
 #include <stdint.h>
 
+#include "platform.h"
 #include "CppUTest/CommandLineTestRunner.h"
 
 int main(int argc, char *argv[])

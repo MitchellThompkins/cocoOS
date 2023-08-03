@@ -15,9 +15,13 @@ FetchContent_MakeAvailable(CppUTest)
 
 add_library(cpputest_main
     src/main.cpp
+
 )
 
 target_link_libraries(cpputest_main
     PUBLIC
         platform
+
+        CppUTest::CppUTest
+        CppUTest::CppUTestExt
 )

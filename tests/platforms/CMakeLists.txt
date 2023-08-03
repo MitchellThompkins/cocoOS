@@ -12,6 +12,6 @@ target_sources(platform
 )
 
 target_link_libraries(platform
-    PRIVATE
+    PUBLIC
         os_kernel_intf
 )
