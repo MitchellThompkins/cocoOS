@@ -15,8 +15,8 @@ target_link_libraries(test_os_task
         os_task_impl
         os_utils_impl
 
-        CppUTest::CppUTest
-        CppUTest::CppUTestExt
+        #CppUTest::CppUTest
+        #CppUTest::CppUTestExt
 )
 
 include(make_test)

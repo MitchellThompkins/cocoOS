@@ -15,6 +15,10 @@ if("${PLATFORM}" STREQUAL "CORTEX_A9")
         PUBLIC
             include)
 
+    target_link_libraries(platform
+        PUBLIC
+            cpputest_main)
+
     target_link_options(platform
         INTERFACE
             "-T${CMAKE_CURRENT_SOURCE_DIR}/cortex_a9.ld"
