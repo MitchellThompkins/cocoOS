@@ -20,8 +20,6 @@ add_library(cpputest_main
 
 target_link_libraries(cpputest_main
     PUBLIC
-        platform
-
         CppUTest::CppUTest
         CppUTest::CppUTestExt
 )

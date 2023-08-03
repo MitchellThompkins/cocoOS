@@ -23,8 +23,12 @@ static void dummy_task(void)
 
 TEST_GROUP(TestOsTask)
 {
+    static constexpr uint16_t interval_ms {250};
+
     void setup()
     {
+        platform_setup_timer(interval_ms);
+        platform_enable_timer();
     }
 
     void teardown()
