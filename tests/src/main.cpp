@@ -1,15 +1,7 @@
-#include "stdio.h"
 #include "stdlib.h"
 #include "platform.h"
 
 #include "CppUTest/CommandLineTestRunner.h"
-
-#include <vector>
-#include <iostream>
-
-#include "stdio.h"
-#include "os_task.h"
-#include "os_kernel.h"
 
 int main(int argc, char *argv[])
 {

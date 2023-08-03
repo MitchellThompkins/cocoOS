@@ -1,5 +1,6 @@
 add_subdirectory(platforms)
 add_subdirectory(mocks)
+add_subdirectory(os_task)
 
 include(FetchContent)
 FetchContent_Declare(
@@ -12,42 +13,11 @@ FetchContent_Declare(
 set(TESTS OFF CACHE BOOL "Switch off CppUTest Test build")
 FetchContent_MakeAvailable(CppUTest)
 
-add_executable(test
+add_library(cpputest_main
     src/main.cpp
-    src/os_task.test.cpp
 )
 
-target_link_libraries(test
+target_link_libraries(cpputest_main
     PUBLIC
         platform
-
-        # The linkage order matters :(
-        os_kernel_impl
-        os_event_impl
-        os_msgqueue_impl
-        os_sem_impl
-        os_task_impl
-        os_utils_impl
-
-        CppUTest::CppUTest
-        CppUTest::CppUTestExt
 )
-
-
-add_custom_command(
-    TARGET test POST_BUILD
-    COMMAND
-        "${CMAKE_OBJCOPY}"
-        --output-target binary
-        --only-section=.entry
-        --only-section=.text
-        --only-section=.rodata
-        --only-section=.ARM.exidx
-        --only-section=.ARM.bss
-        --only-section=.ARM.data
-        "$<TARGET_FILE:test>"
-        "$<TARGET_FILE_DIR:test>/test.bin"
-    VERBATIM
-)
-
-target_link_options(test PRIVATE "-Wl,-Map=$<TARGET_FILE_DIR:test>/test.map")
