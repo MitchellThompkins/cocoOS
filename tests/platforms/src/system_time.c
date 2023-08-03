@@ -1,5 +1,5 @@
 #include "system_time.h"
-#include "os_applAPI.h"
+#include "os_kernel.h"
 
 #ifdef __cplusplus
 extern "C" {

@@ -1,7 +1,7 @@
 #include <stdint.h>
 
 #include "cocoos.h"
-#include "os_applAPI.h"
+#include "os_kernel.h"
 #include "os_event.h"
 #include "os_msgqueue.h"
 #include "os_port.h"

@@ -1,4 +1,4 @@
-#include "os_applAPI.h"
+#include "os_kernel.h"
 
 /************************************************************** *******************/
 /*  void os_cbkSleep( void )    *//**

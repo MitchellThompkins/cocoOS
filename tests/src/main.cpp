@@ -9,7 +9,7 @@
 
 #include "stdio.h"
 #include "os_task.h"
-#include "os_applAPI.h"
+#include "os_kernel.h"
 
 static void hello_task(void)
 {

@@ -1,5 +1,5 @@
-#ifndef _os_applapi_h__
-#define _os_applapi_h__
+#ifndef _os_kernel_h__
+#define _os_kernel_h__
 
 #include <stdint.h>
 
@@ -14,7 +14,7 @@ extern "C" {
 #endif
 
 
-/** @file os_applAPI.h cocoOS API header file*/
+/** @file os_kernel.h cocoOS API header file*/
 /*********************************************************************************/
 /*  task_open()                                                 *//**
 *   
