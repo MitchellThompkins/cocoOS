@@ -4,7 +4,7 @@ add_executable(test_os_task
 
 target_link_libraries(test_os_task
     PUBLIC
-        test_main
+        cpputest_main
         platform
 
         # The linkage order matters :(
