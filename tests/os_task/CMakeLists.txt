@@ -13,7 +13,9 @@ target_link_libraries(test_os_task
         os_msgqueue_impl
         os_sem_impl
         os_task_impl
-        os_utils_impl
+
+        #os_utils_impl
+        os_utils_impl_mock
 
         #CppUTest::CppUTest
         #CppUTest::CppUTestExt

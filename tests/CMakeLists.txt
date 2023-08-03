@@ -1,5 +1,4 @@
 add_subdirectory(platforms)
-add_subdirectory(mocks)
 add_subdirectory(os_task)
 
 include(FetchContent)
