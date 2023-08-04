@@ -87,18 +87,12 @@ static void os_schedule( void ) {
 *   @endcode
 */
 /*********************************************************************************/
-void os_start( const bool infinite_loop ) {
+void os_start( void )
+{
     running = 1;
     os_enable_interrupts();
 
-    if(infinite_loop)
-    {
-        for(;;)
-        {
-            os_schedule();
-        }
-    }
-    else
+    for(;;)
     {
         os_schedule();
     }

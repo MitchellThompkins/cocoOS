@@ -38,18 +38,19 @@ extern "C" {
 
 
 
+//TODO(@tthompkins): Consider making these static uint8_t private to
+//os_kernel.c
 extern uint8_t running_tid;
 extern uint8_t last_running_task;
 extern uint8_t running;
 
-uint8_t os_running( void );
 
-
+//TODO(@tthompkins): Consider removing this
 #ifdef UNIT_TEST
-void os_run();
-void os_run_until_taskState(uint8_t taskId, TaskState_t state);
-TaskState_t os_get_task_state(uint8_t taskId);
-uint8_t os_get_running_tid(void);
+//void os_run();
+//void os_run_until_taskState(uint8_t taskId, TaskState_t state);
+//TaskState_t os_get_task_state(uint8_t taskId);
+//uint8_t os_get_running_tid(void);
 #endif
 
 #ifdef __cplusplus

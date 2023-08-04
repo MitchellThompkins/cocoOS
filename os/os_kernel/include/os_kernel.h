@@ -2,7 +2,6 @@
 #define _os_kernel_h__
 
 #include <stdint.h>
-#include <stdbool.h>
 
 #include "cocoos.h"
 #include "os_typedef.h"
@@ -845,9 +844,9 @@ static void task2(void) {
 #define msg_receive_async( task_id, pMsg )        OS_MSG_Q_RECEIVE( task_id, pMsg, 1 )
 
 
-
+uint8_t os_running( void );
 void os_init( void );
-void os_start( const bool infinite_loop );
+void os_start( void );
 void os_tick( void );
 void os_sub_tick( uint8_t id );
 void os_sub_nTick( uint8_t id, uint32_t nTicks );
@@ -855,13 +854,11 @@ uint8_t os_get_running_tid(void);
 
 //TODO(@mthompkins): I think this is better placed in os_task.h
 void task_kill( uint8_t tid );
-void *task_get_data( void );
 Sem_t sem_bin_create( uint8_t initial );
 Sem_t sem_counting_create( uint8_t max, uint8_t initial );
 
 Evt_t event_create( void );
 uint8_t event_signaling_taskId_get( Evt_t ev );
-TaskState_t task_state_get(uint8_t tid);
 void os_cbkSleep( void );
 
 #ifdef __cplusplus
