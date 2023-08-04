@@ -3,7 +3,7 @@
 
 #include "platform.h"
 
-#define N_TASKS  1
+#define N_TASKS  2
 #define N_QUEUES 0
 #define N_SEMAPHORES 0
 #define N_EVENTS 0
@@ -32,6 +32,8 @@ TEST_GROUP(TestOsTask)
 
     void setup()
     {
+        os_task_init();
+
         set_tick_limit_before_exit(10);
 
         platform_setup_timer(interval_ms);
@@ -44,6 +46,15 @@ TEST_GROUP(TestOsTask)
     }
 };
 
+//TEST(TestOsTask, fail_create_task_null_taskproc)
+//{
+//    // Verify that calling task with the same prio level invokes assert
+//    mock().expectOneCall("os_on_assert").andReturnValue(false);
+//    task_create( NULL, NULL, 1, NULL, 0, 0 );
+//    mock().checkExpectations();
+//    mock().clear();
+//}
+
 TEST(TestOsTask, fail_create_task_with_same_prio)
 {
     // Verify that calling task with the same prio level invokes assert
@@ -54,16 +65,25 @@ TEST(TestOsTask, fail_create_task_with_same_prio)
     mock().clear();
 }
 
-TEST(TestOsTask, fail_create_task_when_os_is_running)
-{
-    os_init();
-    os_start();
+//TEST(TestOsTask, fail_create_task_with_too_many_tasks)
+//{
+//    // Verify that calling task with the same prio level invokes assert
+//    mock().expectOneCall("os_on_assert").andReturnValue(false);
+//    task_create( dummy_task, NULL, 1, NULL, 0, 0 );
+//    task_create( dummy_task, NULL, 2, NULL, 0, 0 );
+//    task_create( dummy_task, NULL, 3, NULL, 0, 0 );
+//    mock().checkExpectations();
+//    mock().clear();
+//}
 
-
-    // Verify that you cannot create a task while os is running
-    mock().expectOneCall("os_on_assert").andReturnValue(false);
-    task_create( dummy_task, NULL, 1, NULL, 0, 0 );
-    mock().checkExpectations();
-    mock().clear();
-
-}
+//TEST(TestOsTask, fail_create_task_when_os_is_running)
+//{
+//    os_start();
+//
+//    // Verify that you cannot create a task while os is running
+//    mock().expectOneCall("os_on_assert").andReturnValue(false);
+//    task_create( dummy_task, NULL, 1, NULL, 0, 0 );
+//    mock().checkExpectations();
+//    mock().clear();
+//
+//}

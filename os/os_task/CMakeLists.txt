@@ -18,8 +18,11 @@ add_library(os_task_impl
 )
 target_link_libraries(os_task_impl
     PUBLIC
+        #TODO(@tthompkins): review if this needs to be mock for building unit
+        #testsing
+        os_msgqueue_impl
         os_task_intf
         os_sem_intf
         os_utils_intf
-        os_kernel_intf
+        os_kernel_intf #TODO(@tthompkins doesn't this conflict if I call the mock versio too?
 )

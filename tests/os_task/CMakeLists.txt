@@ -8,13 +8,14 @@ target_link_libraries(test_os_task
         platform
 
         #TODO(@mthompkins): Do I need to add the intf first?
-        os_msgqueue_intf
-        os_event_intf
-        os_sem_intf
-        os_task_intf
-        os_kernel_intf
+        #os_msgqueue_intf
+        #os_event_intf
+        #os_sem_intf
+        #os_task_intf
+        #os_kernel_intf
 
-        # The linkage order matters :(
+        # The linkage order matters b/c the impl's don't depend on each other
+        os_kernel_impl_mock
         os_msgqueue_impl
         os_event_impl
         os_sem_impl
@@ -22,7 +23,6 @@ target_link_libraries(test_os_task
 
         # Mocks
         os_utils_impl_mock
-        os_kernel_impl_mock
 )
 
 include(make_test)

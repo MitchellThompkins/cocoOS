@@ -5,11 +5,15 @@
 #include "os_task.h"
 #include "os_typedef.h"
 
+#include "stdio.h"
+
 #ifdef __cplusplus
 extern "C" {
 #endif
 
-struct tcb {
+// TODO(@mthompkins): Change this to better name
+struct tcb
+{
     taskproctype taskproc;
     TaskState_t state;       ///< current runstate
     TaskState_t savedState;  ///< saves the task state when suspending
@@ -41,7 +45,8 @@ static void task_killed_set( uint8_t tid );
 static tcb task_list[ N_TASKS ];
 static uint8_t nTasks = 0;
 
-void os_task_init( void ) {
+void os_task_init( void )
+{
     uint8_t i;
     uint8_t j;
     nTasks = 0;
@@ -64,7 +69,8 @@ void os_task_init( void ) {
         task->time = 0;
         task->waitSingleEvent = 0;
 
-        for ( j = 0; j < sizeof( task->eventQueue.eventList); j++ ) {
+        for ( j = 0; j < sizeof( task->eventQueue.eventList); j++ )
+        {
             task->eventQueue.eventList[j] = 0xff;
         }
         task->data = 0;
@@ -99,7 +105,6 @@ int main(void) {
     ...
 }
 @endcode
-*       
 */
 /*********************************************************************************/
 uint8_t task_create(
@@ -113,18 +118,30 @@ uint8_t task_create(
     uint8_t taskId;
     tcb *task;
 
+    printf("os_running == 0\n");
     os_assert( os_running() == 0 );
+    printf("after\n");
+
+    printf("nTasks < N_TASKS\n");
+    printf("%d\n", nTasks);
+    printf("%d\n", N_TASKS);
     os_assert( nTasks < N_TASKS );
+    printf("after\n");
+
+    printf("taskproc != NULL\n");
     os_assert( taskproc != NULL );
+    printf("after\n");
 
     taskId = nTasks;
 
     /* Check that no other task has the same prio */
-    while ( taskId != 0 ) {
+    while ( taskId != 0 )
+    {
         --taskId;
+        printf("%d prio error\n", taskId);
         os_assert( task_list[ taskId ].prio != prio );
+        printf("after\n");
     }
-
 
     task = &task_list[ nTasks ];
 
@@ -137,10 +154,14 @@ uint8_t task_create(
     task->taskproc = taskproc;
     task->waitSingleEvent = 0;
     task->time = 0;
-    if ( poolSize > 0 ) {
-        task->msgQ = os_msgQ_create( msgPool, poolSize, msgSize, task->tid );
+
+    if ( poolSize > 0 )
+    {
+        task->msgQ = os_msgQ_create( msgPool, poolSize,
+                                     msgSize, task->tid );
     }
-    else {
+    else
+    {
         task->msgQ = NO_QUEUE;
     }
 
@@ -245,7 +266,8 @@ int main() {
 *
 */
 /*********************************************************************************/
-void *task_get_data() {
+void *task_get_data()
+{
   return task_list[ running_tid ].data;
 }
 

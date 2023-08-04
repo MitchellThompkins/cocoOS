@@ -12,17 +12,19 @@ uint8_t running;
 uint8_t running_tid;
 uint8_t last_running_task;
 
-void os_init( void )
+void os_init(void)
 {
     running_tid = NO_TID;
     last_running_task = NO_TID;
     running = 0;
+
     mock_c()->actualCall("os_init");
 }
 
 void os_start(void)
 {
     running = 1;
+
     mock_c()->actualCall("os_start");
 }
 
