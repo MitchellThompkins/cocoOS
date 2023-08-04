@@ -11,6 +11,14 @@
 * Consider the usage of stdbool.h and whether it's compatible with all
   platforms
 
+* I think the library configs should be a file provided by the user, though I
+  need to think about the implications of how to do this with cmake (or not
+  cmake if the useres opt not to use it). Splitting the library into logical
+  components begets testing, but doesn't share the global defines like was
+  orginally expected.
+
+* I've been removing the lic code to make it more readable.
+
 ```dot
 digraph "test" {
 node [

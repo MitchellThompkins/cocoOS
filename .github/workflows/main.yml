@@ -1,0 +1,19 @@
+name: build_and_test
+
+on:
+  push:
+  pull_request:
+    branches:
+        - add_first_unit_test
+
+jobs:
+    build_and_test:
+        runs-on: ghcr.io/mitchellthompkins/embedded_sdk:latest
+        steps:
+            - name: Checkout
+              uses: actions/checkout@v2
+            - name: Build tests
+              #TODO(@mthompkins): fix these scripts
+              run: |
+                    make build.a9
+                    make qemu-run.a9

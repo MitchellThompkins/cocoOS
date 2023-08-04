@@ -60,6 +60,7 @@ TEST(TestOsTask, fail_create_task_with_same_prio)
     mock().expectOneCall("os_on_assert");
     task_create( dummy_task, NULL, 1, NULL, 0, 0 );
     task_create( dummy_task, NULL, 1, NULL, 0, 0 );
+
     mock().checkExpectations();
     mock().clear();
 }
@@ -74,6 +75,7 @@ TEST(TestOsTask, fail_create_task_with_too_many_tasks)
     task_create( dummy_task, NULL, 1, NULL, 0, 0 );
     task_create( dummy_task, NULL, 2, NULL, 0, 0 );
     task_create( dummy_task, NULL, 3, NULL, 0, 0 );
+
     mock().checkExpectations();
     mock().clear();
 }
@@ -89,6 +91,7 @@ TEST(TestOsTask, fail_create_task_when_os_is_running)
     // Verify that you cannot create a task while os is running
     mock().expectOneCall("os_on_assert").andReturnValue(false);
     task_create( dummy_task, NULL, 1, NULL, 0, 0 );
+
     mock().checkExpectations();
     mock().clear();
 
