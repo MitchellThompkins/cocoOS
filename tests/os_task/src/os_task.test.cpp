@@ -37,7 +37,7 @@ TEST(TestOsTask, task_create_fail)
 {
     set_tick_limit_before_exit(10);
 
-    mock().expectOneCall("os_on_assert");
+    mock().expectOneCall("os_on_assert").andReturnValue(false);
 
     task_create( dummy_task, NULL, 1, NULL, 0, 0 );
     task_create( dummy_task, NULL, 1, NULL, 0, 0 );

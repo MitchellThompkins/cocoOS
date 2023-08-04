@@ -2,9 +2,10 @@
 
 #include "os_port.h"
 
-static void (*user_callback)(const char*, uint16_t, const char*) = (void*)0;
+static void (*user_callback)(const char*, uint16_t, const char*) = (void*) NULL;
 
-void os_on_assert(const char* file, uint16_t line, const char* expr) {
+bool os_on_assert(const char* file, uint16_t line, const char* expr)
+{
     static volatile uint16_t l;
     os_disable_interrupts();
     l = line;
@@ -15,9 +16,13 @@ void os_on_assert(const char* file, uint16_t line, const char* expr) {
     }
 
     while(1);
+
+    return false;
 }
 
-void os_on_assert_attach_callback(void (*callback)(const char*, uint16_t, const char*)) {
+bool os_on_assert_attach_callback(void (*callback)(const char*, uint16_t, const char*))
+{
     user_callback = callback;
+    return false;
 }
 
