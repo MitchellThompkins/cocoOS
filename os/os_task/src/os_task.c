@@ -102,7 +102,14 @@ int main(void) {
 *       
 */
 /*********************************************************************************/
-uint8_t task_create( taskproctype taskproc, void *data, uint8_t prio, Msg_t *msgPool, uint8_t poolSize, uint16_t msgSize ) {
+uint8_t task_create(
+        taskproctype taskproc,
+        void *data,
+        uint8_t prio,
+        Msg_t *msgPool,
+        uint8_t poolSize,
+        uint16_t msgSize ) {
+
     uint8_t taskId;
     tcb *task;
 
