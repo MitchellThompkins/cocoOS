@@ -12,6 +12,7 @@ target_link_libraries(test_os_task
         os_event_intf
         os_sem_intf
         os_task_intf
+        os_kernel_intf
 
         # The linkage order matters :(
         os_msgqueue_impl
