@@ -7,18 +7,21 @@ target_link_libraries(test_os_task
         cpputest_main
         platform
 
+        #TODO(@mthompkins): Do I need to add the intf first?
+        os_msgqueue_intf
+        os_event_intf
+        os_sem_intf
+        os_task_intf
+
         # The linkage order matters :(
         os_msgqueue_impl
         os_event_impl
         os_sem_impl
         os_task_impl
 
-        #os_utils_impl
+        # Mocks
         os_utils_impl_mock
         os_kernel_impl_mock
-
-        #CppUTest::CppUTest
-        #CppUTest::CppUTestExt
 )
 
 include(make_test)

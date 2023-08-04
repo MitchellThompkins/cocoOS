@@ -547,9 +547,9 @@ void os_task_tick( uint8_t id, uint32_t tickSize ) {
           }
         }
     }
-		else if ( state ==  WAITING_SEM ) {
-			task_list[ index ].time++;
-		}
+        else if ( state ==  WAITING_SEM ) {
+            task_list[ index ].time++;
+        }
 
         /* If the task has a message queue, decrement the delayed message timers */
         if ( id == 0 ) {
@@ -563,7 +563,7 @@ void os_task_tick( uint8_t id, uint32_t tickSize ) {
 
 void os_task_signal_event( Evt_t eventId ) {
     uint8_t index;
-    
+
     uint8_t eventListIndex;
     uint8_t shift;
 
