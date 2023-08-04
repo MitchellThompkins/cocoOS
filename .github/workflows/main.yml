@@ -3,8 +3,6 @@ name: build_and_test
 on:
   push:
   pull_request:
-    branches:
-        - add_first_unit_test
 
 jobs:
     build_and_test:
