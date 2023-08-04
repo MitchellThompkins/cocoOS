@@ -2,10 +2,18 @@ add_executable(test_os_task
     src/os_task.test.cpp
 )
 
+add_library(user_os_config INTERFACE)
+target_include_directories(user_os_config
+    INTERFACE
+        include
+)
+
 target_link_libraries(test_os_task
     PUBLIC
         cpputest_main
         platform
+
+        user_os_config
 
         #TODO(@mthompkins): Do I need to add the intf first?
         #os_msgqueue_intf

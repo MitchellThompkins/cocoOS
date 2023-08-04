@@ -5,6 +5,11 @@ target_include_directories(os_utils_intf
         include
 )
 
+target_link_libraries(os_utils_intf
+    INTERFACE
+        user_os_config
+)
+
 # Implementation
 add_library(os_utils_impl
     src/os_assert.c
