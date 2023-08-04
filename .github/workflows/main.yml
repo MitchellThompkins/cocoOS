@@ -6,7 +6,9 @@ on:
 
 jobs:
     build_and_test:
-        runs-on: ghcr.io/mitchellthompkins/embedded_sdk:latest
+        runs-on: ubuntu-latest
+        conatiner:
+            image: ghcr.io/mitchellthompkins/embedded_sdk:latest
         steps:
             - name: Checkout
               uses: actions/checkout@v2
