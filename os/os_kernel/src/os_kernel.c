@@ -70,7 +70,6 @@ static void os_schedule( void ) {
 
 /*********************************************************************************/
 /*  void os_start()                                              *//**
-*   
 *   Starts the task scheduling
 *
 *   @return None.
@@ -86,14 +85,21 @@ static void os_schedule( void ) {
 *     return 0;
 *   }
 *   @endcode
-*       
 */
 /*********************************************************************************/
-void os_start( void ) {
+void os_start( const bool infinite_loop ) {
     running = 1;
     os_enable_interrupts();
 
-    for (;;) {
+    if(infinite_loop)
+    {
+        for(;;)
+        {
+            os_schedule();
+        }
+    }
+    else
+    {
         os_schedule();
     }
 }

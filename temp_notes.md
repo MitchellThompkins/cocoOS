@@ -8,6 +8,9 @@
   As such I think it makes more sense to split up the design into discrete
   logical components that can be addressed individually.
 
+* Consider the usage of stdbool.h and whether it's compatible with all
+  platforms
+
 ```dot
 digraph "test" {
 node [
