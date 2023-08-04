@@ -6,8 +6,6 @@
 #include "os_task.h"
 #include "os_typedef.h"
 
-#include "stdio.h"
-
 #ifdef __cplusplus
 extern "C" {
 #endif
@@ -119,19 +117,9 @@ uint8_t task_create(
     uint8_t taskId;
     tcb *task;
 
-    printf("os_running == 0\n");
     os_assert( os_running() == 0 );
-    printf("after\n");
-
-    printf("nTasks < N_TASKS\n");
-    printf("%d\n", nTasks);
-    printf("%d\n", N_TASKS);
     os_assert( nTasks < N_TASKS );
-    printf("after\n");
-
-    printf("taskproc != NULL\n");
     os_assert( taskproc != NULL );
-    printf("after\n");
 
     taskId = nTasks;
 
@@ -139,9 +127,7 @@ uint8_t task_create(
     while ( taskId != 0 )
     {
         --taskId;
-        printf("%d prio error\n", taskId);
         os_assert( task_list[ taskId ].prio != prio );
-        printf("after\n");
     }
 
     task = &task_list[ nTasks ];
