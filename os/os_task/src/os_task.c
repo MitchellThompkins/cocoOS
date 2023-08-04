@@ -2,6 +2,7 @@
 
 #include "cocoos.h"
 #include "os_assert.h"
+#include "os_kernel.h"
 #include "os_task.h"
 #include "os_typedef.h"
 
@@ -505,7 +506,7 @@ static uint8_t os_task_wait_queue_empty( uint8_t tid ) {
             result = 0;
         }
     } while ( event != 0 );
-        
+
 
     return result;
 }
@@ -514,7 +515,7 @@ static uint8_t os_task_wait_queue_empty( uint8_t tid ) {
 void os_task_wait_time_set( uint8_t tid, uint8_t id, uint32_t time ) {
     os_assert( tid < nTasks );
     os_assert( time > 0 );
-    
+
     task_list[ tid ].clockId = id;
     task_list[ tid ].time = time;
     task_waiting_time_set( tid );
@@ -525,7 +526,7 @@ void os_task_wait_event( uint8_t tid, Evt_t eventId, uint8_t waitSingleEvent, ui
     uint8_t eventListIndex;
     uint8_t shift;
     tcb *task;
-    
+
     os_assert( tid < nTasks );
 
     task = &task_list[ tid ];

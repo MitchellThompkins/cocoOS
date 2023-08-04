@@ -10,6 +10,8 @@
 #define ROUND_ROBIN 0
 #define Mem_t uint32_t
 
+#include "os_defines.h"
+
 #include "os_assert.h"
 #include "os_kernel.h"
 #include "os_task.h"
@@ -49,7 +51,7 @@ TEST_GROUP(TestOsTask)
 //TEST(TestOsTask, fail_create_task_null_taskproc)
 //{
 //    // Verify that calling task with the same prio level invokes assert
-//    mock().expectOneCall("os_on_assert").andReturnValue(false);
+//    mock().expectOneCall("os_on_assert");
 //    task_create( NULL, NULL, 1, NULL, 0, 0 );
 //    mock().checkExpectations();
 //    mock().clear();
@@ -58,7 +60,7 @@ TEST_GROUP(TestOsTask)
 TEST(TestOsTask, fail_create_task_with_same_prio)
 {
     // Verify that calling task with the same prio level invokes assert
-    mock().expectOneCall("os_on_assert").andReturnValue(false);
+    mock().expectOneCall("os_on_assert");
     task_create( dummy_task, NULL, 1, NULL, 0, 0 );
     task_create( dummy_task, NULL, 1, NULL, 0, 0 );
     mock().checkExpectations();
@@ -68,7 +70,7 @@ TEST(TestOsTask, fail_create_task_with_same_prio)
 //TEST(TestOsTask, fail_create_task_with_too_many_tasks)
 //{
 //    // Verify that calling task with the same prio level invokes assert
-//    mock().expectOneCall("os_on_assert").andReturnValue(false);
+//    mock().expectOneCall("os_on_assert");
 //    task_create( dummy_task, NULL, 1, NULL, 0, 0 );
 //    task_create( dummy_task, NULL, 2, NULL, 0, 0 );
 //    task_create( dummy_task, NULL, 3, NULL, 0, 0 );
