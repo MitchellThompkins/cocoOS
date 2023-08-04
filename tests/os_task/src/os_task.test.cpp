@@ -41,6 +41,9 @@ TEST_GROUP(TestOsTask)
 
 TEST(TestOsTask, fail_create_task_null_taskproc)
 {
+    mock().expectOneCall("os_init");
+    os_init();
+
     // Verify that calling task with the same prio level invokes assert
     mock().expectOneCall("os_on_assert");
     task_create( NULL, NULL, 1, NULL, 0, 0 );
@@ -50,6 +53,9 @@ TEST(TestOsTask, fail_create_task_null_taskproc)
 
 TEST(TestOsTask, fail_create_task_with_same_prio)
 {
+    mock().expectOneCall("os_init");
+    os_init();
+
     // Verify that calling task with the same prio level invokes assert
     mock().expectOneCall("os_on_assert");
     task_create( dummy_task, NULL, 1, NULL, 0, 0 );
@@ -60,6 +66,9 @@ TEST(TestOsTask, fail_create_task_with_same_prio)
 
 TEST(TestOsTask, fail_create_task_with_too_many_tasks)
 {
+    mock().expectOneCall("os_init");
+    os_init();
+
     // Verify that calling task with the same prio level invokes assert
     mock().expectOneCall("os_on_assert");
     task_create( dummy_task, NULL, 1, NULL, 0, 0 );
@@ -71,6 +80,9 @@ TEST(TestOsTask, fail_create_task_with_too_many_tasks)
 
 TEST(TestOsTask, fail_create_task_when_os_is_running)
 {
+    mock().expectOneCall("os_init");
+    os_init();
+
     mock().expectOneCall("os_start");
     os_start();
 
