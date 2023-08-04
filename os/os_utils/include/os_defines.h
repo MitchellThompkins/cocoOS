@@ -14,7 +14,7 @@ extern "C" {
 #ifndef N_TASKS
 #define N_TASKS 1
 #endif
-_Static_assert (N_TASKS < 255, "Maximum number of tasks is 254");
+_Static_assert (N_TASKS>=0 && N_TASKS<255, "Maximum number of tasks is 254");
 
 
 
@@ -23,7 +23,7 @@ _Static_assert (N_TASKS < 255, "Maximum number of tasks is 254");
 #ifndef N_QUEUES
 #define N_QUEUES 0
 #endif
-_Static_assert (N_QUEUES < 255, "Maximum number of queues is 254");
+_Static_assert (N_QUEUES >= 0 && N_QUEUES < 255, "Maximum number of queues is 254");
 
 
 /** Max number of used semaphores
@@ -31,7 +31,7 @@ _Static_assert (N_QUEUES < 255, "Maximum number of queues is 254");
 #ifndef N_SEMAPHORES
 #define N_SEMAPHORES 0
 #endif
-_Static_assert (N_SEMAPHORES < 255, "Maximum number of queues is 254");
+_Static_assert (N_SEMAPHORES >=0 && N_SEMAPHORES < 255, "Maximum number of queues is 254");
 
 
 /** Max number of used events
@@ -39,7 +39,7 @@ _Static_assert (N_SEMAPHORES < 255, "Maximum number of queues is 254");
 #ifndef N_EVENTS
 #define N_EVENTS 0
 #endif
-_Static_assert (N_EVENTS < 255, "Maximum number of events is 254");
+_Static_assert (N_EVENTS >=0 && N_EVENTS < 255, "Maximum number of events is 254");
 
 
 /** Round Robin scheduling
