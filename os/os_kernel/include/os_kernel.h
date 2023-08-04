@@ -853,7 +853,6 @@ void os_sub_nTick( uint8_t id, uint32_t nTicks );
 uint8_t os_get_running_tid(void);
 
 //TODO(@mthompkins): I think this is better placed in os_task.h
-uint8_t task_create( taskproctype taskproc, void *data, uint8_t prio, Msg_t* msgPool, uint8_t poolSize, uint16_t msgSize );
 void task_kill( uint8_t tid );
 void *task_get_data( void );
 Sem_t sem_bin_create( uint8_t initial );
