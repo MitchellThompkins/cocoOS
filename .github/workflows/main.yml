@@ -8,13 +8,11 @@ jobs:
         steps:
             - name: Checkout
               uses: actions/checkout@v2
-              #run: |
-              #    echo "do less?"
 
-              #- name: Build Tests
-              #  uses: actions/cocoOS-CI@v0.0.1
-              #  with:
-              #      command: make build.a9
+            - name: cocoOS-CI
+              uses: MitchellThompkins/cocoOS_github_action@v0.0.1
+                with:
+                    command: make build.a9
 
               #- name: Run Tests
               #  uses: actions/cocoOS-CI@v0.0.1
