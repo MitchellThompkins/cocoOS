@@ -6,15 +6,15 @@ jobs:
     build_and_test:
         runs-on: ubuntu-latest
         steps:
-            - name: Checkout
+            - name: checkout
               uses: actions/checkout@v2
 
-            - name: cocoOS-CI
+            - name: build
               uses: MitchellThompkins/cocoOS_github_action@v0.0.3
               with:
                 command: make build.a9
 
-              #- name: Run Tests
-              #  uses: actions/cocoOS-CI@v0.0.1
-              #  with:
-              #      command: make qemu-run.a9
+            - name: build
+              uses: MitchellThompkins/cocoOS_github_action@v0.0.3
+              with:
+                command: make qemu-run.a9
