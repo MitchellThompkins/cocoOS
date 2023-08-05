@@ -1,8 +1,6 @@
 name: build_and_test
 
-on:
-  push:
-  pull_request:
+on: [push]
 
 jobs:
     build_and_test:
@@ -13,7 +11,13 @@ jobs:
             - name: Checkout
               uses: actions/checkout@v2
             - name: Build tests
-              #TODO(@mthompkins): fix these scripts
-              run: |
-                    make build.a9
-                    make qemu-run.a9
+
+            - name: Build Tests
+              uses: actions/cocoOS-CI@v0.0.1
+              with:
+                  command: make build.a9
+
+            - name: Run Tests
+              uses: actions/cocoOS-CI@v0.0.1
+              with:
+                  command: make qemu-run.a9
