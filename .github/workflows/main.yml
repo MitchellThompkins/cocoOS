@@ -12,7 +12,8 @@ jobs:
             - name: cocoOS-CI
               uses: MitchellThompkins/cocoOS_github_action@v0.0.3
               with:
-                command: qemu-system-arm --version
+                command: echo "hello world"
+                #command: qemu-system-arm --version
                 #command: make build.a9
 
               #- name: Run Tests
