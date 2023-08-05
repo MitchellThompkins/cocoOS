@@ -14,7 +14,7 @@ jobs:
               with:
                 command: make build.a9
 
-            - name: build
+            - name: test
               uses: MitchellThompkins/cocoOS_github_action@v0.0.3
               with:
                 command: make qemu-run.a9
