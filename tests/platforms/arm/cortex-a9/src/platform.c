@@ -1,17 +1,33 @@
+#include "angel.h"
 #include "cpu_a9.h"
 #include "error.h"
 #include "gic.h"
 #include "irq.h"
 #include "platform.h"
+#include "stdio.h"
 #include "timer.h"
 
 #ifdef __cplusplus
 extern "C" {
 #endif
 
+static int32_t max_ticks = -1;
+
 static void tick(void)
 {
     tick_system_time();
+
+    if( max_ticks != -1
+        && get_system_time() >= max_ticks )
+    {
+        printf("ERR: max_ticks exceeded in a test!\n");
+        angel_exit( (int)RUNTIME_ERR );
+    }
+}
+
+void set_tick_limit_before_exit(const int32_t limit)
+{
+    max_ticks = limit;
 }
 
 error_code_t platform_setup_timer(const uint16_t interval_ms)

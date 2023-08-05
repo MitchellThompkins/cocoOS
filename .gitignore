@@ -1,5 +1,16 @@
 .project
 *.swp
 *.swo
+.gdbinit
+.gdb_history
 compile_commands.json
+CMakeCache.txt
+tags
+
 build/
+CMakeFiles/
+_deps/
+
+*cmake_install*
+Makefile
+*.dot*

@@ -5,6 +5,9 @@ GID=$(shell id -g)
 ### Building Software #################
 #######################################
 
+.PHONY: build.all
+build.all: build.a9 build.x86_64
+
 build.cmake/%/CMakeCache.txt:
 	cmake --preset $*
 
@@ -13,6 +16,10 @@ build.cmake.%: | build.cmake/%/CMakeCache.txt
 
 build.%: build.cmake.%
 	echo "build $*"
+
+build.graph:
+	cmake --graphviz=test.dot . -DPLATFORM=CORTEX_A9
+
 #######################################
 ### Container #########################
 #######################################
@@ -44,7 +51,7 @@ qemu-debug.%:
 		-d guest_errors\
 		--semihosting \
 		-semihosting-config enable=on,target=native \
-		-kernel build/$*/temp.elf
+		-kernel build/$*/test_os_task.elf
 
 .PHONY: qemu-run.%
 qemu-run.%:
@@ -58,11 +65,11 @@ qemu-run.%:
 		-m 12M \
 		--semihosting \
 		-semihosting-config enable=on,target=native \
-		-kernel build/$*/test.elf
+		-kernel build/$*/test_os_task.elf
 
 .PHONY: gdb-debug.%
 gdb-debug.%:
-	gdb build/$*/temp.elf -ix .gdbinit
+	gdb build/$*/test.elf -ix .gdbinit
 
 .PHONY: clean
 clean:

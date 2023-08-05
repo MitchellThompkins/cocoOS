@@ -1,4 +1,5 @@
 add_subdirectory(platforms)
+add_subdirectory(os_task)
 
 include(FetchContent)
 FetchContent_Declare(
@@ -11,33 +12,13 @@ FetchContent_Declare(
 set(TESTS OFF CACHE BOOL "Switch off CppUTest Test build")
 FetchContent_MakeAvailable(CppUTest)
 
-add_executable(test
+add_library(cpputest_main
     src/main.cpp
+
 )
 
-target_link_libraries(test
-    PRIVATE
-        cocoOS
-        platform
+target_link_libraries(cpputest_main
+    PUBLIC
         CppUTest::CppUTest
         CppUTest::CppUTestExt
 )
-
-
-add_custom_command(
-    TARGET test POST_BUILD
-    COMMAND
-        "${CMAKE_OBJCOPY}"
-        --output-target binary
-        --only-section=.entry
-        --only-section=.text
-        --only-section=.rodata
-        --only-section=.ARM.exidx
-        --only-section=.ARM.bss
-        --only-section=.ARM.data
-        "$<TARGET_FILE:test>"
-        "$<TARGET_FILE_DIR:test>/test.bin"
-    VERBATIM
-)
-
-target_link_options(test PRIVATE "-Wl,-Map=$<TARGET_FILE_DIR:test>/test.map")

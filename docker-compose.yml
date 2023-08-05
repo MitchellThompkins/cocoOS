@@ -3,7 +3,6 @@ version: '3'
 services:
     dev_env:
         image: ghcr.io/mitchellthompkins/embedded_sdk:latest
-        #image: embedded_sdk:latest
         environment:
             - USER=${USER}
             - Display=${DISPLAY}

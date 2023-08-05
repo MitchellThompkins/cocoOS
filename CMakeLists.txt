@@ -2,6 +2,7 @@ cmake_minimum_required(VERSION 3.22)
 
 #add_compile_options(-std=c++11 -Wall -Werror -v)
 #add_compile_options(-std=c++11 -v)
+#add_compile_options(-H)
 
 project(test
     LANGUAGES CXX C ASM
@@ -19,7 +20,5 @@ set(CMAKE_VERBOSE_MAKEFILE ON)
 
 list(APPEND CMAKE_MODULE_PATH ${CMAKE_CURRENT_LIST_DIR})
 
+add_subdirectory(os)
 add_subdirectory(tests)
-
-add_subdirectory(src)
-add_subdirectory(inc)

@@ -62,17 +62,23 @@
     "buildPresets": [
         {
             "name": "x86_64",
-            "targets": "test",
+            "targets": [
+                "test_os_task"
+            ],
             "configurePreset": "x86_64"
         },
         {
             "name": "a9",
-            "targets": "test",
+            "targets": [
+                "test_os_task"
+            ],
             "configurePreset": "a9"
         },
         {
             "name": "m4",
-            "targets": "test",
+            "targets": [
+                "test_os_task"
+            ],
             "configurePreset": "m4"
         }
     ]
