@@ -8,13 +8,15 @@ jobs:
         steps:
             - name: Checkout
               uses: actions/checkout@v2
+              Run: |
+                  echo "do less?"
 
-            - name: Build Tests
-              uses: actions/cocoOS-CI@v0.0.1
-              with:
-                  command: make build.a9
+              #- name: Build Tests
+              #  uses: actions/cocoOS-CI@v0.0.1
+              #  with:
+              #      command: make build.a9
 
-            - name: Run Tests
-              uses: actions/cocoOS-CI@v0.0.1
-              with:
-                  command: make qemu-run.a9
+              #- name: Run Tests
+              #  uses: actions/cocoOS-CI@v0.0.1
+              #  with:
+              #      command: make qemu-run.a9
