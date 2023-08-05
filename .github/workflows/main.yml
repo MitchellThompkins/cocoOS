@@ -8,8 +8,8 @@ jobs:
         steps:
             - name: Checkout
               uses: actions/checkout@v2
-              run: |
-                  echo "do less?"
+              #run: |
+              #    echo "do less?"
 
               #- name: Build Tests
               #  uses: actions/cocoOS-CI@v0.0.1
