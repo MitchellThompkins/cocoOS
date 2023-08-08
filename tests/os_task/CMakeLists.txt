@@ -5,8 +5,8 @@ add_executable(test_os_task0
     src/os_task.test0.cpp
 )
 
-add_library(user_os_config INTERFACE)
-target_include_directories(user_os_config
+add_library(user_os_config0 INTERFACE)
+target_include_directories(user_os_config0
     INTERFACE
         config0
 )
@@ -16,7 +16,7 @@ target_link_libraries(test_os_task0
         cpputest_main
         platform
 
-        user_os_config
+        user_os_config0
 
         #TODO(@mthompkins): Do I need to add the intf first?
         #os_msgqueue_intf
@@ -43,11 +43,11 @@ make_test(test_os_task0)
 # config1
 #########
 add_executable(test_os_task1
-    src/os_task.test0.cpp
+    src/os_task.test1.cpp
 )
 
-add_library(user_os_config INTERFACE)
-target_include_directories(user_os_config
+add_library(user_os_config1 INTERFACE)
+target_include_directories(user_os_config1
     INTERFACE
         config1
 )
@@ -57,7 +57,7 @@ target_link_libraries(test_os_task1
         cpputest_main
         platform
 
-        user_os_config
+        user_os_config1
 
         # The linkage order matters b/c the impl's don't depend on each other
         os_kernel_impl_mock
