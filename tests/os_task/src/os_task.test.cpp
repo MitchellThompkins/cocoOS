@@ -39,6 +39,7 @@ TEST_GROUP(TestOsTask)
     }
 };
 
+// TASK-1
 TEST(TestOsTask, fail_create_task_null_taskproc)
 {
     mock().expectOneCall("os_init");
@@ -51,6 +52,7 @@ TEST(TestOsTask, fail_create_task_null_taskproc)
     mock().clear();
 }
 
+// TASK-1
 TEST(TestOsTask, fail_create_task_with_same_prio)
 {
     mock().expectOneCall("os_init");
@@ -65,6 +67,7 @@ TEST(TestOsTask, fail_create_task_with_same_prio)
     mock().clear();
 }
 
+// TASK-1
 TEST(TestOsTask, fail_create_task_with_too_many_tasks)
 {
     mock().expectOneCall("os_init");
@@ -80,6 +83,7 @@ TEST(TestOsTask, fail_create_task_with_too_many_tasks)
     mock().clear();
 }
 
+// TASK-2
 TEST(TestOsTask, fail_create_task_when_os_is_running)
 {
     mock().expectOneCall("os_init");
