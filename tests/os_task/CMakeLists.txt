@@ -1,14 +1,17 @@
-add_executable(test_os_task
-    src/os_task.test.cpp
+#########
+# config0
+#########
+add_executable(test_os_task0
+    src/os_task.test0.cpp
 )
 
 add_library(user_os_config INTERFACE)
 target_include_directories(user_os_config
     INTERFACE
-        include
+        config0
 )
 
-target_link_libraries(test_os_task
+target_link_libraries(test_os_task0
     PUBLIC
         cpputest_main
         platform
@@ -34,4 +37,38 @@ target_link_libraries(test_os_task
 )
 
 include(make_test)
-make_test(test_os_task)
+make_test(test_os_task0)
+
+#########
+# config1
+#########
+add_executable(test_os_task1
+    src/os_task.test0.cpp
+)
+
+add_library(user_os_config INTERFACE)
+target_include_directories(user_os_config
+    INTERFACE
+        config1
+)
+
+target_link_libraries(test_os_task1
+    PUBLIC
+        cpputest_main
+        platform
+
+        user_os_config
+
+        # The linkage order matters b/c the impl's don't depend on each other
+        os_kernel_impl_mock
+        os_msgqueue_impl
+        os_event_impl
+        os_sem_impl
+        os_task_impl
+
+        # Mocks
+        os_utils_impl_mock
+)
+
+include(make_test)
+make_test(test_os_task1)

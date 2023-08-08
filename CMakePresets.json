@@ -63,21 +63,24 @@
         {
             "name": "x86_64",
             "targets": [
-                "test_os_task"
+                "test_os_task0",
+                "test_os_task1"
             ],
             "configurePreset": "x86_64"
         },
         {
             "name": "a9",
             "targets": [
-                "test_os_task"
+                "test_os_task0",
+                "test_os_task1"
             ],
             "configurePreset": "a9"
         },
         {
             "name": "m4",
             "targets": [
-                "test_os_task"
+                "test_os_task0",
+                "test_os_task1"
             ],
             "configurePreset": "m4"
         }
