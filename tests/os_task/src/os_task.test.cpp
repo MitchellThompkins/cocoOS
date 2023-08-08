@@ -100,3 +100,20 @@ TEST(TestOsTask, fail_create_task_when_os_is_running)
     mock().clear();
 
 }
+
+// TASK-3
+TEST(TestOsTask, successful_task_initialization)
+{
+    mock().expectOneCall("os_init");
+    os_init();
+
+    // Verify that you cannot create a task while os is running
+    const auto id1 {task_create( dummy_task, NULL, 1, NULL, 0, 0 )};
+    CHECK_EQUAL(0, id1);
+
+    const auto id2 {task_create( dummy_task, NULL, 2, NULL, 0, 0 )};
+    CHECK_EQUAL(1, id2);
+
+    const auto id3 {task_create( dummy_task, NULL, 3, NULL, 0, 0 )};
+    CHECK_EQUAL(2, id3);
+}
