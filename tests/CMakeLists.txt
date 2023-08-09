@@ -12,6 +12,13 @@ FetchContent_Declare(
 set(TESTS OFF CACHE BOOL "Switch off CppUTest Test build")
 FetchContent_MakeAvailable(CppUTest)
 
+
+add_library(user_os_config INTERFACE)
+target_include_directories(user_os_config
+    INTERFACE
+        user_config
+)
+
 add_library(cpputest_main
     src/main.cpp
 

@@ -75,9 +75,10 @@ TEST(TestOsTask, fail_create_task_with_too_many_tasks)
 
     // Verify that calling task with the same prio level invokes assert
     mock().expectOneCall("os_on_assert");
-    task_create( dummy_task, NULL, 1, NULL, 0, 0 );
-    task_create( dummy_task, NULL, 2, NULL, 0, 0 );
-    task_create( dummy_task, NULL, 3, NULL, 0, 0 );
+    for(int i{0}; i<=N_TASKS; i++)
+    {
+        task_create( dummy_task, NULL, i, NULL, 0, 0 );
+    }
 
     mock().checkExpectations();
     mock().clear();
