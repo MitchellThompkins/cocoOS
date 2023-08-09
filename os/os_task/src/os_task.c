@@ -112,7 +112,8 @@ uint8_t task_create(
         uint8_t prio,
         Msg_t *msgPool,
         uint8_t poolSize,
-        uint16_t msgSize ) {
+        uint16_t msgSize )
+{
 
     uint8_t taskId;
     tcb *task;
@@ -160,7 +161,8 @@ uint8_t task_create(
 }
 
 
-TaskState_t task_state_get( uint8_t tid ) {
+TaskState_t task_state_get( uint8_t tid )
+{
     os_assert( tid < nTasks );
     return task_list[ tid ].state;
 }
@@ -260,21 +262,25 @@ void *task_get_data()
 }
 
 /* Finds the task with highest prio that are ready to run - used for prio based scheduling */
-uint8_t os_task_highest_prio_ready_task( void ) {
+uint8_t os_task_highest_prio_ready_task( void )
+{
     uint16_t index;
     tcb *task;
     uint8_t highest_prio_task = NO_TID;
     uint8_t highest_prio = 255;
     TaskState_t state;
     uint8_t prio;
-    
-    for ( index = 0; index != nTasks; ++index ) {
+
+    for ( index = 0; index != nTasks; ++index )
+    {
         task = &task_list[ index ];
         prio = task->prio;
         state = task->state;
 
-        if ( READY == state ) {
-            if ( prio < highest_prio ) {
+        if ( READY == state )
+        {
+            if ( prio < highest_prio )
+            {
                 highest_prio = prio;
                 highest_prio_task = index;
             }
@@ -286,7 +292,8 @@ uint8_t os_task_highest_prio_ready_task( void ) {
 
 
 /* Finds the next ready task - used when ROUND_ROBIN is defined */
-uint8_t os_task_next_ready_task( void ) {
+uint8_t os_task_next_ready_task( void )
+{
     uint16_t index;
     uint8_t found;
     uint8_t nChecked;
@@ -416,7 +423,8 @@ void os_task_ready_set( uint8_t tid ) {
 }
 
 
-void os_task_suspend( uint8_t tid ) {
+void os_task_suspend( uint8_t tid )
+{
     TaskState_t state;
 
     os_assert( tid < nTasks );
