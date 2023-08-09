@@ -1,0 +1,24 @@
+test_case_id,description
+TASK-1,On calls to task_create passing it bad data will cause os_assert to be triggered.
+TASK-2,tasks cannot be created while the schedule is running.
+TASK-3,"when a new task is created, it is added to the list of tasks, that the task is put into an initialization state, and that the function returns the newly assigned taskId."
+TASK-4,"when a new task is created, and a message pool size has been assigned to it, the message queue is allocated."
+TASK-5,"when a new task is created, the wait queue is cleared."
+TASK-6,os_task_init clears and re-initializes the task list.
+TASK-7,killing a task causes its state to be set to KILLED.
+TASK-8,task_get_data returns a pointer to the task data.
+TASK-9,os_task_highest_prio_ready_task will return the task with the highest priority that is ready to run if priority based scheduling is desired
+TASK-10,os_task_next_ready_task will return the next task which is ready to run if round robin scheduling is desired
+TASK-11,"os_task_release_waiting_task will return the task which has the highest priority and is waiting for a semaphore, and makes it ready to run"
+TASK-12,os_task_waiting_this_semaphore will return whether any task is waiting for the specified semaphore
+TASK-13,task_wait_sem_set sets the specified task to the wait state and assigns it a specific semaphore for which to wait. It additionally sets the time waited thus for for the semaphore to 0.
+TASK-14,task_ready_set sets the specified task to the ready state
+TASK-15,"os_task_suspend sets the specified task to the suspended state if it is neither in the KILLED nor SUSPENDED states. Additionally if the task was waiting for a semaphore, then it sets the saved state to READY and internal state to 0; otherwise it sets the saved state to the current state."
+TASK-16,os_task_resume sets the specified task into the previously saved state iff the current state is suspended.
+TASK-17,task_killed_set sets the specified task into the killed state
+TASK-18,os_task_prio_get returns the specified tasks priority
+TASK-19,os_task_clear_wait_queue will clear the event wait queue of all tasks
+TASK-20,"os_task_wait_time_set sets the specified task to have the specified clockId and time, as well as sets the state to WAITING_TIME"
+TASK-21,os_task_wait_event sets the specified event for the specified task TBD
+TASK-22,os_task_tick TBD
+TASK-23,os_task_signal_event TBD
