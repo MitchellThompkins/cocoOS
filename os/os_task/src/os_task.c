@@ -467,7 +467,8 @@ void os_task_kill( uint8_t tid ) {
 }
 
 
-uint8_t os_task_prio_get( uint8_t tid ) {
+uint8_t os_task_prio_get( uint8_t tid )
+{
     os_assert( tid < nTasks );
     return task_list[ tid ].prio;
 
