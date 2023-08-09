@@ -69,7 +69,7 @@ qemu-run.%:
 
 .PHONY: gdb-debug.%
 gdb-debug.%:
-	gdb build/$*/test.elf -ix .gdbinit
+	gdb build/$*/test_os_task0.elf -ix .gdbinit
 
 .PHONY: clean
 clean:
