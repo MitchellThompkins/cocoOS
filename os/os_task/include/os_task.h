@@ -58,7 +58,7 @@ uint8_t os_task_next_ready_task( void );
 
 void os_task_ready_set( uint8_t tid );
 
-void os_task_wait_sem_set( uint8_t tid, Sem_t sem );
+void task_wait_sem_set( uint8_t tid, Sem_t sem );
 
 void os_task_suspend( uint8_t tid );
 

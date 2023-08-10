@@ -142,3 +142,20 @@ TEST(TestOsTask, next_highest_prio_task)
     CHECK_EQUAL(id2, task_to_run);
 
 }
+
+// TASK-11
+TEST(TestOsTask, release_task_prio_waiting_on_semaphore)
+{
+    mock().expectOneCall("os_init");
+    os_init();
+
+    const auto id1 {task_create( dummy_task, NULL, 3, NULL, 0, 0 )};
+    const auto id2 {task_create( dummy_task, NULL, 2, NULL, 0, 0 )};
+    const auto id3 {task_create( dummy_task, NULL, 1, NULL, 0, 0 )};
+
+
+    Sem_t sem0;
+    task_wait_sem_set(id1, sem0);
+
+    //os_task_release_waiting_task
+}

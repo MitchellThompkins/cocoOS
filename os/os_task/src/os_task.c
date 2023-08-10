@@ -32,7 +32,6 @@ struct tcb
 };
 
 
-static void task_wait_sem_set( uint8_t tid, Sem_t sem );
 static void task_suspended_set( uint8_t tid );
 static void task_waiting_time_set( uint8_t tid );
 static void task_waiting_event_set( tcb *task );
@@ -332,8 +331,8 @@ uint8_t os_task_next_ready_task( void )
 }
 
 /* Finds the task with highest prio waiting for sem, and makes it ready to run */
-void os_task_release_waiting_task( Sem_t sem ) {
-
+void os_task_release_waiting_task( Sem_t sem )
+{
 #if (ROUND_ROBIN)
     uint32_t longestWaitTime = 0;
     uint8_t lastCheckedTask = NO_TID;
@@ -346,36 +345,42 @@ void os_task_release_waiting_task( Sem_t sem ) {
     uint8_t taskIsWaitingForThisSemaphore;
     tcb *task;
 
-    for ( tid = 0; tid != nTasks; ++tid ) {
+    for ( tid = 0; tid != nTasks; ++tid )
+    {
         task = &task_list[ tid ];
         taskIsWaitingForThisSemaphore = (( task->state == WAITING_SEM ) && ( task->semaphore == sem ) );
 
-        if ( taskIsWaitingForThisSemaphore == 1 ) {
+        if ( taskIsWaitingForThisSemaphore == 1 )
+        {
 #if (ROUND_ROBIN)
             /* Release the task that has waited longest */
             lastCheckedTask = tid;
-            if ( task->time > longestWaitTime ) {
+            if ( task->time > longestWaitTime )
+            {
                 longestWaitTime = task->time;
                 foundTask = tid;
             }
 #else
             /* Release the highest prio task */
-            if ( task->prio < highestPrio ) {
+            if ( task->prio < highestPrio )
+            {
                 highestPrio = task->prio;
                 foundTask = tid;
             }
 #endif
-        } 
+        }
     }
 
     /* We have found a waiting task. */
 #if (ROUND_ROBIN)
-    if (( longestWaitTime == 0 ) && ( NO_TID != lastCheckedTask )) {
+    if (( longestWaitTime == 0 ) && ( NO_TID != lastCheckedTask ))
+    {
         /* All waiting tasks had waiting time 0 -> release the last task */
         foundTask = lastCheckedTask;
     }
 #endif
-    if ( NO_TID != foundTask ) {
+    if ( NO_TID != foundTask )
+    {
         task_list[ foundTask ].state = READY;
     }
 }
@@ -401,19 +406,6 @@ uint8_t os_task_waiting_this_semaphore( Sem_t sem ) {
     return result;
 }
 
-
-// TODO(@mthompkins): This is a thin wrapper around a call to this function, so
-// I plan to remove it
-/* Sets the task to wait for semaphore state */
-void os_task_wait_sem_set( uint8_t tid, Sem_t sem ) {
-    os_assert( tid < nTasks );
-    task_wait_sem_set( tid, sem );
-
-    /* The time is ticked to measure waiting time */
-    task_list[ tid ].time = 0;
-}
-
-
 // TODO(@mthompkins): This is a thin wrapper around a call to this function, so
 // I plan to remove it
 /* Sets the task to ready state */
@@ -431,7 +423,8 @@ void os_task_suspend( uint8_t tid )
 
     state = task_list[ tid ].state;
 
-    if (( state != KILLED ) && ( state != SUSPENDED )){
+    if (( state != KILLED ) && ( state != SUSPENDED ))
+    {
         /* If a task is waiting for a semaphore when beeing suspended, there is a risk      */
         /* that the semaphore will be signaled while the task is suspended, and if the task */
         /* is then resumed it could hang if the semaphore is not signaled again. Therefore  */
@@ -672,7 +665,14 @@ uint32_t os_task_timeout_get(uint8_t tid) {
   return task_list[ tid ].time;
 }
 
-static void task_wait_sem_set( uint8_t tid, Sem_t sem ) {
+/* Sets the task to wait for semaphore state */
+void task_wait_sem_set( uint8_t tid, Sem_t sem )
+{
+
+    os_assert( tid < nTasks );
+
+    /* The time is ticked to measure waiting time */
+    task_list[ tid ].time = 0;
     task_list[ tid ].state = WAITING_SEM;
     task_list[ tid ].semaphore = sem;
 }
