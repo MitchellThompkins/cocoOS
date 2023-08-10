@@ -12,4 +12,7 @@ add_library(os_sem_impl
 target_link_libraries(os_sem_impl
     PUBLIC
         os_sem_intf
+        os_utils_intf
 )
+
+add_subdirectory(mocks)

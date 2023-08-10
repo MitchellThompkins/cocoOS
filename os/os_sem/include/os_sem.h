@@ -45,6 +45,11 @@ extern "C" {
 
 
 
+typedef struct
+{
+    uint8_t maxValue;
+    uint8_t value;
+} SemValue_t;
 
 typedef uint8_t Sem_t;
 
