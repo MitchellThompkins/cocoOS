@@ -16,7 +16,8 @@ extern "C" {
 #define NO_QUEUE 255
 #define NO_SEM   255
 
-#define OS_BEGIN  uint16_t os_task_state = os_task_internal_state_get(running_tid); switch ( os_task_state ) { case 0:
+//TODO(@mthompkins): Figure out if we need all these macros
+#define OS_BEGIN  uint16_t os_task_state = task_internal_state_get(running_tid); switch ( os_task_state ) { case 0:
 
 #define OS_END    os_task_kill(running_tid);\
                   running_tid = NO_TID;\

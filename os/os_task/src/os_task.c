@@ -330,7 +330,10 @@ uint8_t os_task_next_ready_task( void )
     return last_running_task;
 }
 
-/* Finds the task with highest prio waiting for sem, and makes it ready to run */
+// If using prio based schedule finds the task with highest prio waiting for
+// sem, and makes it ready to run
+// If using round robin based schedule finds the task which has been waiting on
+// a semaphore the longest and makes it ready to run
 void os_task_release_waiting_task( Sem_t sem )
 {
 #if (ROUND_ROBIN)
@@ -622,7 +625,8 @@ void os_task_run( void ) {
 }
 
 
-uint16_t os_task_internal_state_get( uint8_t tid ) {
+uint16_t task_internal_state_get( uint8_t tid )
+{
     return task_list[ tid ].internal_state;
 }
 

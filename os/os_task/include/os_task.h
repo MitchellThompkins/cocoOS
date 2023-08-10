@@ -80,7 +80,7 @@ void os_task_signal_event( Evt_t eventId );
 
 void os_task_run( void );
 
-uint16_t os_task_internal_state_get( uint8_t tid );
+uint16_t task_internal_state_get( uint8_t tid );
 
 void os_task_internal_state_set( uint8_t tid, uint16_t state );
 
@@ -107,6 +107,8 @@ uint32_t os_task_timeout_get(uint8_t tid);
 uint8_t task_create( taskproctype taskproc, void *data, uint8_t prio, Msg_t* msgPool, uint8_t poolSize, uint16_t msgSize );
 
 void *task_get_data( void );
+
+TaskState_t task_state_get( uint8_t tid );
 
 #ifdef __cplusplus
 }

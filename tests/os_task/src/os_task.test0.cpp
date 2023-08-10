@@ -149,13 +149,23 @@ TEST(TestOsTask, release_task_prio_waiting_on_semaphore)
     mock().expectOneCall("os_init");
     os_init();
 
-    const auto id1 {task_create( dummy_task, NULL, 3, NULL, 0, 0 )};
-    const auto id2 {task_create( dummy_task, NULL, 2, NULL, 0, 0 )};
-    const auto id3 {task_create( dummy_task, NULL, 1, NULL, 0, 0 )};
+    const auto id0 {task_create( dummy_task, NULL, 3, NULL, 0, 0 )};
+    const auto id1 {task_create( dummy_task, NULL, 2, NULL, 0, 0 )};
+    const auto id2 {task_create( dummy_task, NULL, 1, NULL, 0, 0 )};
 
 
     Sem_t sem0;
-    task_wait_sem_set(id1, sem0);
+    Sem_t sem1;
+    task_wait_sem_set(id0, sem0);
+    task_wait_sem_set(id1, sem1);
 
-    //os_task_release_waiting_task
+    os_task_release_waiting_task(sem0);
+
+    const auto id0_state = task_state_get(id0);
+    const auto id1_state = task_state_get(id1);
+    const auto id2_state = task_state_get(id2);
+
+    CHECK_EQUAL(READY, id0_state);
+    CHECK_EQUAL(WAITING_SEM, id1_state);
+    CHECK_EQUAL(READY, id2_state);
 }
