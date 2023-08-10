@@ -12,6 +12,7 @@ extern "C" {
 #define SEM_OFS1 20000
 #define SEM_OFS2 21000
 
+//TODO(@mthompkins): Remove these? These macros strike me as un-necessary
 #define OS_WAIT_SEM(sem)        do {\
                                     if ( os_sem_larger_than_zero( sem )  ){\
                                         os_sem_decrement( sem );\
@@ -51,6 +52,8 @@ typedef struct
     uint8_t value;
 } SemValue_t;
 
+
+//TODO(@mthompkins): Why is this a uint8_t? Can semaphores be unique?
 typedef uint8_t Sem_t;
 
 void os_sem_init(void);
