@@ -1,6 +1,8 @@
 #include "CppUTest/TestHarness.h"
 #include "CppUTestExt/MockSupport.h"
 
+#include "CppUTest/TestOutput.h"
+
 #include "platform.h"
 
 #include "os_assert.h"
