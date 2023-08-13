@@ -71,6 +71,12 @@ qemu-run.%:
 gdb-debug.%:
 	gdb build/$*/test_os_task0.elf -ix .gdbinit
 
+#TODO(@mthompkins): Use poetry to manage deps
+.PHONY: check-trace
+check-trace:
+	python3 -m pip install click termcolor 
+	python3 scripts/trace_reqs.py --req documents/test_cases.csv --test cpputest_TestOsTask.xml
+
 .PHONY: clean
 clean:
 	rm -rf build/
