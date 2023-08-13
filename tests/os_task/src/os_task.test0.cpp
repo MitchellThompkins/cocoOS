@@ -1,5 +1,6 @@
 #include "CppUTest/TestHarness.h"
 #include "CppUTestExt/MockSupport.h"
+#include "test_macros.hpp"
 
 #include "CppUTest/TestOutput.h"
 
@@ -8,26 +9,6 @@
 #include "os_assert.h"
 #include "os_kernel.h"
 #include "os_task.h"
-
-#define UT_CATALOG_ID(text) \
-  do { UTestFriend f(UtestShell::getCurrent()); f.print(text); } while(0)
-
-class UTestFriend : protected UtestShell
-{
-    public:
-        UTestFriend( UtestShell* t) : _test(t)
-        {}
-
-        void print(const char* text)
-        {
-            dynamic_cast<decltype(this)>(_test)->getTestResult()->print( " " );
-            dynamic_cast<decltype(this)>(_test)->getTestResult()->print( text );
-            dynamic_cast<decltype(this)>(_test)->getTestResult()->print( " " );
-        }
-
-    private:
-        UtestShell* _test;
-};
 
 static void dummy_task(void)
 {

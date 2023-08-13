@@ -24,6 +24,11 @@ add_library(cpputest_main
 
 )
 
+target_include_directories(cpputest_main
+    PUBLIC
+        include
+)
+
 target_link_libraries(cpputest_main
     PUBLIC
         CppUTest::CppUTest
