@@ -9,6 +9,26 @@
 #include "os_kernel.h"
 #include "os_task.h"
 
+#define UT_CATALOG_ID(text) \
+  do { UTestFriend f(UtestShell::getCurrent()); f.print(text); } while(0)
+
+class UTestFriend : protected UtestShell
+{
+    public:
+        UTestFriend( UtestShell* t) : _test(t)
+        {}
+
+        void print(const char* text)
+        {
+            dynamic_cast<decltype(this)>(_test)->getTestResult()->print( " " );
+            dynamic_cast<decltype(this)>(_test)->getTestResult()->print( text );
+            dynamic_cast<decltype(this)>(_test)->getTestResult()->print( " " );
+        }
+
+    private:
+        UtestShell* _test;
+};
+
 static void dummy_task(void)
 {
     task_open();
@@ -104,10 +124,10 @@ TEST(TestOsTask, fail_create_task_when_os_is_running)
 
 }
 
-// TASK-3
-// TASK-18
 TEST(TestOsTask, successful_task_initialization)
 {
+    UT_CATALOG_ID("TASK-3");
+    UT_CATALOG_ID("TASK-18");
     mock().expectOneCall("os_init");
     os_init();
 
@@ -125,9 +145,9 @@ TEST(TestOsTask, successful_task_initialization)
     CHECK_EQUAL(3, os_task_prio_get(id3) );
 }
 
-// TASK-9
 TEST(TestOsTask, next_highest_prio_task)
 {
+    UT_CATALOG_ID("TASK-9");
     mock().expectOneCall("os_init");
     os_init();
 
@@ -145,9 +165,9 @@ TEST(TestOsTask, next_highest_prio_task)
 
 }
 
-// TASK-11
 TEST(TestOsTask, release_task_prio_waiting_on_semaphore)
 {
+    UT_CATALOG_ID("TASK-11");
     mock().expectOneCall("os_init");
     os_init();
 
