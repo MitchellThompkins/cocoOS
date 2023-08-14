@@ -448,8 +448,8 @@ void os_task_suspend( uint8_t tid )
 }
 
 
-void os_task_resume( uint8_t tid ) {
-
+void os_task_resume( uint8_t tid )
+{
     os_assert( tid < nTasks );
 
     if ( task_list[ tid ].state == SUSPENDED ) {
@@ -475,7 +475,8 @@ uint8_t os_task_prio_get( uint8_t tid )
 
 
 /* Clears the event wait queue of a task */
-void os_task_clear_wait_queue( uint8_t tid ) {
+void os_task_clear_wait_queue( uint8_t tid )
+{
     uint8_t event;
     tcb *task;
 
@@ -493,7 +494,8 @@ void os_task_clear_wait_queue( uint8_t tid ) {
 
 
 /* Checks if a tasks event wait queue is empty or not */
-static uint8_t os_task_wait_queue_empty( uint8_t tid ) {
+static uint8_t os_task_wait_queue_empty( uint8_t tid )
+{
     uint8_t event;
     uint8_t result;
 
@@ -512,7 +514,8 @@ static uint8_t os_task_wait_queue_empty( uint8_t tid ) {
 }
 
 
-void os_task_wait_time_set( uint8_t tid, uint8_t id, uint32_t time ) {
+void os_task_wait_time_set( uint8_t tid, uint8_t id, uint32_t time )
+{
     os_assert( tid < nTasks );
     os_assert( time > 0 );
 

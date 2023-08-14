@@ -153,6 +153,8 @@ TEST(TestOsTask, next_highest_prio_task)
 TEST(TestOsTask, release_task_prio_waiting_on_semaphore)
 {
     UT_CATALOG_ID("TASK-11");
+    UT_CATALOG_ID("TASK-14");
+
     mock().expectOneCall("os_init");
     os_init();
 
@@ -173,9 +175,9 @@ TEST(TestOsTask, release_task_prio_waiting_on_semaphore)
 
     os_task_release_waiting_task(sem0);
 
-    const auto id0_state = task_state_get(id0);
-    const auto id1_state = task_state_get(id1);
-    const auto id2_state = task_state_get(id2);
+    const auto id0_state { task_state_get(id0) };
+    const auto id1_state { task_state_get(id1) };
+    const auto id2_state { task_state_get(id2) };
 
     CHECK_EQUAL(READY, id0_state);
     CHECK_EQUAL(WAITING_SEM, id1_state);
@@ -185,6 +187,9 @@ TEST(TestOsTask, release_task_prio_waiting_on_semaphore)
 TEST(TestOsTask, task_waiting_semaphore)
 {
     UT_CATALOG_ID("TASK-12");
+    UT_CATALOG_ID("TASK-13");
+    UT_CATALOG_ID("TASK-14");
+
     mock().expectOneCall("os_init");
     os_init();
 
@@ -221,4 +226,13 @@ TEST(TestOsTask, task_waiting_semaphore)
     //CHECK_EQUAL(id1, t0);
     //CHECK_EQUAL(id0, t1);
     //CHECK_EQUAL(-1, t2);
+
+    const auto waiting_state_id0 { task_state_get(id0) };
+    const auto waiting_state_id1 { task_state_get(id1) };
+    const auto waiting_state_id2 { task_state_get(id2) };
+
+    CHECK_EQUAL(WAITING_SEM, waiting_state_id0);
+    CHECK_EQUAL(WAITING_SEM, waiting_state_id1);
+    CHECK_EQUAL(READY, waiting_state_id2);
 }
+
