@@ -42,9 +42,9 @@ TEST_GROUP(TestOsTask)
     }
 };
 
-// TASK-1
 TEST(TestOsTask, fail_create_task_null_taskproc)
 {
+    UT_CATALOG_ID("TASK-1");
     mock().expectOneCall("os_init");
     os_init();
 
@@ -55,9 +55,10 @@ TEST(TestOsTask, fail_create_task_null_taskproc)
     mock().clear();
 }
 
-// TASK-1
 TEST(TestOsTask, fail_create_task_with_same_prio)
 {
+    UT_CATALOG_ID("TASK-1");
+
     mock().expectOneCall("os_init");
     os_init();
 
@@ -70,9 +71,10 @@ TEST(TestOsTask, fail_create_task_with_same_prio)
     mock().clear();
 }
 
-// TASK-1
 TEST(TestOsTask, fail_create_task_with_too_many_tasks)
 {
+    UT_CATALOG_ID("TASK-1");
+
     mock().expectOneCall("os_init");
     os_init();
 
@@ -87,9 +89,10 @@ TEST(TestOsTask, fail_create_task_with_too_many_tasks)
     mock().clear();
 }
 
-// TASK-2
 TEST(TestOsTask, fail_create_task_when_os_is_running)
 {
+    UT_CATALOG_ID("TASK-2");
+
     mock().expectOneCall("os_init");
     os_init();
 
@@ -129,6 +132,7 @@ TEST(TestOsTask, successful_task_initialization)
 TEST(TestOsTask, next_highest_prio_task)
 {
     UT_CATALOG_ID("TASK-9");
+
     mock().expectOneCall("os_init");
     os_init();
 
