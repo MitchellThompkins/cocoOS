@@ -156,9 +156,11 @@ TEST(TestOsTask, release_task_prio_waiting_on_semaphore)
     const auto id1 {task_create( dummy_task, NULL, 2, NULL, 0, 0 )};
     const auto id2 {task_create( dummy_task, NULL, 1, NULL, 0, 0 )};
 
+    mock().setData("sem_return_value", 0);
     mock().expectOneCall("sem_counting_create").andReturnValue(0);
     Sem_t sem0 {sem_counting_create(3, 0)};
 
+    mock().setData("sem_return_value", 1);
     mock().expectOneCall("sem_counting_create").andReturnValue(1);
     Sem_t sem1 {sem_counting_create(3, 0)};
 
@@ -186,21 +188,33 @@ TEST(TestOsTask, task_waiting_semaphore)
     const auto id1 {task_create( dummy_task, NULL, 2, NULL, 0, 0 )};
     const auto id2 {task_create( dummy_task, NULL, 1, NULL, 0, 0 )};
 
-    mock().setData("importantValue", 10);
-    //mock().expectOneCall("sem_counting_create").withParameter("max", 3).withParameter("initial", 0);
-
+    mock().setData("sem_return_value", 0);
+    mock().expectOneCall("sem_counting_create");
     Sem_t sem0 { sem_counting_create(3, 0) };
-    printf("Look here: %d", sem0);
 
-    mock().expectOneCall("sem_counting_create").withParameter("max", 3).withParameter("initial", 0);
+    mock().setData("sem_return_value", 1);
+    mock().expectOneCall("sem_counting_create");
     Sem_t sem1 { sem_counting_create(3, 0) };
+
+    mock().setData("sem_return_value", 2);
+    mock().expectOneCall("sem_counting_create");
+    Sem_t sem2 { sem_counting_create(3, 0) };
 
     task_wait_sem_set(id1, sem0);
     task_wait_sem_set(id0, sem1);
 
     const auto t0 = os_task_waiting_this_semaphore(sem0);
     const auto t1 = os_task_waiting_this_semaphore(sem1);
+    const auto t2 = os_task_waiting_this_semaphore(sem2);
 
-    CHECK_EQUAL(id1, t0);
-    CHECK_EQUAL(id0, t1);
+    CHECK_TRUE(t0);
+    CHECK_TRUE(t1);
+    CHECK_FALSE(t2);
+
+    //TODO(@mthompkins): Consider returning from
+    //os_task_waiting_this_semaphore _which_ task is waiting on this
+    //semaphore, make the return type signed and return -1 for none
+    //CHECK_EQUAL(id1, t0);
+    //CHECK_EQUAL(id0, t1);
+    //CHECK_EQUAL(-1, t2);
 }

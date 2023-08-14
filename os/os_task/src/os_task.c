@@ -675,7 +675,6 @@ uint32_t os_task_timeout_get(uint8_t tid) {
 /* Sets the task to wait for semaphore state */
 void task_wait_sem_set( uint8_t tid, Sem_t sem )
 {
-
     os_assert( tid < nTasks );
 
     /* The time is ticked to measure waiting time */

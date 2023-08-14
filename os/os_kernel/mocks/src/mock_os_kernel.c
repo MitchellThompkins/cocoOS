@@ -47,12 +47,6 @@ uint8_t os_get_running_tid(void)
     return running_tid;
 }
 
-Sem_t sem_bin_create( uint8_t initial )
-{}
-
-Sem_t sem_counting_create( uint8_t max, uint8_t initial )
-{}
-
 Evt_t event_create( void )
 {}
 

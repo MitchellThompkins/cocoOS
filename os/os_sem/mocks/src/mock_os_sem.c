@@ -46,9 +46,8 @@ Sem_t sem_bin_create( uint8_t initial )
 
 Sem_t sem_counting_create( uint8_t max, uint8_t initial )
 {
-    int v = (int)mock_c()->getData("importantValue").value.intValue;
-    printf("delete me: %d\n", v);
-    mock_c()->actualCall("os_sem_create")->returnValue();
+    int v = (int)mock_c()->getData("sem_return_value").value.intValue;
+    mock_c()->actualCall("sem_counting_create")->returnIntValueOrDefault(v);
 }
 
 #ifdef __cplusplus
