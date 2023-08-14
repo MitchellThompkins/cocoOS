@@ -389,18 +389,21 @@ void os_task_release_waiting_task( Sem_t sem )
 }
 
 
-/* Checks if any task is waiting for this semaphore */
-uint8_t os_task_waiting_this_semaphore( Sem_t sem ) {
+// Checks if any task is waiting for this semaphore
+uint8_t os_task_waiting_this_semaphore( Sem_t sem )
+{
     uint8_t tid;
     tcb *task;
     uint8_t taskIsWaitingForThisSemaphore;
     uint8_t result = 0;
 
-    for ( tid = 0; tid != nTasks; ++tid ) {
+    for ( tid = 0; tid != nTasks; ++tid )
+    {
         task = &task_list[ tid ];
         taskIsWaitingForThisSemaphore = (( task->state == WAITING_SEM ) && ( task->semaphore == sem ) );
 
-        if ( taskIsWaitingForThisSemaphore == 1 ) {
+        if ( taskIsWaitingForThisSemaphore == 1 )
+        {
             result = 1;
             break;
         }
@@ -428,7 +431,7 @@ void os_task_suspend( uint8_t tid )
 
     if (( state != KILLED ) && ( state != SUSPENDED ))
     {
-        /* If a task is waiting for a semaphore when beeing suspended, there is a risk      */
+        /* If a task is waiting for a semaphore when being suspended, there is a risk      */
         /* that the semaphore will be signaled while the task is suspended, and if the task */
         /* is then resumed it could hang if the semaphore is not signaled again. Therefore  */
         /* the task is reset when it is resumed. */

@@ -1,12 +1,18 @@
 #include "os_sem.h"
 #include "os_defines.h"
 
-static Sem_t os_sem_create( uint8_t max, uint8_t initial );
+typedef struct
+{
+    uint8_t maxValue;
+    uint8_t value;
+} SemValue_t;
 
 #if ( N_TOTAL_SEMAPHORES > 0 )
 static SemValue_t semList[ N_TOTAL_SEMAPHORES ];
 static Sem_t nSemaphores;
 #endif
+
+static Sem_t os_sem_create( uint8_t max, uint8_t initial );
 
 void os_sem_init(void)
 {
@@ -16,18 +22,19 @@ void os_sem_init(void)
 }
 
 
-static Sem_t os_sem_create( uint8_t max, uint8_t initial ) {
+static Sem_t os_sem_create( uint8_t max, uint8_t initial )
+{
 #if ( N_TOTAL_SEMAPHORES > 0 )
     os_assert( nSemaphores < N_TOTAL_SEMAPHORES );
 
-    /* Initialize the value and the waiting list */
+    // Initialize the value and the waiting list
     semList[ nSemaphores ].maxValue = max;
     semList[ nSemaphores ].value = initial;
     ++nSemaphores;
 
     return ( nSemaphores - 1 );
 #else
-    return 0;
+    return -1;
 #endif
 }
 
@@ -57,7 +64,7 @@ Sem_t sem_bin_create( uint8_t initial ) {
 
 
 /*********************************************************************************/
-/*  Sem_t sem_counting_create(uint8_t max, uint8_t initial)                                              *//**
+/*  Sem_t sem_counting_create(uint8_t max, uint8_t initial)
 *
 *   Creates and initializes a new counting semaphore.
 *

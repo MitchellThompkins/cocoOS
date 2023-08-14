@@ -156,9 +156,12 @@ TEST(TestOsTask, release_task_prio_waiting_on_semaphore)
     const auto id1 {task_create( dummy_task, NULL, 2, NULL, 0, 0 )};
     const auto id2 {task_create( dummy_task, NULL, 1, NULL, 0, 0 )};
 
+    mock().expectOneCall("sem_counting_create").andReturnValue(0);
+    Sem_t sem0 {sem_counting_create(3, 0)};
 
-    Sem_t sem0;
-    Sem_t sem1;
+    mock().expectOneCall("sem_counting_create").andReturnValue(1);
+    Sem_t sem1 {sem_counting_create(3, 0)};
+
     task_wait_sem_set(id0, sem0);
     task_wait_sem_set(id1, sem1);
 
@@ -171,4 +174,33 @@ TEST(TestOsTask, release_task_prio_waiting_on_semaphore)
     CHECK_EQUAL(READY, id0_state);
     CHECK_EQUAL(WAITING_SEM, id1_state);
     CHECK_EQUAL(READY, id2_state);
+}
+
+TEST(TestOsTask, task_waiting_semaphore)
+{
+    UT_CATALOG_ID("TASK-12");
+    mock().expectOneCall("os_init");
+    os_init();
+
+    const auto id0 {task_create( dummy_task, NULL, 3, NULL, 0, 0 )};
+    const auto id1 {task_create( dummy_task, NULL, 2, NULL, 0, 0 )};
+    const auto id2 {task_create( dummy_task, NULL, 1, NULL, 0, 0 )};
+
+    mock().setData("importantValue", 10);
+    //mock().expectOneCall("sem_counting_create").withParameter("max", 3).withParameter("initial", 0);
+
+    Sem_t sem0 { sem_counting_create(3, 0) };
+    printf("Look here: %d", sem0);
+
+    mock().expectOneCall("sem_counting_create").withParameter("max", 3).withParameter("initial", 0);
+    Sem_t sem1 { sem_counting_create(3, 0) };
+
+    task_wait_sem_set(id1, sem0);
+    task_wait_sem_set(id0, sem1);
+
+    const auto t0 = os_task_waiting_this_semaphore(sem0);
+    const auto t1 = os_task_waiting_this_semaphore(sem1);
+
+    CHECK_EQUAL(id1, t0);
+    CHECK_EQUAL(id0, t1);
 }

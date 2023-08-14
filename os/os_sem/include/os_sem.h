@@ -46,20 +46,16 @@ extern "C" {
 
 
 
-typedef struct
-{
-    uint8_t maxValue;
-    uint8_t value;
-} SemValue_t;
 
-
-//TODO(@mthompkins): Why is this a uint8_t? Can semaphores be unique?
-typedef uint8_t Sem_t;
+typedef int16_t Sem_t;
 
 void os_sem_init(void);
 uint8_t os_sem_larger_than_zero( Sem_t sem );
 void os_sem_decrement( Sem_t sem );
 void os_sem_increment( Sem_t sem );
+
+Sem_t sem_bin_create( uint8_t initial );
+Sem_t sem_counting_create( uint8_t max, uint8_t initial );
 
 #ifdef __cplusplus
 }

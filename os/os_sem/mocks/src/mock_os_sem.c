@@ -1,12 +1,19 @@
 #include "CppUTestExt/MockSupport_c.h"
 
-#include "cocoos.h"
-#include "os_kernel.h"
-#include "os_event.h"
-#include "os_msgqueue.h"
-#include "os_port.h"
 #include "os_sem.h"
-#include "os_task.h"
+#include "os_defines.h"
+
+#include "stdio.h"
+
+#ifdef __cplusplus
+extern "C" {
+#endif
+
+typedef struct
+{
+    uint8_t maxValue;
+    uint8_t value;
+} SemValue_t;
 
 static SemValue_t semList[ N_TOTAL_SEMAPHORES ];
 static Sem_t nSemaphores;
@@ -31,3 +38,19 @@ void os_sem_increment( Sem_t sem )
 {
     mock_c()->actualCall("os_sem_increment");
 }
+
+Sem_t sem_bin_create( uint8_t initial )
+{
+    mock_c()->actualCall("sem_bin_create");
+}
+
+Sem_t sem_counting_create( uint8_t max, uint8_t initial )
+{
+    int v = (int)mock_c()->getData("importantValue").value.intValue;
+    printf("delete me: %d\n", v);
+    mock_c()->actualCall("os_sem_create")->returnValue();
+}
+
+#ifdef __cplusplus
+}
+#endif

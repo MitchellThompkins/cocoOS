@@ -19,6 +19,8 @@
 
 * I've been removing the lic code to make it more readable.
 
+* Changed Sem_t backing type to be int16 to allow for negative numbers
+
 ```dot
 digraph "test" {
 node [
