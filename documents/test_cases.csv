@@ -20,5 +20,7 @@ TASK-18,os_task_prio_get returns the specified tasks priority
 TASK-19,os_task_clear_wait_queue will clear the event wait queue of all tasks
 TASK-20,"os_task_wait_time_set sets the specified task to have the specified clockId and time, as well as sets the state to WAITING_TIME"
 TASK-21,os_task_wait_event sets the specified event for the specified task TBD
-TASK-22,os_task_tick TBD
+TASK-22,cocoOS shall provide a function to increment the time for all tasks whose state is waiting on a semaphore
+TASK-23,TBD cocoOS osticktask msgqueue 
+TASK-24,TBD cocoOS osticktask eventqueue 
 TASK-23,os_task_signal_event TBD
