@@ -236,3 +236,55 @@ TEST(TestOsTask, task_waiting_semaphore)
     CHECK_EQUAL(READY, waiting_state_id2);
 }
 
+TEST(TestOsTask, tick_time_for_tasks)
+{
+    UT_CATALOG_ID("TASK-22");
+
+    mock().expectOneCall("os_init");
+    os_init();
+
+    const auto id0 {task_create( dummy_task, NULL, 3, NULL, 0, 0 )};
+    const auto id1 {task_create( dummy_task, NULL, 2, NULL, 0, 0 )};
+    const auto id2 {task_create( dummy_task, NULL, 1, NULL, 0, 0 )};
+
+    mock().setData("sem_return_value", 0);
+    mock().expectOneCall("sem_counting_create");
+    Sem_t sem0 { sem_counting_create(3, 0) };
+
+    mock().setData("sem_return_value", 1);
+    mock().expectOneCall("sem_counting_create");
+    Sem_t sem1 { sem_counting_create(3, 0) };
+
+    task_wait_sem_set(id1, sem0);
+    task_wait_sem_set(id0, sem1);
+
+    const auto t0 = os_task_waiting_this_semaphore(sem0);
+    const auto t1 = os_task_waiting_this_semaphore(sem1);
+
+    const auto waiting_state_id0 { task_state_get(id0) };
+    const auto waiting_state_id1 { task_state_get(id1) };
+    const auto waiting_state_id2 { task_state_get(id2) };
+
+    auto timeout0 { os_task_timeout_get(id0) };
+    auto timeout1 { os_task_timeout_get(id1) };
+    auto timeout2 { os_task_timeout_get(id2) };
+    CHECK_EQUAL(0, timeout0);
+    CHECK_EQUAL(0, timeout1);
+    CHECK_EQUAL(0, timeout2);
+
+    os_task_tick(0, 0);
+    timeout0 = os_task_timeout_get(id0);
+    timeout1 = os_task_timeout_get(id1);
+    timeout2 = os_task_timeout_get(id2);
+    CHECK_EQUAL(1, timeout0);
+    CHECK_EQUAL(1, timeout1);
+    CHECK_EQUAL(0, timeout2);
+
+    os_task_tick(0, 0);
+    timeout0 = os_task_timeout_get(id0);
+    timeout1 = os_task_timeout_get(id1);
+    timeout2 = os_task_timeout_get(id2);
+    CHECK_EQUAL(2, timeout0);
+    CHECK_EQUAL(2, timeout1);
+    CHECK_EQUAL(0, timeout2);
+}

@@ -553,46 +553,45 @@ void os_task_wait_event( uint8_t tid, Evt_t eventId, uint8_t waitSingleEvent, ui
 
 void os_task_tick( uint8_t clockId, uint32_t tickSize )
 {
-    uint8_t index;
-
-    /* Search all tasks and decrement time for waiting tasks */
-    for ( index = 0; index != nTasks; ++index ) {
+    // Search all tasks and decrement time for waiting tasks
+    for( uint8_t i = 0; i != nTasks; ++i )
+    {
         TaskState_t state;
-        state = task_list[ index ].state;
+        state = task_list[i].state;
 
-        if (( state == WAITING_TIME ) || ( state == WAITING_EVENT_TIMEOUT ))
+        if(( state == WAITING_TIME ) || ( state == WAITING_EVENT_TIMEOUT ))
         {
             // Found a waiting task, is it ready?
-            if ( task_list[ index ].clockId == clockId )
+            if ( task_list[i].clockId == clockId )
             {
-                if ( task_list[ index ].time <= tickSize )
+                if ( task_list[i].time <= tickSize )
                 {
-                    task_list[ index ].time = 0;
+                    task_list[i].time = 0;
 
                     if ( state == WAITING_EVENT_TIMEOUT )
                     {
-                        os_task_clear_wait_queue( index );
+                        os_task_clear_wait_queue(i);
                     }
 
-                    task_ready_set( index );
+                    task_ready_set(i);
                 }
                 else
                 {
-                    task_list[ index ].time -= tickSize;
+                    task_list[i].time -= tickSize;
                 }
             }
         }
         else if ( state ==  WAITING_SEM )
         {
-            task_list[ index ].time++;
+            task_list[i].time++;
         }
 
         // If the task has a message queue, decrement the delayed message timers
         if ( clockId == 0 )
         {
-            if ( task_list[ index ].msgQ != NO_QUEUE )
+            if ( task_list[i].msgQ != NO_QUEUE )
             {
-                os_msgQ_tick( task_list[ index ].msgQ );
+                os_msgQ_tick( task_list[i].msgQ );
             }
         }
     }
@@ -682,7 +681,8 @@ uint8_t os_task_get_msg_result(uint8_t tid) {
 }
 
 /* Use this to differentiate between event timeout or not */
-uint32_t os_task_timeout_get(uint8_t tid) {
+uint32_t os_task_timeout_get(uint8_t tid)
+{
   return task_list[ tid ].time;
 }
 
