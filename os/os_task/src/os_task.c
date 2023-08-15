@@ -551,7 +551,7 @@ void os_task_wait_event( uint8_t tid, Evt_t eventId, uint8_t waitSingleEvent, ui
 }
 
 
-void os_task_tick( uint8_t clockId, uint32_t tickSize )
+void task_tick( uint8_t clockId, uint32_t tickSize )
 {
     // Search all tasks and decrement time for waiting tasks
     for( uint8_t i = 0; i != nTasks; ++i )

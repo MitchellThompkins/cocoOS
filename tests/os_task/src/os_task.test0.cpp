@@ -272,7 +272,7 @@ TEST(TestOsTask, tick_time_for_tasks)
     CHECK_EQUAL(0, timeout1);
     CHECK_EQUAL(0, timeout2);
 
-    os_task_tick(0, 0);
+    task_tick(0, 0);
     timeout0 = os_task_timeout_get(id0);
     timeout1 = os_task_timeout_get(id1);
     timeout2 = os_task_timeout_get(id2);
@@ -280,7 +280,7 @@ TEST(TestOsTask, tick_time_for_tasks)
     CHECK_EQUAL(1, timeout1);
     CHECK_EQUAL(0, timeout2);
 
-    os_task_tick(0, 0);
+    task_tick(0, 0);
     timeout0 = os_task_timeout_get(id0);
     timeout1 = os_task_timeout_get(id1);
     timeout2 = os_task_timeout_get(id2);
