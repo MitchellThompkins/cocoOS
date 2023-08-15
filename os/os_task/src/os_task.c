@@ -551,7 +551,7 @@ void os_task_wait_event( uint8_t tid, Evt_t eventId, uint8_t waitSingleEvent, ui
 }
 
 
-void os_task_tick( uint8_t id, uint32_t tickSize )
+void os_task_tick( uint8_t clockId, uint32_t tickSize )
 {
     uint8_t index;
 
@@ -559,28 +559,39 @@ void os_task_tick( uint8_t id, uint32_t tickSize )
     for ( index = 0; index != nTasks; ++index ) {
         TaskState_t state;
         state = task_list[ index ].state;
-        if (( state == WAITING_TIME ) || ( state == WAITING_EVENT_TIMEOUT )){
-            /* Found a waiting task, is it ready? */
-            if ( task_list[ index ].clockId == id ) {
-                if ( task_list[ index ].time <= tickSize ) {
+
+        if (( state == WAITING_TIME ) || ( state == WAITING_EVENT_TIMEOUT ))
+        {
+            // Found a waiting task, is it ready?
+            if ( task_list[ index ].clockId == clockId )
+            {
+                if ( task_list[ index ].time <= tickSize )
+                {
                     task_list[ index ].time = 0;
-                    if ( state == WAITING_EVENT_TIMEOUT ) {
+
+                    if ( state == WAITING_EVENT_TIMEOUT )
+                    {
                         os_task_clear_wait_queue( index );
                     }
+
                     task_ready_set( index );
                 }
-                else {
+                else
+                {
                     task_list[ index ].time -= tickSize;
                 }
             }
         }
-        else if ( state ==  WAITING_SEM ) {
+        else if ( state ==  WAITING_SEM )
+        {
             task_list[ index ].time++;
         }
 
-        /* If the task has a message queue, decrement the delayed message timers */
-        if ( id == 0 ) {
-            if ( task_list[ index ].msgQ != NO_QUEUE ) {
+        // If the task has a message queue, decrement the delayed message timers
+        if ( clockId == 0 )
+        {
+            if ( task_list[ index ].msgQ != NO_QUEUE )
+            {
                 os_msgQ_tick( task_list[ index ].msgQ );
             }
         }
@@ -687,17 +698,20 @@ void task_wait_sem_set( uint8_t tid, Sem_t sem )
 }
 
 
-static void task_ready_set( uint8_t tid ) {
+static void task_ready_set( uint8_t tid )
+{
     task_list[ tid ].state = READY;
 }
 
 
-static void task_suspended_set( uint8_t tid ) {
+static void task_suspended_set( uint8_t tid )
+{
     task_list[ tid ].state = SUSPENDED;
 }
 
 
-static void task_waiting_time_set( uint8_t tid ) {
+static void task_waiting_time_set( uint8_t tid )
+{
     task_list[ tid ].state = WAITING_TIME;
 }
 

@@ -74,7 +74,7 @@ void os_task_wait_time_set( uint8_t tid, uint8_t id, uint32_t time );
 
 void os_task_wait_event( uint8_t tid, Evt_t eventId, uint8_t waitSingleEvent, uint32_t timeout );
 
-void os_task_tick( uint8_t id, uint32_t tickSize );
+void os_task_tick( uint8_t clockId, uint32_t tickSize );
 
 void os_task_signal_event( Evt_t eventId );
 
