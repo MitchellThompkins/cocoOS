@@ -1,6 +1,3 @@
-#########
-# config0
-#########
 add_executable(test_os_task0
     src/os_task.test0.cpp
 )
