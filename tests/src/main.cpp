@@ -2,7 +2,7 @@
 
 #include "CppUTest/CommandLineTestRunner.h"
 
-int main()
+int main(void)
 {
     // TODO(@mthompkins): Consider taking these in at the commandline, although
     // this does give us control over what arguments are passed.

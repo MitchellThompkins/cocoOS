@@ -1,0 +1,12 @@
+{
+    "tests":[
+        {
+            "type": "host",
+            "name": "test_os_task0"
+        },
+        {
+            "type": "target",
+            "name": "test_os_task0"
+        }
+    ]
+}

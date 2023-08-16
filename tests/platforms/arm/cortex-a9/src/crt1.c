@@ -8,8 +8,8 @@
 extern "C" {
 #endif
 
-//extern __attribute__((long_call)) int main(int argc, char *argv[]);
-extern __attribute__((long_call)) int main();
+// main() isn't name mangled by c++
+extern __attribute__((long_call)) int main(void);
 
 extern uint32_t __bss_start;
 extern uint32_t __bss_end;
