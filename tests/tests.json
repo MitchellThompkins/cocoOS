@@ -1,0 +1,15 @@
+{
+    "tests":[
+        {
+            "type": "host",
+            "dir": "build/x86_64"
+        },
+        {
+            "type": "qemu-system-arm",
+            "dir": "build/a9",
+            "machine": "xilinx-zynq-a9",
+            "cpu": "cortex-a9",
+            "memory": "12M"
+        }
+    ]
+}

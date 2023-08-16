@@ -2,7 +2,7 @@ UID=$(shell id -u)
 GID=$(shell id -g)
 
 #######################################
-### Building Software #################
+### build #############################
 #######################################
 
 .PHONY: build.all
@@ -20,8 +20,17 @@ build.%: build.cmake.%
 build.graph:
 	cmake --graphviz=test.dot . -DPLATFORM=CORTEX_A9
 
+
 #######################################
-### Container #########################
+### test #########################
+#######################################
+.PHONY: test
+test: 
+	python3 scripts/test.py -t tests/tests.json 
+
+
+#######################################
+### container #########################
 #######################################
 
 .PHONY: container.pull
@@ -34,52 +43,24 @@ container.start:
 
 
 #######################################
-### Utility ###########################
+### utility ###########################
 #######################################
-
-		#-serial mon:stdio
-.PHONY: qemu-debug.%
-qemu-debug.%:
-	qemu-system-arm \
-		-nographic \
-		--no-reboot \
-		-gdb tcp::1234 \
-		-S \
-		-machine xilinx-zynq-a9 \
-		-cpu cortex-a9 \
-		-m 12M \
-		-d guest_errors\
-		--semihosting \
-		-semihosting-config enable=on,target=native \
-		-kernel build/$*/test_os_task0.elf
-
-.PHONY: qemu-run.%
-qemu-run.%:
-	qemu-system-arm \
-		-nographic \
-		--no-reboot \
-		-serial stdio \
-		-monitor none \
-		-machine xilinx-zynq-a9 \
-		-cpu cortex-a9 \
-		-m 12M \
-		--semihosting \
-		-semihosting-config enable=on,target=native \
-		-kernel build/$*/test_os_task0.elf
-
-.PHONY: gdb-debug.%
-gdb-debug.%:
-	gdb build/$*/test_os_task0.elf -ix .gdbinit
 
 #TODO(@mthompkins): Use poetry to manage deps
 .PHONY: check-trace
 check-trace:
 	python3 -m pip install click termcolor 
 	python3 scripts/trace_reqs.py --req documents/requirements.csv --test cpputest_TestOsTask.xml
-
+	
 .PHONY: clean
 clean:
 	rm -rf build/
+
+#######################################
+### debug ###########################
+#######################################
+include debug.mk
+
 
 # All the Makefiles read themselves get matched if a target exists for them, so
 # they will get matched by a Match anything target %:. This target is here
