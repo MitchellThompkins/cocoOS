@@ -35,9 +35,8 @@ class Test:
         results = []
         for exe in self.exes:
             s = self._assemble_command(exe)
-            print(s)
-            print()
-            result = subprocess.run(s)
+            print(f"\n{' '.join(s)}\n")
+            results.append( subprocess.run(s).returncode)
 
         return results
 
@@ -81,8 +80,17 @@ def parse_tests(test_def_json:str):
 
 
 def cli(tests):
+    results = []
+
     for t in tests:
-        t.run_tests()
+        results.append( t.run_tests() )
+
+    for r in results:
+        for test_result in r:
+            if test_result != 0:
+                sys.exit(test_result)
+
+    sys.exit(0)
 
 
 def get_args():
