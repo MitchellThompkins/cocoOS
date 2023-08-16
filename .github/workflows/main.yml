@@ -12,7 +12,7 @@ jobs:
             - name: build
               uses: MitchellThompkins/cocoOS_github_action@v0.0.3
               with:
-                command: make build.a9
+                command: make build.all
 
             - name: test
               uses: MitchellThompkins/cocoOS_github_action@v0.0.3
