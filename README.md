@@ -158,6 +158,7 @@ int main(void) {
 
 ## Scheduling
 When a task has finished it gives the CPU control to another task by calling one of the scheduling macros:
+
     - task_wait()
     - task_wait_id()
 

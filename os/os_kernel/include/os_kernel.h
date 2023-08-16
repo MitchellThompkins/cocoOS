@@ -854,8 +854,6 @@ uint8_t os_get_running_tid(void);
 
 //TODO(@mthompkins): I think this is better placed in os_task.h
 void task_kill( uint8_t tid );
-Sem_t sem_bin_create( uint8_t initial );
-Sem_t sem_counting_create( uint8_t max, uint8_t initial );
 
 Evt_t event_create( void );
 uint8_t event_signaling_taskId_get( Evt_t ev );

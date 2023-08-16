@@ -68,11 +68,18 @@ void _start(void)
     // Do constructor init
     ctors();
 
+    // TODO(@mthompkins): Make this modular, and additionally running with
+    // ojunit and v seems to disable the output :(
     // Jump to main()
-    char **argv = NULL;
-    char argc = 0;
+    int argc = 3;
+    char *argv[argc];
+    int status = 1;
 
-    int status = main(argc, argv);
+    argv[0] = "test";
+    argv[1] = "-ojunit";
+    argv[2] = "-v";
+    status = main(argc, argv);
+
     dtors();
 
     angel_exit(status);

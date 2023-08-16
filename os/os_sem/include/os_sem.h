@@ -12,6 +12,7 @@ extern "C" {
 #define SEM_OFS1 20000
 #define SEM_OFS2 21000
 
+//TODO(@mthompkins): Remove these? These macros strike me as un-necessary
 #define OS_WAIT_SEM(sem)        do {\
                                     if ( os_sem_larger_than_zero( sem )  ){\
                                         os_sem_decrement( sem );\
@@ -46,12 +47,15 @@ extern "C" {
 
 
 
-typedef uint8_t Sem_t;
+typedef int16_t Sem_t;
 
 void os_sem_init(void);
 uint8_t os_sem_larger_than_zero( Sem_t sem );
 void os_sem_decrement( Sem_t sem );
 void os_sem_increment( Sem_t sem );
+
+Sem_t sem_bin_create( uint8_t initial );
+Sem_t sem_counting_create( uint8_t max, uint8_t initial );
 
 #ifdef __cplusplus
 }

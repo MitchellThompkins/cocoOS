@@ -119,7 +119,7 @@ void os_start( void )
 /*********************************************************************************/
 void os_tick( void ) {
     /* Master clock tick */
-    os_task_tick( 0, 1 );
+    task_tick( 0, 1 );
 }
 
 
@@ -147,7 +147,7 @@ void os_tick( void ) {
 void os_sub_tick( uint8_t id ) {
     /* Sub clock tick */
     if ( id != 0 ) {
-        os_task_tick( id, 1 );
+        task_tick( id, 1 );
     }
 }
 
@@ -176,7 +176,7 @@ void os_sub_tick( uint8_t id ) {
 void os_sub_nTick( uint8_t id, uint32_t nTicks ) {
     /* Sub clock tick */
     if ( id != 0 ) {
-        os_task_tick( id, nTicks );
+        task_tick( id, nTicks );
     }
 }
 

@@ -51,7 +51,7 @@ qemu-debug.%:
 		-d guest_errors\
 		--semihosting \
 		-semihosting-config enable=on,target=native \
-		-kernel build/$*/test_os_task.elf
+		-kernel build/$*/test_os_task0.elf
 
 .PHONY: qemu-run.%
 qemu-run.%:
@@ -65,11 +65,17 @@ qemu-run.%:
 		-m 12M \
 		--semihosting \
 		-semihosting-config enable=on,target=native \
-		-kernel build/$*/test_os_task.elf
+		-kernel build/$*/test_os_task0.elf
 
 .PHONY: gdb-debug.%
 gdb-debug.%:
-	gdb build/$*/test.elf -ix .gdbinit
+	gdb build/$*/test_os_task0.elf -ix .gdbinit
+
+#TODO(@mthompkins): Use poetry to manage deps
+.PHONY: check-trace
+check-trace:
+	python3 -m pip install click termcolor 
+	python3 scripts/trace_reqs.py --req documents/test_cases.csv --test cpputest_TestOsTask.xml
 
 .PHONY: clean
 clean:

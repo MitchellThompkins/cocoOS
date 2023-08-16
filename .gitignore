@@ -6,6 +6,7 @@
 compile_commands.json
 CMakeCache.txt
 tags
+*.xml
 
 build/
 CMakeFiles/

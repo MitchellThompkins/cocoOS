@@ -1,14 +1,8 @@
-add_executable(test_os_task
-    src/os_task.test.cpp
+add_executable(test_os_task0
+    src/os_task.test0.cpp
 )
 
-add_library(user_os_config INTERFACE)
-target_include_directories(user_os_config
-    INTERFACE
-        include
-)
-
-target_link_libraries(test_os_task
+target_link_libraries(test_os_task0
     PUBLIC
         cpputest_main
         platform
@@ -26,7 +20,7 @@ target_link_libraries(test_os_task
         os_kernel_impl_mock
         os_msgqueue_impl
         os_event_impl
-        os_sem_impl
+        os_sem_impl_mock
         os_task_impl
 
         # Mocks
@@ -34,4 +28,4 @@ target_link_libraries(test_os_task
 )
 
 include(make_test)
-make_test(test_os_task)
+make_test(test_os_task0)
