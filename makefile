@@ -75,7 +75,7 @@ gdb-debug.%:
 .PHONY: check-trace
 check-trace:
 	python3 -m pip install click termcolor 
-	python3 scripts/trace_reqs.py --req documents/test_cases.csv --test cpputest_TestOsTask.xml
+	python3 scripts/trace_reqs.py --req documents/requirements.csv --test cpputest_TestOsTask.xml
 
 .PHONY: clean
 clean:
