@@ -8,7 +8,8 @@
 extern "C" {
 #endif
 
-extern __attribute__((long_call)) int main(int argc, char *argv[]);
+//extern __attribute__((long_call)) int main(int argc, char *argv[]);
+extern __attribute__((long_call)) int main();
 
 extern uint32_t __bss_start;
 extern uint32_t __bss_end;
@@ -68,17 +69,7 @@ void _start(void)
     // Do constructor init
     ctors();
 
-    // TODO(@mthompkins): Make this modular, and additionally running with
-    // ojunit and v seems to disable the output :(
-    // Jump to main()
-    int argc = 3;
-    char *argv[argc];
-    int status = 1;
-
-    argv[0] = "test";
-    argv[1] = "-ojunit";
-    argv[2] = "-v";
-    status = main(argc, argv);
+    int status = main();
 
     dtors();
 
