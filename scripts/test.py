@@ -1,47 +1,89 @@
 import argparse
 import json
+import os
 import subprocess
 import sys
 
-def cli(tests):
 
-    s = []
+class Test:
+    def __init__(self, test_def):
+        self.configure(test_def)
+        self.exes = self.get_test_executables()
 
-    s.append("qemu-system-arm")
-    s.append("-nographic")
-    s.append("--no-reboot")
-    s.append("-serial")
-    s.append("stdio")
-    s.append("-monitor")
-    s.append("none")
-    s.append("-machine")
-    s.append("xilinx-zynq-a9")
-    s.append("-cpu")
-    s.append("cortex-a9")
-    s.append("-m")
-    s.append("12M")
-    s.append("--semihosting")
-    s.append("-semihosting-config")
-    s.append("enable=on,target=native")
-    s.append("-kernel")
-    s.append("build/a9/test_os_task0.elf")
+    def configure(self, test_def):
+        self.command = test_def["type"]
+        self.dir = test_def["dir"]
 
-    print(' '.join(s))
+        if self.command != "host":
+            self.machine = test_def["machine"]
+            self.cpu = test_def["cpu"]
+            self.memory = test_def["memory"]
+        else:
+            self.machine = None
+            self.cpu = None
+            self.memory = None
 
-    result = subprocess.run(s)
-    sys.exit(result)
+    def get_test_executables(self):
+        test_exes = []
+        for f in os.listdir(f"{self.dir}"):
+            if f.endswith(".elf"):
+                test_exes.append(os.path.abspath( os.path.join(f"{self.dir}", f) ))
 
-def parse_tests(test_file:str):
+        return test_exes
 
-    with open(test_file, 'r') as f:
-        # returns JSON object as
-        # a dictionary
+    def run_tests(self):
+        results = []
+        for exe in self.exes:
+            s = self._assemble_command(exe)
+            print(s)
+            print()
+            result = subprocess.run(s)
+
+        return results
+
+    def _assemble_command(self, test_exe):
+        s = []
+
+        if self.command == "host":
+            s.append(f"{test_exe}")
+        else:
+            s.append("qemu-system-arm")
+            s.append("-nographic")
+            s.append("--no-reboot")
+            s.append("-serial")
+            s.append("stdio")
+            s.append("-monitor")
+            s.append("none")
+            s.append("-machine")
+            s.append(f"{self.machine}")
+            s.append("-cpu")
+            s.append(f"{self.cpu}")
+            s.append("-m")
+            s.append(f"{self.memory}")
+            s.append("--semihosting")
+            s.append("-semihosting-config")
+            s.append("enable=on,target=native")
+            s.append("-kernel")
+            s.append(f"{test_exe}")
+
+        return s
+
+
+def parse_tests(test_def_json:str):
+    """
+    Parse json file to extract test configurations
+    """
+    with open(test_def_json, 'r') as f:
         data = json.load(f)
+        test_list = [Test(i) for i in data['tests']]
 
-        # Iterating through the json
-        # list
-        for i in data['tests']:
-            print(i)
+    return test_list
+
+
+def cli(tests):
+    for t in tests:
+        t.run_tests()
+
 
 def get_args():
     p = argparse.ArgumentParser("run tests")
@@ -49,9 +91,7 @@ def get_args():
 
     return p.parse_args()
 
-
 if __name__ == '__main__':
     a = get_args()
     tests = parse_tests(a.tests_json)
     cli(tests)
-
