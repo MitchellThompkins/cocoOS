@@ -17,4 +17,4 @@ jobs:
             - name: test
               uses: MitchellThompkins/cocoOS_github_action@v0.0.3
               with:
-                command: make qemu-run.a9 check-trace
+                command: make test check-trace

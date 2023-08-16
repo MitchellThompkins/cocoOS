@@ -2,7 +2,7 @@ UID=$(shell id -u)
 GID=$(shell id -g)
 
 #######################################
-### Building Software #################
+### build #############################
 #######################################
 
 .PHONY: build.all
@@ -20,8 +20,17 @@ build.%: build.cmake.%
 build.graph:
 	cmake --graphviz=test.dot . -DPLATFORM=CORTEX_A9
 
+
 #######################################
-### Container #########################
+### test #########################
+#######################################
+.PHONY: test
+test: 
+	python3 scripts/test.py -t tests/tests.json 
+
+
+#######################################
+### container #########################
 #######################################
 
 .PHONY: container.pull
@@ -34,20 +43,24 @@ container.start:
 
 
 #######################################
-### Utility ###########################
+### utility ###########################
 #######################################
-
-include debug.mk
 
 #TODO(@mthompkins): Use poetry to manage deps
 .PHONY: check-trace
 check-trace:
 	python3 -m pip install click termcolor 
 	python3 scripts/trace_reqs.py --req documents/requirements.csv --test cpputest_TestOsTask.xml
-
+	
 .PHONY: clean
 clean:
 	rm -rf build/
+
+#######################################
+### debug ###########################
+#######################################
+include debug.mk
+
 
 # All the Makefiles read themselves get matched if a target exists for them, so
 # they will get matched by a Match anything target %:. This target is here
