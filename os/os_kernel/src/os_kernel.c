@@ -66,23 +66,22 @@ static void os_schedule( void )
 }
 
 
-
-
 /*********************************************************************************/
-/*  void os_start()                                              *//**
+/*  void os_start()
 *   Starts the task scheduling
 *
 *   @return None.
 *   @remarks \b Usage: @n Should be the last line of main.
 *
 *   @code
-*   int main(void) {
-*     system_init();
-*     os_init();
-*     task_create( myTaskProc, 1, NULL, 0, 0 );
+*   int main(void)
+*   {
+*       system_init();
+*       os_init();
+*       task_create( myTaskProc, 1, NULL, 0, 0 );
 *
-*     os_start();
-*     return 0;
+*       os_start();
+*       return 0;
 *   }
 *   @endcode
 */
