@@ -48,10 +48,10 @@ static void os_schedule( void )
     running_tid = NO_TID;
 
 #if (ROUND_ROBIN)
-    /* Find next ready task */
+    // Find next ready task
     running_tid = next_ready_task();
 #else
-    /* Find the highest prio task ready to run */
+    // Find the highest prio task ready to run
     running_tid = highest_prio_ready_task();
 #endif
 
