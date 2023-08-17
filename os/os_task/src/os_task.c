@@ -260,19 +260,19 @@ void *task_get_data()
   return task_list[ running_tid ].data;
 }
 
-/* Finds the task with highest prio that are ready to run - used for prio based scheduling */
+// Finds the task with highest prio that is ready to run
+// Used with priority based scheduling
 uint8_t highest_prio_ready_task( void )
 {
-    uint16_t index;
     tcb *task;
     uint8_t highest_prio_task = NO_TID;
     uint8_t highest_prio = 255;
     TaskState_t state;
     uint8_t prio;
 
-    for ( index = 0; index != nTasks; ++index )
+    for( uint16_t i = 0; i != nTasks; ++i )
     {
-        task = &task_list[ index ];
+        task = &task_list[i];
         prio = task->prio;
         state = task->state;
 
@@ -281,7 +281,7 @@ uint8_t highest_prio_ready_task( void )
             if ( prio < highest_prio )
             {
                 highest_prio = prio;
-                highest_prio_task = index;
+                highest_prio_task = i;
             }
         }
     }
@@ -290,19 +290,22 @@ uint8_t highest_prio_ready_task( void )
 }
 
 
-/* Finds the next ready task - used when ROUND_ROBIN is defined */
+// Finds the next ready task - used when ROUND_ROBIN is defined
 uint8_t next_ready_task( void )
 {
     uint16_t index;
     uint8_t found;
     uint8_t nChecked;
 
-    if ( NO_TID == last_running_task ) {
+    if ( NO_TID == last_running_task )
+    {
         index = 0;
     }
-    else {
+    else
+    {
         index = last_running_task + 1;
-        if ( index >= nTasks ) {
+        if ( index >= nTasks )
+        {
             index = 0;
         }
     }
@@ -310,20 +313,24 @@ uint8_t next_ready_task( void )
     found = 0;
     nChecked = 0;
 
-    do {
-        if ( READY == task_list[ index ].state ) {
+    do
+    {
+        if ( READY == task_list[ index ].state )
+        {
             last_running_task = index;
             found = 1;
             break;
         }
 
         ++index;
-        if ( index == nTasks ) {
+        if ( index == nTasks )
+        {
             index = 0;
         }
     } while ( ++nChecked != nTasks );
 
-    if ( !found ) {
+    if ( !found )
+    {
         last_running_task = NO_TID;
     }
 
@@ -634,8 +641,9 @@ void os_task_signal_event( Evt_t eventId ) {
 }
 
 
-/* Runs the next task ready for execution. Assumes running_tid has been assigned */
-void os_task_run( void ) {
+// Runs the next task ready for execution. Assumes running_tid has been assigned
+void os_task_run( void )
+{
     os_assert( running_tid < nTasks );
     task_list[ running_tid ].taskproc();
 }
