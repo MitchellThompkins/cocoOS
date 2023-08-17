@@ -15,8 +15,8 @@ uint8_t last_running_task;
 uint8_t running;
 
 /*********************************************************************************/
-/*  void os_init()                                              *//**
-*   
+/*  void os_init()
+
 *   Initializes the scheduler.
 *   @return None.
 *   @remarks \b Usage: @n Should be called early in system setup, before starting the task
@@ -26,13 +26,13 @@ uint8_t running;
 *   int main(void) {
 *   system_init();
 *   os_init();
-*   ...
+*
 *   }
 *   @endcode
-*       
-*		 */
+* */
 /*********************************************************************************/
-void os_init( void ) {
+void os_init( void )
+{
     running_tid = NO_TID;
     last_running_task = NO_TID;
     running = 0;
@@ -43,10 +43,8 @@ void os_init( void ) {
 }
 
 
-
-
-static void os_schedule( void ) {
-
+static void os_schedule( void )
+{
     running_tid = NO_TID;
 
 #if (ROUND_ROBIN)
@@ -54,13 +52,15 @@ static void os_schedule( void ) {
     running_tid = os_task_next_ready_task();
 #else
     /* Find the highest prio task ready to run */
-    running_tid = os_task_highest_prio_ready_task();   
+    running_tid = os_task_highest_prio_ready_task();
 #endif
-    
-    if ( running_tid != NO_TID ) {
+
+    if ( running_tid != NO_TID )
+    {
         os_task_run();
     }
-    else {
+    else
+    {
         os_cbkSleep();
     }
 }
@@ -80,7 +80,7 @@ static void os_schedule( void ) {
 *     system_init();
 *     os_init();
 *     task_create( myTaskProc, 1, NULL, 0, 0 );
-*     ...
+*
 *     os_start();
 *     return 0;
 *   }
@@ -101,7 +101,7 @@ void os_start( void )
 
 /*********************************************************************************/
 /*  void os_tick()                                              *//**
-*   
+*
 *   Tick function driving the kernel
 *
 *   @return None.
@@ -114,18 +114,19 @@ void os_start( void )
 *   }
 *
 *   @endcode
-*       
+*
 */
 /*********************************************************************************/
-void os_tick( void ) {
-    /* Master clock tick */
+void os_tick( void )
+{
+    // Master clock tick
     task_tick( 0, 1 );
 }
 
 
 /*********************************************************************************/
 /*  void os_sub_tick( id )                                              *//**
-*   
+*
 *   Tick function driving the sub clocks
 *
 *   @param id sub clock id, allowed range 1-255
@@ -141,10 +142,11 @@ void os_tick( void ) {
 *   }
 *
 *   @endcode
-*       
+*
 */
 /*********************************************************************************/
-void os_sub_tick( uint8_t id ) {
+void os_sub_tick( uint8_t id )
+{
     /* Sub clock tick */
     if ( id != 0 ) {
         task_tick( id, 1 );
@@ -153,8 +155,8 @@ void os_sub_tick( uint8_t id ) {
 
 
 /*********************************************************************************/
-/*  void os_sub_nTick( id, nTicks )                                              *//**
-*   
+/*  void os_sub_nTick( id, nTicks )
+*
 *   Tick function driving the sub clocks. Increments the tick count with nTicks.
 *
 *   @param id sub clock id, allowed range 1-255.
@@ -170,46 +172,25 @@ void os_sub_tick( uint8_t id ) {
 *   }
 *
 *   @endcode
-*       
+*
 */
 /*********************************************************************************/
-void os_sub_nTick( uint8_t id, uint32_t nTicks ) {
-    /* Sub clock tick */
-    if ( id != 0 ) {
+void os_sub_nTick( uint8_t id, uint32_t nTicks )
+{
+    // Sub clock tick
+    if ( id != 0 )
+    {
         task_tick( id, nTicks );
     }
 }
 
 
-uint8_t os_running( void ) {
+uint8_t os_running( void )
+{
     return running;
 }
 
-uint8_t os_get_running_tid(void) {
+uint8_t os_get_running_tid(void)
+{
     return running_tid;
 }
-
-//TODO(mthompkins): I don't see where unit tests so I reccomend removal of this
-//#ifdef UNIT_TEST
-//void os_run() {
-//    running = 1;
-//    os_enable_interrupts();
-//    os_schedule();
-//}
-//
-//void os_run_until_taskState(uint8_t taskId, TaskState_t state) {
-//    running = 1;
-//    os_enable_interrupts();
-//    do {
-//        os_schedule();
-//    } while ( state != task_state_get(taskId) );
-//}
-//
-//TaskState_t os_get_task_state(uint8_t taskId) {
-//    return task_state_get(taskId);
-//}
-//
-//
-//
-//
-//#endif
