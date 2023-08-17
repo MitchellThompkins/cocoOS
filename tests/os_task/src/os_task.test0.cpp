@@ -140,12 +140,12 @@ TEST(TestOsTask, next_highest_prio_task)
     const auto id2 {task_create( dummy_task, NULL, 2, NULL, 0, 0 )};
     const auto id3 {task_create( dummy_task, NULL, 1, NULL, 0, 0 )};
 
-    auto task_to_run {os_task_highest_prio_ready_task()};
+    auto task_to_run {highest_prio_ready_task()};
 
     CHECK_EQUAL(id3, task_to_run);
 
     os_task_suspend(id3);
-    task_to_run = os_task_highest_prio_ready_task();
+    task_to_run = highest_prio_ready_task();
     CHECK_EQUAL(id2, task_to_run);
 
 }

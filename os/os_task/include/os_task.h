@@ -52,7 +52,7 @@ typedef enum {
 
 void os_task_init(void);
 
-uint8_t os_task_highest_prio_ready_task( void );
+uint8_t highest_prio_ready_task( void );
 
 uint8_t next_ready_task( void );
 

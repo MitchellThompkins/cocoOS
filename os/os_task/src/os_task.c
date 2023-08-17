@@ -261,7 +261,7 @@ void *task_get_data()
 }
 
 /* Finds the task with highest prio that are ready to run - used for prio based scheduling */
-uint8_t os_task_highest_prio_ready_task( void )
+uint8_t highest_prio_ready_task( void )
 {
     uint16_t index;
     tcb *task;
