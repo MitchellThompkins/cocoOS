@@ -642,7 +642,7 @@ void os_task_signal_event( Evt_t eventId ) {
 
 
 // Runs the next task ready for execution. Assumes running_tid has been assigned
-void os_task_run( void )
+void task_run( void )
 {
     os_assert( running_tid < nTasks );
     task_list[ running_tid ].taskproc();

@@ -78,7 +78,7 @@ void task_tick( uint8_t clockId, uint32_t tickSize );
 
 void os_task_signal_event( Evt_t eventId );
 
-void os_task_run( void );
+void task_run( void );
 
 uint16_t task_internal_state_get( uint8_t tid );
 

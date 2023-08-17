@@ -57,7 +57,7 @@ static void os_schedule( void )
 
     if ( running_tid != NO_TID )
     {
-        os_task_run();
+        task_run();
     }
     else
     {
