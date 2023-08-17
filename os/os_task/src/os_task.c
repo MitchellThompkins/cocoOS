@@ -291,7 +291,7 @@ uint8_t os_task_highest_prio_ready_task( void )
 
 
 /* Finds the next ready task - used when ROUND_ROBIN is defined */
-uint8_t os_task_next_ready_task( void )
+uint8_t next_ready_task( void )
 {
     uint16_t index;
     uint8_t found;
