@@ -1,6 +1,5 @@
 #include <stdint.h>
 
-#include "cocoos.h"
 #include "os_kernel.h"
 #include "os_event.h"
 #include "os_msgqueue.h"
@@ -99,7 +98,7 @@ void os_start( void )
 
 
 /*********************************************************************************/
-/*  void os_tick()                                              *//**
+/*  void os_tick()
 *
 *   Tick function driving the kernel
 *
@@ -107,7 +106,8 @@ void os_start( void )
 *   @remarks \b Usage: @n Should be called periodically. Preferably from the clock tick ISR.
 *
 *   @code
-*   ISR(SIG_OVERFLOW0) {
+*   ISR(SIG_OVERFLOW0)
+*   {
 *     ...
 *     os_tick();
 *   }
@@ -193,3 +193,10 @@ uint8_t os_get_running_tid(void)
 {
     return running_tid;
 }
+
+#ifdef COCOOS_UNIT_TESTS
+void unit_test_os_schedule( void )
+{
+    os_schedule();
+}
+#endif

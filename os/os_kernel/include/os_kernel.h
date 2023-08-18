@@ -843,7 +843,6 @@ static void task2(void) {
 /*********************************************************************************/
 #define msg_receive_async( task_id, pMsg )        OS_MSG_Q_RECEIVE( task_id, pMsg, 1 )
 
-
 uint8_t os_running( void );
 void os_init( void );
 void os_start( void );
@@ -858,6 +857,10 @@ void task_kill( uint8_t tid );
 Evt_t event_create( void );
 uint8_t event_signaling_taskId_get( Evt_t ev );
 void os_cbkSleep( void );
+
+#ifdef COCOOS_UNIT_TESTS
+void unit_test_os_schedule( void );
+#endif
 
 #ifdef __cplusplus
 }
