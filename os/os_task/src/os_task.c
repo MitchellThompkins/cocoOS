@@ -50,7 +50,8 @@ void os_task_init( void )
     nTasks = 0;
     tcb *task;
 
-    for ( i = 0; i < N_TASKS; ++i ) {
+    for ( i = 0; i < N_TASKS; ++i )
+    {
         task = &task_list[i];
         task->clockId = 0xff;
         task->internal_state = 0xff;
@@ -422,7 +423,8 @@ uint8_t os_task_waiting_this_semaphore( Sem_t sem )
 // TODO(@mthompkins): This is a thin wrapper around a call to this function, so
 // I plan to remove it
 /* Sets the task to ready state */
-void os_task_ready_set( uint8_t tid ) {
+void os_task_ready_set( uint8_t tid )
+{
     os_assert( tid < nTasks );
     task_ready_set( tid );
 }
@@ -706,13 +708,14 @@ void task_wait_sem_set( uint8_t tid, Sem_t sem )
 }
 
 
-static void task_ready_set( uint8_t tid )
+void task_ready_set( uint8_t tid )
 {
+    os_assert( tid < nTasks );
     task_list[ tid ].state = READY;
 }
 
 
-static void task_suspended_set( uint8_t tid )
+void task_suspended_set( uint8_t tid )
 {
     task_list[ tid ].state = SUSPENDED;
 }

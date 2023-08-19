@@ -26,13 +26,13 @@ extern "C" {
 
 static void myTask(void) {
  static uint8_t i;
- task_open();	
+ task_open();
   ...
   task_wait( 10 );
   ...
  task_close();
 }
- @endcode 
+ @endcode
  *******************************************************************************/
 #define task_open()                 OS_BEGIN
 

@@ -17,8 +17,9 @@ extern "C" {
 
 typedef struct tcb tcb;
 
-typedef enum {
-    SUSPENDED,
+typedef enum
+{
+    SUSPENDED = 0,
     WAITING_SEM,
     WAITING_TIME,
     WAITING_EVENT,
