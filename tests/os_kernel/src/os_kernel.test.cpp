@@ -71,7 +71,10 @@ TEST_GROUP(TestOsKernel)
 
 TEST(TestOsKernel, verify_schedule)
 {
-    mock().expectOneCall("os_init");
+    mock().expectOneCall("os_sem_init");
+    mock().expectOneCall("os_event_init");
+    mock().expectOneCall("os_msgQ_init");
+    mock().expectOneCall("os_task_init");
     os_init();
 
     const auto id0 {task_create( dummy_task0, NULL, 3, NULL, 0, 0 )};

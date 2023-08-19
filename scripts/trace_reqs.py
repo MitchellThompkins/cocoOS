@@ -28,7 +28,7 @@ def cli(req, test):
         reader = csv.DictReader(f)
         req_list = [row['test_case_id'] for row in reader]
 
-    missing_traces = set(req_list) - set(task_list)
+    missing_traces = sorted(set(req_list) - set(task_list))
 
     if len(missing_traces) != 0:
         print( colored("The following requirements are not traced to a test:",
