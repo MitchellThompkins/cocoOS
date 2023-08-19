@@ -4,10 +4,11 @@
 #include "os_event.h"
 
 /* Event type */
-typedef struct {
-		uint8_t id;
-		uint8_t signaledByTid;
-		} Event_t;
+typedef struct
+{
+    uint8_t id;
+    uint8_t signaledByTid;
+} Event_t;
 
 
 
@@ -43,15 +44,15 @@ void os_event_init(void) {
 *		 */
 /*********************************************************************************/
 Evt_t event_create( void ) {
-    #if( N_TOTAL_EVENTS > 0 )
-	os_assert( nEvents < N_TOTAL_EVENTS );
+#if( N_TOTAL_EVENTS > 0 )
+    os_assert( nEvents < N_TOTAL_EVENTS );
 
     eventList[ nEvents ].id = nEvents;
     eventList[ nEvents ].signaledByTid = NO_TID;
-	
-	++nEvents;
 
-	return nEvents - 1;
+    ++nEvents;
+
+    return nEvents - 1;
     #else
     return 0;
     #endif
@@ -83,7 +84,7 @@ Evt_t event_create( void ) {
 /*********************************************************************************/
 uint8_t event_signaling_taskId_get( Evt_t ev ) {
 #if( N_TOTAL_EVENTS > 0 )
-	return eventList[ ev ].signaledByTid;
+    return eventList[ ev ].signaledByTid;
 #else
     return 0;
 #endif
@@ -142,25 +143,25 @@ void os_signal_event( Evt_t ev ) {
 
 void os_event_set_signaling_tid( Evt_t ev, uint8_t tid ) {
 #if( N_TOTAL_EVENTS > 0 )
-	eventList[ ev ].signaledByTid = tid;
+    eventList[ ev ].signaledByTid = tid;
 #endif
 }
 
 
 void os_wait_multiple( uint8_t waitAll, ...) {
 #if( N_TOTAL_EVENTS > 0 )
-	int event;
-	va_list args;
-	va_start( args, waitAll );
-	os_task_clear_wait_queue( running_tid );
-	event = va_arg( args, int );
+    int event;
+    va_list args;
+    va_start( args, waitAll );
+    os_task_clear_wait_queue( running_tid );
+    event = va_arg( args, int );
 
-	do {
-		os_task_wait_event( running_tid, (Evt_t)event, !waitAll,0 );
-		event = va_arg( args, int );
-	} while ( event != NO_EVENT );
+    do {
+        os_task_wait_event( running_tid, (Evt_t)event, !waitAll,0 );
+        event = va_arg( args, int );
+    } while ( event != NO_EVENT );
 
-	va_end(args);
+    va_end(args);
 #endif
 }
 

@@ -20,11 +20,13 @@ target_link_libraries(test_os_kernel
         #os_kernel_intf
 
         # The linkage order matters b/c the impl's don't depend on each other
+        os_msgqueue_impl_mock
+
         os_kernel_impl
-        os_msgqueue_impl
-        os_event_impl
-        os_sem_impl_mock
         os_task_impl
+
+        os_event_impl_mock
+        os_sem_impl_mock
 
         # Mocks
         os_utils_impl_mock
