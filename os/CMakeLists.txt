@@ -25,3 +25,8 @@ target_include_directories(cocoOs
         os_task/include/
         os_utils/include/
 )
+
+target_link_libraries(cocoOs
+    PUBLIC
+        user_os_config
+)
