@@ -19,7 +19,7 @@ add_library(cocoOs
 
 target_include_directories(cocoOs
     PUBLIC
-        cocoos
+        cocoos_public
         os_event/include/
         os_kernel/include/
         os_msgqueue/include/
