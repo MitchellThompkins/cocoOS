@@ -1,5 +1,6 @@
-#include "os_sem.h"
+#include "os_assert.h"
 #include "os_defines.h"
+#include "os_sem.h"
 
 typedef struct
 {
