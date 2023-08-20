@@ -6,7 +6,7 @@ add_subdirectory(os_task)
 add_subdirectory(os_utils)
 
 
-add_subdirectory(cocoos_public)
+add_subdirectory(cocoos)
 add_library(cocoOs
         os_event/src/os_event.c
         os_kernel/src/os_kernel.c
@@ -19,7 +19,7 @@ add_library(cocoOs
 
 target_include_directories(cocoOs
     PUBLIC
-        cocoos_public
+        cocoos/
         os_event/include/
         os_kernel/include/
         os_msgqueue/include/
