@@ -6,7 +6,6 @@ add_subdirectory(os_task)
 add_subdirectory(os_utils)
 
 
-add_subdirectory(cocoos)
 add_library(cocoOs
         os_event/src/os_event.c
         os_kernel/src/os_kernel.c
