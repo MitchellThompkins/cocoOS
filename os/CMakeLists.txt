@@ -6,8 +6,7 @@ add_subdirectory(os_task)
 add_subdirectory(os_utils)
 
 
-add_library(os
-    PUBLIC
+add_library(cocoOs
         os_event/src/os_event.c
         os_kernel/src/os_kernel.c
         os_kernel/src/os_cbk.c
@@ -17,7 +16,7 @@ add_library(os
         os_utils/src/os_assert.c
 )
 
-target_include_directories(os
+target_include_directories(cocoOs
     PUBLIC
         os_event/include/
         os_kernel/include/
