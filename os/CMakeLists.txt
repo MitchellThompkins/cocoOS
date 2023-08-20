@@ -7,13 +7,13 @@ add_subdirectory(os_utils)
 
 
 add_library(cocoOs
+        os_utils/src/os_assert.c
         os_event/src/os_event.c
         os_kernel/src/os_kernel.c
         os_kernel/src/os_cbk.c
         os_msgqueue/src/os_msgqueue.c
         os_sem/src/os_sem.c
         os_task/src/os_task.c
-        os_utils/src/os_assert.c
 )
 
 target_include_directories(cocoOs
