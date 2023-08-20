@@ -24,4 +24,6 @@ target_link_libraries(os_kernel_impl
         os_event_intf
 )
 
-add_subdirectory(mocks)
+if(DEFINED BUILD_COCOOS_UNIT_TESTS)
+    add_subdirectory(mocks)
+endif()
