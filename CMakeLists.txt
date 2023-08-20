@@ -1,4 +1,4 @@
-if(DEFINED BUILD_UNIT_TESTS)
+if(DEFINED BUILD_COCOOS_UNIT_TESTS)
     cmake_minimum_required(VERSION 3.22)
 
     project(test

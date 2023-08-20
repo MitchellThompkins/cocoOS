@@ -8,7 +8,7 @@
             "binaryDir": "build/${presetName}",
             "cacheVariables": {
                 "CMAKE_EXPORT_COMPILE_COMMANDS": true,
-                "BUILD_UNIT_TESTS": true
+                "BUILD_COCOOS_UNIT_TESTS": true
             }
         },
         {
