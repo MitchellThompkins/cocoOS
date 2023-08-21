@@ -72,9 +72,18 @@
   * The macros create variables with names, so if you were unlikely and chose
     the same variable name, it would fail to compile but in a really weird way.
 
-  * There's a bug which is for the _first_ run, if
+  * There's a bug which is for the _first_ run in a `for(;;)` definition, if
     you have any code _after_ a `task_wait` it will never get called (b/c you
     start in case 0) and jump to return as soon as you set the wait state.
+
+  * I'd like to turn this into something MISRA compliant, and the heavy marcro
+    usage violates
+    > Misra rule 19.7 : A function should be used in preference to a function-like macro
+    I think removing or at least removing the heavy macro usage will allow for
+    something more robust, safer, and test-able. All of this text subsitution
+    is a strong code smell, even though I do think it's really clever. I think
+    there's some control flow implementation that will probably achieve
+    something similar
 
 
 ```dot
