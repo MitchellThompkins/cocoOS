@@ -870,7 +870,7 @@ void os_cbkSleep( void );
 
 void task_open_test( void );
 void task_close_test( void );
-void task_wait_test( void );
+void task_wait_test( const uint16_t time );
 
 #ifdef __cplusplus
 }

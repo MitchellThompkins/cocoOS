@@ -245,8 +245,9 @@ void task_close_test(void)
     running_tid_test = NO_TID;
 }
 
-void task_wait_test(void)
+void task_wait_test( const uint16_t time )
 {
+    os_task_wait_time_set( running_tid_test, 0, time );
     os_task_internal_state_set(running_tid_test, 99);
     running_tid_test = NO_TID;
 }
