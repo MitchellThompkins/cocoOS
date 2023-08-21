@@ -740,7 +740,7 @@ bool task_should_run_test(const uint16_t id)
     return state==0 || state==99;
 }
 
-bool task_should_run_test(const uint16_t id)
+bool task_is_killed(const uint16_t id)
 {
     const uint8_t state = task_internal_state_get(id);
     return state==KILLED;
