@@ -115,6 +115,8 @@ TaskState_t task_state_get( uint8_t tid );
 
 bool task_should_run_test(const uint16_t id);
 
+bool task_is_killed(const uint16_t id);
+
 #ifdef __cplusplus
 }
 #endif
