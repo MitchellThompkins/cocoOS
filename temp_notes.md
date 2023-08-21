@@ -60,7 +60,7 @@
   * The internal state being dependent on line-number I fear will cause
     problems, especially if a task conflicted with a valid state.
 
-  * I'm worried some optimizer will see the expanded MACROs and say "uh, no",
+  * I'm worried some optimizer will see the expanded macros and say "uh, no",
     or more likely, static analyais will yell b/c of this crazy formulation.
 
   * `running_tid` ends up being a global variable which can be manipulated by
@@ -68,6 +68,13 @@
     `uint16_t os_task_state = task_internal_state_get(running_tid);` in order
     to get the `internal_state` of _this_ task. Simulating OOP for this small
     part would probably be safer if possible.
+
+  * The macros create variables with names, so if you were unlikely and chose
+    the same variable name, it would fail to compile but in a really weird way.
+
+  * There's a bug which is for the _first_ run, if
+    you have any code _after_ a `task_wait` it will never get called (b/c you
+    start in case 0) and jump to return as soon as you set the wait state.
 
 
 ```dot
