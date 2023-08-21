@@ -867,6 +867,11 @@ Evt_t event_create( void );
 uint8_t event_signaling_taskId_get( Evt_t ev );
 void os_cbkSleep( void );
 
+
+void task_open_test( void );
+void task_close_test( void );
+void task_wait_test( void );
+
 #ifdef __cplusplus
 }
 #endif

@@ -640,6 +640,10 @@ void os_task_run( void ) {
     task_list[ running_tid ].taskproc();
 }
 
+void os_task_run_test( const uint8_t id ) {
+    os_assert( id < nTasks );
+    task_list[ id ].taskproc();
+}
 
 uint16_t task_internal_state_get( uint8_t tid )
 {
@@ -728,6 +732,12 @@ static void task_waiting_event_timeout_set( tcb *task ) {
 
 static void task_killed_set( uint8_t tid ) {
     task_list[ tid ].state = KILLED;
+}
+
+bool task_should_run_test(const uint16_t id)
+{
+    const uint8_t state = task_internal_state_get(id);
+    return state==0 || state==99;
 }
 
 #ifdef __cplusplus

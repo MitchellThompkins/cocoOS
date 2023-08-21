@@ -4,6 +4,7 @@
 /** @file os_task.h Task header file*/
 
 #include "stdint.h"
+#include "stdbool.h"
 
 #include "os_defines.h"
 #include "os_event.h"
@@ -80,6 +81,8 @@ void os_task_signal_event( Evt_t eventId );
 
 void os_task_run( void );
 
+void os_task_run_test( const uint8_t id );
+
 uint16_t task_internal_state_get( uint8_t tid );
 
 void os_task_internal_state_set( uint8_t tid, uint16_t state );
@@ -109,6 +112,8 @@ uint8_t task_create( taskproctype taskproc, void *data, uint8_t prio, Msg_t* msg
 void *task_get_data( void );
 
 TaskState_t task_state_get( uint8_t tid );
+
+bool task_should_run_test(void);
 
 #ifdef __cplusplus
 }

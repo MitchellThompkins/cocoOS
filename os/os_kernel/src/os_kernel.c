@@ -14,6 +14,8 @@ uint8_t running_tid;
 uint8_t last_running_task;
 uint8_t running;
 
+static uint8_t running_tid_test = 0;
+
 /*********************************************************************************/
 /*  void os_init()                                              *//**
 *   
@@ -34,6 +36,7 @@ uint8_t running;
 /*********************************************************************************/
 void os_init( void ) {
     running_tid = NO_TID;
+    running_tid_test = NO_TID;
     last_running_task = NO_TID;
     running = 0;
     os_sem_init();
@@ -66,6 +69,26 @@ static void os_schedule( void ) {
 }
 
 
+static void os_schedule_test( void ) {
+
+    running_tid_test = NO_TID;
+
+#if (ROUND_ROBIN)
+    /* Find next ready task */
+    running_tid_test = os_task_next_ready_task();
+#else
+    /* Find the highest prio task ready to run */
+    running_tid_test = os_task_highest_prio_ready_task();   
+#endif
+    if ( running_tid != NO_TID )
+    {
+        os_task_run_test(running_tid_test);
+    }
+    else
+    {
+        os_cbkSleep();
+    }
+}
 
 
 /*********************************************************************************/
@@ -109,7 +132,8 @@ void os_start_locking( void (*lock)(void), void (*unlock)(void) )
     for(;;)
     {
         lock();
-        os_schedule();
+        //os_schedule();
+        os_schedule_test();
         unlock();
     }
 }
@@ -204,6 +228,29 @@ uint8_t os_running( void ) {
 uint8_t os_get_running_tid(void) {
     return running_tid;
 }
+
+uint8_t os_get_running_tid_test(void)
+{
+    return running_tid_test;
+}
+
+void task_open_test(void)
+{
+    //running_tid_test = task_internal_state_get(running_tid_test);
+}
+
+void task_close_test(void)
+{
+    os_task_kill(running_tid_test);
+    running_tid_test = NO_TID;
+}
+
+void task_wait_test(void)
+{
+    os_task_internal_state_set(99);
+    running_tid_test = NO_TID;
+}
+
 
 //TODO(mthompkins): I don't see where unit tests so I reccomend removal of this
 //#ifdef UNIT_TEST
