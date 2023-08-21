@@ -113,7 +113,7 @@ void *task_get_data( void );
 
 TaskState_t task_state_get( uint8_t tid );
 
-bool task_should_run_test(void);
+bool task_should_run_test(const uint16_t id);
 
 #ifdef __cplusplus
 }
