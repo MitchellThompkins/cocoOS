@@ -80,7 +80,7 @@ static void os_schedule_test( void ) {
     /* Find the highest prio task ready to run */
     running_tid_test = os_task_highest_prio_ready_task();   
 #endif
-    if ( running_tid != NO_TID )
+    if ( running_tid_test != NO_TID )
     {
         os_task_run_test(running_tid_test);
     }
