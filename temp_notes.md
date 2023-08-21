@@ -40,12 +40,6 @@
     document the behavior, or if I should make it something more predictable /
     understandable.
 
-  * The internal state being dependent on line-number I fear will cause
-    problems, especially if a task conflicted with a valid state.
-
-  * I'm worried some optimizer will see the expanded MACROs and say "uh, no",
-    or more likely, static analyais will yell b/c of this crazy formulation.
-
   ```c
       switch ( os_task_state )
     {
@@ -62,6 +56,19 @@
 
             printf("done task\n")
   ```
+
+  * The internal state being dependent on line-number I fear will cause
+    problems, especially if a task conflicted with a valid state.
+
+  * I'm worried some optimizer will see the expanded MACROs and say "uh, no",
+    or more likely, static analyais will yell b/c of this crazy formulation.
+
+  * `running_tid` ends up being a global variable which can be manipulated by
+    _anyone_, which seems bad. This is becuase the macros end up expanding to
+    `uint16_t os_task_state = task_internal_state_get(running_tid);` in order
+    to get the `internal_state` of _this_ task. Simulating OOP for this small
+    part would probably be safer if possible.
+
 
 ```dot
 digraph "test" {
