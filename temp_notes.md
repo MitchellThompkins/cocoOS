@@ -21,6 +21,48 @@
 
 * Changed Sem_t backing type to be int16 to allow for negative numbers
 
+* The scheduling macros are clever. On re-entry into the function the "last
+  saved state" is function of the line number (it's really not important what
+  the number is), only that it doesn't conflict with a valid state like READY.
+
+  On re-entry into the function after the first time, the saved state will be
+  the same. That's also why the for loop is crucial, b/c you won't be in a
+  READY state, but the for loop jumps you up to the top of the case. I have an
+  example of the expanded macros [here](https://godbolt.org/z/z4vPd5Wh7). This
+  is really clever and simulates the effect of having a `for(;;)` inside a task
+  which makes people comfortable and is brilliant. Over-all the idea is quite
+  good.
+
+  What I _don't_ like about it is:
+  * It's very difficult to tell what's going on. It breaks down to something
+    like below. There's a for loop broken up by a case statement, semi-colons
+    in weird places. I'm no the fence if I should leave it like this and simply
+    document the behavior, or if I should make it something more predictable /
+    understandable.
+
+  * The internal state being dependent on line-number I fear will cause
+    problems, especially if a task conflicted with a valid state.
+
+  * I'm worried some optimizer will see the expanded MACROs and say "uh, no",
+    or more likely, static analyais will yell b/c of this crazy formulation.
+
+  ```c
+      switch ( os_task_state )
+    {
+        case 0:;
+               for(;;)
+               {
+                   printf("foo %d\n", os_task_state);
+                   do {
+                        printf("inside_do %d\n", os_task_state);
+                        return;
+                        case (44 +0):;
+                   } while ( 0 );
+               }
+
+            printf("done task\n")
+  ```
+
 ```dot
 digraph "test" {
 node [
