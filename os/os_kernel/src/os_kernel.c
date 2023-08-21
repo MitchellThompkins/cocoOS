@@ -98,6 +98,22 @@ void os_start( void )
     }
 }
 
+// This allows users to lock the schedule function in a lock/unlock pair of
+// functions. This is useful if the task_tick() function itself is executed from
+// a thread (like a pthread in linux).
+void os_start_locking( void (*lock)(void), void (*unlock)(void) )
+{
+    running = 1;
+    os_enable_interrupts();
+
+    for(;;)
+    {
+        lock();
+        os_schedule();
+        unlock();
+    }
+}
+
 
 /*********************************************************************************/
 /*  void os_tick()                                              *//**

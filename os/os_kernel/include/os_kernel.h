@@ -845,11 +845,19 @@ static void task2(void) {
 
 
 uint8_t os_running( void );
+
 void os_init( void );
+
 void os_start( void );
+
+void os_start_locking( void (*lock)(void), void (*unlock)(void) );
+
 void os_tick( void );
+
 void os_sub_tick( uint8_t id );
+
 void os_sub_nTick( uint8_t id, uint32_t nTicks );
+
 uint8_t os_get_running_tid(void);
 
 //TODO(@mthompkins): I think this is better placed in os_task.h
