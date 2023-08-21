@@ -41,7 +41,7 @@ extern "C" {
 #define task_open_macro()  do{ if( !task_should_run_test( os_get_running_tid_test() ) ){goto loop;} else{task_open_test();} } while(0)
 #define task_wait_macro(x) do{ task_wait_test(x); goto loop; } while(0)
 //#define task_close_macro() do{ task_close_test(); } while(0)
-#define task_close_macro() do{ loop: return; exit: task_close_test(); } while(0)
+#define task_close_macro() do{ terminate: task_close_test(); loop: return; } while(0)
 
 //TODO(@tthompkins): Consider making these static uint8_t private to
 //os_kernel.c
