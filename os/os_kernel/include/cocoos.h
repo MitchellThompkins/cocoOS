@@ -38,7 +38,7 @@ extern "C" {
                                  } while ( 0 )
 
 
-#define task_open_macro() do{ if( !task_should_run_test( os_get_running_tid_test() ) ){return}; else{task_open_test();} } while(0)
+#define task_open_macro() do{ if( !task_should_run_test( os_get_running_tid_test() ) ){return;} else{task_open_test();} } while(0)
 #define task_wait_macro(x) do{ task_wait_test(x); return; } while(0)
 #define task_close_macro(x) do{ task_close_test(); } while(0)
 
