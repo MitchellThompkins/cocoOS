@@ -257,7 +257,8 @@ int main() {
 /*********************************************************************************/
 void *task_get_data()
 {
-  return task_list[ running_tid ].data;
+    const uint16_t tid = os_get_running_tid();
+    return task_list[ tid ].data;
 }
 
 /* Finds the task with highest prio that are ready to run - used for prio based scheduling */
@@ -635,9 +636,11 @@ void os_task_signal_event( Evt_t eventId ) {
 
 
 /* Runs the next task ready for execution. Assumes running_tid has been assigned */
-void os_task_run( void ) {
-    os_assert( running_tid < nTasks );
-    task_list[ running_tid ].taskproc();
+void os_task_run( void )
+{
+    const uint16_t tid = os_get_running_tid();
+    os_assert( tid < nTasks );
+    task_list[ tid ].taskproc();
 }
 
 void os_task_run_test( const uint8_t id ) {

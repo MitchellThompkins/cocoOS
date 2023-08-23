@@ -42,9 +42,15 @@ uint8_t os_running(void)
     return running;
 }
 
-uint8_t os_get_running_tid(void)
+uint16_t os_get_running_tid(void)
 {
+    mock_c()->actualCall("os_get_running_tid");
     return running_tid;
+}
+
+void os_free_tid(void)
+{
+    mock_c()->actualCall("os_free_tid");
 }
 
 Evt_t event_create( void )

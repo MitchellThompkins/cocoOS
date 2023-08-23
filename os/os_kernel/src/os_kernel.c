@@ -10,15 +10,14 @@
 
 static void os_schedule( void );
 
-uint8_t running_tid;
 uint8_t last_running_task;
 uint8_t running;
 
-static uint8_t running_tid_test = 0;
+static uint16_t running_tid = NO_TID;
 
 /*********************************************************************************/
 /*  void os_init()                                              *//**
-*   
+*
 *   Initializes the scheduler.
 *   @return None.
 *   @remarks \b Usage: @n Should be called early in system setup, before starting the task
@@ -31,12 +30,11 @@ static uint8_t running_tid_test = 0;
 *   ...
 *   }
 *   @endcode
-*       
-*		 */
+*
+* */
 /*********************************************************************************/
 void os_init( void ) {
     running_tid = NO_TID;
-    running_tid_test = NO_TID;
     last_running_task = NO_TID;
     running = 0;
     os_sem_init();
@@ -57,35 +55,13 @@ static void os_schedule( void ) {
     running_tid = os_task_next_ready_task();
 #else
     /* Find the highest prio task ready to run */
-    running_tid = os_task_highest_prio_ready_task();   
+    running_tid = os_task_highest_prio_ready_task();
 #endif
-    
+
     if ( running_tid != NO_TID ) {
         os_task_run();
     }
     else {
-        os_cbkSleep();
-    }
-}
-
-
-static void os_schedule_test( void ) {
-
-    running_tid_test = NO_TID;
-
-#if (ROUND_ROBIN)
-    /* Find next ready task */
-    running_tid_test = os_task_next_ready_task();
-#else
-    /* Find the highest prio task ready to run */
-    running_tid_test = os_task_highest_prio_ready_task();   
-#endif
-    if ( running_tid_test != NO_TID )
-    {
-        os_task_run_test(running_tid_test);
-    }
-    else
-    {
         os_cbkSleep();
     }
 }
@@ -132,8 +108,7 @@ void os_start_locking( void (*lock)(void), void (*unlock)(void) )
     for(;;)
     {
         lock();
-        //os_schedule();
-        os_schedule_test();
+        os_schedule();
         unlock();
     }
 }
@@ -141,7 +116,7 @@ void os_start_locking( void (*lock)(void), void (*unlock)(void) )
 
 /*********************************************************************************/
 /*  void os_tick()                                              *//**
-*   
+*
 *   Tick function driving the kernel
 *
 *   @return None.
@@ -154,18 +129,19 @@ void os_start_locking( void (*lock)(void), void (*unlock)(void) )
 *   }
 *
 *   @endcode
-*       
+*
 */
 /*********************************************************************************/
-void os_tick( void ) {
-    /* Master clock tick */
+void os_tick( void )
+{
+    // Master clock tick
     task_tick( 0, 1 );
 }
 
 
 /*********************************************************************************/
 /*  void os_sub_tick( id )                                              *//**
-*   
+*
 *   Tick function driving the sub clocks
 *
 *   @param id sub clock id, allowed range 1-255
@@ -181,12 +157,14 @@ void os_tick( void ) {
 *   }
 *
 *   @endcode
-*       
+*
 */
 /*********************************************************************************/
-void os_sub_tick( uint8_t id ) {
-    /* Sub clock tick */
-    if ( id != 0 ) {
+void os_sub_tick( uint8_t id )
+{
+    // Sub clock tick
+    if ( id != 0 )
+    {
         task_tick( id, 1 );
     }
 }
@@ -194,7 +172,7 @@ void os_sub_tick( uint8_t id ) {
 
 /*********************************************************************************/
 /*  void os_sub_nTick( id, nTicks )                                              *//**
-*   
+*
 *   Tick function driving the sub clocks. Increments the tick count with nTicks.
 *
 *   @param id sub clock id, allowed range 1-255.
@@ -210,10 +188,11 @@ void os_sub_tick( uint8_t id ) {
 *   }
 *
 *   @endcode
-*       
+*
 */
 /*********************************************************************************/
-void os_sub_nTick( uint8_t id, uint32_t nTicks ) {
+void os_sub_nTick( uint8_t id, uint32_t nTicks )
+{
     /* Sub clock tick */
     if ( id != 0 ) {
         task_tick( id, nTicks );
@@ -225,33 +204,16 @@ uint8_t os_running( void ) {
     return running;
 }
 
-uint8_t os_get_running_tid(void) {
+//TODO(mthompkins): make this inline to speed up macros
+uint16_t os_get_running_tid(void)
+{
     return running_tid;
 }
 
-uint8_t os_get_running_tid_test(void)
+void os_free_tid(void)
 {
-    return running_tid_test;
+    running_tid = NO_TID;
 }
-
-void task_open_test(void)
-{
-    //running_tid_test = task_internal_state_get(running_tid_test);
-}
-
-void task_close_test(void)
-{
-    os_task_kill(running_tid_test);
-    running_tid_test = NO_TID;
-}
-
-void task_wait_test( const uint16_t time )
-{
-    os_task_internal_state_set(running_tid_test, 99);
-    os_task_wait_time_set( running_tid_test, 0, time );
-    running_tid_test = NO_TID;
-}
-
 
 //TODO(mthompkins): I don't see where unit tests so I reccomend removal of this
 //#ifdef UNIT_TEST

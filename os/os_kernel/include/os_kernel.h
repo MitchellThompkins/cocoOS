@@ -858,7 +858,9 @@ void os_sub_tick( uint8_t id );
 
 void os_sub_nTick( uint8_t id, uint32_t nTicks );
 
-uint8_t os_get_running_tid(void);
+uint16_t os_get_running_tid(void);
+
+void os_free_tid(void);
 
 //TODO(@mthompkins): I think this is better placed in os_task.h
 void task_kill( uint8_t tid );
@@ -866,11 +868,6 @@ void task_kill( uint8_t tid );
 Evt_t event_create( void );
 uint8_t event_signaling_taskId_get( Evt_t ev );
 void os_cbkSleep( void );
-
-
-void task_open_test( void );
-void task_close_test( void );
-void task_wait_test( const uint16_t time );
 
 #ifdef __cplusplus
 }

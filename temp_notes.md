@@ -85,6 +85,42 @@
     there's some control flow implementation that will probably achieve
     something similar
 
+  * I'm starting to really understand why these macros leverage `switch`
+    statements and not `goto` labels. Using the LINE lets you create an
+    arbitrary state (which I knew), but it's numbered, not named. It also lets
+    you add as many scheduling macros as you'd like, b/c it just adds a case
+    which is dependent on the __LINE__. My 2 concerns are 1. w/o using `{}` in
+    the switch statements, will the compiler complain about a variable
+    decleration between scheduling macros? 2. What if __LINE__ conflicts with
+    an actual case used by the user in a switch statement, that's a very
+    difficult bug to track down.
+
+    Even if the compiler doesn't complain, the below will print 0, b/c x is
+    valid and scoped to the switch statement (which is fine), but let's say we
+    re-enter on case 2, previously having entered case 1...you're going to have
+    a bad time b/c x is going to be wrong, b/c the previous value of x was
+    pop'd off the stack...and yet here you are using it. This can probably be
+    fixed by adding an explicit variable store/restore function that the user
+    opts to use to store variables between re-entry.
+    ```
+       switch(2)
+    {
+        case 0:
+        case 1:
+            char x = 10;
+            printf("hello\n");
+        case 2:
+            printf("%d\n", x);
+        default:
+            break;
+    }
+    ```
+
+    * After a ton of heart-ache, I've figured out that this is just Duff's
+      Device for approximating re-entrant code whilst abusing the C macro. As
+      such, I'm not going to change the program flow, though I am going to
+      change a few things.
+
 
 ```dot
 digraph "test" {
