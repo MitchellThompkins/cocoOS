@@ -72,9 +72,10 @@
   * The macros create variables with names, so if you were unlikely and chose
     the same variable name, it would fail to compile but in a really weird way.
 
-  * There's a bug which is for the _first_ run in a `for(;;)` definition, if
+  * ~~There's a bug which is for the _first_ run in a `for(;;)` definition, if
     you have any code _after_ a `task_wait` it will never get called (b/c you
-    start in case 0) and jump to return as soon as you set the wait state.
+    start in case 0) and jump to return as soon as you set the wait state.~~
+    This isn't the case, it works as expected.
 
   * I'd like to turn this into something MISRA compliant, and the heavy marcro
     usage violates
@@ -95,13 +96,17 @@
     an actual case used by the user in a switch statement, that's a very
     difficult bug to track down.
 
-    Even if the compiler doesn't complain, the below will print 0, b/c x is
+    ~~Even if the compiler doesn't complain, the below will print 0, b/c x is
     valid and scoped to the switch statement (which is fine), but let's say we
     re-enter on case 2, previously having entered case 1...you're going to have
     a bad time b/c x is going to be wrong, b/c the previous value of x was
     pop'd off the stack...and yet here you are using it. This can probably be
     fixed by adding an explicit variable store/restore function that the user
-    opts to use to store variables between re-entry.
+    opts to use to store variables between re-entry.~~ This is a known
+    limitation of the implementation. The solutionis to decalre all of your
+    variables static, or, pass the task a pointer to data that you're going to
+    want to access.
+
     ```
        switch(2)
     {
