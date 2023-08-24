@@ -2,8 +2,6 @@
 // and this provides an easy way for them to include a single source file to
 // specify with their build system
 
-#include "../include/cocoos_public.h"
-
 #include "../../os_event/src/os_event.c"
 #include "../../os_kernel/src/os_cbk.c"
 #include "../../os_kernel/src/os_kernel.c"
