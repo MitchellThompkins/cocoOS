@@ -43,8 +43,12 @@ static void task_killed_set( uint8_t tid );
 static tcb task_list[ N_TASKS ];
 static uint8_t nTasks = 0;
 
+static uint16_t last_running_task = 0;
+
 void os_task_init( void )
 {
+    last_running_task = 0;
+
     uint8_t i;
     uint8_t j;
     nTasks = 0;
@@ -298,12 +302,15 @@ uint8_t os_task_next_ready_task( void )
     uint8_t found;
     uint8_t nChecked;
 
-    if ( NO_TID == last_running_task ) {
+    if ( NO_TID == last_running_task )
+    {
         index = 0;
     }
-    else {
+    else
+    {
         index = last_running_task + 1;
-        if ( index >= nTasks ) {
+        if ( index >= nTasks )
+        {
             index = 0;
         }
     }
@@ -312,7 +319,8 @@ uint8_t os_task_next_ready_task( void )
     nChecked = 0;
 
     do {
-        if ( READY == task_list[ index ].state ) {
+        if ( READY == task_list[ index ].state )
+        {
             last_running_task = index;
             found = 1;
             break;
@@ -324,7 +332,8 @@ uint8_t os_task_next_ready_task( void )
         }
     } while ( ++nChecked != nTasks );
 
-    if ( !found ) {
+    if ( !found )
+    {
         last_running_task = NO_TID;
     }
 
@@ -460,7 +469,8 @@ void os_task_resume( uint8_t tid )
 
 
 //TODO(@mthompkins): this is a simple wrapper, consider removal
-void os_task_kill( uint8_t tid ) {
+void os_task_kill( uint8_t tid )
+{
     os_assert( tid < nTasks );
     task_killed_set( tid );
 
@@ -749,6 +759,10 @@ bool task_is_killed(const uint16_t id)
     return state==KILLED;
 }
 
+void task_set_no_running_task(void)
+{
+    last_running_task = NO_TID;
+}
 
 #ifdef __cplusplus
 }

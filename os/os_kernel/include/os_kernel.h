@@ -17,7 +17,7 @@ extern "C" {
 /** @file os_kernel.h cocoOS API header file*/
 /*********************************************************************************/
 /*  task_open()                                                 *//**
-*   
+*
 *   Macro for definition of task beginning.
 *
 *   @remarks \b Usage: Should be placed at the beginning of the task procedure @n
@@ -26,7 +26,7 @@ extern "C" {
 
 static void myTask(void) {
  static uint8_t i;
- task_open();	
+ task_open();
   ...
   task_wait( 10 );
   ...

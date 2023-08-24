@@ -8,14 +8,12 @@
 #include "os_sem.h"
 #include "os_task.h"
 
-uint8_t running;
-uint8_t running_tid;
-uint8_t last_running_task;
+static uint8_t running;
+static uint8_t running_tid;
 
 void os_init(void)
 {
     running_tid = NO_TID;
-    last_running_task = NO_TID;
     running = 0;
 
     mock_c()->actualCall("os_init");

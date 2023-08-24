@@ -10,13 +10,11 @@
 
 static void os_schedule( void );
 
-uint8_t last_running_task;
-uint8_t running;
-
+static uint8_t running = 0;
 static uint16_t running_tid = NO_TID;
 
 /*********************************************************************************/
-/*  void os_init()                                              *//**
+/*  void os_init()
 *
 *   Initializes the scheduler.
 *   @return None.
@@ -33,9 +31,9 @@ static uint16_t running_tid = NO_TID;
 *
 * */
 /*********************************************************************************/
-void os_init( void ) {
+void os_init( void )
+{
     running_tid = NO_TID;
-    last_running_task = NO_TID;
     running = 0;
     os_sem_init();
     os_event_init();
@@ -194,13 +192,15 @@ void os_sub_tick( uint8_t id )
 void os_sub_nTick( uint8_t id, uint32_t nTicks )
 {
     /* Sub clock tick */
-    if ( id != 0 ) {
+    if ( id != 0 )
+    {
         task_tick( id, nTicks );
     }
 }
 
 
-uint8_t os_running( void ) {
+uint8_t os_running( void )
+{
     return running;
 }
 
@@ -210,6 +210,7 @@ uint16_t os_get_running_tid(void)
     return running_tid;
 }
 
+//TODO(mthompkins): make this inline to speed up macros
 void os_free_tid(void)
 {
     running_tid = NO_TID;

@@ -16,8 +16,6 @@ extern "C" {
 #define NO_QUEUE 255
 #define NO_SEM   255
 
-//TODO(@mthompkins): Figure out if we need all these macros
-//
 #define OS_BEGIN     switch ( task_internal_state_get( os_get_running_tid() ) ) { case 0:
 
 #define OS_END       os_task_kill( os_get_running_tid() );\
@@ -32,12 +30,6 @@ extern "C" {
 
 #define OS_WAIT_TICKS(time,id)  do { os_task_wait_time_set( os_get_running_tid(), id, time );\
                                 OS_SCHEDULE; } while (0)
-
-//TODO(@tthompkins): Consider making these static uint8_t private to
-//os_kernel.c
-extern uint8_t last_running_task;
-extern uint8_t running;
-
 
 //TODO(@tthompkins): Consider removing this
 #ifdef UNIT_TEST
