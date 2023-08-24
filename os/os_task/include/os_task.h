@@ -4,6 +4,7 @@
 /** @file os_task.h Task header file*/
 
 #include "stdint.h"
+#include "stdbool.h"
 
 #include "os_defines.h"
 #include "os_event.h"
@@ -34,7 +35,7 @@ typedef enum {
 
 #define OS_SUSPEND_TASK( id ) do {\
                                    os_task_suspend( id );\
-                                   if ( id == running_tid ) {\
+                                   if ( id == os_get_running_tid() ) {\
                                        OS_SCHEDULE(TASK_OFS1);\
                                    }\
                                 } while (0)
@@ -44,7 +45,7 @@ typedef enum {
 
 #define OS_RESUME_TASK( id ) do {\
                                  os_task_resume( id );\
-                                 if ( id == running_tid ) {\
+                                 if ( id == os_get_running_tid() ) {\
                                      OS_SCHEDULE(TASK_OFS2);\
                                  }\
                              } while (0)
@@ -80,6 +81,8 @@ void os_task_signal_event( Evt_t eventId );
 
 void os_task_run( void );
 
+void os_task_run_test( const uint8_t id );
+
 uint16_t task_internal_state_get( uint8_t tid );
 
 void os_task_internal_state_set( uint8_t tid, uint16_t state );
@@ -109,6 +112,10 @@ uint8_t task_create( taskproctype taskproc, void *data, uint8_t prio, Msg_t* msg
 void *task_get_data( void );
 
 TaskState_t task_state_get( uint8_t tid );
+
+bool task_should_run_test(const uint16_t id);
+
+bool task_is_killed(const uint16_t id);
 
 #ifdef __cplusplus
 }

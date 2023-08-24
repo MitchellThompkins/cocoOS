@@ -16,7 +16,7 @@ extern "C" {
 #define EVENT_OFS3   12000
 
 #define OS_WAIT_SINGLE_EVENT(x,timeout, cb) do {\
-                                os_wait_event(running_tid,x,1,timeout, cb);\
+                                os_wait_event(os_get_running_tid(),x,1,timeout, cb);\
                                 OS_SCHEDULE(EVENT_OFS1);\
                                } while (0)
 
@@ -29,7 +29,7 @@ extern "C" {
 
 #define OS_SIGNAL_EVENT(event)  do {\
                                 os_signal_event(event);\
-                                os_event_set_signaling_tid( event, running_tid );\
+                                os_event_set_signaling_tid( event, os_get_running_tid() );\
                                 OS_SCHEDULE(EVENT_OFS3);\
                                 } while (0)
 
@@ -40,7 +40,7 @@ extern "C" {
                                     } while (0)
 
 
-#define OS_GET_TASK_TIMEOUT_VALUE()  os_task_timeout_get(running_tid)
+#define OS_GET_TASK_TIMEOUT_VALUE()  os_task_timeout_get(os_get_running_tid())
 
 
 #ifdef N_TOTAL_EVENTS
