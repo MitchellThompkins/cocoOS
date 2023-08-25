@@ -18,7 +18,7 @@ extern "C" {
                                         os_sem_decrement( sem );\
                                     }\
                                     else{\
-                                        os_task_wait_sem_set( running_tid, sem );\
+                                        os_task_wait_sem_set( os_get_running_tid(), sem );\
                                         OS_SCHEDULE(SEM_OFS1);\
                                     }\
                                 } while (0)
