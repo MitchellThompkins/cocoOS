@@ -2,9 +2,6 @@ add_executable(test_os_kernel
     src/os_kernel.test.cpp
 )
 
-target_compile_definitions(os_kernel_impl PUBLIC -DCOCOOS_UNIT_TESTS)
-
-
 target_link_libraries(test_os_kernel
     PUBLIC
         cpputest_main
@@ -31,6 +28,7 @@ target_link_libraries(test_os_kernel
         # Mocks
         os_utils_impl_mock
 )
+
 
 include(make_test)
 make_test(test_os_kernel)

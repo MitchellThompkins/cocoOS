@@ -9,13 +9,12 @@
 
 static void os_schedule( void );
 
-uint8_t running_tid;
-uint8_t last_running_task;
-uint8_t running;
+static uint8_t running = 0;
+static uint16_t running_tid = NO_TID;
 
 /*********************************************************************************/
 /*  void os_init()
-
+*
 *   Initializes the scheduler.
 *   @return None.
 *   @remarks \b Usage: @n Should be called early in system setup, before starting the task
@@ -28,12 +27,12 @@ uint8_t running;
 *
 *   }
 *   @endcode
+*
 * */
 /*********************************************************************************/
 void os_init( void )
 {
     running_tid = NO_TID;
-    last_running_task = NO_TID;
     running = 0;
     os_sem_init();
     os_event_init();
@@ -96,6 +95,22 @@ void os_start( void )
     }
 }
 
+// This allows users to lock the schedule function in a lock/unlock pair of
+// functions. This is useful if the task_tick() function itself is executed from
+// a thread (like a pthread in linux).
+void os_start_locking( void (*lock)(void), void (*unlock)(void) )
+{
+    running = 1;
+    os_enable_interrupts();
+
+    for(;;)
+    {
+        lock();
+        os_schedule();
+        unlock();
+    }
+}
+
 
 /*********************************************************************************/
 /*  void os_tick()
@@ -146,8 +161,9 @@ void os_tick( void )
 /*********************************************************************************/
 void os_sub_tick( uint8_t id )
 {
-    /* Sub clock tick */
-    if ( id != 0 ) {
+    // Sub clock tick
+    if ( id != 0 )
+    {
         task_tick( id, 1 );
     }
 }
@@ -189,9 +205,16 @@ uint8_t os_running( void )
     return running;
 }
 
-uint8_t os_get_running_tid(void)
+//TODO(mthompkins): make this inline to speed up macros
+uint16_t os_get_running_tid(void)
 {
     return running_tid;
+}
+
+//TODO(mthompkins): make this inline to speed up macros
+void os_free_tid(void)
+{
+    running_tid = NO_TID;
 }
 
 #ifdef COCOOS_UNIT_TESTS

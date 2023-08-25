@@ -43,8 +43,12 @@ static void task_killed_set( uint8_t tid );
 static tcb task_list[ N_TASKS ];
 static uint8_t nTasks = 0;
 
+static uint16_t last_running_task = 0;
+
 void os_task_init( void )
 {
+    last_running_task = 0;
+
     uint8_t i;
     uint8_t j;
     nTasks = 0;
@@ -258,7 +262,8 @@ int main() {
 /*********************************************************************************/
 void *task_get_data()
 {
-  return task_list[ running_tid ].data;
+    const uint16_t tid = os_get_running_tid();
+    return task_list[ tid ].data;
 }
 
 // Finds the task with highest prio that is ready to run
@@ -468,7 +473,8 @@ void os_task_resume( uint8_t tid )
 
 
 //TODO(@mthompkins): this is a simple wrapper, consider removal
-void os_task_kill( uint8_t tid ) {
+void os_task_kill( uint8_t tid )
+{
     os_assert( tid < nTasks );
     task_killed_set( tid );
 
@@ -646,10 +652,10 @@ void os_task_signal_event( Evt_t eventId ) {
 // Runs the next task ready for execution. Assumes running_tid has been assigned
 void task_run( void )
 {
-    os_assert( running_tid < nTasks );
-    task_list[ running_tid ].taskproc();
+    const uint16_t tid = os_get_running_tid();
+    os_assert( tid < nTasks );
+    task_list[ tid ].taskproc();
 }
-
 
 uint16_t task_internal_state_get( uint8_t tid )
 {
@@ -739,6 +745,23 @@ static void task_waiting_event_timeout_set( tcb *task ) {
 
 static void task_killed_set( uint8_t tid ) {
     task_list[ tid ].state = KILLED;
+}
+
+bool task_should_run_test(const uint16_t id)
+{
+    const uint8_t state = task_internal_state_get(id);
+    return state==0 || state==99;
+}
+
+bool task_is_killed(const uint16_t id)
+{
+    const uint8_t state = task_internal_state_get(id);
+    return state==KILLED;
+}
+
+void task_set_no_running_task(void)
+{
+    last_running_task = NO_TID;
 }
 
 #ifdef __cplusplus
