@@ -107,38 +107,22 @@ TEST(TestOsKernel, simple_verify_schedule)
     const auto id1 {task_create( dummy_task1, NULL, 2, NULL, 0, 0 )};
     const auto id2 {task_create( dummy_task2, NULL, 1, NULL, 0, 0 )};
 
-    for(int i{0}; i<3; i++)
-    {
-        os_tick();
-        unit_test_os_schedule();
-    }
+    step_os(3);
     CHECK_EQUAL(1, running_count[0]);
     CHECK_EQUAL(1, running_count[1]);
     CHECK_EQUAL(1, running_count[2]);
 
-    for(int i{0}; i<5; i++)
-    {
-        os_tick();
-        unit_test_os_schedule();
-    }
+    step_os(5);
     CHECK_EQUAL(3, running_count[0]);
     CHECK_EQUAL(1, running_count[1]);
     CHECK_EQUAL(1, running_count[2]);
 
-    for(int i{0}; i<5; i++)
-    {
-        os_tick();
-        unit_test_os_schedule();
-    }
+    step_os(5);
     CHECK_EQUAL(5, running_count[0]);
     CHECK_EQUAL(3, running_count[1]);
     CHECK_EQUAL(1, running_count[2]);
 
-    for(int i{0}; i<10; i++)
-    {
-        os_tick();
-        unit_test_os_schedule();
-    }
+    step_os(10);
     CHECK_EQUAL(9, running_count[0]);
     CHECK_EQUAL(5, running_count[1]);
     CHECK_EQUAL(3, running_count[2]);
@@ -156,18 +140,10 @@ TEST(TestOsKernel, verify_single_task_execution)
 
     const auto id {task_create( dummy_task3, NULL, 1, NULL, 0, 0 )};
 
-    for(int i{0}; i<5; i++)
-    {
-        os_tick();
-        unit_test_os_schedule();
-    }
+    step_os(5);
     CHECK_EQUAL(1, running_count[3]);
 
-    for(int i{0}; i<5; i++)
-    {
-        os_tick();
-        unit_test_os_schedule();
-    }
+    step_os(5);
     CHECK_EQUAL(1, running_count[3]);
 
     step_os(1);
