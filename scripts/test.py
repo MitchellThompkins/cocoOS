@@ -4,7 +4,6 @@ import os
 import subprocess
 import sys
 
-
 class Test:
     def __init__(self, test_def):
         self.configure(test_def)

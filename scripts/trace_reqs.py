@@ -1,23 +1,19 @@
-import click
+import argparse
 import csv
 import xml.etree.ElementTree as ET
 import sys
 
 from termcolor import colored
 
+def get_args():
+    p = argparse.ArgumentParser("trace reqs to test results")
+    p.add_argument('--req', '-r', help='.csv of reqs',  required=True)
+    p.add_argument('--test', '-t', help='.xml junit after test run',  required=True)
 
-@click.command()
-@click.option(
-    "--req",
-    help=f".csv of reqs",
-    required=True,
-)
-@click.option(
-    "--test",
-    help=f".xml junit after test run",
-    required=True,
-)
-def cli(req, test):
+    return p.parse_args()
+
+
+def trace_tests(req, test) -> int:
     tree = ET.parse(test)
     root = tree.getroot()
 
@@ -38,7 +34,9 @@ def cli(req, test):
     else:
         print( colored("All requirements are traced", 'green'))
 
-    sys.exit(0)
+    return 0
 
 if __name__ == '__main__':
-    cli()
+    a = get_args()
+    result = trace_tests(a.req, a.test)
+    sys.exit(result)
