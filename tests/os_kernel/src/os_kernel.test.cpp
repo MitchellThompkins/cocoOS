@@ -10,7 +10,16 @@
 #include "os_kernel.h"
 #include "os_task.h"
 
-static uint16_t running_count[3] {0};
+static uint16_t running_count[4] {0};
+
+static void step_os(const uint16_t steps)
+{
+    for(int i{0}; i<steps; i++)
+    {
+        os_tick();
+        unit_test_os_schedule();
+    }
+}
 
 static void dummy_task0(void)
 {
@@ -54,6 +63,17 @@ static void dummy_task2(void)
     task_close();
 }
 
+static void dummy_task3(void)
+{
+    task_open();
+
+    running_count[3]++;
+    task_wait(10);
+    running_count[3]++;
+
+    task_close();
+}
+
 TEST_GROUP(TestOsKernel)
 {
     void setup()
@@ -72,8 +92,11 @@ TEST_GROUP(TestOsKernel)
     }
 };
 
-TEST(TestOsKernel, verify_schedule)
+TEST(TestOsKernel, simple_verify_schedule)
 {
+    UT_CATALOG_ID("KERNEL-1");
+    UT_CATALOG_ID("KERNEL-2");
+
     mock().expectOneCall("os_sem_init");
     mock().expectOneCall("os_event_init");
     mock().expectOneCall("os_msgQ_init");
@@ -89,34 +112,67 @@ TEST(TestOsKernel, verify_schedule)
         os_tick();
         unit_test_os_schedule();
     }
-    CHECK_EQUAL(1 ,running_count[0]);
-    CHECK_EQUAL(1 ,running_count[1]);
-    CHECK_EQUAL(1 ,running_count[2]);
+    CHECK_EQUAL(1, running_count[0]);
+    CHECK_EQUAL(1, running_count[1]);
+    CHECK_EQUAL(1, running_count[2]);
 
     for(int i{0}; i<5; i++)
     {
         os_tick();
         unit_test_os_schedule();
     }
-    CHECK_EQUAL(3 ,running_count[0]);
-    CHECK_EQUAL(1 ,running_count[1]);
-    CHECK_EQUAL(1 ,running_count[2]);
+    CHECK_EQUAL(3, running_count[0]);
+    CHECK_EQUAL(1, running_count[1]);
+    CHECK_EQUAL(1, running_count[2]);
 
     for(int i{0}; i<5; i++)
     {
         os_tick();
         unit_test_os_schedule();
     }
-    CHECK_EQUAL(5 ,running_count[0]);
-    CHECK_EQUAL(3 ,running_count[1]);
-    CHECK_EQUAL(1 ,running_count[2]);
+    CHECK_EQUAL(5, running_count[0]);
+    CHECK_EQUAL(3, running_count[1]);
+    CHECK_EQUAL(1, running_count[2]);
 
     for(int i{0}; i<10; i++)
     {
         os_tick();
         unit_test_os_schedule();
     }
-    CHECK_EQUAL(9 ,running_count[0]);
-    CHECK_EQUAL(5 ,running_count[1]);
-    CHECK_EQUAL(3 ,running_count[2]);
+    CHECK_EQUAL(9, running_count[0]);
+    CHECK_EQUAL(5, running_count[1]);
+    CHECK_EQUAL(3, running_count[2]);
+}
+
+TEST(TestOsKernel, verify_single_task_execution)
+{
+    UT_CATALOG_ID("KERNEL-2");
+
+    mock().expectOneCall("os_sem_init");
+    mock().expectOneCall("os_event_init");
+    mock().expectOneCall("os_msgQ_init");
+    mock().expectOneCall("os_task_init");
+    os_init();
+
+    const auto id {task_create( dummy_task3, NULL, 1, NULL, 0, 0 )};
+
+    for(int i{0}; i<5; i++)
+    {
+        os_tick();
+        unit_test_os_schedule();
+    }
+    CHECK_EQUAL(1, running_count[3]);
+
+    for(int i{0}; i<5; i++)
+    {
+        os_tick();
+        unit_test_os_schedule();
+    }
+    CHECK_EQUAL(1, running_count[3]);
+
+    step_os(1);
+    CHECK_EQUAL(2, running_count[3]);
+
+    step_os(100);
+    CHECK_EQUAL(2, running_count[3]);
 }
