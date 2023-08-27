@@ -50,7 +50,11 @@ container.start:
 .PHONY: check-trace
 check-trace:
 	python3 -m pip install click termcolor 
-	python3 scripts/trace_reqs.py --req documents/requirements.csv --test cpputest_TestOsTask.xml
+	python3 scripts/trace_reqs.py \
+		--req documents/requirements.csv \
+		--test \
+			cpputest_TestOsTask.xml \
+			cpputest_TestOsKernel.xml
 	
 .PHONY: clean
 clean:
