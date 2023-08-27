@@ -10,7 +10,7 @@
 		-m 12M \
 		--semihosting \
 		-semihosting-config enable=on,target=native \
-		-kernel build/$*
+		-kernel $*
 
 # For example: make a9/test_os_task0.elf.qemu-gdb
 .PHONY: %.qemu-gdb
@@ -26,9 +26,9 @@
 		-d guest_errors\
 		--semihosting \
 		-semihosting-config enable=on,target=native \
-		-kernel build/$*
+		-kernel $*
 
 .PHONY: %.gdb
 %.gdb:
-	gdb build/$* -ix .gdbinit
+	gdb $* -ix .gdbinit
 

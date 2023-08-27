@@ -19,7 +19,8 @@ static void dummy_task0(void)
     for(;;)
     {
         running_count[0]++;
-        task_wait(10);
+        task_wait(5);
+        running_count[0]++;
     }
 
     task_close();
@@ -32,7 +33,8 @@ static void dummy_task1(void)
     for(;;)
     {
         running_count[1]++;
-        task_wait(20);
+        task_wait(10);
+        running_count[1]++;
     }
 
     task_close();
@@ -45,7 +47,8 @@ static void dummy_task2(void)
     for(;;)
     {
         running_count[2]++;
-        task_wait(30);
+        task_wait(20);
+        running_count[2]++;
     }
 
     task_close();
@@ -81,25 +84,7 @@ TEST(TestOsKernel, verify_schedule)
     const auto id1 {task_create( dummy_task1, NULL, 2, NULL, 0, 0 )};
     const auto id2 {task_create( dummy_task2, NULL, 1, NULL, 0, 0 )};
 
-    for(int i{0}; i<10; i++)
-    {
-        os_tick();
-        unit_test_os_schedule();
-    }
-    CHECK_EQUAL(1 ,running_count[0]);
-    CHECK_EQUAL(0 ,running_count[1]);
-    CHECK_EQUAL(0 ,running_count[2]);
-
-    for(int i{0}; i<20; i++)
-    {
-        os_tick();
-        unit_test_os_schedule();
-    }
-    CHECK_EQUAL(1 ,running_count[0]);
-    CHECK_EQUAL(1 ,running_count[1]);
-    CHECK_EQUAL(0 ,running_count[2]);
-
-    for(int i{0}; i<30; i++)
+    for(int i{0}; i<3; i++)
     {
         os_tick();
         unit_test_os_schedule();
@@ -108,30 +93,30 @@ TEST(TestOsKernel, verify_schedule)
     CHECK_EQUAL(1 ,running_count[1]);
     CHECK_EQUAL(1 ,running_count[2]);
 
-    for(int i{0}; i<80; i++)
-    {
-        os_tick();
-        unit_test_os_schedule();
-    }
-    CHECK_EQUAL(2 ,running_count[0]);
-    CHECK_EQUAL(2 ,running_count[1]);
-    CHECK_EQUAL(2 ,running_count[2]);
-
-    for(int i{0}; i<30; i++)
+    for(int i{0}; i<5; i++)
     {
         os_tick();
         unit_test_os_schedule();
     }
     CHECK_EQUAL(3 ,running_count[0]);
-    CHECK_EQUAL(3 ,running_count[1]);
-    CHECK_EQUAL(2 ,running_count[2]);
+    CHECK_EQUAL(1 ,running_count[1]);
+    CHECK_EQUAL(1 ,running_count[2]);
 
-    for(int i{0}; i<30; i++)
+    for(int i{0}; i<5; i++)
     {
         os_tick();
         unit_test_os_schedule();
     }
-    CHECK_EQUAL(3 ,running_count[0]);
+    CHECK_EQUAL(5 ,running_count[0]);
     CHECK_EQUAL(3 ,running_count[1]);
+    CHECK_EQUAL(1 ,running_count[2]);
+
+    for(int i{0}; i<10; i++)
+    {
+        os_tick();
+        unit_test_os_schedule();
+    }
+    CHECK_EQUAL(9 ,running_count[0]);
+    CHECK_EQUAL(5 ,running_count[1]);
     CHECK_EQUAL(3 ,running_count[2]);
 }
