@@ -193,7 +193,6 @@ TEST(TestOsKernel, test_os_tick)
 
 TEST(TestOsKernel, test_os_running_and_id)
 {
-    UT_CATALOG_ID("KERNEL-4");
     UT_CATALOG_ID("KERNEL-5");
 
     mock().expectOneCall("os_sem_init");
