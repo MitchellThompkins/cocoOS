@@ -11,6 +11,7 @@
 #include "os_task.h"
 
 static uint16_t running_count[4] {0};
+static bool task_ran {false};
 
 static void step_os(const uint16_t steps)
 {
@@ -74,6 +75,17 @@ static void dummy_task3(void)
     task_close();
 }
 
+static void dummy_task_check_id(void)
+{
+    task_open();
+
+    const int* this_id = (int*)task_get_data();
+    task_ran = true;
+    CHECK_EQUAL(*this_id, os_get_running_tid());
+
+    task_close();
+}
+
 TEST_GROUP(TestOsKernel)
 {
     void setup()
@@ -82,6 +94,8 @@ TEST_GROUP(TestOsKernel)
         {
             running_count[i]=0;
         }
+
+        task_ran = false;
 
         os_task_init();
     }
@@ -175,4 +189,25 @@ TEST(TestOsKernel, test_os_tick)
     step_os(15);
     CHECK_EQUAL(20, os_task_timeout_get(id));
 
+}
+
+TEST(TestOsKernel, test_os_running_and_id)
+{
+    UT_CATALOG_ID("KERNEL-4");
+    UT_CATALOG_ID("KERNEL-5");
+
+    mock().expectOneCall("os_sem_init");
+    mock().expectOneCall("os_event_init");
+    mock().expectOneCall("os_msgQ_init");
+    mock().expectOneCall("os_task_init");
+    os_init();
+
+    CHECK_EQUAL(NO_TID, os_get_running_tid());
+
+    uint16_t expectedId;
+    const auto id {os_task_create( dummy_task_check_id, &expectedId, 1, NULL, 0, 0 )};
+    expectedId = id;
+
+    step_os(1);
+    CHECK_TRUE(task_ran);
 }

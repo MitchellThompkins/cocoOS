@@ -50,6 +50,7 @@ static void os_schedule( void )
     running_tid = next_ready_task();
 #else
     // Find the highest prio task ready to run
+    // TODO make the task access static and test thru os_schedule
     running_tid = highest_prio_ready_task();
 #endif
 

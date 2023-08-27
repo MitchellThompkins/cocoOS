@@ -656,12 +656,14 @@ uint16_t task_internal_state_get( uint8_t tid )
 }
 
 
-void os_task_internal_state_set( uint8_t tid, uint16_t state ) {
+void os_task_internal_state_set( const uint8_t tid, const uint16_t state )
+{
     task_list[ tid ].internal_state = state;
 }
 
 
-MsgQ_t os_task_msgQ_get( uint8_t tid ) {
+MsgQ_t os_task_msgQ_get( const uint8_t tid )
+{
     return task_list[ tid ].msgQ;
 }
 
