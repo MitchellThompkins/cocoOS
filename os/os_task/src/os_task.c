@@ -598,6 +598,7 @@ void task_tick( uint8_t clockId, uint32_t tickSize )
         }
         else if ( state ==  WAITING_SEM )
         {
+            //TODO(@mthompkins): Make sure this handles overflow properly
             task_list[i].time++;
         }
 

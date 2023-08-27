@@ -152,3 +152,27 @@ TEST(TestOsKernel, verify_single_task_execution)
     step_os(100);
     CHECK_EQUAL(2, running_count[3]);
 }
+
+TEST(TestOsKernel, test_os_tick)
+{
+    UT_CATALOG_ID("KERNEL-3");
+
+    mock().expectOneCall("os_sem_init");
+    mock().expectOneCall("os_event_init");
+    mock().expectOneCall("os_msgQ_init");
+    mock().expectOneCall("os_task_init");
+    os_init();
+
+    const auto id {task_create( dummy_task2, NULL, 1, NULL, 0, 0 )};
+
+    // step os once to get task into wait state
+    step_os(1);
+    CHECK_EQUAL(20, os_task_timeout_get(id));
+
+    step_os(5);
+    CHECK_EQUAL(15, os_task_timeout_get(id));
+
+    step_os(15);
+    CHECK_EQUAL(20, os_task_timeout_get(id));
+
+}
