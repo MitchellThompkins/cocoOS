@@ -76,7 +76,7 @@ static void os_schedule( void )
 *   {
 *       system_init();
 *       os_init();
-*       task_create( myTaskProc, 1, NULL, 0, 0 );
+*       os_task_create( myTaskProc, 1, NULL, 0, 0 );
 *
 *       os_start();
 *       return 0;

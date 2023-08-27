@@ -124,10 +124,11 @@ uint8_t task1_id;
 uint8_t task2_id;
 
 static void led_task(void) {
- task_open();	
-  for(;;) {
-	led_toggle();
-	task_wait( 100 );
+ task_open();
+  for(;;)
+  {
+    led_toggle();
+    task_wait( 100 );
   }
  task_close();
 }
@@ -147,12 +148,12 @@ static void button_task(void) {
 
 int main( void ) {
     ...
-    task1_id = task_create( led_task, 1, msgPool, POOL_SIZE, sizeof(Msg_t) );
-    task2_id = task_create( button_task, 2, NULL, 0, 0 );
+    task1_id = os_task_create( led_task, 1, msgPool, POOL_SIZE, sizeof(Msg_t) );
+    task2_id = os_task_create( button_task, 2, NULL, 0, 0 );
 	...
 }
 
- @endcode 
+ @endcode
  *******************************************************************************/
 #define task_suspend( id )    OS_SUSPEND_TASK( id )
 
@@ -196,8 +197,8 @@ static void button_task(void) {
 
 int main( void ) {
 	...
-	ledTask_id = task_create( led_task, 1, msgPool, POOL_SIZE, sizeof(Msg_t) );
-    task_create( button_task, 2, NULL, 0, 0 );
+	ledTask_id = os_task_create( led_task, 1, msgPool, POOL_SIZE, sizeof(Msg_t) );
+    os_task_create( button_task, 2, NULL, 0, 0 );
 	...
 }
 
@@ -215,14 +216,15 @@ int main( void ) {
 *   @remarks \b Usage: @n
 * @code 
 Evt_t myEvent;
-main() {
+main()
+{
  ...
  myEvent = event_create();
  ...
 }
 
 static void myTask(void) {
- task_open();	
+ task_open();
   ...
   event_wait( myEvent );
   ...
@@ -489,8 +491,8 @@ static uint8_t taskId2;
 int main(void)
 {
     ...
-    taskId1 = task_create( task1, 1, NULL, 0, 0 );
-    taskId2 = task_create( task2, 2, msgpool_1, 16, sizeof(LedMsg_t) );
+    taskId1 = os_task_create( task1, 1, NULL, 0, 0 );
+    taskId2 = os_task_create( task2, 2, msgpool_1, 16, sizeof(LedMsg_t) );
     ...
     os_start();
     return 0;
@@ -551,8 +553,8 @@ static uint8_t taskId2;
 int main(void)
 {
     ...
-    taskId1 = task_create( task1, 1, NULL, 0, 0 );
-    taskId2 = task_create( task2, 2, msgpool_1, 16, sizeof(LedMsg_t) );
+    taskId1 = os_task_create( task1, 1, NULL, 0, 0 );
+    taskId2 = os_task_create( task2, 2, msgpool_1, 16, sizeof(LedMsg_t) );
     ...
     os_start();
     return 0;
@@ -615,8 +617,8 @@ static uint8_t taskId2;
 int main(void)
 {
     ...
-    taskId1 = task_create( task1, 1, NULL, 0, 0 );
-    taskId2 = task_create( task2, 2, msgpool_1, 16, sizeof(LedMsg_t) );
+    taskId1 = os_task_create( task1, 1, NULL, 0, 0 );
+    taskId2 = os_task_create( task2, 2, msgpool_1, 16, sizeof(LedMsg_t) );
     ...
     os_start();
     return 0;
@@ -678,8 +680,8 @@ static uint8_t taskId2;
 int main(void)
 {
     ...
-    taskId1 = task_create( task1, 1, NULL, 0, 0 );
-    taskId2 = task_create( task2, 2, msgpool_1, 16, sizeof(LedMsg_t) );
+    taskId1 = os_task_create( task1, 1, NULL, 0, 0 );
+    taskId2 = os_task_create( task2, 2, msgpool_1, 16, sizeof(LedMsg_t) );
     ...
     os_start();
     return 0;
@@ -743,8 +745,8 @@ static uint8_t taskId2;
 int main(void)
 {
     ...
-    taskId1 = task_create( task1, 1, NULL, 0 );
-    taskId2 = task_create( task2, 2, msgpool_1, 16, sizeof(LedMsg_t) );
+    taskId1 = os_task_create( task1, 1, NULL, 0 );
+    taskId2 = os_task_create( task2, 2, msgpool_1, 16, sizeof(LedMsg_t) );
     ...
     os_start();
     return 0;
@@ -806,8 +808,8 @@ static uint8_t taskId2;
 int main(void)
 {
     ...
-    taskId1 = task_create( task1, 1, NULL, 0 );
-    taskId2 = task_create( task2, 2, msgpool_1, 16, sizeof(LedMsg_t) );
+    taskId1 = os_task_create( task1, 1, NULL, 0 );
+    taskId2 = os_task_create( task2, 2, msgpool_1, 16, sizeof(LedMsg_t) );
     ...
     os_start();
     return 0;
@@ -861,10 +863,9 @@ uint16_t os_get_running_tid(void);
 
 void os_free_tid(void);
 
-//TODO(@mthompkins): I think this is better placed in os_task.h
-void task_kill( uint8_t tid );
-
+//TODO(@mthompkins): I think this can go to event
 Evt_t event_create( void );
+
 uint8_t event_signaling_taskId_get( Evt_t ev );
 void os_cbkSleep( void );
 

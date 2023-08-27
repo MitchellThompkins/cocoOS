@@ -38,7 +38,6 @@ static void task_waiting_event_set( tcb *task );
 static void task_waiting_event_timeout_set( tcb *task );
 static uint8_t os_task_wait_queue_empty( uint8_t tid );
 static void task_ready_set( uint8_t tid );
-static void task_killed_set( uint8_t tid );
 
 static tcb task_list[ N_TASKS ];
 static uint8_t nTasks = 0;
@@ -82,7 +81,7 @@ void os_task_init( void )
 
 
 /************************************************************** *******************/
-/*  uint8_t task_create( taskproctype taskproc, void *data, uint8_t prio, Msg_t *msgPool, uint8_t poolSize, uint16_t msgSize )    *//**
+/*  uint8_t os_task_create( taskproctype taskproc, void *data, uint8_t prio, Msg_t *msgPool, uint8_t poolSize, uint16_t msgSize )    *//**
 *   
 *   Creates a task scheduled by the os. The task is put in the ready state.
 *
@@ -104,13 +103,13 @@ void os_task_init( void )
 int main(void) {
     system_init();
     os_init();
-    taskId = task_create( myTaskProc, 0, 1, msgpool_1, POOL_SIZE, sizeof(Msg_t) );
+    taskId = os_task_create( myTaskProc, 0, 1, msgpool_1, POOL_SIZE, sizeof(Msg_t) );
     ...
 }
 @endcode
 */
 /*********************************************************************************/
-uint8_t task_create(
+uint8_t os_task_create(
         taskproctype taskproc,
         void *data,
         uint8_t prio,
@@ -175,7 +174,7 @@ TaskState_t task_state_get( uint8_t tid )
 
 
 /*********************************************************************************/
-/*  void task_kill( uint8_t task_id )                                   *//**
+/*  void os_task_kill( uint8_t task_id )                                   *//**
 *   
 *   Puts the task associated with the specified id in the killed state. 
 *   A killed task, cannot be resumed.
@@ -194,7 +193,7 @@ static void waitingTask(void)
     event_wait( event );
 
     if ( event_signaling_taskId_get( event ) == taskId ) {
-        task_kill( taskId );
+        os_task_kill( taskId );
     }
 
 	task_close();
@@ -216,17 +215,19 @@ static void signalingTask1(void)
 
 int main() {
    ...
-   taskId = task_create(signalingTask1, ...);
+   taskId = os_task_create(signalingTask1, ...);
    ...
 }
 *		@endcode
 *       
 */
 /*********************************************************************************/
-//TODO(@mthompkins): This is just a wrapper, get rid of this.
-void task_kill( uint8_t tid ) {
-    os_task_kill( tid );
+void os_task_kill( const uint8_t tid )
+{
+    os_assert( tid < nTasks );
+    task_list[ tid ].state = KILLED;
 }
+
 
 /*********************************************************************************/
 /*  void task_get_data()                                   *//**
@@ -253,7 +254,7 @@ static void taskProc(void)
 
 int main() {
    ...
-   task_create(taskProc, (void*)&taskData, ...);
+   os_task_create(taskProc, (void*)&taskData, ...);
    ...
 }
 *   @endcode
@@ -469,15 +470,6 @@ void os_task_resume( uint8_t tid )
     if ( task_list[ tid ].state == SUSPENDED ) {
         task_list[ tid ].state = task_list[ tid ].savedState;
     }
-}
-
-
-//TODO(@mthompkins): this is a simple wrapper, consider removal
-void os_task_kill( uint8_t tid )
-{
-    os_assert( tid < nTasks );
-    task_killed_set( tid );
-
 }
 
 
@@ -743,10 +735,6 @@ static void task_waiting_event_timeout_set( tcb *task ) {
     task->state = WAITING_EVENT_TIMEOUT;
 }
 
-
-static void task_killed_set( uint8_t tid ) {
-    task_list[ tid ].state = KILLED;
-}
 
 bool task_should_run_test(const uint16_t id)
 {

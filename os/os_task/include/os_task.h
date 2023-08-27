@@ -108,7 +108,7 @@ uint8_t os_task_get_msg_result(uint8_t tid);
 
 uint32_t os_task_timeout_get(uint8_t tid);
 
-uint8_t task_create( taskproctype taskproc, void *data, uint8_t prio, Msg_t* msgPool, uint8_t poolSize, uint16_t msgSize );
+uint8_t os_task_create( taskproctype taskproc, void *data, uint8_t prio, Msg_t* msgPool, uint8_t poolSize, uint16_t msgSize );
 
 void *task_get_data( void );
 

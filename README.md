@@ -55,7 +55,7 @@ int main(void)
     os_init();
 
     /* Create kernel objects */
-    task_create( taskProc, &taskData, 1, NULL, 0, 0 );
+    os_task_create( taskProc, &taskData, 1, NULL, 0, 0 );
     mySem = sem_bin_create( 1 );
 
 
@@ -132,7 +132,7 @@ int main(void)
     os_init();
 
     /* Create kernel objects */
-    task_create( hello_task, &taskData, 1, NULL, 0, 0 ); 
+    os_task_create( hello_task, &taskData, 1, NULL, 0, 0 ); 
 
 
     os_start();

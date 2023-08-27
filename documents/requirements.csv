@@ -1,5 +1,5 @@
 test_case_id,description
-TASK-1,On calls to task_create passing it bad data will cause os_assert to be triggered.
+TASK-1,On calls to os_task_create passing it bad data will cause os_assert to be triggered.
 TASK-2,tasks cannot be created while the schedule is running.
 TASK-3,"when a new task is created, it is added to the list of tasks, that the task is put into an initialization state, and that the function returns the newly assigned taskId."
 TASK-4,"when a new task is created, and a message pool size has been assigned to it, the message queue is allocated."

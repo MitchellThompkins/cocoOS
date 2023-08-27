@@ -103,9 +103,9 @@ TEST(TestOsKernel, simple_verify_schedule)
     mock().expectOneCall("os_task_init");
     os_init();
 
-    const auto id0 {task_create( dummy_task0, NULL, 3, NULL, 0, 0 )};
-    const auto id1 {task_create( dummy_task1, NULL, 2, NULL, 0, 0 )};
-    const auto id2 {task_create( dummy_task2, NULL, 1, NULL, 0, 0 )};
+    const auto id0 {os_task_create( dummy_task0, NULL, 3, NULL, 0, 0 )};
+    const auto id1 {os_task_create( dummy_task1, NULL, 2, NULL, 0, 0 )};
+    const auto id2 {os_task_create( dummy_task2, NULL, 1, NULL, 0, 0 )};
 
     step_os(3);
     CHECK_EQUAL(1, running_count[0]);
@@ -138,7 +138,7 @@ TEST(TestOsKernel, verify_single_task_execution)
     mock().expectOneCall("os_task_init");
     os_init();
 
-    const auto id {task_create( dummy_task3, NULL, 1, NULL, 0, 0 )};
+    const auto id {os_task_create( dummy_task3, NULL, 1, NULL, 0, 0 )};
 
     step_os(5);
     CHECK_EQUAL(1, running_count[3]);
@@ -163,7 +163,7 @@ TEST(TestOsKernel, test_os_tick)
     mock().expectOneCall("os_task_init");
     os_init();
 
-    const auto id {task_create( dummy_task2, NULL, 1, NULL, 0, 0 )};
+    const auto id {os_task_create( dummy_task2, NULL, 1, NULL, 0, 0 )};
 
     // step os once to get task into wait state
     step_os(1);
