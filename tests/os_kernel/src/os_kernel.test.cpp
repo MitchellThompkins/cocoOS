@@ -193,8 +193,7 @@ TEST(TestOsKernel, test_os_tick)
 
 TEST(TestOsKernel, test_os_running)
 {
-    //TODO(@mthompkins): Figure out how to handle checking if OS is running
-    //UT_CATALOG_ID("KERNEL-4");
+    UT_CATALOG_ID("KERNEL-4");
 
     mock().expectOneCall("os_sem_init");
     mock().expectOneCall("os_event_init");
