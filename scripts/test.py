@@ -35,7 +35,7 @@ class Test:
         for exe in self.exes:
             s = self._assemble_command(exe)
             print(f"\nRUNNING: \n{' '.join(s)}\n")
-            results.append( subprocess.run(s).returncode)
+            results.append( (exe, subprocess.run(s).returncode) )
 
         return results
 
@@ -82,12 +82,15 @@ def cli(tests):
     results = []
 
     for t in tests:
-        results.append( t.run_tests() )
+        results.extend( t.run_tests() )
 
     for r in results:
         for test_result in r:
-            if test_result != 0:
-                sys.exit(test_result)
+            test = r[0]
+            code = r[1]
+            if code != 0:
+                print(f'{test} failed with code: {code}')
+                sys.exit(code)
 
     sys.exit(0)
 
