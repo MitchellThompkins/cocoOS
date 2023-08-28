@@ -26,6 +26,7 @@ build.graph:
 #######################################
 .PHONY: test
 test: 
+	python3 -m pip install termcolor 
 	python3 scripts/test.py -t tests/tests.json 
 
 
@@ -49,7 +50,7 @@ container.start:
 #TODO(@mthompkins): Use poetry to manage deps
 .PHONY: check-trace
 check-trace:
-	python3 -m pip install click termcolor 
+	python3 -m pip install termcolor 
 	python3 scripts/trace_reqs.py \
 		--req documents/requirements.csv \
 		--test \

@@ -4,6 +4,8 @@ import os
 import subprocess
 import sys
 
+from termcolor import colored
+
 class Test:
     def __init__(self, test_def):
         self.configure(test_def)
@@ -89,9 +91,10 @@ def cli(tests):
             test = r[0]
             code = r[1]
             if code != 0:
-                print(f'{test} failed with code: {code}')
+                print( colored(f"{test} failed with code: {code}", 'red'))
                 sys.exit(code)
 
+    print( colored("All tests passed", 'green'))
     sys.exit(0)
 
 

@@ -24,16 +24,9 @@ static void dummy_task(void)
 
 TEST_GROUP(TestOsTask)
 {
-    static constexpr uint16_t interval_ms {250};
-
     void setup()
     {
         os_task_init();
-
-        set_tick_limit_before_exit(10);
-
-        platform_setup_timer(interval_ms);
-        platform_enable_timer();
     }
 
     void teardown()
