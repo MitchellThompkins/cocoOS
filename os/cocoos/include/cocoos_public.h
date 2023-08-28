@@ -1,7 +1,7 @@
 #ifndef COCOOS_PUBLIC_H
 #define COCOOS_PUBLIC_H
 
-#include "cocoos.h"
+#include "os_reentry.h"
 #include "os_kernel.h"
 #include "os_port.h"
 #include "os_event.h"

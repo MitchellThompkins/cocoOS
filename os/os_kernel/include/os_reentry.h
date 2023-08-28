@@ -1,5 +1,5 @@
-#ifndef COCOOS_H
-#define COCOOS_H
+#ifndef OS_REENTRY_H
+#define OS_REENTRY_H
 
 #include <stdint.h>
 

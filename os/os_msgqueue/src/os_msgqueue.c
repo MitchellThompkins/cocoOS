@@ -1,4 +1,4 @@
-#include "cocoos.h"
+#include "os_defines.h"
 #include "os_msgqueue.h"
 
 typedef struct {
