@@ -1,6 +1,6 @@
 #include <stdarg.h>
 
-#include "cocoos.h"
+#include "os_defines.h"
 #include "os_event.h"
 
 /* Event type */
