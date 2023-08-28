@@ -1,5 +1,5 @@
 test_case_id,description
-TASK-1,On calls to os_task_create passing it bad data will cause os_assert to be triggered.
+TASK-1,On calls to task_create passing it bad data will cause os_assert to be triggered.
 TASK-2,tasks cannot be created while the schedule is running.
 TASK-3,"when a new task is created, it is added to the list of tasks, that the task is put into an initialization state, and that the function returns the newly assigned taskId."
 TASK-4,"when a new task is created, and a message pool size has been assigned to it, the message queue is allocated."
@@ -24,11 +24,11 @@ TASK-22,cocoOS shall provide a function to increment the time for all tasks whos
 TASK-23,TBD cocoOS osticktask msgqueue 
 TASK-24,TBD cocoOS osticktask eventqueue 
 TASK-23,os_task_signal_event TBD
-KERNEL-1,
-KERNEL-2,
-KERNEL-3,
-KERNEL-4,
-KERNEL-5,
+KERNEL-1,cocoOS shall provide a task_wait() macro which allow discrete well-formed user-provided tasks that stops and the re-starts task execution at the specified interval
+KERNEL-2,cocoOS shall honor that tasks which implement infinite loops will execute continuously and tasks that do not execute only once
+KERNEL-3,cocoOS shall provide an os_tick() function which decrements the time waiting for any task in a wait state
+KERNEL-4,cocoOS shall keep internal track of the task ID which is currently being executed (including no task) and which can be queried but not directly manipulated
+KERNEL-5,cocoOS shall keep internal track of whether the OS has been instructed to start execution and can be queried
 KERNEL-6,
 KERNEL-7,
 KERNEL-8,

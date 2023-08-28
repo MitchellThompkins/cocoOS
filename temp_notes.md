@@ -128,3 +128,5 @@
 
     * __LINE__+ofs isn't offering much in the macros, it just makes things a
       bit more confusing I'd argue, so I removed them for now
+
+    * `os_start` now takes an argument to let an infinite loop run
