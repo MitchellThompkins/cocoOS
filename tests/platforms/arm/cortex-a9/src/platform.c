@@ -30,7 +30,7 @@ void set_tick_limit_before_exit(const int32_t limit)
     max_ticks = limit;
 }
 
-error_code_t platform_setup_timer(const uint16_t interval_ms)
+error_code_t platform_setup_timer(const uint32_t interval_ms)
 {
     gic_init();
     gic_enable_interrupt(PTIMER_INTERRUPT_ID);

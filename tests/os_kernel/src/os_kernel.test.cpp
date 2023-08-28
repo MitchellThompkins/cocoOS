@@ -191,7 +191,28 @@ TEST(TestOsKernel, test_os_tick)
 
 }
 
-TEST(TestOsKernel, test_os_running_and_id)
+TEST(TestOsKernel, test_os_running)
+{
+    //TODO(@mthompkins): Figure out how to handle checking if OS is running
+    //UT_CATALOG_ID("KERNEL-4");
+
+    mock().expectOneCall("os_sem_init");
+    mock().expectOneCall("os_event_init");
+    mock().expectOneCall("os_msgQ_init");
+    mock().expectOneCall("os_task_init");
+    os_init();
+
+    CHECK_EQUAL(0, os_running());
+
+    static constexpr uint16_t interval_ms {100};
+    set_tick_limit_before_exit(100);
+    platform_setup_timer(interval_ms);
+    platform_enable_timer();
+
+    os_start();
+}
+
+TEST(TestOsKernel, test_os_running_id)
 {
     UT_CATALOG_ID("KERNEL-5");
 

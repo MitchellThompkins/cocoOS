@@ -34,7 +34,7 @@ class Test:
         results = []
         for exe in self.exes:
             s = self._assemble_command(exe)
-            print(f"\n{' '.join(s)}\n")
+            print(f"\nRUNNING: \n{' '.join(s)}\n")
             results.append( subprocess.run(s).returncode)
 
         return results
