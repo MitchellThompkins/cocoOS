@@ -1,0 +1,3 @@
+Word,Definition
+well-formed task,Tasks that adhere to the task_open() and task_close() schema
+wait state,the states WAITING_TIME and WAITING_EVENT_TIMEOUT which a task can be in
