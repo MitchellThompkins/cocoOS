@@ -27,7 +27,6 @@ static void *tick(void *interval_ms)
         for(;;)
         {
             tick_system_time();
-            printf("%d: ", get_system_time());
 
             if( max_ticks != -1
                 && get_system_time() >= max_ticks )
