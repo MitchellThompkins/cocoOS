@@ -16,7 +16,7 @@ struct tcb
     taskproctype taskproc;
     TaskState_t state;       ///< current runstate
     TaskState_t savedState;  ///< saves the task state when suspending
-    uint16_t internal_state; ///< is set when calling OS_SCHEDULE
+    uint16_t internal_state; ///< is set when calling OS_RELEASE
     uint32_t time;
     uint8_t tid;
     uint8_t prio;
