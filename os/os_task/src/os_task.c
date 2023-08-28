@@ -121,9 +121,9 @@ uint8_t os_task_create(
     uint8_t taskId;
     tcb *task;
 
-    os_assert( os_running() == 0 );
-    os_assert( nTasks < N_TASKS );
-    os_assert( taskproc != NULL );
+    os_assert_with_return( os_running() == 0, 1 );
+    os_assert_with_return( nTasks < N_TASKS, 1 );
+    os_assert_with_return( taskproc != NULL, 1 );
 
     taskId = nTasks;
 
@@ -131,7 +131,7 @@ uint8_t os_task_create(
     while ( taskId != 0 )
     {
         --taskId;
-        os_assert( task_list[ taskId ].prio != prio );
+        os_assert_with_return( task_list[ taskId ].prio != prio, 1 );
     }
 
     task = &task_list[ nTasks ];
@@ -166,7 +166,7 @@ uint8_t os_task_create(
 
 TaskState_t task_state_get( uint8_t tid )
 {
-    os_assert( tid < nTasks );
+    os_assert_with_return( tid < nTasks, 1 );
     return task_list[ tid ].state;
 }
 
@@ -475,7 +475,7 @@ void os_task_resume( uint8_t tid )
 
 uint8_t os_task_prio_get( uint8_t tid )
 {
-    os_assert( tid < nTasks );
+    os_assert_with_return( tid < nTasks, 1 );
     return task_list[ tid ].prio;
 
 }

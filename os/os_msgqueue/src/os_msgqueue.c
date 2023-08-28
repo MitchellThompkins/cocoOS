@@ -48,7 +48,7 @@ void os_msgQ_init() {
 
 MsgQ_t os_msgQ_create( Msg_t *buffer, uint8_t nMessages, uint16_t msgSize, uint8_t task_id ) {
 #if( N_QUEUES > 0 )
-    os_assert( nQueues < N_QUEUES );
+    os_assert_with_return( nQueues < N_QUEUES, 1 );
     msgQList[ nQueues ].q.list = (Mem_t*)buffer;
     msgQList[ nQueues ].q.head = 1;
     msgQList[ nQueues ].q.tail = 0;

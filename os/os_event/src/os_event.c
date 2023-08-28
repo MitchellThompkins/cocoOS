@@ -45,7 +45,7 @@ void os_event_init(void) {
 /*********************************************************************************/
 Evt_t event_create( void ) {
 #if( N_TOTAL_EVENTS > 0 )
-    os_assert( nEvents < N_TOTAL_EVENTS );
+    os_assert_with_return( nEvents < N_TOTAL_EVENTS, 1 );
 
     eventList[ nEvents ].id = nEvents;
     eventList[ nEvents ].signaledByTid = NO_TID;
