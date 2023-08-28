@@ -209,7 +209,7 @@ TEST(TestOsKernel, test_os_running)
     platform_setup_timer(interval_ms);
     platform_enable_timer();
 
-    os_start(0);
+    os_start(10);
 
     CHECK_EQUAL(1, os_running());
 }
