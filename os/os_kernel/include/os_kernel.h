@@ -1,5 +1,5 @@
-#ifndef _os_kernel_h__
-#define _os_kernel_h__
+#ifndef OS_KERNEL_H
+#define OS_KERNEL_H
 
 #include <stdint.h>
 
