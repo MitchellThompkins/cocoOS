@@ -849,9 +849,9 @@ uint8_t os_running( void );
 
 void os_init( void );
 
-void os_start( void );
+void os_start( const uint32_t tick_limit );
 
-void os_start_locking( void (*lock)(void), void (*unlock)(void) );
+void os_start_locking( const uint32_t tick_limit, void (*lock)(void), void (*unlock)(void) );
 
 void os_tick( void );
 

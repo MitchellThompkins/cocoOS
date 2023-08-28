@@ -69,6 +69,9 @@ static void os_schedule( void )
 /*  void os_start()
 *   Starts the task scheduling
 *
+*   @param tick_limit, this specifies the tick_limit to run the OS, passing 0
+*   will cause it to run forever
+*
 *   @return None.
 *   @remarks \b Usage: @n Should be the last line of main.
 *
@@ -85,30 +88,40 @@ static void os_schedule( void )
 *   @endcode
 */
 /*********************************************************************************/
-void os_start( void )
+void os_start( const uint32_t tick_limit )
 {
     running = 1;
     os_enable_interrupts();
 
-    for(;;)
+    for(uint32_t i=0; i<=tick_limit;)
     {
         os_schedule();
+
+        if(tick_limit != 0)
+        {
+            i++;
+        }
     }
 }
 
 // This allows users to lock the schedule function in a lock/unlock pair of
 // functions. This is useful if the task_tick() function itself is executed from
 // a thread (like a pthread in linux).
-void os_start_locking( void (*lock)(void), void (*unlock)(void) )
+void os_start_locking( const uint32_t tick_limit, void (*lock)(void), void (*unlock)(void) )
 {
     running = 1;
     os_enable_interrupts();
 
-    for(;;)
+    for(uint32_t i=0; i<=tick_limit;)
     {
         lock();
         os_schedule();
         unlock();
+
+        if(tick_limit != 0)
+        {
+            i++;
+        }
     }
 }
 

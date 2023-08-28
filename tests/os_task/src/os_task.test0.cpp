@@ -97,7 +97,7 @@ TEST(TestOsTask, fail_create_task_when_os_is_running)
     os_init();
 
     mock().expectOneCall("os_start");
-    os_start();
+    os_start(0);
 
     // Verify that you cannot create a task while os is running
     mock().expectOneCall("os_on_assert").andReturnValue(false);

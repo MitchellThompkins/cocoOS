@@ -19,7 +19,7 @@ void os_init(void)
     mock_c()->actualCall("os_init");
 }
 
-void os_start(void)
+void os_start( const uint32_t tick_limit )
 {
     running = 1;
 

@@ -32,7 +32,7 @@ static void *tick(void *interval_ms)
                 && get_system_time() >= max_ticks )
             {
                 printf("ERR: max_ticks exceeded in a test!\n");
-                exit(RUNTIME_ERR);
+                unexpected_exit();
             }
 
             usleep(interval_us);
@@ -59,6 +59,16 @@ error_code_t platform_setup_timer(const uint32_t interval_ms)
 void platform_enable_timer(void)
 {
     timer_enable = true;
+}
+
+void unexpected_exit(void)
+{
+    exit( (int)RUNTIME_ERR );
+}
+
+void expected_exit(void)
+{
+    exit( (int)NO_ERR );
 }
 
 #ifdef __cplusplus
