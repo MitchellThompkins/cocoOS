@@ -37,7 +37,7 @@ typedef enum
 #define OS_SUSPEND_TASK( id ) do {\
                                    os_task_suspend( id );\
                                    if ( id == os_get_running_tid() ) {\
-                                       OS_RELEASE;\
+                                       OS_YIELD;\
                                    }\
                                 } while (0)
 
@@ -47,7 +47,7 @@ typedef enum
 #define OS_RESUME_TASK( id ) do {\
                                  os_task_resume( id );\
                                  if ( id == os_get_running_tid() ) {\
-                                     OS_RELEASE;\
+                                     OS_YIELD;\
                                  }\
                              } while (0)
 

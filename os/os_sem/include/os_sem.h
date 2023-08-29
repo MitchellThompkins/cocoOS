@@ -18,7 +18,7 @@ extern "C" {
                                     }\
                                     else{\
                                         os_task_wait_sem_set( os_get_running_tid(), sem );\
-                                        OS_RELEASE;\
+                                        OS_YIELD;\
                                     }\
                                 } while (0)
 
@@ -29,7 +29,7 @@ extern "C" {
                                     }\
                                     else {\
                                         os_task_release_waiting_task( sem );\
-                                        OS_RELEASE;\
+                                        OS_YIELD;\
                                     }\
                                 } while (0)
 

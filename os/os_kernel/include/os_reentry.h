@@ -21,13 +21,13 @@ extern "C" {
                     os_free_tid();\
                     return; }
 
-#define OS_RELEASE  os_task_internal_state_set( os_get_running_tid(), __LINE__ );\
+#define OS_YIELD    os_task_internal_state_set( os_get_running_tid(), __LINE__ );\
                     os_free_tid();\
                     return;\
                     case (__LINE__):
 
 #define OS_WAIT_TICKS(time,id)  do { os_task_wait_time_set( os_get_running_tid(), id, time );\
-                                OS_RELEASE; } while (0)
+                                OS_YIELD; } while (0)
 
 #ifdef __cplusplus
 }

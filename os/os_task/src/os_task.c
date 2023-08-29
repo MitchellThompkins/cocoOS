@@ -16,7 +16,7 @@ struct tcb
     taskproctype taskproc;
     TaskState_t state;       ///< current runstate
     TaskState_t savedState;  ///< saves the task state when suspending
-    uint16_t internal_state; ///< is set when calling OS_RELEASE
+    uint16_t internal_state; ///< is set when calling OS_YIELD
     uint32_t time;
     uint8_t tid;
     uint8_t prio;
@@ -48,16 +48,14 @@ void os_task_init( void )
 {
     last_running_task = 0;
 
-    uint8_t i;
-    uint8_t j;
     nTasks = 0;
     tcb *task;
 
-    for ( i = 0; i < N_TASKS; ++i )
+    for ( uint8_t i = 0; i < N_TASKS; ++i )
     {
         task = &task_list[i];
-        task->clockId = 0xff;
-        task->internal_state = 0xff;
+        task->clockId = 0xff; //TODO(@mthompkins): make this an enum
+        task->internal_state = 0xff; //TODO(@mthompkins): make this an enum
         task->msgQ = 0;
         task->waitQ = 0;
         task->msgChangeEvent = 0;
@@ -71,7 +69,7 @@ void os_task_init( void )
         task->time = 0;
         task->waitSingleEvent = 0;
 
-        for ( j = 0; j < sizeof( task->eventQueue.eventList); j++ )
+        for ( uint8_t j = 0; j < sizeof( task->eventQueue.eventList); j++ )
         {
             task->eventQueue.eventList[j] = 0xff;
         }
