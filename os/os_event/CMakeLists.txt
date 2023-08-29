@@ -14,3 +14,5 @@ target_link_libraries(os_event_impl
         os_event_intf
         os_kernel_intf
 )
+
+add_subdirectory(mocks)

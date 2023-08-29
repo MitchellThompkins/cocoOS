@@ -20,14 +20,6 @@
             }
         },
         {
-            "name": "cortex-m4",
-            "inherits": "default",
-            "toolchainFile": "tests/platforms/arm/cortex-m4/toolchain/cortex_m4.cmake",
-            "cacheVariables": {
-                "PLATFORM": "CORTEX_M4"
-            }
-        },
-        {
             "name": "x86-64",
             "inherits": "default",
             "toolchainFile": "tests/platforms/x86_64/toolchain/x86_64.cmake",
@@ -50,37 +42,24 @@
                 "CFLAGS": "-O0 -g3",
                 "CXXFLAGS": "-O0 -g3"
             }
-        },
-        {
-            "name": "m4",
-            "inherits": "cortex-m4",
-            "environment": {
-                "CFLAGS": "-O0 -g3",
-                "CXXFLAGS": "-O0 -g3"
-            }
         }
     ],
     "buildPresets": [
         {
             "name": "x86_64",
             "targets": [
-                "test_os_task0"
+                "test_os_task0",
+                "test_os_kernel"
             ],
             "configurePreset": "x86_64"
         },
         {
             "name": "a9",
             "targets": [
-                "test_os_task0"
+                "test_os_task0",
+                "test_os_kernel"
             ],
             "configurePreset": "a9"
-        },
-        {
-            "name": "m4",
-            "targets": [
-                "test_os_task0"
-            ],
-            "configurePreset": "m4"
         }
     ]
 }

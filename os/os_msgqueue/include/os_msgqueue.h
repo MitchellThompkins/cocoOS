@@ -69,7 +69,7 @@ enum {
 
 
 
-#define OS_MSG_Q_RECEIVE(task_id, pMsg, async, cb)     do {\
+#define OS_MSG_Q_RECEIVE(task_id, pMsg, async, cb)  do {\
                                                     uint8_t os_received;\
                                                     MsgQ_t queue;\
                                                     queue = os_msgQ_find(task_id);\
@@ -81,7 +81,7 @@ enum {
                                                         os_received = os_msg_receive((Msg_t*)pMsg, os_msgQ_find(task_id));\
                                                         if ( os_received == MSG_QUEUE_EMPTY ){\
                                                             if ( async == 0 ) {\
-       	                                                        os_task_set_msg_result(os_get_running_tid(), os_received);\
+                                                                os_task_set_msg_result(os_get_running_tid(), os_received);\
                                                                 if (cb) {\
                                                                  ((void (*)())cb)();\
                                                                 }\
@@ -98,7 +98,7 @@ enum {
                                                     if ( MSG_QUEUE_RECEIVED == os_received) {\
                                                     	os_signal_event(event);\
                                                     	os_event_set_signaling_tid(event, os_get_running_tid() );\
-													}\
+                                                    }\
                                                 } while(0)
 
 

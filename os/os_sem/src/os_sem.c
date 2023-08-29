@@ -26,7 +26,7 @@ void os_sem_init(void)
 static Sem_t os_sem_create( uint8_t max, uint8_t initial )
 {
 #if ( N_TOTAL_SEMAPHORES > 0 )
-    os_assert( nSemaphores < N_TOTAL_SEMAPHORES );
+    os_assert_with_return( nSemaphores < N_TOTAL_SEMAPHORES, 1 );
 
     // Initialize the value and the waiting list
     semList[ nSemaphores ].maxValue = max;

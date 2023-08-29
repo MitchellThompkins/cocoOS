@@ -67,4 +67,9 @@ _Static_assert(ROUND_ROBIN == 0 || ROUND_ROBIN == 1, "ROUND_ROBIN must be 0 or 1
 /* Total number of events needed */
 #define N_TOTAL_EVENTS        ( N_EVENTS + N_QUEUES )
 
+#define NO_TID   255
+#define NO_EVENT 255
+#define NO_QUEUE 255
+#define NO_SEM   255
+
 #endif

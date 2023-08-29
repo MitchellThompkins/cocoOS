@@ -4,6 +4,7 @@ import os
 import subprocess
 import sys
 
+from termcolor import colored
 
 class Test:
     def __init__(self, test_def):
@@ -35,8 +36,8 @@ class Test:
         results = []
         for exe in self.exes:
             s = self._assemble_command(exe)
-            print(f"\n{' '.join(s)}\n")
-            results.append( subprocess.run(s).returncode)
+            print(f"\nRUNNING: \n{' '.join(s)}\n")
+            results.append( (exe, subprocess.run(s).returncode) )
 
         return results
 
@@ -83,13 +84,17 @@ def cli(tests):
     results = []
 
     for t in tests:
-        results.append( t.run_tests() )
+        results.extend( t.run_tests() )
 
     for r in results:
         for test_result in r:
-            if test_result != 0:
-                sys.exit(test_result)
+            test = r[0]
+            code = r[1]
+            if code != 0:
+                print( colored(f"{test} failed with code: {code}", 'red'))
+                sys.exit(code)
 
+    print( colored("All tests passed", 'green'))
     sys.exit(0)
 
 

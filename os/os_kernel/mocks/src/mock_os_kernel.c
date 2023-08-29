@@ -1,10 +1,10 @@
 #include "CppUTestExt/MockSupport_c.h"
 
-#include "cocoos.h"
-#include "os_kernel.h"
 #include "os_event.h"
+#include "os_kernel.h"
 #include "os_msgqueue.h"
 #include "os_port.h"
+#include "os_reentry.h"
 #include "os_sem.h"
 #include "os_task.h"
 
@@ -19,7 +19,7 @@ void os_init(void)
     mock_c()->actualCall("os_init");
 }
 
-void os_start(void)
+void os_start( const uint32_t tick_limit )
 {
     running = 1;
 

@@ -18,8 +18,9 @@ extern "C" {
 
 typedef struct tcb tcb;
 
-typedef enum {
-    SUSPENDED,
+typedef enum
+{
+    SUSPENDED = 0,
     WAITING_SEM,
     WAITING_TIME,
     WAITING_EVENT,
@@ -36,7 +37,7 @@ typedef enum {
 #define OS_SUSPEND_TASK( id ) do {\
                                    os_task_suspend( id );\
                                    if ( id == os_get_running_tid() ) {\
-                                       OS_SCHEDULE(TASK_OFS1);\
+                                       OS_YIELD;\
                                    }\
                                 } while (0)
 
@@ -46,16 +47,16 @@ typedef enum {
 #define OS_RESUME_TASK( id ) do {\
                                  os_task_resume( id );\
                                  if ( id == os_get_running_tid() ) {\
-                                     OS_SCHEDULE(TASK_OFS2);\
+                                     OS_YIELD;\
                                  }\
                              } while (0)
 
 
 void os_task_init(void);
 
-uint8_t os_task_highest_prio_ready_task( void );
+uint8_t highest_prio_ready_task( void );
 
-uint8_t os_task_next_ready_task( void );
+uint8_t next_ready_task( void );
 
 void os_task_ready_set( uint8_t tid );
 
@@ -79,19 +80,19 @@ void task_tick( uint8_t clockId, uint32_t tickSize );
 
 void os_task_signal_event( Evt_t eventId );
 
-void os_task_run( void );
+void task_run( void );
 
 void os_task_run_test( const uint8_t id );
 
 uint16_t task_internal_state_get( uint8_t tid );
 
-void os_task_internal_state_set( uint8_t tid, uint16_t state );
+void os_task_internal_state_set( const uint8_t tid, const uint16_t state );
 
 void os_task_release_waiting_task( Sem_t sem );
 
 uint8_t os_task_waiting_this_semaphore( Sem_t sem );
 
-MsgQ_t os_task_msgQ_get( uint8_t tid );
+MsgQ_t os_task_msgQ_get( const uint8_t tid );
 
 void os_task_set_wait_queue(uint8_t tid, MsgQ_t queue);
 
@@ -107,7 +108,7 @@ uint8_t os_task_get_msg_result(uint8_t tid);
 
 uint32_t os_task_timeout_get(uint8_t tid);
 
-uint8_t task_create( taskproctype taskproc, void *data, uint8_t prio, Msg_t* msgPool, uint8_t poolSize, uint16_t msgSize );
+uint8_t os_task_create( taskproctype taskproc, void *data, uint8_t prio, Msg_t* msgPool, uint8_t poolSize, uint16_t msgSize );
 
 void *task_get_data( void );
 

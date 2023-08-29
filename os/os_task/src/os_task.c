@@ -1,8 +1,8 @@
 #include <stdlib.h>
 
-#include "cocoos.h"
 #include "os_assert.h"
 #include "os_kernel.h"
+#include "os_reentry.h"
 #include "os_task.h"
 #include "os_typedef.h"
 
@@ -16,7 +16,7 @@ struct tcb
     taskproctype taskproc;
     TaskState_t state;       ///< current runstate
     TaskState_t savedState;  ///< saves the task state when suspending
-    uint16_t internal_state; ///< is set when calling OS_SCHEDULE
+    uint16_t internal_state; ///< is set when calling OS_YIELD
     uint32_t time;
     uint8_t tid;
     uint8_t prio;
@@ -38,7 +38,6 @@ static void task_waiting_event_set( tcb *task );
 static void task_waiting_event_timeout_set( tcb *task );
 static uint8_t os_task_wait_queue_empty( uint8_t tid );
 static void task_ready_set( uint8_t tid );
-static void task_killed_set( uint8_t tid );
 
 static tcb task_list[ N_TASKS ];
 static uint8_t nTasks = 0;
@@ -49,15 +48,14 @@ void os_task_init( void )
 {
     last_running_task = 0;
 
-    uint8_t i;
-    uint8_t j;
     nTasks = 0;
     tcb *task;
 
-    for ( i = 0; i < N_TASKS; ++i ) {
+    for ( uint8_t i = 0; i < N_TASKS; ++i )
+    {
         task = &task_list[i];
-        task->clockId = 0xff;
-        task->internal_state = 0xff;
+        task->clockId = 0xff; //TODO(@mthompkins): make this an enum
+        task->internal_state = 0xff; //TODO(@mthompkins): make this an enum
         task->msgQ = 0;
         task->waitQ = 0;
         task->msgChangeEvent = 0;
@@ -71,7 +69,7 @@ void os_task_init( void )
         task->time = 0;
         task->waitSingleEvent = 0;
 
-        for ( j = 0; j < sizeof( task->eventQueue.eventList); j++ )
+        for ( uint8_t j = 0; j < sizeof( task->eventQueue.eventList); j++ )
         {
             task->eventQueue.eventList[j] = 0xff;
         }
@@ -81,7 +79,7 @@ void os_task_init( void )
 
 
 /************************************************************** *******************/
-/*  uint8_t task_create( taskproctype taskproc, void *data, uint8_t prio, Msg_t *msgPool, uint8_t poolSize, uint16_t msgSize )    *//**
+/*  uint8_t os_task_create( taskproctype taskproc, void *data, uint8_t prio, Msg_t *msgPool, uint8_t poolSize, uint16_t msgSize )    *//**
 *   
 *   Creates a task scheduled by the os. The task is put in the ready state.
 *
@@ -103,13 +101,13 @@ void os_task_init( void )
 int main(void) {
     system_init();
     os_init();
-    taskId = task_create( myTaskProc, 0, 1, msgpool_1, POOL_SIZE, sizeof(Msg_t) );
+    taskId = os_task_create( myTaskProc, 0, 1, msgpool_1, POOL_SIZE, sizeof(Msg_t) );
     ...
 }
 @endcode
 */
 /*********************************************************************************/
-uint8_t task_create(
+uint8_t os_task_create(
         taskproctype taskproc,
         void *data,
         uint8_t prio,
@@ -121,9 +119,9 @@ uint8_t task_create(
     uint8_t taskId;
     tcb *task;
 
-    os_assert( os_running() == 0 );
-    os_assert( nTasks < N_TASKS );
-    os_assert( taskproc != NULL );
+    os_assert_with_return( os_running() == 0, 1 );
+    os_assert_with_return( nTasks < N_TASKS, 1 );
+    os_assert_with_return( taskproc != NULL, 1 );
 
     taskId = nTasks;
 
@@ -131,7 +129,7 @@ uint8_t task_create(
     while ( taskId != 0 )
     {
         --taskId;
-        os_assert( task_list[ taskId ].prio != prio );
+        os_assert_with_return( task_list[ taskId ].prio != prio, 1 );
     }
 
     task = &task_list[ nTasks ];
@@ -166,7 +164,7 @@ uint8_t task_create(
 
 TaskState_t task_state_get( uint8_t tid )
 {
-    os_assert( tid < nTasks );
+    os_assert_with_return( tid < nTasks, 1 );
     return task_list[ tid ].state;
 }
 
@@ -174,7 +172,7 @@ TaskState_t task_state_get( uint8_t tid )
 
 
 /*********************************************************************************/
-/*  void task_kill( uint8_t task_id )                                   *//**
+/*  void os_task_kill( uint8_t task_id )                                   *//**
 *   
 *   Puts the task associated with the specified id in the killed state. 
 *   A killed task, cannot be resumed.
@@ -193,7 +191,7 @@ static void waitingTask(void)
     event_wait( event );
 
     if ( event_signaling_taskId_get( event ) == taskId ) {
-        task_kill( taskId );
+        os_task_kill( taskId );
     }
 
 	task_close();
@@ -215,17 +213,19 @@ static void signalingTask1(void)
 
 int main() {
    ...
-   taskId = task_create(signalingTask1, ...);
+   taskId = os_task_create(signalingTask1, ...);
    ...
 }
 *		@endcode
 *       
 */
 /*********************************************************************************/
-//TODO(@mthompkins): This is just a wrapper, get rid of this.
-void task_kill( uint8_t tid ) {
-    os_task_kill( tid );
+void os_task_kill( const uint8_t tid )
+{
+    os_assert( tid < nTasks );
+    task_list[ tid ].state = KILLED;
 }
+
 
 /*********************************************************************************/
 /*  void task_get_data()                                   *//**
@@ -252,7 +252,7 @@ static void taskProc(void)
 
 int main() {
    ...
-   task_create(taskProc, (void*)&taskData, ...);
+   os_task_create(taskProc, (void*)&taskData, ...);
    ...
 }
 *   @endcode
@@ -265,19 +265,19 @@ void *task_get_data()
     return task_list[ tid ].data;
 }
 
-/* Finds the task with highest prio that are ready to run - used for prio based scheduling */
-uint8_t os_task_highest_prio_ready_task( void )
+// Finds the task with highest prio that is ready to run
+// Used with priority based scheduling
+uint8_t highest_prio_ready_task( void )
 {
-    uint16_t index;
     tcb *task;
     uint8_t highest_prio_task = NO_TID;
     uint8_t highest_prio = 255;
     TaskState_t state;
     uint8_t prio;
 
-    for ( index = 0; index != nTasks; ++index )
+    for( uint16_t i = 0; i != nTasks; ++i )
     {
-        task = &task_list[ index ];
+        task = &task_list[i];
         prio = task->prio;
         state = task->state;
 
@@ -286,7 +286,7 @@ uint8_t os_task_highest_prio_ready_task( void )
             if ( prio < highest_prio )
             {
                 highest_prio = prio;
-                highest_prio_task = index;
+                highest_prio_task = i;
             }
         }
     }
@@ -295,8 +295,8 @@ uint8_t os_task_highest_prio_ready_task( void )
 }
 
 
-/* Finds the next ready task - used when ROUND_ROBIN is defined */
-uint8_t os_task_next_ready_task( void )
+// Finds the next ready task - used when ROUND_ROBIN is defined
+uint8_t next_ready_task( void )
 {
     uint16_t index;
     uint8_t found;
@@ -318,7 +318,8 @@ uint8_t os_task_next_ready_task( void )
     found = 0;
     nChecked = 0;
 
-    do {
+    do
+    {
         if ( READY == task_list[ index ].state )
         {
             last_running_task = index;
@@ -327,7 +328,8 @@ uint8_t os_task_next_ready_task( void )
         }
 
         ++index;
-        if ( index == nTasks ) {
+        if ( index == nTasks )
+        {
             index = 0;
         }
     } while ( ++nChecked != nTasks );
@@ -425,7 +427,8 @@ uint8_t os_task_waiting_this_semaphore( Sem_t sem )
 // TODO(@mthompkins): This is a thin wrapper around a call to this function, so
 // I plan to remove it
 /* Sets the task to ready state */
-void os_task_ready_set( uint8_t tid ) {
+void os_task_ready_set( uint8_t tid )
+{
     os_assert( tid < nTasks );
     task_ready_set( tid );
 }
@@ -468,18 +471,9 @@ void os_task_resume( uint8_t tid )
 }
 
 
-//TODO(@mthompkins): this is a simple wrapper, consider removal
-void os_task_kill( uint8_t tid )
-{
-    os_assert( tid < nTasks );
-    task_killed_set( tid );
-
-}
-
-
 uint8_t os_task_prio_get( uint8_t tid )
 {
-    os_assert( tid < nTasks );
+    os_assert_with_return( tid < nTasks, 1 );
     return task_list[ tid ].prio;
 
 }
@@ -594,6 +588,7 @@ void task_tick( uint8_t clockId, uint32_t tickSize )
         }
         else if ( state ==  WAITING_SEM )
         {
+            //TODO(@mthompkins): Make sure this handles overflow properly
             task_list[i].time++;
         }
 
@@ -645,17 +640,12 @@ void os_task_signal_event( Evt_t eventId ) {
 }
 
 
-/* Runs the next task ready for execution. Assumes running_tid has been assigned */
-void os_task_run( void )
+// Runs the next task ready for execution. Assumes running_tid has been assigned
+void task_run( void )
 {
     const uint16_t tid = os_get_running_tid();
     os_assert( tid < nTasks );
     task_list[ tid ].taskproc();
-}
-
-void os_task_run_test( const uint8_t id ) {
-    os_assert( id < nTasks );
-    task_list[ id ].taskproc();
 }
 
 uint16_t task_internal_state_get( uint8_t tid )
@@ -664,12 +654,14 @@ uint16_t task_internal_state_get( uint8_t tid )
 }
 
 
-void os_task_internal_state_set( uint8_t tid, uint16_t state ) {
+void os_task_internal_state_set( const uint8_t tid, const uint16_t state )
+{
     task_list[ tid ].internal_state = state;
 }
 
 
-MsgQ_t os_task_msgQ_get( uint8_t tid ) {
+MsgQ_t os_task_msgQ_get( const uint8_t tid )
+{
     return task_list[ tid ].msgQ;
 }
 
@@ -715,13 +707,14 @@ void task_wait_sem_set( uint8_t tid, Sem_t sem )
 }
 
 
-static void task_ready_set( uint8_t tid )
+void task_ready_set( uint8_t tid )
 {
+    os_assert( tid < nTasks );
     task_list[ tid ].state = READY;
 }
 
 
-static void task_suspended_set( uint8_t tid )
+void task_suspended_set( uint8_t tid )
 {
     task_list[ tid ].state = SUSPENDED;
 }
@@ -742,10 +735,6 @@ static void task_waiting_event_timeout_set( tcb *task ) {
     task->state = WAITING_EVENT_TIMEOUT;
 }
 
-
-static void task_killed_set( uint8_t tid ) {
-    task_list[ tid ].state = KILLED;
-}
 
 bool task_should_run_test(const uint16_t id)
 {

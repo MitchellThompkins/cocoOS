@@ -19,3 +19,5 @@ target_link_libraries(os_msgqueue_impl
         os_msgqueue_intf
         os_kernel_intf
 )
+
+add_subdirectory(mocks)

@@ -7,8 +7,8 @@ TASK-5,"when a new task is created, the wait queue is cleared."
 TASK-6,os_task_init clears and re-initializes the task list.
 TASK-7,killing a task causes its state to be set to KILLED.
 TASK-8,task_get_data returns a pointer to the task data.
-TASK-9,os_task_highest_prio_ready_task will return the task with the highest priority that is ready to run if priority based scheduling is desired
-TASK-10,os_task_next_ready_task will return the next task which is ready to run if round robin scheduling is desired
+TASK-9,highest_prio_ready_task will return the task with the highest priority that is ready to run if priority based scheduling is desired
+TASK-10,next_ready_task will return the next task which is ready to run if round robin scheduling is desired
 TASK-11,"os_task_release_waiting_task will return the task which has the highest priority and is waiting for a semaphore, and makes it ready to run"
 TASK-12,os_task_waiting_this_semaphore will return whether any task is waiting for the specified semaphore
 TASK-13,task_wait_sem_set sets the specified task to the wait state and assigns it a specific semaphore for which to wait. It additionally sets the time waited thus for for the semaphore to 0.
@@ -24,3 +24,48 @@ TASK-22,cocoOS shall provide a function to increment the time for all tasks whos
 TASK-23,TBD cocoOS osticktask msgqueue 
 TASK-24,TBD cocoOS osticktask eventqueue 
 TASK-23,os_task_signal_event TBD
+KERNEL-1,cocoOS shall provide a task_wait() macro which allow discrete well-formed user-provided tasks that stops and the re-starts task execution at the specified interval
+KERNEL-2,cocoOS shall honor that tasks which implement infinite loops will execute continuously and tasks that do not execute only once
+KERNEL-3,cocoOS shall provide an os_tick() function which decrements the time waiting for any task in a wait state
+KERNEL-4,cocoOS shall keep internal track of the task ID which is currently being executed (including no task) and which can be queried but not directly manipulated
+KERNEL-5,cocoOS shall keep internal track of whether the OS has been instructed to start execution and can be queried
+KERNEL-6,
+KERNEL-7,
+KERNEL-8,
+KERNEL-9,
+KERNEL-10,
+KERNEL-11,
+KERNEL-12,
+KERNEL-13,
+KERNEL-14,
+KERNEL-15,
+MSGQUEUE-1,
+MSGQUEUE-2,
+MSGQUEUE-3,
+MSGQUEUE-4,
+MSGQUEUE-5,
+MSGQUEUE-6,
+MSGQUEUE-7,
+MSGQUEUE-8,
+MSGQUEUE-9,
+MSGQUEUE-10,
+MSGQUEUE-11,
+MSGQUEUE-12,
+MSGQUEUE-13,
+MSGQUEUE-14,
+MSGQUEUE-15,
+EVENT-1,
+EVENT-2,
+EVENT-3,
+EVENT-4,
+EVENT-5,
+EVENT-6,
+EVENT-7,
+EVENT-8,
+EVENT-9,
+EVENT-10,
+EVENT-11,
+EVENT-12,
+EVENT-13,
+EVENT-14,
+EVENT-15,

@@ -12,14 +12,13 @@ extern "C" {
 #define SEM_OFS1 20000
 #define SEM_OFS2 21000
 
-//TODO(@mthompkins): Remove these? These macros strike me as un-necessary
 #define OS_WAIT_SEM(sem)        do {\
                                     if ( os_sem_larger_than_zero( sem )  ){\
                                         os_sem_decrement( sem );\
                                     }\
                                     else{\
                                         os_task_wait_sem_set( os_get_running_tid(), sem );\
-                                        OS_SCHEDULE(SEM_OFS1);\
+                                        OS_YIELD;\
                                     }\
                                 } while (0)
 
@@ -30,7 +29,7 @@ extern "C" {
                                     }\
                                     else {\
                                         os_task_release_waiting_task( sem );\
-                                        OS_SCHEDULE(SEM_OFS2);\
+                                        OS_YIELD;\
                                     }\
                                 } while (0)
 

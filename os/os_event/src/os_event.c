@@ -1,6 +1,6 @@
 #include <stdarg.h>
 
-#include "cocoos.h"
+#include "os_defines.h"
 #include "os_event.h"
 
 /* Event type */
@@ -44,8 +44,8 @@ void os_event_init(void) {
 * */
 /*********************************************************************************/
 Evt_t event_create( void ) {
-    #if( N_TOTAL_EVENTS > 0 )
-    os_assert( nEvents < N_TOTAL_EVENTS );
+#if( N_TOTAL_EVENTS > 0 )
+    os_assert_with_return( nEvents < N_TOTAL_EVENTS, 1 );
 
     eventList[ nEvents ].id = nEvents;
     eventList[ nEvents ].signaledByTid = NO_TID;
@@ -53,9 +53,9 @@ Evt_t event_create( void ) {
     ++nEvents;
 
     return nEvents - 1;
-    #else
+#else
     return 0;
-    #endif
+#endif
 }
 
 

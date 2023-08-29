@@ -1,6 +1,5 @@
 #include <stdint.h>
 
-#include "cocoos.h"
 #include "os_kernel.h"
 #include "os_event.h"
 #include "os_msgqueue.h"
@@ -25,7 +24,7 @@ static uint16_t running_tid = NO_TID;
 *   int main(void) {
 *   system_init();
 *   os_init();
-*   ...
+*
 *   }
 *   @endcode
 *
@@ -42,78 +41,93 @@ void os_init( void )
 }
 
 
-
-
-static void os_schedule( void ) {
-
+static void os_schedule( void )
+{
     running_tid = NO_TID;
 
 #if (ROUND_ROBIN)
-    /* Find next ready task */
-    running_tid = os_task_next_ready_task();
+    // Find next ready task
+    running_tid = next_ready_task();
 #else
-    /* Find the highest prio task ready to run */
-    running_tid = os_task_highest_prio_ready_task();
+    // Find the highest prio task ready to run
+    // TODO make the task access static and test thru os_schedule
+    running_tid = highest_prio_ready_task();
 #endif
 
-    if ( running_tid != NO_TID ) {
-        os_task_run();
+    if ( running_tid != NO_TID )
+    {
+        task_run();
     }
-    else {
+    else
+    {
         os_cbkSleep();
     }
 }
 
 
 /*********************************************************************************/
-/*  void os_start()                                              *//**
+/*  void os_start()
 *   Starts the task scheduling
+*
+*   @param tick_limit, this specifies the tick_limit to run the OS, passing 0
+*   will cause it to run forever
 *
 *   @return None.
 *   @remarks \b Usage: @n Should be the last line of main.
 *
 *   @code
-*   int main(void) {
-*     system_init();
-*     os_init();
-*     task_create( myTaskProc, 1, NULL, 0, 0 );
-*     ...
-*     os_start();
-*     return 0;
+*   int main(void)
+*   {
+*       system_init();
+*       os_init();
+*       os_task_create( myTaskProc, 1, NULL, 0, 0 );
+*
+*       os_start();
+*       return 0;
 *   }
 *   @endcode
 */
 /*********************************************************************************/
-void os_start( void )
+void os_start( const uint32_t tick_limit )
 {
     running = 1;
     os_enable_interrupts();
 
-    for(;;)
+    for(uint32_t i=0; i<=tick_limit;)
     {
         os_schedule();
+
+        if(tick_limit != 0)
+        {
+            i++;
+        }
     }
 }
 
 // This allows users to lock the schedule function in a lock/unlock pair of
 // functions. This is useful if the task_tick() function itself is executed from
 // a thread (like a pthread in linux).
-void os_start_locking( void (*lock)(void), void (*unlock)(void) )
+void os_start_locking( const uint32_t tick_limit, void (*lock)(void), void (*unlock)(void) )
 {
     running = 1;
     os_enable_interrupts();
 
-    for(;;)
+    for(uint32_t i=0; i<=tick_limit;)
     {
         lock();
         os_schedule();
         unlock();
+
+        if(tick_limit != 0)
+        {
+            i++;
+        }
     }
 }
 
 
 /*********************************************************************************/
-/*  void os_tick()                                              *//**
+/*  void os_tick()
 *
 *   Tick function driving the kernel
 *
@@ -121,7 +135,8 @@ void os_start_locking( void (*lock)(void), void (*unlock)(void) )
 *   @remarks \b Usage: @n Should be called periodically. Preferably from the clock tick ISR.
 *
 *   @code
-*   ISR(SIG_OVERFLOW0) {
+*   ISR(SIG_OVERFLOW0)
+*   {
 *     ...
 *     os_tick();
 *   }
@@ -169,7 +184,7 @@ void os_sub_tick( uint8_t id )
 
 
 /*********************************************************************************/
-/*  void os_sub_nTick( id, nTicks )                                              *//**
+/*  void os_sub_nTick( id, nTicks )
 *
 *   Tick function driving the sub clocks. Increments the tick count with nTicks.
 *
@@ -191,7 +206,7 @@ void os_sub_tick( uint8_t id )
 /*********************************************************************************/
 void os_sub_nTick( uint8_t id, uint32_t nTicks )
 {
-    /* Sub clock tick */
+    // Sub clock tick
     if ( id != 0 )
     {
         task_tick( id, nTicks );
@@ -216,27 +231,9 @@ void os_free_tid(void)
     running_tid = NO_TID;
 }
 
-//TODO(mthompkins): I don't see where unit tests so I reccomend removal of this
-//#ifdef UNIT_TEST
-//void os_run() {
-//    running = 1;
-//    os_enable_interrupts();
-//    os_schedule();
-//}
-//
-//void os_run_until_taskState(uint8_t taskId, TaskState_t state) {
-//    running = 1;
-//    os_enable_interrupts();
-//    do {
-//        os_schedule();
-//    } while ( state != task_state_get(taskId) );
-//}
-//
-//TaskState_t os_get_task_state(uint8_t taskId) {
-//    return task_state_get(taskId);
-//}
-//
-//
-//
-//
-//#endif
+#ifdef COCOOS_UNIT_TESTS
+void unit_test_os_schedule( void )
+{
+    os_schedule();
+}
+#endif

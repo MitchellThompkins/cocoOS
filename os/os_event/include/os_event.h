@@ -17,20 +17,20 @@ extern "C" {
 
 #define OS_WAIT_SINGLE_EVENT(x,timeout, cb) do {\
                                 os_wait_event(os_get_running_tid(),x,1,timeout, cb);\
-                                OS_SCHEDULE(EVENT_OFS1);\
+                                OS_YIELD;\
                                } while (0)
 
 
 #define OS_WAIT_MULTIPLE_EVENTS( waitAll, args...)  do {\
                                 os_wait_multiple(waitAll, args, NO_EVENT);\
-                                OS_SCHEDULE(EVENT_OFS2);\
+                                OS_YIELD;\
                                } while (0)
 
 
 #define OS_SIGNAL_EVENT(event)  do {\
                                 os_signal_event(event);\
                                 os_event_set_signaling_tid( event, os_get_running_tid() );\
-                                OS_SCHEDULE(EVENT_OFS3);\
+                                OS_YIELD;\
                                 } while (0)
 
 

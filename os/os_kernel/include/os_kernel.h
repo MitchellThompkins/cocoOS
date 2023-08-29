@@ -1,11 +1,11 @@
-#ifndef _os_kernel_h__
-#define _os_kernel_h__
+#ifndef OS_KERNEL_H
+#define OS_KERNEL_H
 
 #include <stdint.h>
 
-#include "cocoos.h"
 #include "os_typedef.h"
 #include "os_msgqueue.h"
+#include "os_reentry.h"
 #include "os_sem.h"
 #include "os_task.h"
 
@@ -32,7 +32,7 @@ static void myTask(void) {
   ...
  task_close();
 }
- @endcode 
+ @endcode
  *******************************************************************************/
 #define task_open()                 OS_BEGIN
 
@@ -79,7 +79,7 @@ static void myTask(void) {
 }
  @endcode 
  *******************************************************************************/
-#define task_wait(x)                OS_WAIT_TICKS(x,0)
+#define task_wait(ticks)                OS_WAIT_TICKS(ticks,0)
 
 
 /*********************************************************************************/
@@ -104,7 +104,7 @@ static void myTask(void) {
 }
  @endcode 
  *******************************************************************************/
-#define task_wait_id(id,x)                OS_WAIT_TICKS(x,id)
+#define task_wait_id(id,ticks)                OS_WAIT_TICKS(ticks,id)
 
 
 /*********************************************************************************/
@@ -124,10 +124,11 @@ uint8_t task1_id;
 uint8_t task2_id;
 
 static void led_task(void) {
- task_open();	
-  for(;;) {
-	led_toggle();
-	task_wait( 100 );
+ task_open();
+  for(;;)
+  {
+    led_toggle();
+    task_wait( 100 );
   }
  task_close();
 }
@@ -147,12 +148,12 @@ static void button_task(void) {
 
 int main( void ) {
     ...
-    task1_id = task_create( led_task, 1, msgPool, POOL_SIZE, sizeof(Msg_t) );
-    task2_id = task_create( button_task, 2, NULL, 0, 0 );
+    task1_id = os_task_create( led_task, 1, msgPool, POOL_SIZE, sizeof(Msg_t) );
+    task2_id = os_task_create( button_task, 2, NULL, 0, 0 );
 	...
 }
 
- @endcode 
+ @endcode
  *******************************************************************************/
 #define task_suspend( id )    OS_SUSPEND_TASK( id )
 
@@ -196,8 +197,8 @@ static void button_task(void) {
 
 int main( void ) {
 	...
-	ledTask_id = task_create( led_task, 1, msgPool, POOL_SIZE, sizeof(Msg_t) );
-    task_create( button_task, 2, NULL, 0, 0 );
+	ledTask_id = os_task_create( led_task, 1, msgPool, POOL_SIZE, sizeof(Msg_t) );
+    os_task_create( button_task, 2, NULL, 0, 0 );
 	...
 }
 
@@ -215,14 +216,15 @@ int main( void ) {
 *   @remarks \b Usage: @n
 * @code 
 Evt_t myEvent;
-main() {
+main()
+{
  ...
  myEvent = event_create();
  ...
 }
 
 static void myTask(void) {
- task_open();	
+ task_open();
   ...
   event_wait( myEvent );
   ...
@@ -489,8 +491,8 @@ static uint8_t taskId2;
 int main(void)
 {
     ...
-    taskId1 = task_create( task1, 1, NULL, 0, 0 );
-    taskId2 = task_create( task2, 2, msgpool_1, 16, sizeof(LedMsg_t) );
+    taskId1 = os_task_create( task1, 1, NULL, 0, 0 );
+    taskId2 = os_task_create( task2, 2, msgpool_1, 16, sizeof(LedMsg_t) );
     ...
     os_start();
     return 0;
@@ -551,8 +553,8 @@ static uint8_t taskId2;
 int main(void)
 {
     ...
-    taskId1 = task_create( task1, 1, NULL, 0, 0 );
-    taskId2 = task_create( task2, 2, msgpool_1, 16, sizeof(LedMsg_t) );
+    taskId1 = os_task_create( task1, 1, NULL, 0, 0 );
+    taskId2 = os_task_create( task2, 2, msgpool_1, 16, sizeof(LedMsg_t) );
     ...
     os_start();
     return 0;
@@ -615,8 +617,8 @@ static uint8_t taskId2;
 int main(void)
 {
     ...
-    taskId1 = task_create( task1, 1, NULL, 0, 0 );
-    taskId2 = task_create( task2, 2, msgpool_1, 16, sizeof(LedMsg_t) );
+    taskId1 = os_task_create( task1, 1, NULL, 0, 0 );
+    taskId2 = os_task_create( task2, 2, msgpool_1, 16, sizeof(LedMsg_t) );
     ...
     os_start();
     return 0;
@@ -678,8 +680,8 @@ static uint8_t taskId2;
 int main(void)
 {
     ...
-    taskId1 = task_create( task1, 1, NULL, 0, 0 );
-    taskId2 = task_create( task2, 2, msgpool_1, 16, sizeof(LedMsg_t) );
+    taskId1 = os_task_create( task1, 1, NULL, 0, 0 );
+    taskId2 = os_task_create( task2, 2, msgpool_1, 16, sizeof(LedMsg_t) );
     ...
     os_start();
     return 0;
@@ -743,8 +745,8 @@ static uint8_t taskId2;
 int main(void)
 {
     ...
-    taskId1 = task_create( task1, 1, NULL, 0 );
-    taskId2 = task_create( task2, 2, msgpool_1, 16, sizeof(LedMsg_t) );
+    taskId1 = os_task_create( task1, 1, NULL, 0 );
+    taskId2 = os_task_create( task2, 2, msgpool_1, 16, sizeof(LedMsg_t) );
     ...
     os_start();
     return 0;
@@ -806,8 +808,8 @@ static uint8_t taskId2;
 int main(void)
 {
     ...
-    taskId1 = task_create( task1, 1, NULL, 0 );
-    taskId2 = task_create( task2, 2, msgpool_1, 16, sizeof(LedMsg_t) );
+    taskId1 = os_task_create( task1, 1, NULL, 0 );
+    taskId2 = os_task_create( task2, 2, msgpool_1, 16, sizeof(LedMsg_t) );
     ...
     os_start();
     return 0;
@@ -843,14 +845,13 @@ static void task2(void) {
 /*********************************************************************************/
 #define msg_receive_async( task_id, pMsg )        OS_MSG_Q_RECEIVE( task_id, pMsg, 1 )
 
-
 uint8_t os_running( void );
 
 void os_init( void );
 
-void os_start( void );
+void os_start( const uint32_t tick_limit );
 
-void os_start_locking( void (*lock)(void), void (*unlock)(void) );
+void os_start_locking( const uint32_t tick_limit, void (*lock)(void), void (*unlock)(void) );
 
 void os_tick( void );
 
@@ -862,12 +863,15 @@ uint16_t os_get_running_tid(void);
 
 void os_free_tid(void);
 
-//TODO(@mthompkins): I think this is better placed in os_task.h
-void task_kill( uint8_t tid );
-
+//TODO(@mthompkins): I think this can go to event
 Evt_t event_create( void );
+
 uint8_t event_signaling_taskId_get( Evt_t ev );
 void os_cbkSleep( void );
+
+#ifdef COCOOS_UNIT_TESTS
+void unit_test_os_schedule( void );
+#endif
 
 #ifdef __cplusplus
 }
