@@ -79,7 +79,7 @@ static void myTask(void) {
 }
  @endcode 
  *******************************************************************************/
-#define task_wait(x)                OS_WAIT_TICKS(x,0)
+#define task_wait(ticks)                OS_WAIT_TICKS(ticks,0)
 
 
 /*********************************************************************************/
@@ -104,7 +104,7 @@ static void myTask(void) {
 }
  @endcode 
  *******************************************************************************/
-#define task_wait_id(id,x)                OS_WAIT_TICKS(x,id)
+#define task_wait_id(id,ticks)                OS_WAIT_TICKS(ticks,id)
 
 
 /*********************************************************************************/

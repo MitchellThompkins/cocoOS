@@ -15,19 +15,19 @@ extern "C" {
 // static or pass variables which are to be preserved between function calls to
 // the task in the form of a void* when calling task_create().
 
-#define OS_BEGIN    switch ( task_internal_state_get( os_get_running_tid() ) ) { case 0:
+#define OS_BEGIN  switch ( task_internal_state_get( os_get_running_tid() ) ) { case 0:
 
-#define OS_END      os_task_kill( os_get_running_tid() );\
-                    os_free_tid();\
-                    return; }
+#define OS_END    os_task_kill( os_get_running_tid() );\
+                  os_free_tid();\
+                  return; }
 
-#define OS_YIELD    os_task_internal_state_set( os_get_running_tid(), __LINE__ );\
-                    os_free_tid();\
-                    return;\
-                    case (__LINE__):
+#define OS_YIELD  os_task_internal_state_set( os_get_running_tid(), __LINE__ );\
+                  os_free_tid();\
+                  return;\
+                  case (__LINE__):
 
-#define OS_WAIT_TICKS(time,id)  do { os_task_wait_time_set( os_get_running_tid(), id, time );\
-                                OS_YIELD; } while (0)
+#define OS_WAIT_TICKS(ticks,id)  do { os_task_wait_time_set( os_get_running_tid(), id, ticks );\
+                                 OS_YIELD; } while (0)
 
 #ifdef __cplusplus
 }

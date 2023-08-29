@@ -232,3 +232,56 @@ TEST(TestOsKernel, test_os_running_id)
     step_os(1);
     CHECK_TRUE(task_ran);
 }
+
+TEST(TestOsKernel, test_os_sub_tick)
+{
+    UT_CATALOG_ID("KERNEL-6");
+
+    mock().expectOneCall("os_sem_init");
+    mock().expectOneCall("os_event_init");
+    mock().expectOneCall("os_msgQ_init");
+    mock().expectOneCall("os_task_init");
+    os_init();
+
+    const auto id0 {os_task_create( dummy_task0, NULL, 3, NULL, 0, 0 )};
+    const auto id1 {os_task_create( dummy_task1, NULL, 2, NULL, 0, 0 )};
+    const auto id2 {os_task_create( dummy_task2, NULL, 1, NULL, 0, 0 )};
+
+    // Have 2 tasks share a clock id
+    const uint8_t clock_id0 {3};
+    const uint8_t clock_id1 {5};
+
+    os_task_wait_time_set( id0, clock_id0, 20 );
+    os_task_wait_time_set( id1, clock_id0, 30 );
+    os_task_wait_time_set( id2, clock_id1, 40 );
+
+    CHECK_EQUAL( 20, os_task_timeout_get(id0) );
+    CHECK_EQUAL( 30, os_task_timeout_get(id1) );
+    CHECK_EQUAL( 40, os_task_timeout_get(id2) );
+
+    const uint8_t clock_step_first {3};
+    os_sub_nTick(clock_id0, clock_step_first);
+
+    CHECK_EQUAL( 20-clock_step_first, os_task_timeout_get(id0) );
+    CHECK_EQUAL( 30-clock_step_first, os_task_timeout_get(id1) );
+    CHECK_EQUAL( 40, os_task_timeout_get(id2) );
+
+    uint8_t clock_step_second = 7;
+    os_sub_nTick(clock_id1, clock_step_second);
+
+    CHECK_EQUAL( 20-clock_step_first,  os_task_timeout_get(id0) );
+    CHECK_EQUAL( 30-clock_step_first,  os_task_timeout_get(id1) );
+    CHECK_EQUAL( 40-clock_step_second, os_task_timeout_get(id2) );
+
+    // Make sure clocks didn't step when master clock ticks
+    os_tick();
+    CHECK_EQUAL( 20-clock_step_first,  os_task_timeout_get(id0) );
+    CHECK_EQUAL( 30-clock_step_first,  os_task_timeout_get(id1) );
+    CHECK_EQUAL( 40-clock_step_second, os_task_timeout_get(id2) );
+
+    // Make sure only specified clock decrements by 1
+    os_sub_tick(clock_id0);
+    CHECK_EQUAL( 20-clock_step_first-1,  os_task_timeout_get(id0) );
+    CHECK_EQUAL( 30-clock_step_first-1,  os_task_timeout_get(id1) );
+    CHECK_EQUAL( 40-clock_step_second,   os_task_timeout_get(id2) );
+}
