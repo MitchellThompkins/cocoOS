@@ -43,6 +43,7 @@ TEST(TestOsTask, fail_create_task_null_taskproc)
 
     // Verify that calling task with the same prio level invokes assert
     mock().expectOneCall("os_on_assert");
+    mock().expectOneCall("os_running");
     os_task_create( NULL, NULL, 1, NULL, 0, 0 );
     mock().checkExpectations();
     mock().clear();
@@ -57,6 +58,7 @@ TEST(TestOsTask, fail_create_task_with_same_prio)
 
     // Verify that calling task with the same prio level invokes assert
     mock().expectOneCall("os_on_assert");
+    mock().expectNCalls(2, "os_running");
     os_task_create( dummy_task, NULL, 1, NULL, 0, 0 );
     os_task_create( dummy_task, NULL, 1, NULL, 0, 0 );
 
@@ -73,6 +75,7 @@ TEST(TestOsTask, fail_create_task_with_too_many_tasks)
 
     // Verify that trying to create too many tasks invokes assert
     mock().expectOneCall("os_on_assert");
+    mock().expectNCalls(N_TASKS+1, "os_running");
     for(int i{0}; i<=N_TASKS; i++)
     {
         os_task_create( dummy_task, NULL, i, NULL, 0, 0 );
@@ -94,6 +97,7 @@ TEST(TestOsTask, fail_create_task_when_os_is_running)
 
     // Verify that you cannot create a task while os is running
     mock().expectOneCall("os_on_assert").andReturnValue(false);
+    mock().expectOneCall("os_running");
     os_task_create( dummy_task, NULL, 1, NULL, 0, 0 );
 
     mock().checkExpectations();
@@ -108,6 +112,7 @@ TEST(TestOsTask, successful_task_initialization)
     mock().expectOneCall("os_init");
     os_init();
 
+    mock().expectNCalls(3, "os_running");
     // Verify that you cannot create a task while os is running
     const auto id1 {os_task_create( dummy_task, NULL, 1, NULL, 0, 0 )};
     CHECK_EQUAL(0, id1);
@@ -129,6 +134,7 @@ TEST(TestOsTask, next_highest_prio_task)
     mock().expectOneCall("os_init");
     os_init();
 
+    mock().expectNCalls(3, "os_running");
     const auto id1 {os_task_create( dummy_task, NULL, 3, NULL, 0, 0 )};
     const auto id2 {os_task_create( dummy_task, NULL, 2, NULL, 0, 0 )};
     const auto id3 {os_task_create( dummy_task, NULL, 1, NULL, 0, 0 )};
@@ -151,6 +157,7 @@ TEST(TestOsTask, release_task_prio_waiting_on_semaphore)
     mock().expectOneCall("os_init");
     os_init();
 
+    mock().expectNCalls(3, "os_running");
     const auto id0 {os_task_create( dummy_task, NULL, 3, NULL, 0, 0 )};
     const auto id1 {os_task_create( dummy_task, NULL, 2, NULL, 0, 0 )};
     const auto id2 {os_task_create( dummy_task, NULL, 1, NULL, 0, 0 )};
@@ -186,6 +193,7 @@ TEST(TestOsTask, task_waiting_semaphore)
     mock().expectOneCall("os_init");
     os_init();
 
+    mock().expectNCalls(3, "os_running");
     const auto id0 {os_task_create( dummy_task, NULL, 3, NULL, 0, 0 )};
     const auto id1 {os_task_create( dummy_task, NULL, 2, NULL, 0, 0 )};
     const auto id2 {os_task_create( dummy_task, NULL, 1, NULL, 0, 0 )};
@@ -236,6 +244,7 @@ TEST(TestOsTask, tick_time_for_tasks)
     mock().expectOneCall("os_init");
     os_init();
 
+    mock().expectNCalls(3, "os_running");
     const auto id0 {os_task_create( dummy_task, NULL, 3, NULL, 0, 0 )};
     const auto id1 {os_task_create( dummy_task, NULL, 2, NULL, 0, 0 )};
     const auto id2 {os_task_create( dummy_task, NULL, 1, NULL, 0, 0 )};

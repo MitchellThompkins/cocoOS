@@ -27,16 +27,23 @@ void os_start( const uint32_t tick_limit )
 }
 
 void os_tick( void )
-{}
+{
+    mock_c()->actualCall("os_tick");
+}
 
 void os_sub_tick( uint8_t id )
-{}
+{
+    mock_c()->actualCall("os_sub_tick");
+}
 
 void os_sub_nTick( uint8_t id, uint32_t nTicks )
-{}
+{
+    mock_c()->actualCall("os_sub_nTick");
+}
 
 uint8_t os_running(void)
 {
+    mock_c()->actualCall("os_running");
     return running;
 }
 
@@ -52,11 +59,14 @@ void os_free_tid(void)
 }
 
 Evt_t event_create( void )
-{}
+{
+}
 
 uint8_t event_signaling_taskId_get( Evt_t ev )
-{}
+{
+}
 
 void os_cbkSleep( void )
-{}
+{
+}
 

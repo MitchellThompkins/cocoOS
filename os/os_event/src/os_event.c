@@ -1,7 +1,13 @@
 #include <stdarg.h>
 
+#include "os_assert.h"
 #include "os_defines.h"
 #include "os_event.h"
+#include "os_kernel.h"
+
+#ifdef __cplusplus
+extern "C" {
+#endif
 
 /* Event type */
 typedef struct
@@ -9,7 +15,6 @@ typedef struct
     uint8_t id;
     uint8_t signaledByTid;
 } Event_t;
-
 
 
 /* Event list */
@@ -21,7 +26,8 @@ static Evt_t nEvents;
 static Evt_t lastSignaledEvent = NO_EVENT;
 #endif
 
-void os_event_init(void) {
+void os_event_init(void)
+{
 #if( N_TOTAL_EVENTS > 0 )
     nEvents = 0;
 #endif
@@ -43,7 +49,8 @@ void os_event_init(void) {
 *
 * */
 /*********************************************************************************/
-Evt_t event_create( void ) {
+Evt_t event_create( void )
+{
 #if( N_TOTAL_EVENTS > 0 )
     os_assert_with_return( nEvents < N_TOTAL_EVENTS, 1 );
 
@@ -60,7 +67,7 @@ Evt_t event_create( void ) {
 
 
 /*********************************************************************************/
-/*  uint8_t event_signaling_taskId_get( ev )                                              *//**
+/*  uint8_t event_signaling_taskId_get( ev )
 *
 *   Gets the Task Id of the task that signaled the event.
 *
@@ -82,7 +89,8 @@ Evt_t event_create( void ) {
 *
 * */
 /*********************************************************************************/
-uint8_t event_signaling_taskId_get( Evt_t ev ) {
+uint8_t event_signaling_taskId_get( Evt_t ev )
+{
 #if( N_TOTAL_EVENTS > 0 )
     return eventList[ ev ].signaledByTid;
 #else
@@ -91,7 +99,7 @@ uint8_t event_signaling_taskId_get( Evt_t ev ) {
 }
 
 /*********************************************************************************/
-/*  Evt_t event_last_signaled_get(void)                                              *//**
+/*  Evt_t event_last_signaled_get(void)
 *
 *   Gets the last signaled event
 *
@@ -111,7 +119,8 @@ uint8_t event_signaling_taskId_get( Evt_t ev ) {
 *
 * */
 /*********************************************************************************/
-Evt_t event_last_signaled_get(void) {
+Evt_t event_last_signaled_get(void)
+{
 #if( N_TOTAL_EVENTS > 0 )
     return lastSignaledEvent;
 #else
@@ -120,35 +129,42 @@ Evt_t event_last_signaled_get(void) {
 }
 
 
-void os_wait_event(uint8_t tid, Evt_t ev, uint8_t waitSingleEvent, uint32_t timeout, void (*cb)(void)) {
+void os_wait_event(uint8_t tid, Evt_t ev, uint8_t waitSingleEvent, uint32_t timeout, void (*call_back)(void))
+{
 #if( N_TOTAL_EVENTS > 0 )
-    if ( ev < nEvents ) {
+    if( ev < nEvents )
+    {
         eventList[ ev ].signaledByTid = NO_TID;
         os_task_wait_event( tid, ev, waitSingleEvent, timeout );
-        if (cb) {
-          cb();
+
+        if (call_back)
+        {
+            call_back();
         }
     }
 #endif
 }
 
 
-void os_signal_event( Evt_t ev ) {
+void os_signal_event( Evt_t ev )
+{
 #if( N_TOTAL_EVENTS > 0 )
-  lastSignaledEvent = ev;
-  os_task_signal_event( ev );
+    lastSignaledEvent = ev;
+    os_task_signal_event( ev );
 #endif
 }
 
 
-void os_event_set_signaling_tid( Evt_t ev, uint8_t tid ) {
+void os_event_set_signaling_tid( Evt_t ev, uint8_t tid )
+{
 #if( N_TOTAL_EVENTS > 0 )
     eventList[ ev ].signaledByTid = tid;
 #endif
 }
 
 
-void os_wait_multiple( uint8_t waitAll, ...) {
+void os_wait_multiple( uint8_t waitAll, ...)
+{
 #if( N_TOTAL_EVENTS > 0 )
     int event;
     va_list args;
@@ -165,5 +181,6 @@ void os_wait_multiple( uint8_t waitAll, ...) {
 #endif
 }
 
-
-
+#ifdef __cplusplus
+}
+#endif

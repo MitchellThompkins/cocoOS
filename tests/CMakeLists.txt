@@ -1,5 +1,6 @@
 add_subdirectory(platforms)
 add_subdirectory(os_task)
+add_subdirectory(os_event)
 add_subdirectory(os_kernel)
 
 #TODO(@mthompkins): Compile with -Wall

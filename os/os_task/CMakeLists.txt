@@ -26,3 +26,7 @@ target_link_libraries(os_task_impl
         os_utils_intf
         os_kernel_intf #TODO(@tthompkins doesn't this conflict if I call the mock versio too?
 )
+
+if(DEFINED BUILD_COCOOS_UNIT_TESTS)
+    add_subdirectory(mocks)
+endif()
