@@ -530,7 +530,11 @@ void os_task_wait_time_set( uint8_t tid, uint8_t id, uint32_t time )
 }
 
 
-void os_task_wait_event( uint8_t tid, Evt_t eventId, uint8_t waitSingleEvent, uint32_t timeout ) {
+void os_task_wait_event( uint8_t tid,
+                         Evt_t eventId,
+                         uint8_t waitSingleEvent,
+                         uint32_t timeout )
+{
     uint8_t eventListIndex;
     uint8_t shift;
     tcb *task;
@@ -544,13 +548,15 @@ void os_task_wait_event( uint8_t tid, Evt_t eventId, uint8_t waitSingleEvent, ui
 
     task->eventQueue.eventList[ eventListIndex ] |= 1 << shift;
     task->waitSingleEvent = waitSingleEvent;
-    if ( timeout != 0 ) {
-        /* Waiting for an event with timeout - clockId = 0, master clock */
+    if ( timeout != 0 )
+    {
+        // Waiting for an event with timeout - clockId = 0, master clock
         task->clockId = 0;
         task->time = timeout;
         task_waiting_event_timeout_set( task );
     }
-    else {
+    else
+    {
         task_waiting_event_set( task );
     }
 }

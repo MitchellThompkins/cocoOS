@@ -34,11 +34,11 @@ void os_event_init(void)
 }
 
 /*********************************************************************************/
-/*  Evt_t event_create()                                              *//**
+/*  Evt_t event_create()
 *
 *   Creates an event.
 *
-*   @return Returns an event.
+*   @return Returns the id associated with an event
 *   @remarks \b Usage: @n An event is created by declaring a variable of type Evt_t and then
 *   assigning the event_create() return value to that variable.
 *
@@ -129,7 +129,11 @@ Evt_t event_last_signaled_get(void)
 }
 
 
-void os_wait_event(uint8_t tid, Evt_t ev, uint8_t waitSingleEvent, uint32_t timeout, void (*call_back)(void))
+void os_wait_event( uint8_t tid,
+                    Evt_t ev,
+                    uint8_t waitSingleEvent,
+                    uint32_t timeout,
+                    void (*call_back)(void) )
 {
 #if( N_TOTAL_EVENTS > 0 )
     if( ev < nEvents )

@@ -58,14 +58,6 @@ void os_free_tid(void)
     mock_c()->actualCall("os_free_tid");
 }
 
-Evt_t event_create( void )
-{
-}
-
-uint8_t event_signaling_taskId_get( Evt_t ev )
-{
-}
-
 void os_cbkSleep( void )
 {
 }

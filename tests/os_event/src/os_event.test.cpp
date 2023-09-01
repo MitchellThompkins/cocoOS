@@ -6,14 +6,15 @@
 
 #include "platform.h"
 
-#include "os_assert.h"
+#include "os_defines.h"
 #include "os_event.h"
-#include "os_task.h"
 
 TEST_GROUP(TestOsEvent)
 {
     void setup()
     {
+        // reset num events to 0
+        os_event_init();
     }
 
     void teardown()
@@ -22,7 +23,28 @@ TEST_GROUP(TestOsEvent)
     }
 };
 
-TEST(TestOsEvent, test0)
+TEST(TestOsEvent, successful_create_event)
 {
-    CHECK_TRUE(true);
+    UT_CATALOG_ID("EVENT-1");
+
+    for(int i{0}; i<N_TOTAL_EVENTS; i++)
+    {
+        CHECK_EQUAL(i, event_create());
+    }
+
+    os_event_init();
+    CHECK_EQUAL(0, event_create());
+}
+
+TEST(TestOsEvent, create_too_many_events)
+{
+    UT_CATALOG_ID("EVENT-2");
+
+    for(int i{0}; i<N_TOTAL_EVENTS; i++)
+    {
+        CHECK_EQUAL(i, event_create());
+    }
+
+    mock().expectOneCall("os_on_assert");
+    event_create();
 }

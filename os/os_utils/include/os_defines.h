@@ -60,11 +60,11 @@ _Static_assert(ROUND_ROBIN == 0 || ROUND_ROBIN == 1, "ROUND_ROBIN must be 0 or 1
 #define NO_MSG_ID   0xff
 #define ISR_TID     0xfe
 
-/* Total number of semaphores needed */
+// Total number of semaphores needed
 #define N_TOTAL_SEMAPHORES    ( N_SEMAPHORES + N_QUEUES )
 
 
-/* Total number of events needed */
+// Total number of events needed
 #define N_TOTAL_EVENTS        ( N_EVENTS + N_QUEUES )
 
 #define NO_TID   255

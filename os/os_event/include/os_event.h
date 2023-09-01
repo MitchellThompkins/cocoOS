@@ -11,10 +11,6 @@
 extern "C" {
 #endif
 
-#define EVENT_OFS1   10000
-#define EVENT_OFS2   11000
-#define EVENT_OFS3   12000
-
 #define OS_WAIT_SINGLE_EVENT(x,timeout, cb) do {\
                                 os_wait_event(os_get_running_tid(),x,1,timeout, cb);\
                                 OS_YIELD;\
@@ -58,11 +54,24 @@ typedef struct {
 
 
 void os_event_init( void );
-void os_wait_event( uint8_t tid, Evt_t ev, uint8_t waitSingleEvent, uint32_t timeout, void (*call_back)(void) );
-void os_wait_multiple( uint8_t waitAll, ...);
+
+void os_wait_event( uint8_t tid,
+                    Evt_t ev,
+                    uint8_t waitSingleEvent,
+                    uint32_t timeout,
+                    void (*call_back)(void) );
+
+void os_wait_multiple( uint8_t waitAll, ... );
+
 void os_signal_event( Evt_t ev );
+
 void os_event_set_signaling_tid( Evt_t ev, uint8_t tid );
-Evt_t event_last_signaled_get(void);
+
+Evt_t event_last_signaled_get( void );
+
+Evt_t event_create( void );
+
+uint8_t event_signaling_taskId_get( Evt_t ev );
 
 #ifdef __cplusplus
 }
