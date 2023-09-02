@@ -60,7 +60,8 @@ uint8_t next_ready_task( void );
 
 void os_task_ready_set( uint8_t tid );
 
-void task_wait_sem_set( uint8_t tid, Sem_t sem );
+void task_wait_sem_set( uint8_t tid,
+                        Sem_t sem );
 
 void os_task_suspend( uint8_t tid );
 
@@ -72,11 +73,17 @@ uint8_t os_task_prio_get( uint8_t tid );
 
 void os_task_clear_wait_queue( uint8_t tid );
 
-void os_task_wait_time_set( uint8_t tid, uint8_t id, uint32_t time );
+void os_task_wait_time_set( uint8_t tid,
+                            uint8_t id,
+                            uint32_t time );
 
-void os_task_wait_event( uint8_t tid, Evt_t eventId, uint8_t waitSingleEvent, uint32_t timeout );
+void os_task_wait_event( uint8_t tid,
+                         Evt_t eventId,
+                         uint8_t waitSingleEvent,
+                         uint32_t timeout );
 
-void task_tick( uint8_t clockId, uint32_t tickSize );
+void task_tick( uint8_t clockId,
+                uint32_t tickSize );
 
 void os_task_signal_event( Evt_t eventId );
 

@@ -33,7 +33,7 @@ _Static_assert(N_SEMAPHORES >=0 && N_SEMAPHORES < 255, "Maximum number of queues
 #endif
 
 
-#ifndef N_QUEUES
+#ifndef N_EVENTS
 #error N_EVENTS must be defined with #define
 #endif
 #ifdef __cplusplus
@@ -43,7 +43,7 @@ _Static_assert(N_EVENTS >=0 && N_EVENTS < 255, "Maximum number of events is 254"
 #endif
 
 
-#ifndef N_QUEUES
+#ifndef ROUND_ROBIN
 #error ROUND_ROBIN must be defined as 0 or 1
 #endif
 #ifdef __cplusplus

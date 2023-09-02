@@ -71,6 +71,7 @@ void os_task_init( void )
 
         for ( uint8_t j = 0; j < sizeof( task->eventQueue.eventList); j++ )
         {
+            //TODO(@mthompkins): make this an enum
             task->eventQueue.eventList[j] = 0xff;
         }
         task->data = 0;
@@ -479,7 +480,7 @@ uint8_t os_task_prio_get( uint8_t tid )
 }
 
 
-/* Clears the event wait queue of a task */
+// Clears the event wait queue of a task
 void os_task_clear_wait_queue( uint8_t tid )
 {
     uint8_t event;
@@ -490,7 +491,8 @@ void os_task_clear_wait_queue( uint8_t tid )
     task->waitSingleEvent = 0;
     event = EVENT_QUEUE_SIZE;
 
-    do {
+    do
+    {
         --event;
         task->eventQueue.eventList[ event ] = 0;
     } while ( event != 0 );
@@ -498,7 +500,7 @@ void os_task_clear_wait_queue( uint8_t tid )
 }
 
 
-/* Checks if a tasks event wait queue is empty or not */
+// Checks if a tasks event wait queue is empty or not
 static uint8_t os_task_wait_queue_empty( uint8_t tid )
 {
     uint8_t event;
@@ -507,12 +509,14 @@ static uint8_t os_task_wait_queue_empty( uint8_t tid )
     result = 1;
     event = EVENT_QUEUE_SIZE;
 
-    do {
+    do
+    {
         --event;
-        if ( task_list[ tid ].eventQueue.eventList[ event ] != 0 ) {
+        if( task_list[ tid ].eventQueue.eventList[ event ] != 0 )
+        {
             result = 0;
         }
-    } while ( event != 0 );
+    } while( event != 0 );
 
 
     return result;
@@ -546,8 +550,10 @@ void os_task_wait_event( uint8_t tid,
     eventListIndex = eventId / 8;
     shift = eventId & 0x07;
 
+    //TODO(@mthompkins): Why do this at all?
     task->eventQueue.eventList[ eventListIndex ] |= 1 << shift;
     task->waitSingleEvent = waitSingleEvent;
+
     if ( timeout != 0 )
     {
         // Waiting for an event with timeout - clockId = 0, master clock
@@ -619,7 +625,8 @@ void os_task_signal_event( Evt_t eventId ) {
     eventListIndex = eventId / 8;
     shift = eventId & 0x07;
 
-    for ( index = 0; index != nTasks; index++ ) {
+    for( index = 0; index != nTasks; index++ )
+    {
       uint8_t taskWaitingForEvent;
       uint8_t taskWaitStateOK;
       TaskState_t state;
@@ -627,17 +634,24 @@ void os_task_signal_event( Evt_t eventId ) {
       state = task_list[ index ].state;
       taskWaitStateOK = 0;
 
-      if (( state == WAITING_EVENT ) || ( state == WAITING_EVENT_TIMEOUT )) {
+      if ( ( state == WAITING_EVENT ) ||
+           ( state == WAITING_EVENT_TIMEOUT ))
+      {
           taskWaitStateOK = 1;
       }
 
-      taskWaitingForEvent = task_list[ index ].eventQueue.eventList[eventListIndex] & (1<<shift);
+      taskWaitingForEvent =
+          task_list[ index ].eventQueue.eventList[eventListIndex] & (1<<shift);
 
-      if ( taskWaitingForEvent  &&  taskWaitStateOK ) {
+      if ( taskWaitingForEvent && taskWaitStateOK )
+      {
 
-          task_list[ index ].eventQueue.eventList[eventListIndex] &= ~(1<<shift);
+          task_list[ index ].eventQueue.eventList[eventListIndex]
+              &= ~(1<<shift);
 
-          if ( task_list[ index ].waitSingleEvent || os_task_wait_queue_empty( index ) ) {
+          if( task_list[ index ].waitSingleEvent ||
+              os_task_wait_queue_empty( index ) )
+          {
               os_task_clear_wait_queue( index );
               task_ready_set( index );
           }
@@ -646,13 +660,15 @@ void os_task_signal_event( Evt_t eventId ) {
 }
 
 
-// Runs the next task ready for execution. Assumes running_tid has been assigned
+// Runs the next task ready for execution.
+// Assumes running_tid has been assigned.
 void task_run( void )
 {
     const uint16_t tid = os_get_running_tid();
     os_assert( tid < nTasks );
     task_list[ tid ].taskproc();
 }
+
 
 uint16_t task_internal_state_get( uint8_t tid )
 {
@@ -732,12 +748,14 @@ static void task_waiting_time_set( uint8_t tid )
 }
 
 
-static void task_waiting_event_set( tcb *task ) {
+static void task_waiting_event_set( tcb *task )
+{
     task->state = WAITING_EVENT;
 }
 
 
-static void task_waiting_event_timeout_set( tcb *task ) {
+static void task_waiting_event_timeout_set( tcb *task )
+{
     task->state = WAITING_EVENT_TIMEOUT;
 }
 

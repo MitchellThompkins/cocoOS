@@ -11,21 +11,27 @@
 extern "C" {
 #endif
 
-#define OS_WAIT_SINGLE_EVENT(x,timeout, cb) do {\
-                                os_wait_event(os_get_running_tid(),x,1,timeout, cb);\
-                                OS_YIELD;\
-                               } while (0)
+#define OS_WAIT_SINGLE_EVENT(x,timeout, cb) \
+\
+do {\
+    os_wait_event(os_get_running_tid(),x,1,timeout, cb);\
+    OS_YIELD;\
+} while (0)
 
 
-#define OS_WAIT_MULTIPLE_EVENTS( waitAll, args...)  do {\
-                                os_wait_multiple(waitAll, args, NO_EVENT);\
-                                OS_YIELD;\
-                               } while (0)
+#define OS_WAIT_MULTIPLE_EVENTS( waitAll, args...)\
+\
+do {\
+ os_wait_multiple(waitAll, args, NO_EVENT);\
+ OS_YIELD;\
+} while (0)
 
 
 #define OS_SIGNAL_EVENT(event)  do {\
                                 os_signal_event(event);\
-                                os_event_set_signaling_tid( event, os_get_running_tid() );\
+                                os_event_set_signaling_tid(\
+                                        event,\
+                                        os_get_running_tid() );\
                                 OS_YIELD;\
                                 } while (0)
 
@@ -48,7 +54,8 @@ extern "C" {
 
 typedef uint8_t Evt_t;
 
-typedef struct {
+typedef struct
+{
     uint8_t eventList[ EVENT_QUEUE_SIZE ];
 } EventQueue_t;
 

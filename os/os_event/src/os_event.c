@@ -9,7 +9,7 @@
 extern "C" {
 #endif
 
-/* Event type */
+// Event type
 typedef struct
 {
     uint8_t id;
@@ -17,11 +17,11 @@ typedef struct
 } Event_t;
 
 
-/* Event list */
+// Event list
 #if( N_TOTAL_EVENTS > 0 )
 static Event_t eventList[ N_TOTAL_EVENTS ];
 
-/* Keeping track of number of created events */
+// Keeping track of number of created events
 static Evt_t nEvents;
 static Evt_t lastSignaledEvent = NO_EVENT;
 #endif
