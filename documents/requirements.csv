@@ -19,7 +19,7 @@ TASK-17,task_killed_set sets the specified task into the killed state
 TASK-18,os_task_prio_get returns the specified tasks priority
 TASK-19,os_task_clear_wait_queue will clear the event wait queue of all tasks
 TASK-20,"os_task_wait_time_set sets the specified task to have the specified clockId and time, as well as sets the state to WAITING_TIME"
-TASK-21,os_task_wait_event sets the specified event for the specified task TBD
+TASK-21,"CocoOS shall provide a function `os_task_wait_event` which sets the specified task to the WAITING_EVENT_TIMEOUT state if the provided timeout is not zero and specifies that the event will be timed off the master clock, and into the WAITING_EVENT if the timeout is zero."
 TASK-22,cocoOS shall provide a function to increment the time for all tasks whose state is waiting on a semaphore
 TASK-23,TBD cocoOS osticktask msgqueue 
 TASK-24,TBD cocoOS osticktask eventqueue 

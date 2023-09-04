@@ -539,19 +539,16 @@ void os_task_wait_event( uint8_t tid,
                          uint8_t waitSingleEvent,
                          uint32_t timeout )
 {
-    uint8_t eventListIndex;
-    uint8_t shift;
     tcb *task;
 
     os_assert( tid < nTasks );
 
     task = &task_list[ tid ];
 
-    eventListIndex = eventId / 8;
-    shift = eventId & 0x07;
+    const uint8_t eventListIndex = eventId / 8;
+    const uint8_t shift = eventId & 0x07;
 
-    //TODO(@mthompkins): Why do this at all?
-    task->eventQueue.eventList[ eventListIndex ] |= 1 << shift;
+    task->eventQueue.eventList[ eventListIndex ] |= (1 << shift);
     task->waitSingleEvent = waitSingleEvent;
 
     if ( timeout != 0 )
@@ -559,6 +556,7 @@ void os_task_wait_event( uint8_t tid,
         // Waiting for an event with timeout - clockId = 0, master clock
         task->clockId = 0;
         task->time = timeout;
+
         task_waiting_event_timeout_set( task );
     }
     else
@@ -619,11 +617,8 @@ void task_tick( uint8_t clockId, uint32_t tickSize )
 void os_task_signal_event( Evt_t eventId ) {
     uint8_t index;
 
-    uint8_t eventListIndex;
-    uint8_t shift;
-
-    eventListIndex = eventId / 8;
-    shift = eventId & 0x07;
+    const uint8_t eventListIndex = eventId / 8;
+    const uint8_t shift = eventId & 0x07;
 
     for( index = 0; index != nTasks; index++ )
     {

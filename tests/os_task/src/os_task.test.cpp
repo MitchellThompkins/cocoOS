@@ -290,3 +290,10 @@ TEST(TestOsTask, tick_time_for_tasks)
     CHECK_EQUAL(2, timeout1);
     CHECK_EQUAL(0, timeout2);
 }
+
+TEST(TestOsTask, tick_time_for_tasks)
+{
+    UT_CATALOG_ID("TASK-22");
+
+    mock().expectOneCall("os_init");
+}
