@@ -1,8 +1,8 @@
-add_executable(test_os_task0
-    src/os_task.test0.cpp
+add_executable(test_os_task
+    src/os_task.test.cpp
 )
 
-target_link_libraries(test_os_task0
+target_link_libraries(test_os_task
     PUBLIC
         cpputest_main
         platform
@@ -28,4 +28,4 @@ target_link_libraries(test_os_task0
 )
 
 include(make_test)
-make_test(test_os_task0)
+make_test(test_os_task)
