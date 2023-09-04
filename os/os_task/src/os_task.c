@@ -705,7 +705,7 @@ uint8_t os_task_get_msg_result(uint8_t tid) {
   return task_list[ tid ].msgResult;
 }
 
-/* Use this to differentiate between event timeout or not */
+// Use this to differentiate between event timeout or not
 uint32_t os_task_timeout_get(uint8_t tid)
 {
   return task_list[ tid ].time;

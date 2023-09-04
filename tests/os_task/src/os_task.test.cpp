@@ -305,14 +305,17 @@ TEST(TestOsTask, test_os_task_wait_event)
     mock().setData("event_create_return", 0);
     const auto event_id {event_create()};
 
+    //TODO(@mthompkins): Figure out how to use waitSingleEvent
     const int timeout {5};
     os_task_wait_event(id0, event_id, 0, timeout);
 
+    // With zero timeout the task should be WAITING_EVENT_TIMEOUT
     CHECK_EQUAL( WAITING_EVENT_TIMEOUT, task_state_get(id0) );
+    CHECK_EQUAL( timeout, os_task_timeout_get(id0) );
 
-    //for(int i{0}; i<5; i++)
-    //{
-    //    task_tick(0, 0);
-    //}
+    os_task_wait_event(id0, event_id, 0, 0);
+
+    // With zero timeout the task should be WAITING_EVENT
+    CHECK_EQUAL( WAITING_EVENT, task_state_get(id0) );
 
 }
