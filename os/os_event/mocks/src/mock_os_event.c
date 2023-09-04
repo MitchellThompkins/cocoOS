@@ -35,3 +35,9 @@ Evt_t event_last_signaled_get(void)
 {
     mock_c()->actualCall("event_last_signaled_get");
 }
+
+Evt_t event_create( void )
+{
+    int v = (int)mock_c()->getData("event_create_return").value.intValue;
+    mock_c()->actualCall("event_create")->returnIntValueOrDefault(v);
+}

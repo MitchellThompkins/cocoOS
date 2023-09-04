@@ -291,9 +291,28 @@ TEST(TestOsTask, tick_time_for_tasks)
     CHECK_EQUAL(0, timeout2);
 }
 
-TEST(TestOsTask, tick_time_for_tasks)
+TEST(TestOsTask, test_os_task_wait_event)
 {
-    UT_CATALOG_ID("TASK-22");
+    UT_CATALOG_ID("TASK-21");
 
     mock().expectOneCall("os_init");
+    os_init();
+
+    mock().expectOneCall("os_running");
+    const auto id0 {os_task_create( dummy_task, NULL, 1, NULL, 0, 0 )};
+
+    mock().expectOneCall("event_create");
+    mock().setData("event_create_return", 0);
+    const auto event_id {event_create()};
+
+    const int timeout {5};
+    os_task_wait_event(id0, event_id, 0, timeout);
+
+    CHECK_EQUAL( WAITING_EVENT_TIMEOUT, task_state_get(id0) );
+
+    //for(int i{0}; i<5; i++)
+    //{
+    //    task_tick(0, 0);
+    //}
+
 }

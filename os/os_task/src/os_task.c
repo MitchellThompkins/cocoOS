@@ -614,13 +614,12 @@ void task_tick( uint8_t clockId, uint32_t tickSize )
 }
 
 
-void os_task_signal_event( Evt_t eventId ) {
-    uint8_t index;
-
+void os_task_signal_event( Evt_t eventId )
+{
     const uint8_t eventListIndex = eventId / 8;
     const uint8_t shift = eventId & 0x07;
 
-    for( index = 0; index != nTasks; index++ )
+    for( uint8_t index = 0; index != nTasks; index++ )
     {
       uint8_t taskWaitingForEvent;
       uint8_t taskWaitStateOK;
