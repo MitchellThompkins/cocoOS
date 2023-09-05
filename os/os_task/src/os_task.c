@@ -445,10 +445,11 @@ void os_task_suspend( uint8_t tid )
 
     if (( state != KILLED ) && ( state != SUSPENDED ))
     {
-        /* If a task is waiting for a semaphore when being suspended, there is a risk      */
-        /* that the semaphore will be signaled while the task is suspended, and if the task */
-        /* is then resumed it could hang if the semaphore is not signaled again. Therefore  */
-        /* the task is reset when it is resumed. */
+        // If a task is waiting for a semaphore when being suspended, there is
+        // a risk that the semaphore will be signaled while the task is
+        // suspended, and if the task is then resumed it could hang if the
+        // semaphore is not signaled again. Therefore the task is reset when it
+        // is resumed.
         if ( WAITING_SEM == state ) {
             task_list[ tid ].savedState = READY;
             task_list[ tid ].internal_state = 0;
@@ -509,6 +510,7 @@ static uint8_t os_task_wait_queue_empty( uint8_t tid )
     do
     {
         --event;
+#error "Why isn't this bitshifting?
         if( task_list[ tid ].eventQueue.eventList[ event ] != 0 )
         {
             result = 0;
@@ -619,6 +621,9 @@ void os_task_signal_event( Evt_t eventId )
     for( uint8_t index = 0; index != nTasks; index++ )
     {
       const TaskState_t state = task_list[ index ].state;
+
+      //const bool taskWaitStateOK =
+      //    (( state == WAITING_EVENT ) || ( state == WAITING_EVENT_TIMEOUT ));
 
       uint8_t taskWaitStateOK = 0;
 

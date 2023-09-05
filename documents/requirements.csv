@@ -23,7 +23,7 @@ TASK-21,"CocoOS shall provide a function `os_task_wait_event` which sets the sp
 TASK-22,cocoOS shall provide a function to increment the time for all tasks whose state is waiting on a semaphore
 TASK-23,TBD cocoOS osticktask msgqueue 
 TASK-24,TBD cocoOS osticktask eventqueue 
-TASK-23,os_task_signal_event TBD
+TASK-23,"CocoOS shall provide a function `os_task_signal_event` which will, for all tasks, mark them as no longer waiting for an event, and if there are no other tasks waiting for it, or if the specified event for this task was specified as a single event, then the task will be place into the READY state."
 KERNEL-1,cocoOS shall provide a task_wait() macro which allow discrete well-formed user-provided tasks that stops and the re-starts task execution at the specified interval
 KERNEL-2,cocoOS shall honor that tasks which implement infinite loops will execute continuously and tasks that do not execute only once
 KERNEL-3,cocoOS shall provide an os_tick() function which decrements the time waiting for any task in a wait state
