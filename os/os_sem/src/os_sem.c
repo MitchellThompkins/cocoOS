@@ -40,15 +40,18 @@ static Sem_t os_sem_create( uint8_t max, uint8_t initial )
 }
 
 
-/*********************************************************************************/
-/*  Sem_t sem_bin_create(uint8_t initial)                                              *//**
+/*****************************************************************************/
+/*  Sem_t sem_bin_create(uint8_t initial)
 *
 *   Creates and initializes a new binary semaphore.
 *
 *   @param initial value of the semaphore
+*
 *   @return Returns the created semaphore.
-*   @remarks \b Usage: @n A semaphore is created by declaring a variable of type Sem_t
-*   and then assigning the sem_bin_create(value) return value to that variable.
+*
+*   @remarks \b Usage: @n A semaphore is created by declaring a variable of
+*   type Sem_t and then assigning the sem_bin_create(value) return value to
+*   that variable.
 *
 *   @code
 *   Sem_t mySem;
@@ -57,7 +60,7 @@ static Sem_t os_sem_create( uint8_t max, uint8_t initial )
 *   @endcode
 *
 * */
-/*********************************************************************************/
+/*****************************************************************************/
 Sem_t sem_bin_create( uint8_t initial ) {
     initial = initial > 0 ? 1 : 0;
     return os_sem_create( 1, initial );

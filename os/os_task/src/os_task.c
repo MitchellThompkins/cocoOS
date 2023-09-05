@@ -80,7 +80,7 @@ void os_task_init( void )
 
 
 /************************************************************** *******************/
-/*  uint8_t os_task_create( taskproctype taskproc, void *data, uint8_t prio, Msg_t *msgPool, uint8_t poolSize, uint16_t msgSize )    *//**
+/*  uint8_t os_task_create( taskproctype taskproc, void *data, uint8_t prio, Msg_t *msgPool, uint8_t poolSize, uint16_t msgSize )
 *   
 *   Creates a task scheduled by the os. The task is put in the ready state.
 *
@@ -546,11 +546,10 @@ void os_task_wait_event( uint8_t tid,
     task->eventQueue.eventList[ eventListIndex ] |= (1 << shift);
     task->waitSingleEvent = waitSingleEvent;
 
-    if ( timeout != 0 )
+    if( timeout != 0 )
     {
-        // Waiting for an event with timeout - clockId = 0, master clock
-        task->clockId = 0;
-        task->time = timeout;
+        // Waiting for an event with timeout and with clockId = 0 master clock
+        os_task_wait_time_set( tid, 0, timeout );
 
         task_waiting_event_timeout_set( task );
     }
@@ -621,7 +620,7 @@ void os_task_signal_event( Evt_t eventId )
       uint8_t taskWaitStateOK = 0;
 
       if ( ( state == WAITING_EVENT ) ||
-           ( state == WAITING_EVENT_TIMEOUT ))
+           ( state == WAITING_EVENT_TIMEOUT ) )
       {
           taskWaitStateOK = 1;
       }
@@ -632,6 +631,7 @@ void os_task_signal_event( Evt_t eventId )
       if ( taskWaitingForEvent && taskWaitStateOK )
       {
 
+          // Mark the task as no longer waiting for the event
           task_list[ index ].eventQueue.eventList[eventListIndex]
               &= ~(1<<shift);
 
@@ -703,12 +703,12 @@ uint32_t os_task_timeout_get(uint8_t tid)
   return task_list[ tid ].time;
 }
 
-/* Sets the task to wait for semaphore state */
+// Sets the task to wait for semaphore state
 void task_wait_sem_set( uint8_t tid, Sem_t sem )
 {
     os_assert( tid < nTasks );
 
-    /* The time is ticked to measure waiting time */
+    // The time is ticked to measure waiting time
     task_list[ tid ].time = 0;
     task_list[ tid ].state = WAITING_SEM;
     task_list[ tid ].semaphore = sem;
