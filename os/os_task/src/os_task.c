@@ -546,6 +546,9 @@ void os_task_wait_event( uint8_t tid,
     task->eventQueue.eventList[ eventListIndex ] |= (1 << shift);
     task->waitSingleEvent = waitSingleEvent;
 
+    // TODO(@mthompkins): Currently I don't understand the reason why we pass
+    // the timeout if in os_task_signal_event the task can be set to ready even
+    // if the timeout hasn't expired
     if( timeout != 0 )
     {
         // Waiting for an event with timeout and with clockId = 0 master clock
@@ -630,7 +633,6 @@ void os_task_signal_event( Evt_t eventId )
 
       if ( taskWaitingForEvent && taskWaitStateOK )
       {
-
           // Mark the task as no longer waiting for the event
           task_list[ index ].eventQueue.eventList[eventListIndex]
               &= ~(1<<shift);
