@@ -25,7 +25,7 @@ struct tcb
     MsgQ_t waitQ;            ///< The queue the task is waiting for (post or receive)
     Evt_t msgChangeEvent;    ///< The change event of the message queue the task is waiting for
     uint8_t msgResult;       ///< The result of msg_receive or msg_post
-    uint8_t waitSingleEvent;
+    bool waitSingleEvent;
     uint8_t clockId;
     EventQueue_t eventQueue;
     void *data;
@@ -67,7 +67,7 @@ void os_task_init( void )
         task->taskproc = 0;
         task->tid = NO_TID;
         task->time = 0;
-        task->waitSingleEvent = 0;
+        task->waitSingleEvent = false;
 
         for ( uint8_t j = 0; j < sizeof( task->eventQueue.eventList); j++ )
         {
@@ -142,7 +142,7 @@ uint8_t os_task_create(
     task->semaphore = 0;
     task->internal_state = 0;
     task->taskproc = taskproc;
-    task->waitSingleEvent = 0;
+    task->waitSingleEvent = false;
     task->time = 0;
 
     if ( poolSize > 0 )
@@ -483,13 +483,10 @@ uint8_t os_task_prio_get( uint8_t tid )
 // Clears the event wait queue of a task
 void os_task_clear_wait_queue( uint8_t tid )
 {
-    uint8_t event;
-    tcb *task;
+    tcb *task = &task_list[ tid ];
 
-    task = &task_list[ tid ];
-
-    task->waitSingleEvent = 0;
-    event = EVENT_QUEUE_SIZE;
+    task->waitSingleEvent = false;
+    uint8_t event = EVENT_QUEUE_SIZE;
 
     do
     {
@@ -536,14 +533,12 @@ void os_task_wait_time_set( uint8_t tid, uint8_t id, uint32_t time )
 
 void os_task_wait_event( uint8_t tid,
                          Evt_t eventId,
-                         uint8_t waitSingleEvent,
+                         bool waitSingleEvent,
                          uint32_t timeout )
 {
-    tcb *task;
-
     os_assert( tid < nTasks );
 
-    task = &task_list[ tid ];
+    tcb *task = &task_list[ tid ];
 
     const uint8_t eventListIndex = eventId / 8;
     const uint8_t shift = eventId & 0x07;
@@ -621,12 +616,9 @@ void os_task_signal_event( Evt_t eventId )
 
     for( uint8_t index = 0; index != nTasks; index++ )
     {
-      uint8_t taskWaitingForEvent;
-      uint8_t taskWaitStateOK;
-      TaskState_t state;
+      const TaskState_t state = task_list[ index ].state;
 
-      state = task_list[ index ].state;
-      taskWaitStateOK = 0;
+      uint8_t taskWaitStateOK = 0;
 
       if ( ( state == WAITING_EVENT ) ||
            ( state == WAITING_EVENT_TIMEOUT ))
@@ -634,7 +626,7 @@ void os_task_signal_event( Evt_t eventId )
           taskWaitStateOK = 1;
       }
 
-      taskWaitingForEvent =
+      const uint8_t taskWaitingForEvent =
           task_list[ index ].eventQueue.eventList[eventListIndex] & (1<<shift);
 
       if ( taskWaitingForEvent && taskWaitStateOK )

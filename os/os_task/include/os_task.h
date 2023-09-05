@@ -79,7 +79,7 @@ void os_task_wait_time_set( uint8_t tid,
 
 void os_task_wait_event( uint8_t tid,
                          Evt_t eventId,
-                         uint8_t waitSingleEvent,
+                         bool waitSingleEvent,
                          uint32_t timeout );
 
 void task_tick( uint8_t clockId,

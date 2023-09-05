@@ -4,6 +4,7 @@
 /** @file os_event.h Event header file*/
 
 #include <stdarg.h>
+#include <stdbool.h>
 #include <stdint.h>
 
 
@@ -64,7 +65,7 @@ void os_event_init( void );
 
 void os_wait_event( uint8_t tid,
                     Evt_t ev,
-                    uint8_t waitSingleEvent,
+                    bool waitSingleEvent,
                     uint32_t timeout,
                     void (*call_back)(void) );
 

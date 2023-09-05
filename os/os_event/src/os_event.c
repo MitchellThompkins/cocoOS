@@ -131,7 +131,7 @@ Evt_t event_last_signaled_get(void)
 
 void os_wait_event( uint8_t tid,
                     Evt_t ev,
-                    uint8_t waitSingleEvent,
+                    bool waitSingleEvent,
                     uint32_t timeout,
                     void (*call_back)(void) )
 {

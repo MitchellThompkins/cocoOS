@@ -60,5 +60,6 @@ void os_free_tid(void)
 
 void os_cbkSleep( void )
 {
+    mock_c()->actualCall("os_cbkSleep");
 }
 

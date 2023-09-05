@@ -67,7 +67,10 @@ void os_task_wait_time_set( uint8_t tid, uint8_t id, uint32_t time )
 }
 
 
-void os_task_wait_event( uint8_t tid, Evt_t eventId, uint8_t waitSingleEvent, uint32_t timeout )
+void os_task_wait_event( uint8_t tid,
+                         Evt_t eventId,
+                         bool waitSingleEvent,
+                         uint32_t timeout )
 {
     mock_c()->actualCall("os_task_wait_event");
 }
