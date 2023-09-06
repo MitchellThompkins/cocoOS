@@ -36,7 +36,7 @@ static void task_suspended_set( uint8_t tid );
 static void task_waiting_time_set( uint8_t tid );
 static void task_waiting_event_set( tcb *task );
 static void task_waiting_event_timeout_set( tcb *task );
-static uint8_t os_task_wait_queue_empty( uint8_t tid );
+static bool os_task_wait_queue_empty( uint8_t tid );
 static void task_ready_set( uint8_t tid );
 
 static tcb task_list[ N_TASKS ];
@@ -499,30 +499,28 @@ void os_task_clear_wait_queue( uint8_t tid )
 
 
 // Checks if a tasks event wait queue is empty or not
-static uint8_t os_task_wait_queue_empty( uint8_t tid )
+static bool os_task_wait_queue_empty( uint8_t tid )
 {
-    uint8_t event;
-    uint8_t result;
+    uint8_t event = EVENT_QUEUE_SIZE;
 
-    result = 1;
-    event = EVENT_QUEUE_SIZE;
-
+    // Scan through each major index of eventList, and if it is zero, then
+    // there are events
     do
     {
         --event;
-//#error "Why isn't this bitshifting?
         if( task_list[ tid ].eventQueue.eventList[ event ] != 0 )
         {
-            result = 0;
+            return false;
         }
     } while( event != 0 );
 
-
-    return result;
+    return true;
 }
 
 
-void os_task_wait_time_set( uint8_t tid, uint8_t id, uint32_t time )
+void os_task_wait_time_set( const uint8_t tid,
+                            const uint8_t id,
+                            const uint32_t time )
 {
     os_assert( tid < nTasks );
     os_assert( time > 0 );

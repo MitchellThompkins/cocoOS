@@ -47,9 +47,9 @@ extern "C" {
 
 
 #ifdef N_TOTAL_EVENTS
-    #define EVENT_QUEUE_SIZE    ((N_TOTAL_EVENTS/9)+1)
+    #define EVENT_QUEUE_SIZE  ((N_TOTAL_EVENTS/9)+1)
 #else
-    #define EVENT_QUEUE_SIZE    1
+    #define EVENT_QUEUE_SIZE  1
 #endif
 
 

@@ -73,9 +73,9 @@ uint8_t os_task_prio_get( uint8_t tid );
 
 void os_task_clear_wait_queue( uint8_t tid );
 
-void os_task_wait_time_set( uint8_t tid,
-                            uint8_t id,
-                            uint32_t time );
+void os_task_wait_time_set( const uint8_t tid,
+                            const uint8_t id,
+                            const uint32_t time );
 
 /*****************************************************************************/
 /* void os_task_wait_event( uint8_t tid,
