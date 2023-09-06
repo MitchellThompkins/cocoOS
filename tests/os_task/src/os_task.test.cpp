@@ -330,6 +330,7 @@ TEST(TestOsTask, test_os_task_signal_event)
     mock().setData("event_create_return", 0);
     const auto event_id {event_create()};
 
+
     // Test that when a task is set with os_task_wait_event with a timeout of
     // 0, it is set to the WAITING_EVENT and when signaled is set to READY
     mock().expectOneCall("os_running");
@@ -343,6 +344,7 @@ TEST(TestOsTask, test_os_task_signal_event)
 
     CHECK_EQUAL( id0_timeout, os_task_timeout_get(id0) );
     CHECK_EQUAL( READY, task_state_get(id0) );
+
 
     // Test that when a task is instructed to waitSingleEvent, that when
     // os_signal event is called it is set to the ready state
