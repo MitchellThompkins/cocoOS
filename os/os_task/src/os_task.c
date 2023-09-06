@@ -510,7 +510,7 @@ static uint8_t os_task_wait_queue_empty( uint8_t tid )
     do
     {
         --event;
-#error "Why isn't this bitshifting?
+//#error "Why isn't this bitshifting?
         if( task_list[ tid ].eventQueue.eventList[ event ] != 0 )
         {
             result = 0;
@@ -565,7 +565,7 @@ void os_task_wait_event( uint8_t tid,
 }
 
 
-void task_tick( uint8_t clockId, uint32_t tickSize )
+void task_tick( const uint8_t clockId, const uint32_t tickSize )
 {
     // Search all tasks and decrement time for waiting tasks
     for( uint8_t i = 0; i != nTasks; ++i )
@@ -613,42 +613,44 @@ void task_tick( uint8_t clockId, uint32_t tickSize )
 }
 
 
-void os_task_signal_event( Evt_t eventId )
+void os_task_signal_event( const Evt_t eventId )
 {
     const uint8_t eventListIndex = eventId / 8;
     const uint8_t shift = eventId & 0x07;
 
-    for( uint8_t index = 0; index != nTasks; index++ )
+    for( uint8_t i = 0; i != nTasks; i++ )
     {
-      const TaskState_t state = task_list[ index ].state;
+        const TaskState_t state = task_list[ i ].state;
 
-      //const bool taskWaitStateOK =
-      //    (( state == WAITING_EVENT ) || ( state == WAITING_EVENT_TIMEOUT ));
+        //const bool taskWaitStateOK =
+        //    (( state == WAITING_EVENT )
+        //    || ( state == WAITING_EVENT_TIMEOUT ));
 
-      uint8_t taskWaitStateOK = 0;
+        uint8_t taskWaitStateOK = 0;
 
-      if ( ( state == WAITING_EVENT ) ||
-           ( state == WAITING_EVENT_TIMEOUT ) )
-      {
-          taskWaitStateOK = 1;
-      }
+        if( ( state == WAITING_EVENT ) ||
+                ( state == WAITING_EVENT_TIMEOUT ) )
+        {
+            taskWaitStateOK = 1;
+        }
 
-      const uint8_t taskWaitingForEvent =
-          task_list[ index ].eventQueue.eventList[eventListIndex] & (1<<shift);
+        const uint8_t taskWaitingForEvent =
+            task_list[ i ].eventQueue.eventList[eventListIndex]
+            & (1<<shift);
 
-      if ( taskWaitingForEvent && taskWaitStateOK )
-      {
-          // Mark the task as no longer waiting for the event
-          task_list[ index ].eventQueue.eventList[eventListIndex]
-              &= ~(1<<shift);
+        if( taskWaitingForEvent && taskWaitStateOK )
+        {
+            // Mark the task as no longer waiting for the event
+            task_list[ i ].eventQueue.eventList[eventListIndex]
+                &= ~(1<<shift);
 
-          if( task_list[ index ].waitSingleEvent ||
-              os_task_wait_queue_empty( index ) )
-          {
-              os_task_clear_wait_queue( index );
-              task_ready_set( index );
-          }
-      }
+            if( task_list[ i ].waitSingleEvent ||
+                    os_task_wait_queue_empty( i ) )
+            {
+                os_task_clear_wait_queue( i );
+                task_ready_set( i );
+            }
+        }
     }
 }
 

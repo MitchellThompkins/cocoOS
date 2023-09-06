@@ -76,7 +76,7 @@ void os_task_wait_event( uint8_t tid,
 }
 
 
-void task_tick( uint8_t clockId, uint32_t tickSize )
+void task_tick( const uint8_t clockId, const uint32_t tickSize )
 {
     mock_c()->actualCall("task_tick");
 }

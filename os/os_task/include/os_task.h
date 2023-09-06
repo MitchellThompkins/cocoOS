@@ -106,10 +106,10 @@ void os_task_wait_event( uint8_t tid,
                          bool waitSingleEvent,
                          uint32_t timeout );
 
-void task_tick( uint8_t clockId,
-                uint32_t tickSize );
+void task_tick( const uint8_t clockId,
+                const uint32_t tickSize );
 
-void os_task_signal_event( Evt_t eventId );
+void os_task_signal_event( const Evt_t eventId );
 
 void task_run( void );
 

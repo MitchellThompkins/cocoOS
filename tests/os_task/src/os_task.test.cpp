@@ -307,15 +307,36 @@ TEST(TestOsTask, test_os_task_wait_event)
 
     //TODO(@mthompkins): Figure out how to use waitSingleEvent
     const int timeout {5};
-    os_task_wait_event(id0, event_id, 0, timeout);
+    os_task_wait_event(id0, event_id, false, timeout);
 
     // With zero timeout the task should be WAITING_EVENT_TIMEOUT
     CHECK_EQUAL( WAITING_EVENT_TIMEOUT, task_state_get(id0) );
     CHECK_EQUAL( timeout, os_task_timeout_get(id0) );
 
-    os_task_wait_event(id0, event_id, 0, 0);
+    os_task_wait_event(id0, event_id, false, 0);
 
     // With zero timeout the task should be WAITING_EVENT
     CHECK_EQUAL( WAITING_EVENT, task_state_get(id0) );
+}
 
+TEST(TestOsTask, test_os_task_signal_event)
+{
+    UT_CATALOG_ID("TASK-TBD");
+
+    mock().expectOneCall("os_init");
+    os_init();
+
+    mock().expectOneCall("event_create");
+    mock().setData("event_create_return", 0);
+    const auto event_id {event_create()};
+
+    mock().expectOneCall("os_running");
+    const auto id0 {os_task_create( dummy_task, NULL, 1, NULL, 0, 0 )};
+
+    const int timeout {0};
+    os_task_wait_event(id0, event_id, 0, timeout);
+
+    os_task_signal_event(event_id);
+
+    CHECK_EQUAL(READY, task_state_get(id0));
 }
