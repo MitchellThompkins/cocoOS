@@ -573,16 +573,16 @@ void task_tick( const uint8_t clockId, const uint32_t tickSize )
         TaskState_t state;
         state = task_list[i].state;
 
-        if(( state == WAITING_TIME ) || ( state == WAITING_EVENT_TIMEOUT ))
+        if( (state == WAITING_TIME) || (state == WAITING_EVENT_TIMEOUT) )
         {
             // Found a waiting task, is it ready?
-            if ( task_list[i].clockId == clockId )
+            if( task_list[i].clockId == clockId )
             {
                 if ( task_list[i].time <= tickSize )
                 {
                     task_list[i].time = 0;
 
-                    if ( state == WAITING_EVENT_TIMEOUT )
+                    if( state == WAITING_EVENT_TIMEOUT )
                     {
                         os_task_clear_wait_queue(i);
                     }
@@ -595,16 +595,16 @@ void task_tick( const uint8_t clockId, const uint32_t tickSize )
                 }
             }
         }
-        else if ( state ==  WAITING_SEM )
+        else if( state ==  WAITING_SEM )
         {
             //TODO(@mthompkins): Make sure this handles overflow properly
             task_list[i].time++;
         }
 
         // If the task has a message queue, decrement the delayed message timers
-        if ( clockId == 0 )
+        if( clockId == 0 )
         {
-            if ( task_list[i].msgQ != NO_QUEUE )
+            if( task_list[i].msgQ != NO_QUEUE )
             {
                 os_msgQ_tick( task_list[i].msgQ );
             }
@@ -628,8 +628,8 @@ void os_task_signal_event( const Evt_t eventId )
 
         uint8_t taskWaitStateOK = 0;
 
-        if( ( state == WAITING_EVENT ) ||
-                ( state == WAITING_EVENT_TIMEOUT ) )
+        if( (state == WAITING_EVENT) ||
+            (state == WAITING_EVENT_TIMEOUT) )
         {
             taskWaitStateOK = 1;
         }
@@ -645,7 +645,7 @@ void os_task_signal_event( const Evt_t eventId )
                 &= ~(1<<shift);
 
             if( task_list[ i ].waitSingleEvent ||
-                    os_task_wait_queue_empty( i ) )
+                os_task_wait_queue_empty( i ) )
             {
                 os_task_clear_wait_queue( i );
                 task_ready_set( i );
