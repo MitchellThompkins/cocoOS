@@ -548,9 +548,6 @@ void os_task_wait_event( uint8_t tid,
     task->eventQueue.eventList[ eventListIndex ] |= (1 << shift);
     task->waitSingleEvent = waitSingleEvent;
 
-    // TODO(@mthompkins): Currently I don't understand the reason why we pass
-    // the timeout if in os_task_signal_event the task can be set to ready even
-    // if the timeout hasn't expired
     if( timeout != 0 )
     {
         // Waiting for an event with timeout and with clockId = 0 master clock
@@ -622,17 +619,9 @@ void os_task_signal_event( const Evt_t eventId )
     {
         const TaskState_t state = task_list[ i ].state;
 
-        //const bool taskWaitStateOK =
-        //    (( state == WAITING_EVENT )
-        //    || ( state == WAITING_EVENT_TIMEOUT ));
-
-        uint8_t taskWaitStateOK = 0;
-
-        if( (state == WAITING_EVENT) ||
-            (state == WAITING_EVENT_TIMEOUT) )
-        {
-            taskWaitStateOK = 1;
-        }
+        const bool taskWaitStateOK =
+            (( state == WAITING_EVENT )
+            || ( state == WAITING_EVENT_TIMEOUT ));
 
         const uint8_t taskWaitingForEvent =
             task_list[ i ].eventQueue.eventList[eventListIndex]
