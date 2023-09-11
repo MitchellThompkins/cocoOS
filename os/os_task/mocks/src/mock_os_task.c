@@ -74,7 +74,11 @@ void os_task_wait_event( uint8_t tid,
                          bool waitSingleEvent,
                          uint32_t timeout )
 {
-    mock_c()->actualCall("os_task_wait_event");
+    mock_c()->actualCall("os_task_wait_event")
+        ->withIntParameters("tid", tid)
+        ->withIntParameters("eventId", eventId)
+        ->withBoolParameters("waitSingleEvent", waitSingleEvent)
+        ->withIntParameters("timeout", timeout);
 }
 
 

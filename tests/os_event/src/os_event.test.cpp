@@ -48,3 +48,33 @@ TEST(TestOsEvent, create_too_many_events)
     mock().expectOneCall("os_on_assert");
     event_create();
 }
+
+TEST(TestOsEvent, test_os_wait_event)
+{
+    UT_CATALOG_ID("EVENT-5");
+
+    const auto event_id0 {event_create()};
+
+    struct FakeWaitEventData
+    {
+        uint8_t tid;
+        bool wait_single_event;
+        uint32_t timeout;
+    };
+
+    const FakeWaitEventData fake{99, true, 12345};
+
+    mock().expectOneCall("os_task_wait_event")
+        .withParameter("tid", fake.tid)
+        .withParameter("eventId", event_id0)
+        .withParameter("waitSingleEvent", fake.wait_single_event)
+        .withParameter("timeout", fake.timeout);
+
+    os_wait_event( fake.tid,
+                   event_id0,
+                   fake.wait_single_event,
+                   fake.timeout,
+                   nullptr );
+
+    mock().checkExpectations();
+}
