@@ -78,11 +78,7 @@ void os_task_wait_time_set( const uint8_t tid,
                             const uint32_t time );
 
 /*****************************************************************************/
-/* void os_task_wait_event( uint8_t tid,
-                            Evt_t eventId,
-                            bool waitSingleEvent,
-                            uint32_t timeout )
-
+/*
    @brief Put the specified task into the WAITING_EVENT_TIMEOUT state if the
    provided timeout is greater than 0 or the WAITING_EVENT state if the timeout
    is 0. If waitSingleEvent is true, then when the event is signaled, the

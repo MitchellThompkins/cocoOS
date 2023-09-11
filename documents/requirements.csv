@@ -56,12 +56,12 @@ MSGQUEUE-14,
 MSGQUEUE-15,
 EVENT-1,cocoOS shall provide a function called “os_event_create” which creates an event and returns its ID
 EVENT-2,No more events can be created than which are defined by the N_TOTAL_EVENTS pre-processor directive
-EVENT-3,
-EVENT-4,
-EVENT-5,
-EVENT-6,
-EVENT-7,
-EVENT-8,
+EVENT-3,cocoOS shall provide a function `event_signaling_taskId_get` which  returns the ID of the task that signaled the specified event
+EVENT-4,cocoOS shall provide a function `event_last_signaled_get` which  returns the ID of the last event that was signaled
+EVENT-5,"cocoOsS shall provide a function `os_wait_event` which sets the event state to NO_TID and invokes the behaviors described by `os_task_wait_event`, additionally it will execute a provided call back function before returning"
+EVENT-6,TBD os_wait_event_multiple
+EVENT-7,cocoOS shall provide a function `os_signal_event` which sets the last signaled signal event to the specified event and calls `os_task_signal_event`
+EVENT-8,cocoOS shall provide a function `os_event_set_signaling_tid` which records that the specified event to have been signaled by the specified task id
 EVENT-9,
 EVENT-10,
 EVENT-11,
