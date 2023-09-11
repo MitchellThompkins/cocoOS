@@ -49,6 +49,12 @@ TEST(TestOsEvent, create_too_many_events)
     event_create();
 }
 
+static bool called = false;
+void foo()
+{
+    called = true;
+}
+
 TEST(TestOsEvent, test_os_wait_event)
 {
     UT_CATALOG_ID("EVENT-5");
@@ -64,6 +70,7 @@ TEST(TestOsEvent, test_os_wait_event)
 
     const FakeWaitEventData fake{99, true, 12345};
 
+    // Call with no callback
     mock().expectOneCall("os_task_wait_event")
         .withParameter("tid", fake.tid)
         .withParameter("eventId", event_id0)
@@ -77,4 +84,33 @@ TEST(TestOsEvent, test_os_wait_event)
                    nullptr );
 
     mock().checkExpectations();
+    CHECK_EQUAL( NO_TID, event_signaling_taskId_get(event_id0) );
+
+    // Call with event_id that is too big and with callback
+    CHECK_FALSE(called);
+
+    os_wait_event( fake.tid,
+                   100,
+                   fake.wait_single_event,
+                   fake.timeout,
+                   &foo );
+
+    // Call with callback
+    CHECK_FALSE(called);
+
+    mock().expectOneCall("os_task_wait_event")
+        .withParameter("tid", fake.tid)
+        .withParameter("eventId", event_id0)
+        .withParameter("waitSingleEvent", fake.wait_single_event)
+        .withParameter("timeout", fake.timeout);
+
+    os_wait_event( fake.tid,
+                   event_id0,
+                   fake.wait_single_event,
+                   fake.timeout,
+                   &foo );
+
+    mock().checkExpectations();
+    CHECK_TRUE(called);
+    CHECK_EQUAL(NO_TID, event_signaling_taskId_get(event_id0) );
 }

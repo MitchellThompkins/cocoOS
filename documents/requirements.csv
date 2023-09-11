@@ -62,13 +62,6 @@ EVENT-5,"cocoOsS shall provide a function `os_wait_event` which sets the event s
 EVENT-6,TBD os_wait_event_multiple
 EVENT-7,cocoOS shall provide a function `os_signal_event` which sets the last signaled signal event to the specified event and calls `os_task_signal_event`
 EVENT-8,cocoOS shall provide a function `os_event_set_signaling_tid` which records that the specified event to have been signaled by the specified task id
-EVENT-9,
-EVENT-10,
-EVENT-11,
-EVENT-12,
-EVENT-13,
-EVENT-14,
-EVENT-15,
 SEM-1,
 SEM-2,
 SEM-3,
