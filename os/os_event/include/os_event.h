@@ -186,6 +186,8 @@ void os_signal_event( Evt_t event_id );
 
    @pre The last event in the varidaic argument list will be NO_EVENT
 
+   @pre Number of events passed is less than or equal to N_TOTAL_EVENTS
+
    @param waitForAll true to wait for all events to complete, false to wait for
    any event
 
