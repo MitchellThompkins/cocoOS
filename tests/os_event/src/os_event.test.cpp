@@ -117,7 +117,7 @@ TEST(TestOsEvent, test_os_wait_event)
 
 TEST(TestOsEvent, test_os_wait_event_multiple)
 {
-    UT_CATALOG_ID("EVENT-TBD");
+    UT_CATALOG_ID("EVENT-6");
 
     static constexpr int kNumEvents {5};
     decltype(event_create()) event_id[kNumEvents];
@@ -149,15 +149,13 @@ TEST(TestOsEvent, test_os_wait_event_multiple)
     os_wait_multiple( false,
                    event_id[0], event_id[1], event_id[2], event_id[3],
                    event_id[4] );
-
-
 }
 
 TEST(TestOsEvent, test_os_wait_event_endless_loop)
 {
-    UT_CATALOG_ID("EVENT-TBD");
+    UT_CATALOG_ID("EVENT-9");
 
-    static constexpr int kNumEvents {5};
+    static constexpr int kNumEvents {6};
     decltype(event_create()) event_id[kNumEvents];
 
     for(int i{0}; i<kNumEvents; i++)
@@ -165,10 +163,8 @@ TEST(TestOsEvent, test_os_wait_event_endless_loop)
         event_id[i] = event_create();
     }
 
-    static constexpr int fake_tid {98};
-
     mock().expectOneCall("os_on_assert");
     os_wait_multiple( false,
                    event_id[0], event_id[1], event_id[2], event_id[3],
-                   event_id[4] );
+                   event_id[4], event_id[5] );
 }

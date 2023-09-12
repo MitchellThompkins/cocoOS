@@ -58,10 +58,11 @@ EVENT-1,cocoOS shall provide a function called “os_event_create” which creat
 EVENT-2,No more events can be created than which are defined by the N_TOTAL_EVENTS pre-processor directive
 EVENT-3,cocoOS shall provide a function `event_signaling_taskId_get` which  returns the ID of the task that signaled the specified event
 EVENT-4,cocoOS shall provide a function `event_last_signaled_get` which  returns the ID of the last event that was signaled
-EVENT-5,"cocoOsS shall provide a function `os_wait_event` which sets the event state to NO_TID and invokes the behaviors described by `os_task_wait_event`, additionally it will execute a provided call back function before returning"
-EVENT-6,TBD os_wait_event_multiple
+EVENT-5,"CocoOs shall provide a function `os_wait_event` which sets the event state to NO_TID and invokes the behaviors described by `os_task_wait_event`, additionally it will execute a provided call back function before returning"
+EVENT-6,cocoOS shall provide a function `os_wait_multiple` which signals the currently scheduled task to wait for either any of a collection of multiple events or for all multiple events.
 EVENT-7,cocoOS shall provide a function `os_signal_event` which sets the last signaled signal event to the specified event and calls `os_task_signal_event`
 EVENT-8,cocoOS shall provide a function `os_event_set_signaling_tid` which records that the specified event to have been signaled by the specified task id
+EVENT-9,"If the last argument of `os_wait_multiple` is not NO_EVENT, an os_assert will be invoked"
 SEM-1,
 SEM-2,
 SEM-3,
