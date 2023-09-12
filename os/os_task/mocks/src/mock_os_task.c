@@ -45,13 +45,15 @@ void os_task_resume( uint8_t tid )
 
 void os_task_kill( uint8_t tid )
 {
-    mock_c()->actualCall("os_task_kill");
+    mock_c()->actualCall("os_task_kill")
+        ->withIntParameters("tid", tid);
 }
 
 
 uint8_t os_task_prio_get( uint8_t tid )
 {
-    mock_c()->actualCall("os_task_prio_get");
+    mock_c()->actualCall("os_task_prio_get")
+        ->withIntParameters("tid", tid);
 }
 
 
@@ -66,7 +68,10 @@ void os_task_wait_time_set( const uint8_t tid,
                             const uint8_t id,
                             const uint32_t time )
 {
-    mock_c()->actualCall("os_task_wait_time_set");
+    mock_c()->actualCall("os_task_wait_time_set")
+        ->withIntParameters("tid", tid)
+        ->withIntParameters("id", tid)
+        ->withIntParameters("time", time);
 }
 
 
@@ -85,7 +90,9 @@ void os_task_wait_event( uint8_t tid,
 
 void task_tick( const uint8_t clockId, const uint32_t tickSize )
 {
-    mock_c()->actualCall("task_tick");
+    mock_c()->actualCall("task_tick")
+        ->withIntParameters("clockId", clockId)
+        ->withIntParameters("tickSize", tickSize);
 }
 
 
