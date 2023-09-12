@@ -114,3 +114,48 @@ TEST(TestOsEvent, test_os_wait_event)
     CHECK_TRUE(called);
     CHECK_EQUAL(NO_TID, event_signaling_taskId_get(event_id0) );
 }
+
+TEST(TestOsEvent, test_os_wait_event_multiple)
+{
+    UT_CATALOG_ID("EVENT-TBD");
+
+    struct FakeWaitEventData
+    {
+        uint8_t tid;
+        bool wait_single_event;
+        uint32_t timeout;
+    };
+
+    static constexpr int kNumEvents {5};
+    decltype(event_create()) event_id[kNumEvents];
+
+    for(int i{0}; i<kNumEvents-1; i++)
+    {
+        event_id[i] = event_create();
+    }
+
+    event_id[kNumEvents-1] = NO_TID;
+
+    static constexpr int fake_tid {99};
+
+    mock().setData("running_tid_from_get", fake_tid);
+    mock().expectNCalls(kNumEvents+1, "os_get_running_tid");
+
+    mock().expectOneCall("os_task_clear_wait_queue")
+        .withParameter("tid", fake_tid);
+
+    for(int i{0}; i<kNumEvents-1; i++)
+    {
+        mock().expectOneCall("os_task_wait_event")
+            .withParameter("tid", fake_tid)
+            .withParameter("eventId", event_id[i])
+            .withParameter("waitSingleEvent", true)
+            .withParameter("timeout", 0);
+    }
+
+    os_wait_multiple( false,
+                   event_id[0], event_id[1], event_id[2], event_id[3],
+                   event_id[4] );
+
+
+}

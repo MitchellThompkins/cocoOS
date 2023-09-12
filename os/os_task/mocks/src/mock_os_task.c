@@ -57,7 +57,8 @@ uint8_t os_task_prio_get( uint8_t tid )
 
 void os_task_clear_wait_queue( uint8_t tid )
 {
-    mock_c()->actualCall("os_task_clear_wait_queue");
+    mock_c()->actualCall("os_task_clear_wait_queue")
+        ->withIntParameters("tid", tid);
 }
 
 

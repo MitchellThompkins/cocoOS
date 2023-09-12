@@ -21,7 +21,7 @@ extern "C" {
 
 
 #define OS_WAIT_MULTIPLE_EVENTS( waitAll, args...) do {\
-                                                   os_wait_multiple(\
+                                                     os_wait_multiple(\
                                                      waitAll, args, NO_EVENT);\
                                                    OS_YIELD;\
                                                    } while (0)
@@ -47,6 +47,8 @@ extern "C" {
 
 
 #ifdef N_TOTAL_EVENTS
+    // This is (N/9) + 1 in order to get the minimum number of bytes required
+    // to have enough bits to represent the total N_TOTAL_EVENTS.
     #define EVENT_QUEUE_SIZE  ((N_TOTAL_EVENTS/9)+1)
 #else
     #define EVENT_QUEUE_SIZE  1
@@ -168,10 +170,38 @@ void os_wait_event( uint8_t tid,
                     uint32_t timeout,
                     void (*call_back)(void) );
 
+
+/*****************************************************************************/
+/*
+  TODO
+*/
+/*****************************************************************************/
 void os_signal_event( Evt_t event_id );
 
-void os_wait_multiple( uint8_t waitAll, ... );
 
+/*****************************************************************************/
+/*
+   @brief For the currently running task, wait for multiple events to complete.
+   The event timeouts will all be zero.
+
+   @pre The last event in the varidaic argument list will be NO_TID
+
+   @param waitForAll true to wait for all events to complete, false to wait for
+   any event
+
+   @param ... A comma separated argument list of all event IDs on which to wait
+
+   @return void
+*/
+/*****************************************************************************/
+void os_wait_multiple( bool waitForAll, ... );
+
+
+/*****************************************************************************/
+/*
+  TODO
+*/
+/*****************************************************************************/
 void os_event_set_signaling_tid( Evt_t event_id, uint8_t tid );
 
 

@@ -1,5 +1,3 @@
-#include <stdarg.h>
-
 #include "os_assert.h"
 #include "os_defines.h"
 #include "os_event.h"
@@ -109,19 +107,29 @@ void os_event_set_signaling_tid( Evt_t event_id, uint8_t tid )
 }
 
 
-void os_wait_multiple( uint8_t waitAll, ...)
+void os_wait_multiple( bool waitForAll, ... )
 {
 #if( N_TOTAL_EVENTS > 0 )
-    int event;
     va_list args;
-    va_start( args, waitAll );
-    os_task_clear_wait_queue( os_get_running_tid() );
-    event = va_arg( args, int );
 
-    do {
-        os_task_wait_event( os_get_running_tid(), (Evt_t)event, !waitAll,0 );
+    const uint16_t running_tid = os_get_running_tid();
+
+    va_start( args, waitForAll );
+
+    os_task_clear_wait_queue( running_tid );
+
+    int event = va_arg( args, int );
+
+    do
+    {
+        os_task_wait_event( running_tid,
+                            (Evt_t)event,
+                            !waitForAll,
+                            0 );
+
         event = va_arg( args, int );
     } while ( event != NO_EVENT );
+    //TODO(@mthompkins): See if we can remove this potential infinitle loop
 
     va_end(args);
 #endif

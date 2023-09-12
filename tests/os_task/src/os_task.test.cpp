@@ -163,6 +163,7 @@ TEST(TestOsTask, release_task_prio_waiting_on_semaphore)
     const auto id2 {os_task_create( dummy_task, NULL, 1, NULL, 0, 0 )};
 
     mock().setData("sem_return_value", 0);
+
     mock().expectOneCall("sem_counting_create").andReturnValue(0);
     Sem_t sem0 {sem_counting_create(3, 0)};
 

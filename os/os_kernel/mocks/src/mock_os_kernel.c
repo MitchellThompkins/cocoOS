@@ -49,8 +49,12 @@ uint8_t os_running(void)
 
 uint16_t os_get_running_tid(void)
 {
+    const int v =
+        (int)mock_c()->getData("running_tid_from_get").value.intValue;
+
     mock_c()->actualCall("os_get_running_tid");
-    return running_tid;
+
+    return v;
 }
 
 void os_free_tid(void)
