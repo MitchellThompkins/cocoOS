@@ -184,7 +184,7 @@ void os_signal_event( Evt_t event_id );
    @brief For the currently running task, wait for multiple events to complete.
    The event timeouts will all be zero.
 
-   @pre The last event in the varidaic argument list will be NO_TID
+   @pre The last event in the varidaic argument list will be NO_EVENT
 
    @param waitForAll true to wait for all events to complete, false to wait for
    any event

@@ -112,24 +112,39 @@ void os_wait_multiple( bool waitForAll, ... )
 #if( N_TOTAL_EVENTS > 0 )
     va_list args;
 
+    // First verify the list of args, if NO_EVENT is not the last event, then
+    // this loop will run for up to N_TOTAL_EVENTS. This is to prevent an
+    // infinite loop where NO_EVENT is _never_ found so va_args keeps scanning
+    // forever. If NO_EVENT isn't the last event, assert.
+    va_start( args, waitForAll );
+
+    int event = va_arg( args, int );
+    int count = 0;
+
+    do
+    {
+        event = va_arg( args, int );
+        count++;
+    } while ( event != NO_EVENT && count <= N_TOTAL_EVENTS );
+
+    va_end(args);
+
+    os_assert(event == NO_EVENT);
+
+    // Set the wait states for this task on provided events.
     const uint16_t running_tid = os_get_running_tid();
 
     va_start( args, waitForAll );
 
     os_task_clear_wait_queue( running_tid );
-
-    int event = va_arg( args, int );
+    event = va_arg( args, int );
 
     do
     {
-        os_task_wait_event( running_tid,
-                            (Evt_t)event,
-                            !waitForAll,
-                            0 );
-
+        os_task_wait_event( running_tid, (Evt_t)event, !waitForAll, 0 );
         event = va_arg( args, int );
+        count++;
     } while ( event != NO_EVENT );
-    //TODO(@mthompkins): See if we can remove this potential infinitle loop
 
     va_end(args);
 #endif

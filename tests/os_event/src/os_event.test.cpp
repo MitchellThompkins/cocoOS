@@ -119,13 +119,6 @@ TEST(TestOsEvent, test_os_wait_event_multiple)
 {
     UT_CATALOG_ID("EVENT-TBD");
 
-    struct FakeWaitEventData
-    {
-        uint8_t tid;
-        bool wait_single_event;
-        uint32_t timeout;
-    };
-
     static constexpr int kNumEvents {5};
     decltype(event_create()) event_id[kNumEvents];
 
@@ -158,4 +151,24 @@ TEST(TestOsEvent, test_os_wait_event_multiple)
                    event_id[4] );
 
 
+}
+
+TEST(TestOsEvent, test_os_wait_event_endless_loop)
+{
+    UT_CATALOG_ID("EVENT-TBD");
+
+    static constexpr int kNumEvents {5};
+    decltype(event_create()) event_id[kNumEvents];
+
+    for(int i{0}; i<kNumEvents; i++)
+    {
+        event_id[i] = event_create();
+    }
+
+    static constexpr int fake_tid {98};
+
+    mock().expectOneCall("os_on_assert");
+    os_wait_multiple( false,
+                   event_id[0], event_id[1], event_id[2], event_id[3],
+                   event_id[4] );
 }
