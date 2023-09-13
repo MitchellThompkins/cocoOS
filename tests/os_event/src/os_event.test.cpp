@@ -49,6 +49,47 @@ TEST(TestOsEvent, create_too_many_events)
     event_create();
 }
 
+TEST(TestOsEvent, test_task_signaling)
+{
+    UT_CATALOG_ID("EVENT-3");
+    UT_CATALOG_ID("EVENT-8");
+
+    static constexpr int kNumEvents {6};
+    decltype(event_create()) event_id[kNumEvents];
+
+    for(int i{0}; i<kNumEvents-1; i++)
+    {
+        event_id[i] = event_create();
+        os_event_set_signaling_tid(event_id[i], (i+1)*2);
+    }
+
+    for(int i{0}; i<kNumEvents-1; i++)
+    {
+        CHECK_EQUAL( (i+1)*2, event_signaling_taskId_get( event_id[i] ) );
+    }
+}
+
+TEST(TestOsEvent, test_event_signaling)
+{
+    UT_CATALOG_ID("EVENT-3");
+    UT_CATALOG_ID("EVENT-7");
+
+    static constexpr int kNumEvents {6};
+    decltype(event_create()) event_id[kNumEvents];
+
+    for(int i{0}; i<kNumEvents-1; i++)
+    {
+        event_id[i] = event_create();
+
+        mock().expectOneCall("os_task_signal_event")
+            .withParameter("eventId", event_id[i]);
+
+        os_signal_event(event_id[i]);
+
+        CHECK_EQUAL( event_id[i], event_last_signaled_get() );
+    }
+}
+
 static bool called = false;
 void foo()
 {

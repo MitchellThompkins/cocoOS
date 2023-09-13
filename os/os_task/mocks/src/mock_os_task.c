@@ -98,7 +98,8 @@ void task_tick( const uint8_t clockId, const uint32_t tickSize )
 
 void os_task_signal_event( Evt_t eventId )
 {
-    mock_c()->actualCall("os_task_signal_event");
+    mock_c()->actualCall("os_task_signal_event")
+        ->withIntParameters("eventId", eventId);
 }
 
 
