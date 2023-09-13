@@ -71,7 +71,7 @@ TEST(TestOsEvent, test_task_signaling)
 
 TEST(TestOsEvent, test_event_signaling)
 {
-    UT_CATALOG_ID("EVENT-3");
+    UT_CATALOG_ID("EVENT-4");
     UT_CATALOG_ID("EVENT-7");
 
     static constexpr int kNumEvents {6};
