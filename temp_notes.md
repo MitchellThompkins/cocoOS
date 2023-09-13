@@ -130,3 +130,12 @@
       bit more confusing I'd argue, so I removed them for now
 
     * `os_start` now takes an argument to let an infinite loop run
+
+    * I don't totally understand why `#define EVENT_QUEUE_SIZE
+      ((N_TOTAL_EVENTS/9)+1)` is defined like this, and is not of the size
+      `N_TOTAL_EVENTS`. It's almost as if the desire is to have an
+      `EVENT_QUEUE_SIZE` is of the size that fits into 9 slots. After some
+      thought, it's b/c we're using the bits to signal the presence of a bit,
+      in an effort to save memory. We just care about the "presence" of the
+      event, so we only need as many words as required to fit as many bits as
+      we need to represent all the events.

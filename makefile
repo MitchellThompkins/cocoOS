@@ -54,6 +54,7 @@ check-trace:
 	python3 scripts/trace_reqs.py \
 		--req documents/requirements.csv \
 		--test \
+			cpputest_TestOsEvent.xml \
 			cpputest_TestOsTask.xml \
 			cpputest_TestOsKernel.xml
 	

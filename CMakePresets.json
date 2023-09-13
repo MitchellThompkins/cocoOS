@@ -48,16 +48,18 @@
         {
             "name": "x86_64",
             "targets": [
-                "test_os_task0",
-                "test_os_kernel"
+                "test_os_task",
+                "test_os_kernel",
+                "test_os_event"
             ],
             "configurePreset": "x86_64"
         },
         {
             "name": "a9",
             "targets": [
-                "test_os_task0",
-                "test_os_kernel"
+                "test_os_task",
+                "test_os_kernel",
+                "test_os_event"
             ],
             "configurePreset": "a9"
         }

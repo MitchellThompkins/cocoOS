@@ -4,6 +4,7 @@
 /** @file os_event.h Event header file*/
 
 #include <stdarg.h>
+#include <stdbool.h>
 #include <stdint.h>
 
 
@@ -11,58 +12,200 @@
 extern "C" {
 #endif
 
-#define EVENT_OFS1   10000
-#define EVENT_OFS2   11000
-#define EVENT_OFS3   12000
+#define OS_WAIT_SINGLE_EVENT(x, timeout, cb) do {\
+                                             os_wait_event(\
+                                                     os_get_running_tid(),\
+                                                     x, 1, timeout, cb);\
+                                             OS_YIELD;\
+                                             } while (0)
 
-#define OS_WAIT_SINGLE_EVENT(x,timeout, cb) do {\
-                                os_wait_event(os_get_running_tid(),x,1,timeout, cb);\
-                                OS_YIELD;\
+
+#define OS_WAIT_MULTIPLE_EVENTS( waitAll, args...) do {\
+                                                     os_wait_multiple(\
+                                                     waitAll, args, NO_EVENT);\
+                                                   OS_YIELD;\
+                                                   } while (0)
+
+
+#define OS_SIGNAL_EVENT(event) do {\
+                               os_signal_event(event);\
+                               os_event_set_signaling_tid(\
+                                       event,\
+                                       os_get_running_tid() );\
+                               OS_YIELD;\
                                } while (0)
 
 
-#define OS_WAIT_MULTIPLE_EVENTS( waitAll, args...)  do {\
-                                os_wait_multiple(waitAll, args, NO_EVENT);\
-                                OS_YIELD;\
-                               } while (0)
-
-
-#define OS_SIGNAL_EVENT(event)  do {\
-                                os_signal_event(event);\
-                                os_event_set_signaling_tid( event, os_get_running_tid() );\
-                                OS_YIELD;\
-                                } while (0)
-
-
-#define OS_INT_SIGNAL_EVENT(event)  do {\
-                                    os_signal_event(event);\
-                                    os_event_set_signaling_tid( event, ISR_TID );\
-                                    } while (0)
+#define OS_INT_SIGNAL_EVENT(event) do {\
+                                   os_signal_event(event);\
+                                   os_event_set_signaling_tid(\
+                                        event, ISR_TID );\
+                                   } while (0)
 
 
 #define OS_GET_TASK_TIMEOUT_VALUE()  os_task_timeout_get(os_get_running_tid())
 
 
 #ifdef N_TOTAL_EVENTS
-    #define EVENT_QUEUE_SIZE    ((N_TOTAL_EVENTS/9)+1)
+    // This is (N/9) + 1 in order to get the minimum number of bytes required
+    // to have enough bits to represent the total N_TOTAL_EVENTS.
+    #define EVENT_QUEUE_SIZE  ((N_TOTAL_EVENTS/9)+1)
 #else
-    #define EVENT_QUEUE_SIZE    1
+    #define EVENT_QUEUE_SIZE  1
 #endif
 
 
 typedef uint8_t Evt_t;
 
-typedef struct {
+typedef struct
+{
     uint8_t eventList[ EVENT_QUEUE_SIZE ];
 } EventQueue_t;
 
 
+/*********************************************************************************/
+/*
+  @brief Creates an event.
+
+  @return Returns the id associated with an event
+
+  @remarks \b Usage: @n An event is created by declaring a variable of type
+  Evt_t and then assigning the event_create() return value to that variable.
+
+  @code
+  Evt_t myEvent;
+  myEvent = event_create();
+  @endcode
+
+*/
+/*********************************************************************************/
+Evt_t event_create( void );
+
+
+/*********************************************************************************/
+/*
+   @brief initializes the event component
+
+   @post nEvents will be set to 0
+*/
+/*********************************************************************************/
 void os_event_init( void );
-void os_wait_event( uint8_t tid, Evt_t ev, uint8_t waitSingleEvent, uint32_t timeout, void (*cb)(void) );
-void os_wait_multiple( uint8_t waitAll, ...);
-void os_signal_event( Evt_t ev );
-void os_event_set_signaling_tid( Evt_t ev, uint8_t tid );
-Evt_t event_last_signaled_get(void);
+
+
+/*****************************************************************************/
+/*  @brief Gets the Task Id of the task that signaled the event.
+
+    @param event_id event
+
+    @return Id of task that signaled the event.
+
+    @return NO_TID if a timeout occurred before the event was signaled.
+
+    @remarks \b Usage: @n A task can make a call to this function when it has
+    resumed execution after waiting for an event to find out which other task
+    signaled the event.
+
+
+    @code
+    event_wait(event);
+    signalingTask = event_signaling_taskId_get(event);
+    if ( signalingTask == Task2_id ) {
+    ...
+    }
+    @endcode
+
+*/
+/*****************************************************************************/
+uint8_t event_signaling_taskId_get( Evt_t event_id );
+
+
+/*****************************************************************************/
+/*   @brief Gets the last signaled event
+
+     @return Last signaled event
+
+     @remarks \b Usage: @n Used when waiting for multiple events, to find out
+     which event was signaled.
+
+
+     @code
+     event_wait_multiple(0, event1, event2);
+     Evt_t lastEvt = event_last_signaled_get();
+     if ( lastEvt == event1 ) {
+     ...
+     }
+     @endcode
+
+*/
+/*****************************************************************************/
+Evt_t event_last_signaled_get( void );
+
+
+/*****************************************************************************/
+/*
+   @brief Sets the specified task to wait for the specified event
+
+   @param tid the specified task with which to associate the event
+
+   @param event_id the specified event
+
+   @param waitSingleEvent whether or not the event should put the task into the
+   ready state
+
+   @param timeout the timeout for the task to wait before the event can be
+   signaled
+
+   @param a function pointer to a call back function that should be called
+   before returning. The reason for this is b/c this function is _generally_
+   only called by one of the macros that will release control of the function.
+   Therefore any behavior that is required to occur _before_ release occurs can
+   still be achieved by passing function pointer to the call_back
+
+   @return void
+*/
+/*****************************************************************************/
+void os_wait_event( uint8_t tid,
+                    Evt_t event_id,
+                    bool waitSingleEvent,
+                    uint32_t timeout,
+                    void (*call_back)(void) );
+
+
+/*****************************************************************************/
+/*
+  TODO
+*/
+/*****************************************************************************/
+void os_signal_event( Evt_t event_id );
+
+
+/*****************************************************************************/
+/*
+   @brief For the currently running task, wait for multiple events to complete.
+   The event timeouts will all be zero.
+
+   @pre The last event in the varidaic argument list will be NO_EVENT
+
+   @pre Number of events passed is less than or equal to N_TOTAL_EVENTS
+
+   @param waitForAll true to wait for all events to complete, false to wait for
+   any event
+
+   @param ... A comma separated argument list of all event IDs on which to wait
+
+   @return void
+*/
+/*****************************************************************************/
+void os_wait_multiple( bool waitForAll, ... );
+
+
+/*****************************************************************************/
+/*
+  TODO
+*/
+/*****************************************************************************/
+void os_event_set_signaling_tid( Evt_t event_id, uint8_t tid );
+
 
 #ifdef __cplusplus
 }

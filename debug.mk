@@ -12,7 +12,7 @@
 		-semihosting-config enable=on,target=native \
 		-kernel $*
 
-# For example: make a9/test_os_task0.elf.qemu-gdb
+# For example: make a9/test_os_task.elf.qemu-gdb
 .PHONY: %.qemu-gdb
 %.qemu-gdb:
 	qemu-system-arm \

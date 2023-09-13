@@ -863,10 +863,6 @@ uint16_t os_get_running_tid(void);
 
 void os_free_tid(void);
 
-//TODO(@mthompkins): I think this can go to event
-Evt_t event_create( void );
-
-uint8_t event_signaling_taskId_get( Evt_t ev );
 void os_cbkSleep( void );
 
 #ifdef COCOOS_UNIT_TESTS

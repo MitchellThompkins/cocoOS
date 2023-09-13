@@ -60,7 +60,8 @@ uint8_t next_ready_task( void );
 
 void os_task_ready_set( uint8_t tid );
 
-void task_wait_sem_set( uint8_t tid, Sem_t sem );
+void task_wait_sem_set( uint8_t tid,
+                        Sem_t sem );
 
 void os_task_suspend( uint8_t tid );
 
@@ -72,13 +73,39 @@ uint8_t os_task_prio_get( uint8_t tid );
 
 void os_task_clear_wait_queue( uint8_t tid );
 
-void os_task_wait_time_set( uint8_t tid, uint8_t id, uint32_t time );
+void os_task_wait_time_set( const uint8_t tid,
+                            const uint8_t id,
+                            const uint32_t time );
 
-void os_task_wait_event( uint8_t tid, Evt_t eventId, uint8_t waitSingleEvent, uint32_t timeout );
+/*****************************************************************************/
+/*
+   @brief Put the specified task into the WAITING_EVENT_TIMEOUT state if the
+   provided timeout is greater than 0 or the WAITING_EVENT state if the timeout
+   is 0. If waitSingleEvent is true, then when the event is signaled, the
+   associated task will be put into the READY state.
 
-void task_tick( uint8_t clockId, uint32_t tickSize );
+   @param tid the specified task with which to associate the event
 
-void os_task_signal_event( Evt_t eventId );
+   @param eventId the specified event
+
+   @param waitSingleEvent whether or not the event should put the task into the
+   ready state
+
+   @param timeout the timeout for the task to wait before the event can be
+   signaled
+
+   @return void
+*/
+/*****************************************************************************/
+void os_task_wait_event( uint8_t tid,
+                         Evt_t eventId,
+                         bool waitSingleEvent,
+                         uint32_t timeout );
+
+void task_tick( const uint8_t clockId,
+                const uint32_t tickSize );
+
+void os_task_signal_event( const Evt_t eventId );
 
 void task_run( void );
 

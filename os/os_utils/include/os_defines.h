@@ -33,7 +33,7 @@ _Static_assert(N_SEMAPHORES >=0 && N_SEMAPHORES < 255, "Maximum number of queues
 #endif
 
 
-#ifndef N_QUEUES
+#ifndef N_EVENTS
 #error N_EVENTS must be defined with #define
 #endif
 #ifdef __cplusplus
@@ -43,7 +43,7 @@ _Static_assert(N_EVENTS >=0 && N_EVENTS < 255, "Maximum number of events is 254"
 #endif
 
 
-#ifndef N_QUEUES
+#ifndef ROUND_ROBIN
 #error ROUND_ROBIN must be defined as 0 or 1
 #endif
 #ifdef __cplusplus
@@ -60,11 +60,11 @@ _Static_assert(ROUND_ROBIN == 0 || ROUND_ROBIN == 1, "ROUND_ROBIN must be 0 or 1
 #define NO_MSG_ID   0xff
 #define ISR_TID     0xfe
 
-/* Total number of semaphores needed */
+// Total number of semaphores needed
 #define N_TOTAL_SEMAPHORES    ( N_SEMAPHORES + N_QUEUES )
 
 
-/* Total number of events needed */
+// Total number of events needed
 #define N_TOTAL_EVENTS        ( N_EVENTS + N_QUEUES )
 
 #define NO_TID   255

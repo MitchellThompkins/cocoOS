@@ -9,14 +9,14 @@ void os_event_init( void )
 
 void os_wait_event( uint8_t tid,
                     Evt_t ev,
-                    uint8_t waitSingleEvent,
+                    bool waitSingleEvent,
                     uint32_t timeout,
                     void (*cb)(void) )
 {
     mock_c()->actualCall("os_wait_event");
 }
 
-void os_wait_multiple( uint8_t waitAll, ...)
+void os_wait_multiple( bool waitAll, ...)
 {
     mock_c()->actualCall("os_wait_multiple");
 }
@@ -34,4 +34,10 @@ void os_event_set_signaling_tid( Evt_t ev, uint8_t tid )
 Evt_t event_last_signaled_get(void)
 {
     mock_c()->actualCall("event_last_signaled_get");
+}
+
+Evt_t event_create( void )
+{
+    int v = (int)mock_c()->getData("event_create_return").value.intValue;
+    mock_c()->actualCall("event_create")->returnIntValueOrDefault(v);
 }

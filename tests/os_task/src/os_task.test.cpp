@@ -43,6 +43,7 @@ TEST(TestOsTask, fail_create_task_null_taskproc)
 
     // Verify that calling task with the same prio level invokes assert
     mock().expectOneCall("os_on_assert");
+    mock().expectOneCall("os_running");
     os_task_create( NULL, NULL, 1, NULL, 0, 0 );
     mock().checkExpectations();
     mock().clear();
@@ -57,6 +58,7 @@ TEST(TestOsTask, fail_create_task_with_same_prio)
 
     // Verify that calling task with the same prio level invokes assert
     mock().expectOneCall("os_on_assert");
+    mock().expectNCalls(2, "os_running");
     os_task_create( dummy_task, NULL, 1, NULL, 0, 0 );
     os_task_create( dummy_task, NULL, 1, NULL, 0, 0 );
 
@@ -73,6 +75,7 @@ TEST(TestOsTask, fail_create_task_with_too_many_tasks)
 
     // Verify that trying to create too many tasks invokes assert
     mock().expectOneCall("os_on_assert");
+    mock().expectNCalls(N_TASKS+1, "os_running");
     for(int i{0}; i<=N_TASKS; i++)
     {
         os_task_create( dummy_task, NULL, i, NULL, 0, 0 );
@@ -94,6 +97,7 @@ TEST(TestOsTask, fail_create_task_when_os_is_running)
 
     // Verify that you cannot create a task while os is running
     mock().expectOneCall("os_on_assert").andReturnValue(false);
+    mock().expectOneCall("os_running");
     os_task_create( dummy_task, NULL, 1, NULL, 0, 0 );
 
     mock().checkExpectations();
@@ -108,6 +112,7 @@ TEST(TestOsTask, successful_task_initialization)
     mock().expectOneCall("os_init");
     os_init();
 
+    mock().expectNCalls(3, "os_running");
     // Verify that you cannot create a task while os is running
     const auto id1 {os_task_create( dummy_task, NULL, 1, NULL, 0, 0 )};
     CHECK_EQUAL(0, id1);
@@ -129,6 +134,7 @@ TEST(TestOsTask, next_highest_prio_task)
     mock().expectOneCall("os_init");
     os_init();
 
+    mock().expectNCalls(3, "os_running");
     const auto id1 {os_task_create( dummy_task, NULL, 3, NULL, 0, 0 )};
     const auto id2 {os_task_create( dummy_task, NULL, 2, NULL, 0, 0 )};
     const auto id3 {os_task_create( dummy_task, NULL, 1, NULL, 0, 0 )};
@@ -151,11 +157,13 @@ TEST(TestOsTask, release_task_prio_waiting_on_semaphore)
     mock().expectOneCall("os_init");
     os_init();
 
+    mock().expectNCalls(3, "os_running");
     const auto id0 {os_task_create( dummy_task, NULL, 3, NULL, 0, 0 )};
     const auto id1 {os_task_create( dummy_task, NULL, 2, NULL, 0, 0 )};
     const auto id2 {os_task_create( dummy_task, NULL, 1, NULL, 0, 0 )};
 
     mock().setData("sem_return_value", 0);
+
     mock().expectOneCall("sem_counting_create").andReturnValue(0);
     Sem_t sem0 {sem_counting_create(3, 0)};
 
@@ -186,6 +194,7 @@ TEST(TestOsTask, task_waiting_semaphore)
     mock().expectOneCall("os_init");
     os_init();
 
+    mock().expectNCalls(3, "os_running");
     const auto id0 {os_task_create( dummy_task, NULL, 3, NULL, 0, 0 )};
     const auto id1 {os_task_create( dummy_task, NULL, 2, NULL, 0, 0 )};
     const auto id2 {os_task_create( dummy_task, NULL, 1, NULL, 0, 0 )};
@@ -236,6 +245,7 @@ TEST(TestOsTask, tick_time_for_tasks)
     mock().expectOneCall("os_init");
     os_init();
 
+    mock().expectNCalls(3, "os_running");
     const auto id0 {os_task_create( dummy_task, NULL, 3, NULL, 0, 0 )};
     const auto id1 {os_task_create( dummy_task, NULL, 2, NULL, 0, 0 )};
     const auto id2 {os_task_create( dummy_task, NULL, 1, NULL, 0, 0 )};
@@ -280,4 +290,114 @@ TEST(TestOsTask, tick_time_for_tasks)
     CHECK_EQUAL(2, timeout0);
     CHECK_EQUAL(2, timeout1);
     CHECK_EQUAL(0, timeout2);
+}
+
+TEST(TestOsTask, test_os_task_wait_event)
+{
+    UT_CATALOG_ID("TASK-21");
+
+    mock().expectOneCall("os_init");
+    os_init();
+
+    mock().expectOneCall("os_running");
+    const auto id0 {os_task_create( dummy_task, NULL, 1, NULL, 0, 0 )};
+
+    mock().expectOneCall("event_create");
+    mock().setData("event_create_return", 0);
+    const auto event_id0 {event_create()};
+
+    //TODO(@mthompkins): Figure out how to use waitSingleEvent
+    const int timeout {5};
+    os_task_wait_event(id0, event_id0, false, timeout);
+
+    // With zero timeout the task should be WAITING_EVENT_TIMEOUT
+    CHECK_EQUAL( WAITING_EVENT_TIMEOUT, task_state_get(id0) );
+    CHECK_EQUAL( timeout, os_task_timeout_get(id0) );
+
+    os_task_wait_event(id0, event_id0, false, 0);
+
+    // With zero timeout the task should be WAITING_EVENT
+    CHECK_EQUAL( WAITING_EVENT, task_state_get(id0) );
+}
+
+TEST(TestOsTask, test_os_task_signal_event)
+{
+    UT_CATALOG_ID("TASK-23");
+
+    mock().expectOneCall("os_init");
+    os_init();
+
+    mock().expectOneCall("event_create");
+    mock().setData("event_create_return", 0);
+    const auto event_id0 {event_create()};
+
+
+    // Test that when a task is set with os_task_wait_event with a timeout of
+    // 0, it is set to the WAITING_EVENT and when signaled is set to READY
+    mock().expectOneCall("os_running");
+    const auto task_id0 {os_task_create( dummy_task, NULL, 1, NULL, 0, 0 )};
+
+    const auto id0_timeout {0};
+    os_task_wait_event(task_id0, event_id0, false, id0_timeout);
+    CHECK_EQUAL( WAITING_EVENT, task_state_get(task_id0) );
+
+    os_task_signal_event(event_id0);
+
+    CHECK_EQUAL( id0_timeout, os_task_timeout_get(task_id0) );
+    CHECK_EQUAL( READY, task_state_get(task_id0) );
+
+
+    // Test that when a task is instructed to waitSingleEvent, that when
+    // os_signal event is called it is set to the ready state
+    mock().expectOneCall("os_running");
+    const auto task_id1 {os_task_create( dummy_task, NULL, 2, NULL, 0, 0 )};
+
+    const auto id1_timeout {40};
+    os_task_wait_event(task_id1, event_id0, true, id1_timeout);
+    os_task_signal_event(event_id0);
+
+    CHECK_EQUAL( READY, task_state_get(task_id1) );
+    CHECK_EQUAL( id1_timeout, os_task_timeout_get(task_id1) );
+
+
+    // Test that when a task times out after having been instructed to wait
+    // with os_task_wait_event, that it gets put into the ready state
+    mock().expectOneCall("os_running");
+    const auto task_id2 {os_task_create( dummy_task, NULL, 3, NULL, 0, 0 )};
+
+    const auto id2_timeout {9};
+    os_task_wait_event(task_id2, event_id0, false, id2_timeout);
+
+    CHECK_EQUAL( id2_timeout, os_task_timeout_get(task_id2) );
+    CHECK_EQUAL( WAITING_EVENT_TIMEOUT, task_state_get(task_id2) );
+
+    task_tick(0, id2_timeout);
+
+    CHECK_EQUAL( READY, task_state_get(task_id2) );
+
+
+    // Test that when waiting for multiple tasks, it takes all of them to clear
+    // to set the task to ready
+    mock().expectOneCall("os_running");
+    const auto task_id3 {os_task_create( dummy_task, NULL, 4, NULL, 0, 0 )};
+
+    mock().expectOneCall("event_create");
+    mock().setData("event_create_return", 1);
+    const auto event_id1 {event_create()};
+
+    mock().expectOneCall("event_create");
+    mock().setData("event_create_return", 2);
+    const auto event_id2 {event_create()};
+
+    os_task_wait_event(task_id3, event_id1, false, 0);
+    CHECK_EQUAL( WAITING_EVENT, task_state_get(task_id3) );
+
+    os_task_wait_event(task_id3, event_id2, false, 0);
+    CHECK_EQUAL( WAITING_EVENT, task_state_get(task_id3) );
+
+    os_task_signal_event(event_id1);
+    CHECK_EQUAL( WAITING_EVENT, task_state_get(task_id3) );
+
+    os_task_signal_event(event_id2);
+    CHECK_EQUAL( READY, task_state_get(task_id3) );
 }
