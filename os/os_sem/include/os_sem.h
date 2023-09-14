@@ -12,26 +12,26 @@ extern "C" {
 #define SEM_OFS1 20000
 #define SEM_OFS2 21000
 
-#define OS_WAIT_SEM(sem)        do {\
-                                    if ( os_sem_larger_than_zero( sem )  ){\
-                                        os_sem_decrement( sem );\
-                                    }\
-                                    else{\
-                                        os_task_wait_sem_set( os_get_running_tid(), sem );\
-                                        OS_YIELD;\
-                                    }\
-                                } while (0)
+#define OS_WAIT_SEM(sem)  do {\
+                              if ( os_sem_larger_than_zero( sem )  ){\
+                                  os_sem_decrement( sem );\
+                              }\
+                              else{\
+                                  os_task_wait_sem_set( os_get_running_tid(), sem );\
+                                  OS_YIELD;\
+                              }\
+                          } while (0)
 
 
-#define OS_SIGNAL_SEM(sem)      do {\
-                                    if ( os_task_waiting_this_semaphore( sem ) == 0 ) {\
-                                        os_sem_increment( sem );\
-                                    }\
-                                    else {\
-                                        os_task_release_waiting_task( sem );\
-                                        OS_YIELD;\
-                                    }\
-                                } while (0)
+#define OS_SIGNAL_SEM(sem)  do {\
+                                if ( os_task_waiting_this_semaphore( sem ) == 0 ) {\
+                                    os_sem_increment( sem );\
+                                }\
+                                else {\
+                                    os_task_release_waiting_task( sem );\
+                                    OS_YIELD;\
+                                }\
+                            } while (0)
 
 
 #define OS_SIGNAL_SEM_NO_SCHEDULE(sem)  do {\
@@ -48,12 +48,95 @@ extern "C" {
 
 typedef int16_t Sem_t;
 
+
+/*****************************************************************************/
+/*
+   @brief For the currently running task, wait for multiple events to complete.
+   The event timeouts will all be zero.
+
+   @pre The last event in the varidaic argument list will be NO_EVENT
+
+   @pre Number of events passed is less than or equal to N_TOTAL_EVENTS
+
+   @param waitForAll true to wait for all events to complete, false to wait for
+   any event
+
+   @param ... A comma separated argument list of all event IDs on which to wait
+
+   @return void
+*/
+/*****************************************************************************/
 void os_sem_init(void);
+
+
+/*****************************************************************************/
+/*
+   @brief
+*/
+/*****************************************************************************/
 uint8_t os_sem_larger_than_zero( Sem_t sem );
+
+
+/*****************************************************************************/
+/*
+   @brief
+*/
+/*****************************************************************************/
 void os_sem_decrement( Sem_t sem );
+
+
+/*****************************************************************************/
+/*
+   @brief
+*/
+/*****************************************************************************/
 void os_sem_increment( Sem_t sem );
 
+
+/*****************************************************************************/
+/*
+   @brief Creates and initializes a new binary semaphore.
+
+   @param initial value of the semaphore
+
+   @return Returns the created semaphore.
+
+   @remarks \b Usage: @n A semaphore is created by declaring a variable of
+   type Sem_t and then assigning the sem_bin_create(value) return value to
+   that variable.
+
+   @code
+   Sem_t mySem;
+   mySem = sem_bin_create(0);
+
+   @endcode
+
+*/
+/*****************************************************************************/
 Sem_t sem_bin_create( uint8_t initial );
+
+
+/*********************************************************************************/
+/*
+  @brief Creates and initializes a new counting semaphore.
+
+  @param max value of the semaphore
+
+  @param initial value of the semaphore
+
+  @return Returns the created semaphore.
+
+  @remarks \b Usage: @n A semaphore is created by declaring a variable of type Sem_t
+  and then assigning the sem_create(max, 0) return value to that variable.
+
+  @code
+  Sem_t mySem;
+  mySem = sem_counting_create(5,0);
+
+  @endcode
+
+*/
+/*********************************************************************************/
 Sem_t sem_counting_create( uint8_t max, uint8_t initial );
 
 #ifdef __cplusplus
