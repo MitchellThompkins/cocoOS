@@ -4,6 +4,7 @@
 /** @file os_sem.h Semaphore header file*/
 
 #include "stdint.h"
+#include "stdbool.h"
 
 #ifdef __cplusplus
 extern "C" {
@@ -51,17 +52,9 @@ typedef int16_t Sem_t;
 
 /*****************************************************************************/
 /*
-   @brief For the currently running task, wait for multiple events to complete.
-   The event timeouts will all be zero.
+   @brief initialize number of semaphores to 0
 
-   @pre The last event in the varidaic argument list will be NO_EVENT
-
-   @pre Number of events passed is less than or equal to N_TOTAL_EVENTS
-
-   @param waitForAll true to wait for all events to complete, false to wait for
-   any event
-
-   @param ... A comma separated argument list of all event IDs on which to wait
+   @post the internal count of the number of semaphores will be set to 0
 
    @return void
 */
@@ -74,7 +67,7 @@ void os_sem_init(void);
    @brief
 */
 /*****************************************************************************/
-uint8_t os_sem_larger_than_zero( Sem_t sem );
+bool os_sem_larger_than_zero( Sem_t sem );
 
 
 /*****************************************************************************/
@@ -113,7 +106,7 @@ void os_sem_increment( Sem_t sem );
 
 */
 /*****************************************************************************/
-Sem_t sem_bin_create( uint8_t initial );
+Sem_t sem_bin_create( bool initial );
 
 
 /*********************************************************************************/

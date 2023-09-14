@@ -24,7 +24,7 @@ void os_sem_init(void)
     mock_c()->actualCall("os_sem_init");
 }
 
-uint8_t os_sem_larger_than_zero( Sem_t sem )
+bool os_sem_larger_than_zero( Sem_t sem )
 {
     mock_c()->actualCall("os_sem_larger_than_zero");
 }
@@ -39,7 +39,7 @@ void os_sem_increment( Sem_t sem )
     mock_c()->actualCall("os_sem_increment");
 }
 
-Sem_t sem_bin_create( uint8_t initial )
+Sem_t sem_bin_create( bool initial )
 {
     mock_c()->actualCall("sem_bin_create");
 }

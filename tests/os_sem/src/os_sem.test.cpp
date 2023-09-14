@@ -13,6 +13,7 @@ TEST_GROUP(TestOsSem)
 {
     void setup()
     {
+        os_sem_init();
     }
 
     void teardown()
@@ -21,9 +22,13 @@ TEST_GROUP(TestOsSem)
     }
 };
 
-TEST(TestOsSem, temp)
+TEST(TestOsSem, os_bin_create)
 {
-    UT_CATALOG_ID("EVENT-TBD");
+    UT_CATALOG_ID("SEM-1");
 
-    CHECK_TRUE(false);
+    for(int i=0; i<5; i++)
+    {
+        const auto sem { sem_bin_create(true) };
+        CHECK_EQUAL(i, sem);
+    }
 }

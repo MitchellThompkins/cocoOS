@@ -63,8 +63,8 @@ EVENT-6,cocoOS shall provide a function `os_wait_multiple` which signals the cur
 EVENT-7,cocoOS shall provide a function `os_signal_event` which sets the last signaled signal event to the specified event and calls `os_task_signal_event`
 EVENT-8,cocoOS shall provide a function `os_event_set_signaling_tid` which records that the specified event to have been signaled by the specified task id
 EVENT-9,"If the last argument of `os_wait_multiple` is not NO_EVENT, an os_assert will be invoked"
-SEM-1,
-SEM-2,
+SEM-1,"cocoOS shall provide a function called “sem_bin_create” which creates a semaphore which can only have the value or true or false, and whose initial value is the provided initial value, and returns the id of the created semaphore."
+SEM-2,"cocoOS shall provide a function called “sem_counting_create” which creates a semaphore which can can have any 16-bit integer value, and whose initial value is the provided initial value, and returns the id of the created semaphore."
 SEM-3,
 SEM-4,
 SEM-5,
