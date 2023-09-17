@@ -73,6 +73,20 @@ bool os_sem_larger_than_zero( Sem_t sem );
 /*****************************************************************************/
 /*
    @brief
+
+   @pre sem is a sem which was created with os_sem_create
+
+   @param sem - The id of the desired semaphore
+
+   @return the value of the desired semaphore
+*/
+/*****************************************************************************/
+Sem_t os_sem_value( Sem_t sem );
+
+
+/*****************************************************************************/
+/*
+   @brief
 */
 /*****************************************************************************/
 void os_sem_decrement( Sem_t sem );

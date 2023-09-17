@@ -29,6 +29,14 @@ TEST(TestOsSem, os_bin_create)
     for(int i=0; i<5; i++)
     {
         const auto sem { sem_bin_create(true) };
+        CHECK_TRUE(os_sem_value(sem));
+        CHECK_EQUAL(i, sem);
+    }
+
+    for(int i=5; i<10; i++)
+    {
+        const auto sem { sem_bin_create(false) };
+        CHECK_FALSE(os_sem_value(sem));
         CHECK_EQUAL(i, sem);
     }
 }

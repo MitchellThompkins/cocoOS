@@ -63,6 +63,15 @@ bool os_sem_larger_than_zero( Sem_t sem )
 }
 
 
+Sem_t os_sem_value( Sem_t sem )
+{
+#if ( N_TOTAL_SEMAPHORES > 0 )
+    return ( semList[ sem ].value );
+#else
+    return 0;
+#endif
+}
+
 void os_sem_decrement( Sem_t sem )
 {
 #if ( N_TOTAL_SEMAPHORES > 0 )
