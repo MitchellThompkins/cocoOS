@@ -2,6 +2,10 @@
 #include "os_defines.h"
 #include "os_sem.h"
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 typedef struct
 {
     uint8_t maxValue;
@@ -93,5 +97,6 @@ void os_sem_increment( Sem_t sem )
 #endif
 }
 
-
-
+#ifdef __cplusplus
+}
+#endif

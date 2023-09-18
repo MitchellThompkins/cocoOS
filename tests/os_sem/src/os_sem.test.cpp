@@ -40,3 +40,8 @@ TEST(TestOsSem, os_bin_create)
         CHECK_EQUAL(i, sem);
     }
 }
+
+TEST(TestOsSem, os_bin_create)
+{
+    UT_CATALOG_ID("SEM-1");
+}

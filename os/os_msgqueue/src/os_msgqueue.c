@@ -1,6 +1,10 @@
 #include "os_defines.h"
 #include "os_msgqueue.h"
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 typedef struct {
     Mem_t *list;            ///< Storage buffer for messages
     uint16_t messageSize;
@@ -256,4 +260,8 @@ static uint8_t MsgQAllDelayed(OSQueue_t *q) {
 }
 
 
+#endif
+
+#ifdef __cplusplus
+}
 #endif
