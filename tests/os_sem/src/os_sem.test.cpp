@@ -58,3 +58,36 @@ TEST(TestOsSem, os_counting_create)
         CHECK_EQUAL( i+1, os_sem_num_sems_get() );
     }
 }
+
+TEST(TestOsSem, os_sem_change)
+{
+    UT_CATALOG_ID("SEM-TBD");
+
+    static constexpr uint8_t max_sem_val {4};
+
+    const auto sem_id { sem_counting_create(max_sem_val, 0) };
+    CHECK_EQUAL( 0, os_sem_value_get(sem_id) );
+
+    // Shoudn't be able to count below 0
+    os_sem_decrement( sem_id );
+    CHECK_EQUAL( 0, os_sem_value_get(sem_id) );
+
+    for(int i=0; i<max_sem_val; i++)
+    {
+        os_sem_increment( sem_id );
+        CHECK_EQUAL( i+1, os_sem_value_get(sem_id) );
+    }
+
+    os_sem_increment( sem_id );
+    CHECK_EQUAL( max_sem_val, os_sem_value_get(sem_id) );
+
+    for(int i=0; i<max_sem_val; i++)
+    {
+        os_sem_decrement( sem_id );
+        CHECK_EQUAL( max_sem_val-i-1, os_sem_value_get(sem_id) );
+    }
+
+    // Still shoudn't be able to count below 0
+    os_sem_decrement( sem_id );
+    CHECK_EQUAL( 0, os_sem_value_get(sem_id) );
+}
