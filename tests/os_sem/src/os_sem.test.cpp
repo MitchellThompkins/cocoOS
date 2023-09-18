@@ -22,6 +22,7 @@ TEST_GROUP(TestOsSem)
     }
 };
 
+
 TEST(TestOsSem, os_bin_create)
 {
     UT_CATALOG_ID("SEM-1");
@@ -49,6 +50,7 @@ TEST(TestOsSem, os_bin_create)
     CHECK_EQUAL( 0, os_sem_num_sems_get() );
 }
 
+
 TEST(TestOsSem, os_counting_create)
 {
     UT_CATALOG_ID("SEM-TBD");
@@ -66,6 +68,25 @@ TEST(TestOsSem, os_counting_create)
     os_sem_init();
     CHECK_EQUAL( 0, os_sem_num_sems_get() );
 }
+
+
+TEST(TestOsSem, os_sem_greater_than_zero)
+{
+    UT_CATALOG_ID("SEM-TBD");
+
+    const auto sem_id_0 { sem_counting_create(3, 3) };
+    CHECK_TRUE( os_sem_larger_than_zero(sem_id_0) );
+
+    const auto sem_id_1 { sem_counting_create(1, 0) };
+    CHECK_FALSE( os_sem_larger_than_zero(sem_id_1) );
+
+    const auto sem_id_2 { sem_bin_create(false) };
+    CHECK_FALSE( os_sem_larger_than_zero(sem_id_2) );
+
+    const auto sem_id_3 { sem_bin_create(true) };
+    CHECK_TRUE( os_sem_larger_than_zero(sem_id_3) );
+}
+
 
 TEST(TestOsSem, os_sem_change)
 {
