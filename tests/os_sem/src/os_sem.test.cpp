@@ -43,6 +43,10 @@ TEST(TestOsSem, os_bin_create)
         CHECK_EQUAL( i, sem );
         CHECK_EQUAL( i+1, os_sem_num_sems_get() );
     }
+
+    CHECK_EQUAL( 10, os_sem_num_sems_get() );
+    os_sem_init();
+    CHECK_EQUAL( 0, os_sem_num_sems_get() );
 }
 
 TEST(TestOsSem, os_counting_create)
@@ -57,6 +61,10 @@ TEST(TestOsSem, os_counting_create)
         CHECK_EQUAL( i, sem );
         CHECK_EQUAL( i+1, os_sem_num_sems_get() );
     }
+
+    CHECK_EQUAL( 10, os_sem_num_sems_get() );
+    os_sem_init();
+    CHECK_EQUAL( 0, os_sem_num_sems_get() );
 }
 
 TEST(TestOsSem, os_sem_change)
