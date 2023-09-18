@@ -14,7 +14,7 @@ typedef struct
 
 #if ( N_TOTAL_SEMAPHORES > 0 )
 static SemValue_t semList[ N_TOTAL_SEMAPHORES ];
-static Sem_t nSemaphores;
+static uint8_t nSemaphores;
 #endif
 
 static Sem_t os_sem_create( uint8_t max, uint8_t initial );
@@ -38,9 +38,9 @@ static Sem_t os_sem_create( uint8_t max, uint8_t initial )
     semList[ nSemaphores ].value = initial;
     ++nSemaphores;
 
-    return ( nSemaphores - 1 );
+    return (Sem_t) ( nSemaphores - 1 );
 #else
-    return -1;
+    return (Sem_t) -1;
 #endif
 }
 
@@ -67,7 +67,7 @@ bool os_sem_larger_than_zero( Sem_t sem )
 }
 
 
-Sem_t os_sem_value( Sem_t sem )
+Sem_t os_sem_value_get( Sem_t sem )
 {
 #if ( N_TOTAL_SEMAPHORES > 0 )
     return ( semList[ sem ].value );
@@ -75,6 +75,13 @@ Sem_t os_sem_value( Sem_t sem )
     return 0;
 #endif
 }
+
+
+uint8_t os_sem_num_sems_get( void )
+{
+    return nSemaphores;
+}
+
 
 void os_sem_decrement( Sem_t sem )
 {

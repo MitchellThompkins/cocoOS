@@ -29,19 +29,32 @@ TEST(TestOsSem, os_bin_create)
     for(int i=0; i<5; i++)
     {
         const auto sem { sem_bin_create(true) };
-        CHECK_TRUE(os_sem_value(sem));
-        CHECK_EQUAL(i, sem);
+
+        CHECK_TRUE( os_sem_value_get(sem) );
+        CHECK_EQUAL( i, sem );
+        CHECK_EQUAL( i+1, os_sem_num_sems_get() );
     }
 
     for(int i=5; i<10; i++)
     {
         const auto sem { sem_bin_create(false) };
-        CHECK_FALSE(os_sem_value(sem));
-        CHECK_EQUAL(i, sem);
+
+        CHECK_FALSE( os_sem_value_get(sem) );
+        CHECK_EQUAL( i, sem );
+        CHECK_EQUAL( i+1, os_sem_num_sems_get() );
     }
 }
 
-TEST(TestOsSem, os_bin_create)
+TEST(TestOsSem, os_counting_create)
 {
-    UT_CATALOG_ID("SEM-1");
+    UT_CATALOG_ID("SEM-TBD");
+
+    for(int i=0; i<10; i++)
+    {
+        const auto sem { sem_counting_create(i+1, i+1) };
+
+        CHECK_EQUAL( i+1, os_sem_value_get(sem) );
+        CHECK_EQUAL( i, sem );
+        CHECK_EQUAL( i+1, os_sem_num_sems_get() );
+    }
 }

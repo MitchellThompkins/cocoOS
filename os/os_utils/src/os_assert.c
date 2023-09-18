@@ -29,7 +29,6 @@ void os_on_assert_attach_callback(void (*callback)(const char*, uint16_t, const 
     user_callback = callback;
 }
 
-
 #ifdef __cplusplus
 }
 #endif

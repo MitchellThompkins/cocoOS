@@ -10,9 +10,6 @@
 extern "C" {
 #endif
 
-#define SEM_OFS1 20000
-#define SEM_OFS2 21000
-
 #define OS_WAIT_SEM(sem)  do {\
                               if ( os_sem_larger_than_zero( sem )  ){\
                                   os_sem_decrement( sem );\
@@ -81,7 +78,17 @@ bool os_sem_larger_than_zero( Sem_t sem );
    @return the value of the desired semaphore
 */
 /*****************************************************************************/
-Sem_t os_sem_value( Sem_t sem );
+Sem_t os_sem_value_get( Sem_t sem );
+
+
+/*****************************************************************************/
+/*
+   @brief Get the number of created semaphores
+
+   @return the number of created semaphores
+*/
+/*****************************************************************************/
+uint8_t os_sem_num_sems_get( void );
 
 
 /*****************************************************************************/
