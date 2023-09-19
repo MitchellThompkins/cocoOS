@@ -53,7 +53,7 @@ TEST(TestOsSem, os_bin_create)
 
 TEST(TestOsSem, os_counting_create)
 {
-    UT_CATALOG_ID("SEM-TBD");
+    UT_CATALOG_ID("SEM-2");
 
     for(int i=0; i<10; i++)
     {
@@ -70,9 +70,9 @@ TEST(TestOsSem, os_counting_create)
 }
 
 
-TEST(TestOsSem, os_sem_greater_than_zero)
+TEST(TestOsSem, os_sem_larger_than_zero)
 {
-    UT_CATALOG_ID("SEM-TBD");
+    UT_CATALOG_ID("SEM-5");
 
     const auto sem_id_0 { sem_counting_create(3, 3) };
     CHECK_TRUE( os_sem_larger_than_zero(sem_id_0) );
@@ -88,9 +88,11 @@ TEST(TestOsSem, os_sem_greater_than_zero)
 }
 
 
-TEST(TestOsSem, os_sem_change)
+TEST(TestOsSem, os_sem_increment_decrement)
 {
-    UT_CATALOG_ID("SEM-TBD");
+    UT_CATALOG_ID("SEM-3");
+    UT_CATALOG_ID("SEM-4");
+    UT_CATALOG_ID("SEM-6");
 
     static constexpr uint8_t max_sem_val {4};
 
