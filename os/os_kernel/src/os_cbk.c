@@ -1,5 +1,9 @@
 #include "os_kernel.h"
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 /************************************************************** *******************/
 /*  void os_cbkSleep( void )
 *   Callback called by the os kernel when all tasks are in waiting state. Here you
@@ -12,3 +16,7 @@ void os_cbkSleep( void )
 {
     // Enter low power mode here
 }
+
+#ifdef __cplusplus
+}
+#endif

@@ -7,6 +7,10 @@
 #include "os_sem.h"
 #include "os_task.h"
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 static void os_schedule( void );
 
 static uint8_t running = 0;
@@ -235,5 +239,9 @@ void os_free_tid(void)
 void unit_test_os_schedule( void )
 {
     os_schedule();
+}
+#endif
+
+#ifdef __cplusplus
 }
 #endif

@@ -2,6 +2,7 @@ add_subdirectory(platforms)
 add_subdirectory(os_task)
 add_subdirectory(os_event)
 add_subdirectory(os_kernel)
+add_subdirectory(os_sem)
 
 #TODO(@mthompkins): Compile with -Wall
 #add_compile_options(-std=c++14 -Wall -Werror -v)

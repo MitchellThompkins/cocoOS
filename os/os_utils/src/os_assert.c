@@ -3,6 +3,10 @@
 
 #include "os_port.h"
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 static void (*user_callback)(const char*, uint16_t, const char*) = (void*) NULL;
 
 void os_on_assert(const char* file, uint16_t line, const char* expr)
@@ -25,3 +29,6 @@ void os_on_assert_attach_callback(void (*callback)(const char*, uint16_t, const 
     user_callback = callback;
 }
 
+#ifdef __cplusplus
+}
+#endif
