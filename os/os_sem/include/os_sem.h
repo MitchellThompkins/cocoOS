@@ -61,7 +61,14 @@ void os_sem_init(void);
 
 /*****************************************************************************/
 /*
-   @brief
+   @brief Determine whether the specified semahpore has a value larger than
+   zero
+
+   @pre sem is a sem which was created with os_sem_create
+
+   @param sem - The id of the desired semaphore
+
+   @return whether the specified semaphore is greater than or equal to zero
 */
 /*****************************************************************************/
 bool os_sem_larger_than_zero( Sem_t sem );
@@ -69,7 +76,7 @@ bool os_sem_larger_than_zero( Sem_t sem );
 
 /*****************************************************************************/
 /*
-   @brief
+   @brief Get the value of the specified semaphore
 
    @pre sem is a sem which was created with os_sem_create
 
@@ -93,7 +100,13 @@ uint8_t os_sem_num_sems_get( void );
 
 /*****************************************************************************/
 /*
-   @brief
+   @brief Decrement the value of the specified semaphore
+
+   @pre sem is a sem which was created with os_sem_create
+
+   @post the specified semaphore is decremented by 1
+
+   @param sem - The id of the desired semaphore
 */
 /*****************************************************************************/
 void os_sem_decrement( Sem_t sem );
@@ -101,7 +114,13 @@ void os_sem_decrement( Sem_t sem );
 
 /*****************************************************************************/
 /*
-   @brief
+   @brief Increment the value of the specified semaphore
+
+   @pre sem is a sem which was created with os_sem_create
+
+   @post the specified semaphore is incremented by 1
+
+   @param sem - The id of the desired semaphore
 */
 /*****************************************************************************/
 void os_sem_increment( Sem_t sem );
@@ -111,7 +130,9 @@ void os_sem_increment( Sem_t sem );
 /*
    @brief Creates and initializes a new binary semaphore.
 
-   @param initial value of the semaphore
+   @param initial - value of the semaphore
+
+   @post A semaphore with a unique will be created
 
    @return Returns the created semaphore.
 
