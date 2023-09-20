@@ -51,7 +51,8 @@
                 "test_os_task",
                 "test_os_kernel",
                 "test_os_event",
-                "test_os_sem"
+                "test_os_sem",
+                "test_os_msgqueue"
             ],
             "configurePreset": "x86_64"
         },
@@ -61,7 +62,8 @@
                 "test_os_task",
                 "test_os_kernel",
                 "test_os_event",
-                "test_os_sem"
+                "test_os_sem",
+                "test_os_msgqueue"
             ],
             "configurePreset": "a9"
         }
