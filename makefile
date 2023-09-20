@@ -26,8 +26,8 @@ build.graph:
 #######################################
 .PHONY: test
 test: 
-	python3 -m pip install termcolor 
-	python3 scripts/test.py -t tests/tests.json 
+	python3 -m pip install termcolor
+	python3 scripts/test.py -t tests/tests.json
 
 
 #######################################
@@ -56,8 +56,9 @@ check-trace:
 		--test \
 			cpputest_TestOsEvent.xml \
 			cpputest_TestOsTask.xml \
-			cpputest_TestOsKernel.xml
-	
+			cpputest_TestOsKernel.xml \
+			cpputest_TestOsSem.xml
+
 .PHONY: clean
 clean:
 	rm -rf build/
