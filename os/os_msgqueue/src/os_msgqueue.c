@@ -30,7 +30,7 @@ typedef struct
 static uint8_t MsgQAllDelayed( OSQueue_t *q );
 static uint8_t queue_push(OSQueue_t *queue, Msg_t *msg );
 
-/* List of task message queues */
+// List of task message queues
 static OSMsgQ_t msgQList[ N_QUEUES ];
 static MsgQ_t nQueues;
 #endif
@@ -53,10 +53,10 @@ void os_msgQ_init() {
 #endif
 }
 
-MsgQ_t os_msgQ_create( Msg_t *buffer,
-                       uint8_t nMessages,
-                       uint16_t msgSize,
-                       uint8_t task_id )
+MsgQ_t os_msgQ_create( const Msg_t *const buffer,
+                       const uint8_t nMessages,
+                       const uint16_t msgSize,
+                       const uint8_t task_id )
 {
 #if( N_QUEUES > 0 )
     os_assert_with_return( nQueues < N_QUEUES, 1 );
@@ -79,9 +79,7 @@ MsgQ_t os_msgQ_create( Msg_t *buffer,
 // Find the queue belonging to this task_id
 MsgQ_t os_msgQ_find(uint8_t task_id) {
 #if( N_QUEUES > 0 )
-    MsgQ_t queue;
-
-    for (queue = 0; queue < nQueues; queue++)
+    for(MsgQ_t queue = 0; queue < nQueues; queue++)
     {
         if ( msgQList[ queue ].taskId == task_id )
         {
@@ -99,14 +97,19 @@ Evt_t os_msgQ_event_get( MsgQ_t queue ) {
     {
         return NO_EVENT;
     }
+
     return msgQList[ queue ].change;
 #else
     return NO_EVENT;
 #endif
 }
 
-uint8_t os_msg_post( Msg_t *msg, MsgQ_t queue, uint32_t delay, uint32_t period ) {
-    #if( N_QUEUES > 0 )
+uint8_t os_msg_post( Msg_t *msg,
+                     const MsgQ_t queue,
+                     const uint32_t delay,
+                     const uint32_t period )
+{
+#if( N_QUEUES > 0 )
 
     if ( queue >= nQueues )
     {
