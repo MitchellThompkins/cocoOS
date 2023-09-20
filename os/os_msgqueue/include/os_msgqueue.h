@@ -13,7 +13,8 @@ extern "C" {
 #endif
 
 
-typedef struct {
+typedef struct
+{
     uint8_t signal;
     uint8_t reserved;   /* Alignment byte */
     uint8_t pad0;
@@ -96,8 +97,8 @@ enum {
                                                         }\
                                                     } while ( os_received == MSG_QUEUE_EMPTY );\
                                                     if ( MSG_QUEUE_RECEIVED == os_received) {\
-                                                    	os_signal_event(event);\
-                                                    	os_event_set_signaling_tid(event, os_get_running_tid() );\
+                                                        os_signal_event(event);\
+                                                        os_event_set_signaling_tid(event, os_get_running_tid() );\
                                                     }\
                                                 } while(0)
 

@@ -1,3 +1,4 @@
+#include "os_assert.h"
 #include "os_defines.h"
 #include "os_msgqueue.h"
 
@@ -52,10 +53,14 @@ void os_msgQ_init() {
 #endif
 }
 
-MsgQ_t os_msgQ_create( Msg_t *buffer, uint8_t nMessages, uint16_t msgSize, uint8_t task_id )
+MsgQ_t os_msgQ_create( Msg_t *buffer,
+                       uint8_t nMessages,
+                       uint16_t msgSize,
+                       uint8_t task_id )
 {
 #if( N_QUEUES > 0 )
     os_assert_with_return( nQueues < N_QUEUES, 1 );
+
     msgQList[ nQueues ].q.list = (Mem_t*)buffer;
     msgQList[ nQueues ].q.head = 1;
     msgQList[ nQueues ].q.tail = 0;
@@ -252,7 +257,8 @@ void os_msgQ_tick( MsgQ_t queue ) {
             --(pMsg->delay);
             if ( pMsg->delay == 0 )
             {
-                event_ISR_signal( msgQList[ queue ].change );
+                //TODO(@mthompkins): Fix this
+                //event_ISR_signal( msgQList[ queue ].change );
             }
         }
         nextMessage = (nextMessage + 1) % q->size;
