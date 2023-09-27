@@ -37,7 +37,8 @@ static MsgQ_t nQueues;
 
 
 
-void os_msgQ_init() {
+void os_msgQ_init()
+{
 #if( N_QUEUES > 0 )
     nQueues = 0;
     for ( uint8_t i = 0; i < N_QUEUES; ++i  )
@@ -77,7 +78,8 @@ MsgQ_t os_msgQ_create( const Msg_t *const buffer,
 }
 
 // Find the queue belonging to this task_id
-MsgQ_t os_msgQ_find(uint8_t task_id) {
+MsgQ_t os_msgQ_find(const uint8_t task_id)
+{
 #if( N_QUEUES > 0 )
     for(MsgQ_t queue = 0; queue < nQueues; queue++)
     {
@@ -91,7 +93,8 @@ MsgQ_t os_msgQ_find(uint8_t task_id) {
     return NO_QUEUE;
 }
 
-Evt_t os_msgQ_event_get( MsgQ_t queue ) {
+Evt_t os_msgQ_event_get( const MsgQ_t queue )
+{
 #if( N_QUEUES > 0 )
     if ( queue >= nQueues )
     {
@@ -103,6 +106,7 @@ Evt_t os_msgQ_event_get( MsgQ_t queue ) {
     return NO_EVENT;
 #endif
 }
+
 
 uint8_t os_msg_post( Msg_t *msg,
                      const MsgQ_t queue,
@@ -124,6 +128,7 @@ uint8_t os_msg_post( Msg_t *msg,
     return 0;
 #endif
 }
+
 
 #if( N_QUEUES > 0 )
 static uint8_t queue_push(OSQueue_t *queue, Msg_t *msg )
@@ -158,7 +163,10 @@ static uint8_t queue_push(OSQueue_t *queue, Msg_t *msg )
 }
 #endif
 
-uint8_t os_msg_receive( Msg_t *msg, MsgQ_t queue ) {
+
+uint8_t os_msg_receive( Msg_t *msg,
+                        const MsgQ_t queue )
+{
     #if( N_QUEUES > 0 )
 
     OSQueue_t *q;
@@ -241,7 +249,9 @@ uint8_t os_msg_receive( Msg_t *msg, MsgQ_t queue ) {
 #endif
 }
 
-void os_msgQ_tick( MsgQ_t queue ) {
+
+void os_msgQ_tick( const MsgQ_t queue )
+{
 #if( N_QUEUES > 0 )
     uint8_t nextMessage;
     Msg_t *pMsg;
@@ -272,9 +282,8 @@ void os_msgQ_tick( MsgQ_t queue ) {
 
 
 #if( N_QUEUES > 0 )
-
-
-static uint8_t MsgQAllDelayed(OSQueue_t *q) {
+static uint8_t MsgQAllDelayed(OSQueue_t *q)
+{
     uint32_t nextMessage;
     Msg_t *pMsg;
     uint8_t result;
@@ -296,8 +305,6 @@ static uint8_t MsgQAllDelayed(OSQueue_t *q) {
 
     return result;
 }
-
-
 #endif
 
 #ifdef __cplusplus

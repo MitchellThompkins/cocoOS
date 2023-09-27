@@ -129,7 +129,7 @@ MsgQ_t os_msgQ_create( const Msg_t *const buffer,
    @brief
 */
 /*****************************************************************************/
-MsgQ_t os_msgQ_find( uint8_t task_id );
+MsgQ_t os_msgQ_find( const uint8_t task_id );
 
 
 /*****************************************************************************/
@@ -145,7 +145,7 @@ MsgQ_t os_msgQ_find( uint8_t task_id );
    @brief
 */
 /*****************************************************************************/
-Evt_t os_msgQ_event_get( MsgQ_t queue );
+Evt_t os_msgQ_event_get( const MsgQ_t queue );
 
 
 /*****************************************************************************/
@@ -153,7 +153,7 @@ Evt_t os_msgQ_event_get( MsgQ_t queue );
    @brief
 */
 /*****************************************************************************/
-void os_msgQ_tick( MsgQ_t queue );
+void os_msgQ_tick( const MsgQ_t queue );
 
 
 /*****************************************************************************/
@@ -173,7 +173,7 @@ uint8_t os_msg_post( Msg_t *msg,
 */
 /*****************************************************************************/
 uint8_t os_msg_receive( Msg_t *msg,
-                        MsgQ_t queue );
+                        const MsgQ_t queue );
 
 
 #ifdef __cplusplus
