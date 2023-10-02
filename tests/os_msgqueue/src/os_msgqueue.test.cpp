@@ -21,7 +21,7 @@ TEST_GROUP(TestOsMsgqueue)
 };
 
 
-TEST(TestOsMsgqueue, os_temp)
+TEST(TestOsMsgqueue, test_os_create)
 {
     UT_CATALOG_ID("MSGQUEUE-TBD");
 

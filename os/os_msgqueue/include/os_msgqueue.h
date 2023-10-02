@@ -16,11 +16,11 @@ extern "C" {
 typedef struct
 {
     uint8_t signal;
-    uint8_t reserved;   /* Alignment byte */
+    uint8_t reserved; // Alignment byte
     uint8_t pad0;
     uint8_t pad1;
-    uint32_t delay;     /* Delay of posting in ticks */
-    uint32_t reload;    /* Reload value for periodic messages */
+    uint32_t delay;   // Delay of posting in ticks
+    uint32_t reload;  // Reload value for periodic messages
 } Msg_t;
 
 
@@ -115,7 +115,14 @@ void os_msgQ_init( void );
 
 /*****************************************************************************/
 /*
-   @brief
+   @brief creates a new message queue instance and returns a unique ID for it
+
+   @param buffer - 
+   @param nMessages - The number of messages in the queue
+   @param msgSize - 
+   @param task_id - The task ID to which this message queue belongs
+
+   @return A unique id for this message ID
 */
 /*****************************************************************************/
 MsgQ_t os_msgQ_create( const Msg_t *const buffer,
@@ -126,7 +133,7 @@ MsgQ_t os_msgQ_create( const Msg_t *const buffer,
 
 /*****************************************************************************/
 /*
-   @brief
+   @brief Find the queue belonging to specified task_id
 */
 /*****************************************************************************/
 MsgQ_t os_msgQ_find( const uint8_t task_id );

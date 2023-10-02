@@ -36,7 +36,6 @@ static MsgQ_t nQueues;
 #endif
 
 
-
 void os_msgQ_init()
 {
 #if( N_QUEUES > 0 )
@@ -53,6 +52,7 @@ void os_msgQ_init()
     }
 #endif
 }
+
 
 MsgQ_t os_msgQ_create( const Msg_t *const buffer,
                        const uint8_t nMessages,
@@ -77,7 +77,7 @@ MsgQ_t os_msgQ_create( const Msg_t *const buffer,
 #endif
 }
 
-// Find the queue belonging to this task_id
+
 MsgQ_t os_msgQ_find(const uint8_t task_id)
 {
 #if( N_QUEUES > 0 )
@@ -92,6 +92,7 @@ MsgQ_t os_msgQ_find(const uint8_t task_id)
 
     return NO_QUEUE;
 }
+
 
 Evt_t os_msgQ_event_get( const MsgQ_t queue )
 {
@@ -186,13 +187,13 @@ uint8_t os_msg_receive( Msg_t *msg,
         return MSG_QUEUE_EMPTY;
     }
 
-    /* If all messages have a delay > 0 we consider the queue as empty */
+    // If all messages have a delay > 0 we consider the queue as empty
     if ( MsgQAllDelayed( q ) == 1 )
     {
         return MSG_QUEUE_EMPTY;
     }
 
-    /* At least one message is ready to be delivered. Find it! */
+    // At least one message is ready to be delivered. Find it!
     found = 0;
     uint16_t msgSz = q->messageSize;
 
@@ -222,7 +223,8 @@ uint8_t os_msg_receive( Msg_t *msg,
             }
         }
 
-        /* Put the message back at head position if delay > 0, or if it is a periodic message that timed out */
+        // Put the message back at head position if delay > 0, or if it is a
+        // periodic message that timed out
         if (( !messageTimedOut ) || ( messagePeriodic && messageTimedOut ))
         {
             dst = (uint8_t*)( (Mem_t)q->list + q->head * msgSz );
@@ -236,7 +238,7 @@ uint8_t os_msg_receive( Msg_t *msg,
             // restore msgSz
             msgSz = q->messageSize;
 
-            /* Look for buffer wrap around */
+            // Look for buffer wrap around
             q->head = (q->head+1) % q->size;
 
         }
