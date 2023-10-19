@@ -79,25 +79,39 @@ void os_task_init( void )
 }
 
 
-/************************************************************** *******************/
-/*  uint8_t os_task_create( taskproctype taskproc, void *data, uint8_t prio, Msg_t *msgPool, uint8_t poolSize, uint16_t msgSize )
-*   
-*   Creates a task scheduled by the os. The task is put in the ready state.
-*
-*   @param taskproc Function pointer to the task procedure.
-*   @param data [optional] Pointer to task data
-*   @param prio Task priority on a scale 0-255 where 0 is the highest priority.
-*   @param msgPool [optional] Pointer to the message pool, containing messages. Ignored if poolSize is 0.
-*   @param poolSize [optional] Size, in nr of messages, of the message pool. Set to 0 if no message pool needed for the task
-*   @param msgSize [optional] Size of the message type held in the message queue
-*   @return Task id of the created task.
-*
-*   @remarks \b Usage: @n Should be called early in system setup, before starting the task
-*   execution. Only one task per priority level is allowed.
-*
-*   @code
-*   static uint8_t taskId;
-*   static Msg_t msgpool_1[ POOL_SIZE ];
+/******************************************************************************/
+/*
+ uint8_t os_task_create( taskproctype taskproc,
+                         void *data,
+                         uint8_t prio,
+                         Msg_t *msgPool,
+                         uint8_t poolSize,
+                         uint16_t msgSize )
+
+  Creates a task scheduled by the os. The task is put in the ready state.
+
+  @param taskproc Function pointer to the task procedure.
+
+  @param data [optional] Pointer to task data
+
+  @param prio Task priority on a scale 0-255 where 0 is the highest priority.
+
+  @param msgPool [optional] Pointer to the message pool, containing messages.
+  Ignored if poolSize is 0.
+
+  @param poolSize [optional] Size, in nr of messages, of the message pool. Set
+  to 0 if no message pool needed for the task
+
+  @param msgSize [optional] Size of the message type held in the message queue
+
+  @return Task id of the created task.
+
+  @remarks \b Usage: @n Should be called early in system setup, before
+  starting the task execution. Only one task per priority level is allowed.
+
+  @code
+  static uint8_t taskId;
+  static Msg_t msgpool_1[ POOL_SIZE ];
 
 int main(void) {
     system_init();
@@ -107,7 +121,7 @@ int main(void) {
 }
 @endcode
 */
-/*********************************************************************************/
+/******************************************************************************/
 uint8_t os_task_create(
         taskproctype taskproc,
         void *data,

@@ -13,12 +13,12 @@ extern "C" {
 #endif
 
 
+//TODO(@mthompkins): Pack this?
 typedef struct
 {
     uint8_t signal;
     uint8_t reserved; // Alignment byte
-    uint8_t pad0;
-    uint8_t pad1;
+    uint8_t pad[2];
     uint32_t delay;   // Delay of posting in ticks
     uint32_t reload;  // Reload value for periodic messages
 } Msg_t;
@@ -27,6 +27,7 @@ typedef struct
 typedef uint8_t MsgQ_t;
 
 
+//TODO(@mthompkins): Give this a name
 enum {
     MSG_QUEUE_UNDEF,
     MSG_QUEUE_DEF,
