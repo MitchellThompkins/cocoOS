@@ -27,6 +27,7 @@ TEST(TestOsMsgqueue, test_os_create)
 
     struct FakeBuff
     {
+        Msg_t msg_queue;
         char data[10];
         bool info;
         int16_t foo;
@@ -34,6 +35,7 @@ TEST(TestOsMsgqueue, test_os_create)
 
     FakeBuff fb
     {
+        {},
         {10,9,8,7,6,5,4,3,2,1},
         true,
         123
@@ -42,6 +44,8 @@ TEST(TestOsMsgqueue, test_os_create)
     uint8_t nMessages = 10;
     uint16_t msgSize = 11;
     uint16_t task_id = 12;
+
+    //FakeBuff fb[5];
 
     auto msg_queue_id = os_msgQ_create( &fb, nMessages, msgSize, task_id );
 
