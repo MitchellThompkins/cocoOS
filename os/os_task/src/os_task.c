@@ -416,27 +416,22 @@ void os_task_release_waiting_task( Sem_t sem )
 }
 
 
-// Checks if any task is waiting for this semaphore
-uint8_t os_task_waiting_this_semaphore( Sem_t sem )
+// Returns the tid of the task waiting for this semaphore, or -1 if none
+int16_t os_task_waiting_this_semaphore( Sem_t sem )
 {
     uint8_t tid;
     tcb *task;
-    uint8_t taskIsWaitingForThisSemaphore;
-    uint8_t result = 0;
 
     for ( tid = 0; tid != nTasks; ++tid )
     {
         task = &task_list[ tid ];
-        taskIsWaitingForThisSemaphore = (( task->state == WAITING_SEM ) && ( task->semaphore == sem ) );
-
-        if ( taskIsWaitingForThisSemaphore == 1 )
+        if ( task->state == WAITING_SEM && task->semaphore == sem )
         {
-            result = 1;
-            break;
+            return (int16_t)task->tid;
         }
     }
 
-    return result;
+    return -1;
 }
 
 // TODO(@mthompkins): This is a thin wrapper around a call to this function, so

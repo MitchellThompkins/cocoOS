@@ -218,16 +218,9 @@ TEST(TestOsTask, task_waiting_semaphore)
     const auto t1 = os_task_waiting_this_semaphore(sem1);
     const auto t2 = os_task_waiting_this_semaphore(sem2);
 
-    CHECK_TRUE(t0);
-    CHECK_TRUE(t1);
-    CHECK_FALSE(t2);
-
-    //TODO(@mthompkins): Consider returning from
-    //os_task_waiting_this_semaphore _which_ task is waiting on this
-    //semaphore, make the return type signed and return -1 for none
-    //CHECK_EQUAL(id1, t0);
-    //CHECK_EQUAL(id0, t1);
-    //CHECK_EQUAL(-1, t2);
+    CHECK_EQUAL(id1, t0);
+    CHECK_EQUAL(id0, t1);
+    CHECK_EQUAL(-1, t2);
 
     const auto waiting_state_id0 { task_state_get(id0) };
     const auto waiting_state_id1 { task_state_get(id1) };
@@ -306,17 +299,21 @@ TEST(TestOsTask, test_os_task_wait_event)
     mock().setData("event_create_return", 0);
     const auto event_id0 {event_create()};
 
-    //TODO(@mthompkins): Figure out how to use waitSingleEvent
     const int timeout {5};
     os_task_wait_event(id0, event_id0, false, timeout);
 
-    // With zero timeout the task should be WAITING_EVENT_TIMEOUT
     CHECK_EQUAL( WAITING_EVENT_TIMEOUT, task_state_get(id0) );
     CHECK_EQUAL( timeout, os_task_timeout_get(id0) );
 
+    // waitSingleEvent does not change the initial wait state
+    os_task_wait_event(id0, event_id0, true, timeout);
+    CHECK_EQUAL( WAITING_EVENT_TIMEOUT, task_state_get(id0) );
+
     os_task_wait_event(id0, event_id0, false, 0);
 
-    // With zero timeout the task should be WAITING_EVENT
+    CHECK_EQUAL( WAITING_EVENT, task_state_get(id0) );
+
+    os_task_wait_event(id0, event_id0, true, 0);
     CHECK_EQUAL( WAITING_EVENT, task_state_get(id0) );
 }
 

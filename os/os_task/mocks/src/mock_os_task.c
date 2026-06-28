@@ -133,9 +133,10 @@ void os_task_release_waiting_task( Sem_t sem )
 }
 
 
-uint8_t os_task_waiting_this_semaphore( Sem_t sem )
+int16_t os_task_waiting_this_semaphore( Sem_t sem )
 {
     mock_c()->actualCall("os_task_waiting_this_semaphore");
+    return (int16_t)mock_c()->returnIntValueOrDefault(-1);
 }
 
 

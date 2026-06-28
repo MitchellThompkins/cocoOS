@@ -117,7 +117,7 @@ void os_task_internal_state_set( const uint8_t tid, const uint16_t state );
 
 void os_task_release_waiting_task( Sem_t sem );
 
-uint8_t os_task_waiting_this_semaphore( Sem_t sem );
+int16_t os_task_waiting_this_semaphore( Sem_t sem );
 
 MsgQ_t os_task_msgQ_get( const uint8_t tid );
 

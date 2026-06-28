@@ -1,60 +1,60 @@
 test_case_id,description
-TASK-1,On calls to task_create passing it bad data will cause os_assert to be triggered.
+TASK-1,On calls to task_create passing it bad data will cause os_assert to be triggered.
 TASK-2,tasks cannot be created while the schedule is running.
 TASK-3,"when a new task is created, it is added to the list of tasks, that the task is put into an initialization state, and that the function returns the newly assigned taskId."
 TASK-4,"when a new task is created, and a message pool size has been assigned to it, the message queue is allocated."
 TASK-5,"when a new task is created, the wait queue is cleared."
-TASK-6,os_task_init clears and re-initializes the task list.
-TASK-7,killing a task causes its state to be set to KILLED.
-TASK-8,task_get_data returns a pointer to the task data.
-TASK-9,highest_prio_ready_task will return the task with the highest priority that is ready to run if priority based scheduling is desired
-TASK-10,next_ready_task will return the next task which is ready to run if round robin scheduling is desired
-TASK-11,"os_task_release_waiting_task will return the task which has the highest priority and is waiting for a semaphore, and makes it ready to run"
-TASK-12,os_task_waiting_this_semaphore will return whether any task is waiting for the specified semaphore
-TASK-13,task_wait_sem_set sets the specified task to the wait state and assigns it a specific semaphore for which to wait. It additionally sets the time waited thus for for the semaphore to 0.
-TASK-14,task_ready_set sets the specified task to the ready state
-TASK-15,"os_task_suspend sets the specified task to the suspended state if it is neither in the KILLED nor SUSPENDED states. Additionally if the task was waiting for a semaphore, then it sets the saved state to READY and internal state to 0; otherwise it sets the saved state to the current state."
-TASK-16,os_task_resume sets the specified task into the previously saved state iff the current state is suspended.
-TASK-17,task_killed_set sets the specified task into the killed state
-TASK-18,os_task_prio_get returns the specified tasks priority
-TASK-19,os_task_clear_wait_queue will clear the event wait queue of all tasks
-TASK-20,"os_task_wait_time_set sets the specified task to have the specified clockId and time, as well as sets the state to WAITING_TIME"
-TASK-21,"CocoOS shall provide a function `os_task_wait_event` which sets the specified task to the WAITING_EVENT_TIMEOUT state if the provided timeout is not zero and specifies that the event will be timed off the master clock, and into the WAITING_EVENT if the timeout is zero."
+TASK-6,os_task_init clears and re-initializes the task list.
+TASK-7,killing a task causes its state to be set to KILLED.
+TASK-8,task_get_data returns a pointer to the task data.
+TASK-9,highest_prio_ready_task will return the task with the highest priority that is ready to run if priority based scheduling is desired
+TASK-10,next_ready_task will return the next task which is ready to run if round robin scheduling is desired
+TASK-11,"os_task_release_waiting_task will return the task which has the highest priority and is waiting for a semaphore, and makes it ready to run"
+TASK-12,os_task_waiting_this_semaphore will return the task ID of the task waiting for the specified semaphore or -1 if no task is waiting for it
+TASK-13,task_wait_sem_set sets the specified task to the wait state and assigns it a specific semaphore for which to wait. It additionally sets the time waited thus for for the semaphore to 0.
+TASK-14,task_ready_set sets the specified task to the ready state
+TASK-15,"os_task_suspend sets the specified task to the suspended state if it is neither in the KILLED nor SUSPENDED states. Additionally if the task was waiting for a semaphore, then it sets the saved state to READY and internal state to 0; otherwise it sets the saved state to the current state."
+TASK-16,os_task_resume sets the specified task into the previously saved state iff the current state is suspended.
+TASK-17,task_killed_set sets the specified task into the killed state
+TASK-18,os_task_prio_get returns the specified tasks priority
+TASK-19,os_task_clear_wait_queue will clear the event wait queue of all tasks
+TASK-20,"os_task_wait_time_set sets the specified task to have the specified clockId and time, as well as sets the state to WAITING_TIME"
+TASK-21,"CocoOS shall provide a function `os_task_wait_event` which sets the specified task to the WAITING_EVENT_TIMEOUT state if the provided timeout is not zero and specifies that the event will be timed off the master clock, and into the WAITING_EVENT if the timeout is zero."
 TASK-22,cocoOS shall provide a function to increment the time for all tasks whose state is waiting on a semaphore
-TASK-23,TBD cocoOS osticktask msgqueue 
-TASK-24,TBD cocoOS osticktask eventqueue 
-TASK-23,"CocoOS shall provide a function `os_task_signal_event` which will, for all tasks, mark them as no longer waiting for an event, and if there are no other tasks waiting for it, or if the specified event for this task was specified as a single event, then the task will be place into the READY state."
+TASK-23,"CocoOS shall provide a function `os_task_signal_event` which will, for all tasks, mark them as no longer waiting for an event, and if there are no other tasks waiting for it, or if the specified event for this task was specified as a single event, then the task will be place into the READY state."
+TASK-24,"cocoOS shall provide a function `task_tick` which, for each task in the WAITING_EVENT_TIMEOUT state whose timer for the specified clock has expired, shall clear the task's event wait queue and set the task to the READY state."
+TASK-25,"cocoOS shall provide a function `task_tick` which, for each task that has an associated message queue, shall call `os_msgQ_tick` on every master clock (clockId 0) tick."
 KERNEL-1,cocoOS shall provide a task_wait() macro which allow discrete well-formed user-provided tasks that stops and the re-starts task execution at the specified interval
 KERNEL-2,cocoOS shall honor that tasks which implement infinite loops will execute continuously and tasks that do not execute only once
 KERNEL-3,cocoOS shall provide an os_tick() function which decrements the time waiting for any task in a wait state
 KERNEL-4,cocoOS shall keep internal track of the task ID which is currently being executed (including no task) and which can be queried but not directly manipulated
 KERNEL-5,cocoOS shall keep internal track of whether the OS has been instructed to start execution and can be queried
 KERNEL-6,cocoOS shall provide a function os_sub_nTickes to increment the time base for tasks which are not timed off the main clock with clockId 0 by the specified number of ticks
-KERNEL-7,
-KERNEL-8,
-KERNEL-9,
-KERNEL-10,
-KERNEL-11,
-KERNEL-12,
-KERNEL-13,
-KERNEL-14,
-KERNEL-15,
-MSGQUEUE-1,
-MSGQUEUE-2,
-MSGQUEUE-3,
-MSGQUEUE-4,
-MSGQUEUE-5,
-MSGQUEUE-6,
-MSGQUEUE-7,
-MSGQUEUE-8,
-MSGQUEUE-9,
-MSGQUEUE-10,
-MSGQUEUE-11,
-MSGQUEUE-12,
-MSGQUEUE-13,
-MSGQUEUE-14,
-MSGQUEUE-15,
-EVENT-1,cocoOS shall provide a function called “os_event_create” which creates an event and returns its ID
+KERNEL-7,"cocoOS shall provide an `os_init` function which resets the running flag and running task ID to their initial values, and initializes all OS subsystems by calling `os_sem_init`, `os_event_init`, `os_msgQ_init`, and `os_task_init`."
+KERNEL-8,"cocoOS shall provide an `os_start` function which sets the running flag and begins scheduling tasks in a loop; if the tick limit argument is non-zero the loop shall exit after that many scheduling cycles, otherwise it shall run indefinitely."
+KERNEL-9,"cocoOS shall provide an `os_start_locking` function with the same scheduling behavior as `os_start` except that each scheduling cycle shall be wrapped by the caller-provided lock and unlock functions."
+KERNEL-10,"when ROUND_ROBIN is not enabled, the scheduler shall select the highest-priority ready task for execution on each scheduling cycle."
+KERNEL-11,"when ROUND_ROBIN is enabled, the scheduler shall select the next ready task in round-robin order for execution on each scheduling cycle."
+KERNEL-12,cocoOS shall provide a function `os_get_running_tid` which returns the task ID of the currently executing task or NO_TID when no task is executing.
+KERNEL-13,cocoOS shall provide a function `os_free_tid` which clears the currently executing task ID to NO_TID.
+KERNEL-14,"when no task is ready to run, the scheduler shall invoke `os_cbkSleep`."
+KERNEL-15,"cocoOS shall provide a function `os_sub_tick` which increments the time base for tasks timed off the specified sub-clock by exactly 1 tick; clock ID 0 (master clock) shall be ignored."
+MSGQUEUE-1,"cocoOS shall provide a function `os_msgQ_init` which resets all message queue state, including list pointer, head, tail, size, messageSize, taskId, and change event, to their initial values."
+MSGQUEUE-2,"cocoOS shall provide a function `os_msgQ_create` which allocates a new message queue with the provided buffer, number of messages, message size, and owning task ID, and returns a unique queue ID starting from 0."
+MSGQUEUE-3,`os_msgQ_create` shall trigger os_assert and return 1 if the maximum number of queues defined by N_QUEUES has already been created.
+MSGQUEUE-4,`os_msgQ_create` shall create an associated change event for the queue by calling `event_create`.
+MSGQUEUE-5,"cocoOS shall provide a function `os_msgQ_find` which returns the queue ID belonging to the specified task ID, or NO_QUEUE if no queue exists for that task."
+MSGQUEUE-6,"cocoOS shall provide a function `os_msgQ_event_get` which returns the change event associated with the specified queue, or NO_EVENT if the queue ID is invalid."
+MSGQUEUE-7,`os_msg_post` shall copy the message into the queue and set its delay and reload (period) fields before enqueuing and shall return MSG_QUEUE_POSTED on success.
+MSGQUEUE-8,`os_msg_post` shall return MSG_QUEUE_FULL if the queue is full and MSG_QUEUE_UNDEF if the queue ID is invalid or the queue has zero capacity.
+MSGQUEUE-9,`os_msg_receive` shall retrieve the next non-delayed message from the specified queue and return MSG_QUEUE_RECEIVED on success.
+MSGQUEUE-10,`os_msg_receive` shall return MSG_QUEUE_EMPTY if the queue is empty or if all pending messages have a delay greater than zero.
+MSGQUEUE-11,`os_msg_receive` shall skip any message whose delay field is greater than zero and shall only deliver messages whose delay has reached zero.
+MSGQUEUE-12,"`os_msg_receive` shall re-enqueue a delivered periodic message (reload > 0) with its delay reset to the reload value, so that it is delivered again after the next period."
+MSGQUEUE-13,"cocoOS shall provide a function `os_msgQ_tick` which decrements the delay field of each pending message in the specified queue by one tick and, when a message delay reaches zero, signals the queue change event."
+MSGQUEUE-14,`os_msg_receive` shall return MSG_QUEUE_UNDEF if the specified queue ID is greater than or equal to the number of created queues.
+MSGQUEUE-15,"The `Msg_t` structure shall contain at minimum a signal byte identifying the message type, a delay field specifying the number of ticks before the message becomes deliverable, and a reload field specifying the period for periodic messages."
+EVENT-1,cocoOS shall provide a function called "os_event_create" which creates an event and returns its ID
 EVENT-2,No more events can be created than which are defined by the N_TOTAL_EVENTS pre-processor directive
 EVENT-3,cocoOS shall provide a function `event_signaling_taskId_get` which returns the ID of the task that signaled the specified event
 EVENT-4,cocoOS shall provide a function `event_last_signaled_get` which  returns the ID of the last event that was signaled
