@@ -46,7 +46,7 @@ static uint16_t last_running_task = 0;
 
 void os_task_init( void )
 {
-    last_running_task = 0;
+    last_running_task = NO_TID;
 
     nTasks = 0;
     tcb *task;
@@ -153,7 +153,7 @@ uint8_t os_task_create(
     task->prio = prio;
     task->state = READY;
     task->savedState = READY;
-    task->semaphore = 0;
+    task->semaphore = NO_SEM;
     task->internal_state = 0;
     task->taskproc = taskproc;
     task->waitSingleEvent = false;
@@ -709,7 +709,7 @@ uint32_t os_task_timeout_get(uint8_t tid)
 }
 
 // Sets the task to wait for semaphore state
-void task_wait_sem_set( uint8_t tid, Sem_t sem )
+void os_task_wait_sem_set( uint8_t tid, Sem_t sem )
 {
     os_assert( tid < nTasks );
 
@@ -759,8 +759,7 @@ bool task_should_run_test(const uint16_t id)
 
 bool task_is_killed(const uint16_t id)
 {
-    const uint8_t state = task_internal_state_get(id);
-    return state==KILLED;
+    return task_list[id].state == KILLED;
 }
 
 void task_set_no_running_task(void)

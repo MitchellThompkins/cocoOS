@@ -22,7 +22,7 @@ extern "C" {
 
 
 #define OS_SIGNAL_SEM(sem)  do {\
-                                if ( os_task_waiting_this_semaphore( sem ) == 0 ) {\
+                                if ( os_task_waiting_this_semaphore( sem ) < 0 ) {\
                                     os_sem_increment( sem );\
                                 }\
                                 else {\
@@ -33,7 +33,7 @@ extern "C" {
 
 
 #define OS_SIGNAL_SEM_NO_SCHEDULE(sem)  do {\
-                                            if ( os_task_waiting_this_semaphore( sem ) == 0 ) {\
+                                            if ( os_task_waiting_this_semaphore( sem ) < 0 ) {\
                                                 os_sem_increment( sem );\
                                             }\
                                             else {\

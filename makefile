@@ -42,6 +42,18 @@ container.pull:
 container.start:
 	docker compose -f docker-compose.yml run --rm dev_env 'sh -x'
 
+# Run an arbitrary command inside the dev container, e.g.:
+#   make container.run CMD='make build.a9'
+.PHONY: container.run
+container.run:
+	MY_UID=$(UID) MY_GID=$(GID) USER=$(shell whoami) \
+	docker compose -f docker-compose.yml run --rm -T dev_env '$(CMD)'
+
+# Full CI pass inside the container
+.PHONY: ci
+ci:
+	$(MAKE) container.run CMD='make build.all && make test && make check-trace'
+
 
 #######################################
 ### utility ###########################

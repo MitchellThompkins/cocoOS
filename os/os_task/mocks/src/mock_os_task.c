@@ -9,13 +9,15 @@ void os_task_init(void)
 
 uint8_t highest_prio_ready_task( void )
 {
-    mock_c()->actualCall("highest_prio_ready_task");
+    return (uint8_t)mock_c()->actualCall("highest_prio_ready_task")
+                             ->returnIntValueOrDefault(0);
 }
 
 
 uint8_t next_ready_task( void )
 {
-    mock_c()->actualCall("next_ready_task");
+    return (uint8_t)mock_c()->actualCall("next_ready_task")
+                             ->returnIntValueOrDefault(0);
 }
 
 
@@ -25,9 +27,9 @@ void os_task_ready_set( uint8_t tid )
 }
 
 
-void task_wait_sem_set( uint8_t tid, Sem_t sem )
+void os_task_wait_sem_set( uint8_t tid, Sem_t sem )
 {
-    mock_c()->actualCall("task_wait_sem_set");
+    mock_c()->actualCall("os_task_wait_sem_set");
 }
 
 
@@ -117,7 +119,8 @@ void os_task_run_test( const uint8_t id )
 
 uint16_t task_internal_state_get( uint8_t tid )
 {
-    mock_c()->actualCall("task_internal_state_get");
+    return (uint16_t)mock_c()->actualCall("task_internal_state_get")
+                              ->returnIntValueOrDefault(0);
 }
 
 
@@ -142,7 +145,8 @@ int16_t os_task_waiting_this_semaphore( Sem_t sem )
 
 MsgQ_t os_task_msgQ_get( const uint8_t tid )
 {
-    mock_c()->actualCall("os_task_msgQ_get");
+    return (MsgQ_t)mock_c()->actualCall("os_task_msgQ_get")
+                            ->returnIntValueOrDefault(NO_QUEUE);
 }
 
 
@@ -154,7 +158,8 @@ void os_task_set_wait_queue(uint8_t tid, MsgQ_t queue)
 
 MsgQ_t os_task_get_wait_queue(uint8_t tid)
 {
-    mock_c()->actualCall("os_task_get_wait_queue");
+    return (MsgQ_t)mock_c()->actualCall("os_task_get_wait_queue")
+                            ->returnIntValueOrDefault(NO_QUEUE);
 }
 
 
@@ -166,7 +171,8 @@ void os_task_set_change_event(uint8_t tid, Evt_t event)
 
 Evt_t os_task_get_change_event(uint8_t tid)
 {
-    mock_c()->actualCall("os_task_get_change_event");
+    return (Evt_t)mock_c()->actualCall("os_task_get_change_event")
+                           ->returnIntValueOrDefault(NO_EVENT);
 }
 
 
@@ -178,42 +184,49 @@ void os_task_set_msg_result(uint8_t tid, uint8_t result)
 
 uint8_t os_task_get_msg_result(uint8_t tid)
 {
-    mock_c()->actualCall("os_task_get_msg_result");
+    return (uint8_t)mock_c()->actualCall("os_task_get_msg_result")
+                             ->returnIntValueOrDefault(0);
 }
 
 
 uint32_t os_task_timeout_get(uint8_t tid)
 {
-    mock_c()->actualCall("os_task_timeout_get");
+    return (uint32_t)mock_c()->actualCall("os_task_timeout_get")
+                              ->returnIntValueOrDefault(0);
 }
 
 
 uint8_t os_task_create( taskproctype taskproc, void *data, uint8_t prio, Msg_t* msgPool, uint8_t poolSize, uint16_t msgSize )
 {
-    mock_c()->actualCall("os_task_create");
+    return (uint8_t)mock_c()->actualCall("os_task_create")
+                             ->returnIntValueOrDefault(0);
 }
 
 
 void *task_get_data( void )
 {
-    mock_c()->actualCall("task_get_data");
+    return (void*)mock_c()->actualCall("task_get_data")
+                           ->returnPointerValueOrDefault(NULL);
 }
 
 
 TaskState_t task_state_get( uint8_t tid )
 {
-    mock_c()->actualCall("task_state_get");
+    return (TaskState_t)mock_c()->actualCall("task_state_get")
+                                ->returnIntValueOrDefault(READY);
 }
 
 
 bool task_should_run_test(const uint16_t id)
 {
-    mock_c()->actualCall("task_should_run_test");
+    return (bool)mock_c()->actualCall("task_should_run_test")
+                          ->returnIntValueOrDefault(0);
 }
 
 
 bool task_is_killed(const uint16_t id)
 {
-    mock_c()->actualCall("task_is_killed");
+    return (bool)mock_c()->actualCall("task_is_killed")
+                          ->returnIntValueOrDefault(0);
 }
 

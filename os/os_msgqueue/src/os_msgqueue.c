@@ -180,6 +180,12 @@ uint8_t os_msg_receive( Msg_t *msg,
     }
 
     q = &msgQList[ queue ].q;
+
+    if ( 0 == q->size )
+    {
+        return MSG_QUEUE_UNDEF;
+    }
+
     uint8_t tail = q->tail;
 
     if ((tail+1) % q->size == q->head)
@@ -258,6 +264,12 @@ void os_msgQ_tick( const MsgQ_t queue )
     uint8_t nextMessage;
     Msg_t *pMsg;
     OSQueue_t *q = &msgQList[ queue ].q;
+
+    if ( 0 == q->size )
+    {
+        return;
+    }
+
     nextMessage = (q->tail+1) % q->size;
 
     uint8_t head = q->head;
@@ -272,8 +284,8 @@ void os_msgQ_tick( const MsgQ_t queue )
             --(pMsg->delay);
             if ( pMsg->delay == 0 )
             {
-                //TODO(@mthompkins): Fix this
-                //event_ISR_signal( msgQList[ queue ].change );
+                os_signal_event( msgQList[ queue ].change );
+                os_event_set_signaling_tid( msgQList[ queue ].change, ISR_TID );
             }
         }
         nextMessage = (nextMessage + 1) % q->size;

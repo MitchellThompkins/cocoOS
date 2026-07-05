@@ -11,7 +11,7 @@ TASK-9,highest_prio_ready_task will return the task with the highest priority th
 TASK-10,next_ready_task will return the next task which is ready to run if round robin scheduling is desired
 TASK-11,"os_task_release_waiting_task will return the task which has the highest priority and is waiting for a semaphore, and makes it ready to run"
 TASK-12,os_task_waiting_this_semaphore will return the task ID of the task waiting for the specified semaphore or -1 if no task is waiting for it
-TASK-13,task_wait_sem_set sets the specified task to the wait state and assigns it a specific semaphore for which to wait. It additionally sets the time waited thus for for the semaphore to 0.
+TASK-13,os_task_wait_sem_set sets the specified task to the wait state and assigns it a specific semaphore for which to wait. It additionally sets the time waited thus far for the semaphore to 0.
 TASK-14,task_ready_set sets the specified task to the ready state
 TASK-15,"os_task_suspend sets the specified task to the suspended state if it is neither in the KILLED nor SUSPENDED states. Additionally if the task was waiting for a semaphore, then it sets the saved state to READY and internal state to 0; otherwise it sets the saved state to the current state."
 TASK-16,os_task_resume sets the specified task into the previously saved state iff the current state is suspended.
@@ -29,7 +29,7 @@ KERNEL-2,cocoOS shall honor that tasks which implement infinite loops will execu
 KERNEL-3,cocoOS shall provide an os_tick() function which decrements the time waiting for any task in a wait state
 KERNEL-4,cocoOS shall keep internal track of the task ID which is currently being executed (including no task) and which can be queried but not directly manipulated
 KERNEL-5,cocoOS shall keep internal track of whether the OS has been instructed to start execution and can be queried
-KERNEL-6,cocoOS shall provide a function os_sub_nTickes to increment the time base for tasks which are not timed off the main clock with clockId 0 by the specified number of ticks
+KERNEL-6,cocoOS shall provide a function `os_sub_nTick` to increment the time base for tasks which are not timed off the main clock with clockId 0 by the specified number of ticks
 KERNEL-7,"cocoOS shall provide an `os_init` function which resets the running flag and running task ID to their initial values, and initializes all OS subsystems by calling `os_sem_init`, `os_event_init`, `os_msgQ_init`, and `os_task_init`."
 KERNEL-8,"cocoOS shall provide an `os_start` function which sets the running flag and begins scheduling tasks in a loop; if the tick limit argument is non-zero the loop shall exit after that many scheduling cycles, otherwise it shall run indefinitely."
 KERNEL-9,"cocoOS shall provide an `os_start_locking` function with the same scheduling behavior as `os_start` except that each scheduling cycle shall be wrapped by the caller-provided lock and unlock functions."
@@ -54,7 +54,7 @@ MSGQUEUE-12,"`os_msg_receive` shall re-enqueue a delivered periodic message (rel
 MSGQUEUE-13,"cocoOS shall provide a function `os_msgQ_tick` which decrements the delay field of each pending message in the specified queue by one tick and, when a message delay reaches zero, signals the queue change event."
 MSGQUEUE-14,`os_msg_receive` shall return MSG_QUEUE_UNDEF if the specified queue ID is greater than or equal to the number of created queues.
 MSGQUEUE-15,"The `Msg_t` structure shall contain at minimum a signal byte identifying the message type, a delay field specifying the number of ticks before the message becomes deliverable, and a reload field specifying the period for periodic messages."
-EVENT-1,cocoOS shall provide a function called "os_event_create" which creates an event and returns its ID
+EVENT-1,cocoOS shall provide a function called `event_create` which creates an event and returns its ID
 EVENT-2,No more events can be created than which are defined by the N_TOTAL_EVENTS pre-processor directive
 EVENT-3,cocoOS shall provide a function `event_signaling_taskId_get` which returns the ID of the task that signaled the specified event
 EVENT-4,cocoOS shall provide a function `event_last_signaled_get` which  returns the ID of the last event that was signaled
@@ -66,6 +66,6 @@ EVENT-9,"If the last argument of `os_wait_multiple` is not NO_EVENT, an os_asser
 SEM-1,"cocoOS shall provide a function called `sem_bin_create` which creates a semaphore which can only have the value or true or false, and whose initial value is the provided initial value, and returns the id of the created semaphore."
 SEM-2,"cocoOS shall provide a function called `sem_counting_create` which creates a semaphore which can can have any 16-bit integer value, and whose initial value is the provided initial value, and returns the id of the created semaphore."
 SEM-3,cocoOS shall provide a function called `os_sem_increment` which increments the value of the specified semaphore by 1
-SEM-4,cocoOS shall provide a function called `os_sem_decrement` which increments the value of the specified semaphore by 1
+SEM-4,cocoOS shall provide a function called `os_sem_decrement` which decrements the value of the specified semaphore by 1
 SEM-5,cocoOS shall provide a function `os_sem_larger_than_zero` which determines if the specified semaphore has a value which is larger than zero
 SEM-6,cocoOS shall provide a function `os_sem_value_get` which returns the value of the specified semaphore

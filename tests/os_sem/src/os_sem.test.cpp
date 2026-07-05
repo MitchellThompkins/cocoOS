@@ -18,6 +18,7 @@ TEST_GROUP(TestOsSem)
 
     void teardown()
     {
+        mock().checkExpectations();
         mock().clear();
     }
 };

@@ -19,6 +19,7 @@ TEST_GROUP(TestOsEvent)
 
     void teardown()
     {
+        mock().checkExpectations();
         mock().clear();
     }
 };
@@ -173,7 +174,7 @@ TEST(TestOsEvent, test_os_wait_event_multiple)
     static constexpr int fake_tid {99};
 
     mock().setData("running_tid_from_get", fake_tid);
-    mock().expectNCalls(kNumEvents+1, "os_get_running_tid");
+    mock().expectOneCall("os_get_running_tid");
 
     mock().expectOneCall("os_task_clear_wait_queue")
         .withParameter("tid", fake_tid);

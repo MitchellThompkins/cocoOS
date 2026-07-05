@@ -34,6 +34,7 @@ TEST_GROUP(TestOsMsgqueue)
 
     void teardown()
     {
+        mock().checkExpectations();
         mock().clear();
     }
 };
@@ -139,6 +140,7 @@ TEST(TestOsMsgqueue, test_os_rcv)
     os_msgQ_tick(queue);
     os_msgQ_tick(queue);
     mock().expectOneCall("os_signal_event");
+    mock().expectOneCall("os_event_set_signaling_tid");
     os_msgQ_tick(queue);
 
     result = os_msg_receive( (Msg_t*)&rx, queue );
@@ -159,6 +161,7 @@ TEST(TestOsMsgqueue, test_os_rcv)
     // Tick twice so the periodic message becomes ready
     os_msgQ_tick(queue);
     mock().expectOneCall("os_signal_event");
+    mock().expectOneCall("os_event_set_signaling_tid");
     os_msgQ_tick(queue);
 
     result = os_msg_receive( (Msg_t*)&rx, queue );
@@ -169,4 +172,153 @@ TEST(TestOsMsgqueue, test_os_rcv)
     // until it ticks down again
     result = os_msg_receive( (Msg_t*)&rx, queue );
     CHECK_EQUAL(MSG_QUEUE_EMPTY, result);
+}
+
+
+TEST(TestOsMsgqueue, test_os_init)
+{
+    UT_CATALOG_ID("MSGQUEUE-1");
+
+    // After setup() (which calls os_msgQ_init), no queues exist
+    CHECK_EQUAL(NO_QUEUE, os_msgQ_find(42));
+    CHECK_EQUAL(NO_EVENT, os_msgQ_event_get(0));
+
+    // Create a queue, then re-init; verify state is fully reset
+    static TestMsg_t buf[4];
+    mock().expectOneCall("event_create");
+    mock().setData("event_create_return", 5);
+    const auto q = os_msgQ_create((Msg_t*)buf, 4, sizeof(TestMsg_t), 42);
+    CHECK_EQUAL(0, q);
+    CHECK_EQUAL(0, os_msgQ_find(42));
+
+    os_msgQ_init();
+
+    CHECK_EQUAL(NO_QUEUE, os_msgQ_find(42));
+    CHECK_EQUAL(NO_EVENT, os_msgQ_event_get(0));
+}
+
+
+TEST(TestOsMsgqueue, test_os_create_limit)
+{
+    UT_CATALOG_ID("MSGQUEUE-3");
+
+    static TestMsg_t bufs[N_QUEUES][2];
+    mock().setData("event_create_return", 0);
+    mock().expectNCalls(N_QUEUES, "event_create");
+    for (int i = 0; i < N_QUEUES; i++)
+    {
+        os_msgQ_create((Msg_t*)bufs[i], 2, sizeof(TestMsg_t), (uint8_t)i);
+    }
+
+    // One more queue exceeds N_QUEUES — assert fires, returns 1
+    mock().expectOneCall("os_on_assert");
+    const auto excess = os_msgQ_create((Msg_t*)bufs[0], 2, sizeof(TestMsg_t), 99);
+    CHECK_EQUAL(1, excess);
+}
+
+
+TEST(TestOsMsgqueue, test_os_find)
+{
+    UT_CATALOG_ID("MSGQUEUE-5");
+
+    // No queues yet → unknown task returns NO_QUEUE
+    CHECK_EQUAL(NO_QUEUE, os_msgQ_find(7));
+
+    static TestMsg_t buf_a[4], buf_b[4];
+
+    mock().expectOneCall("event_create");
+    mock().setData("event_create_return", 0);
+    const MsgQ_t q_a = os_msgQ_create((Msg_t*)buf_a, 4, sizeof(TestMsg_t), 10);
+
+    mock().expectOneCall("event_create");
+    mock().setData("event_create_return", 1);
+    const MsgQ_t q_b = os_msgQ_create((Msg_t*)buf_b, 4, sizeof(TestMsg_t), 20);
+
+    CHECK_EQUAL(q_a, os_msgQ_find(10));
+    CHECK_EQUAL(q_b, os_msgQ_find(20));
+    CHECK_EQUAL(NO_QUEUE, os_msgQ_find(99));
+}
+
+
+TEST(TestOsMsgqueue, test_os_event_get)
+{
+    UT_CATALOG_ID("MSGQUEUE-6");
+
+    // No queues → any index returns NO_EVENT
+    CHECK_EQUAL(NO_EVENT, os_msgQ_event_get(0));
+
+    static TestMsg_t buf[4];
+    mock().expectOneCall("event_create");
+    mock().setData("event_create_return", 3);
+    const MsgQ_t q = os_msgQ_create((Msg_t*)buf, 4, sizeof(TestMsg_t), 5);
+
+    CHECK_EQUAL(3, os_msgQ_event_get(q));
+
+    // Queue id beyond nQueues → NO_EVENT
+    CHECK_EQUAL(NO_EVENT, os_msgQ_event_get((MsgQ_t)(q + 1)));
+}
+
+
+TEST(TestOsMsgqueue, test_os_tick)
+{
+    UT_CATALOG_ID("MSGQUEUE-13");
+
+    static TestMsg_t buf[4];
+    mock().expectOneCall("event_create");
+    mock().setData("event_create_return", 0);
+    const MsgQ_t queue = os_msgQ_create((Msg_t*)buf, 4, sizeof(TestMsg_t), 3);
+
+    // Post a message with delay=2
+    TestMsg_t msg = make_msg(0xAB, 0x00, /*delay=*/2, /*reload=*/0);
+    os_msg_post((Msg_t*)&msg, queue, 2, 0);
+
+    // Tick 1: delay → 1; message not yet deliverable
+    os_msgQ_tick(queue);
+    TestMsg_t rx {};
+    CHECK_EQUAL(MSG_QUEUE_EMPTY, os_msg_receive((Msg_t*)&rx, queue));
+
+    // Tick 2: delay → 0; change event is signaled
+    mock().expectOneCall("os_signal_event");
+    mock().expectOneCall("os_event_set_signaling_tid");
+    os_msgQ_tick(queue);
+
+    CHECK_EQUAL(MSG_QUEUE_RECEIVED, os_msg_receive((Msg_t*)&rx, queue));
+    CHECK_EQUAL(0xAB, rx.base.signal);
+}
+
+
+TEST(TestOsMsgqueue, test_os_rcv_undef)
+{
+    UT_CATALOG_ID("MSGQUEUE-14");
+
+    TestMsg_t rx {};
+
+    // With nQueues=0 any queue id is out of range
+    CHECK_EQUAL(MSG_QUEUE_UNDEF, os_msg_receive((Msg_t*)&rx, 0));
+    CHECK_EQUAL(MSG_QUEUE_UNDEF, os_msg_receive((Msg_t*)&rx, (MsgQ_t)NO_QUEUE));
+
+    // Create one queue (id=0, nQueues=1); id==1 is still out of range
+    static TestMsg_t buf[4];
+    mock().expectOneCall("event_create");
+    mock().setData("event_create_return", 0);
+    os_msgQ_create((Msg_t*)buf, 4, sizeof(TestMsg_t), 1);
+
+    CHECK_EQUAL(MSG_QUEUE_UNDEF, os_msg_receive((Msg_t*)&rx, 1));
+}
+
+
+TEST(TestOsMsgqueue, test_msg_t_structure)
+{
+    UT_CATALOG_ID("MSGQUEUE-15");
+
+    static_assert(sizeof(Msg_t::signal) == 1, "Msg_t.signal must be 1 byte");
+
+    Msg_t m {};
+    m.signal = 0xAB;
+    m.delay  = 42;
+    m.reload = 10;
+
+    CHECK_EQUAL(0xAB, m.signal);
+    CHECK_EQUAL(42u,  m.delay);
+    CHECK_EQUAL(10u,  m.reload);
 }
