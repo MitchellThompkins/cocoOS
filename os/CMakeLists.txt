@@ -1,3 +1,5 @@
+add_compile_options(-Wall -Werror=return-type)
+
 add_subdirectory(os_event)
 add_subdirectory(os_kernel)
 add_subdirectory(os_msgqueue)

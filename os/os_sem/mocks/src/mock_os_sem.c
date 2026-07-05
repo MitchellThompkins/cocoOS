@@ -9,16 +9,6 @@
 extern "C" {
 #endif
 
-typedef struct
-{
-    uint8_t maxValue;
-    uint8_t value;
-} SemValue_t;
-
-static SemValue_t semList[ N_TOTAL_SEMAPHORES ];
-static Sem_t nSemaphores;
-
-
 void os_sem_init(void)
 {
     mock_c()->actualCall("os_sem_init");

@@ -109,10 +109,10 @@ Evt_t os_msgQ_event_get( const MsgQ_t queue )
 }
 
 
-uint8_t os_msg_post( Msg_t *msg,
-                     const MsgQ_t queue,
-                     const uint32_t delay,
-                     const uint32_t period )
+MsgQResult_t os_msg_post( Msg_t *msg,
+                           const MsgQ_t queue,
+                           const uint32_t delay,
+                           const uint32_t period )
 {
 #if( N_QUEUES > 0 )
 
@@ -165,8 +165,8 @@ static uint8_t queue_push(OSQueue_t *queue, Msg_t *msg )
 #endif
 
 
-uint8_t os_msg_receive( Msg_t *msg,
-                        const MsgQ_t queue )
+MsgQResult_t os_msg_receive( Msg_t *msg,
+                              const MsgQ_t queue )
 {
     #if( N_QUEUES > 0 )
 

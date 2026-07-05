@@ -33,18 +33,18 @@ void os_msgQ_tick( const MsgQ_t queue )
     mock_c()->actualCall("os_msgQ_tick");
 }
 
-uint8_t os_msg_post( Msg_t *msg,
-                     const MsgQ_t queue,
-                     const uint32_t delay,
-                     const uint32_t period )
+MsgQResult_t os_msg_post( Msg_t *msg,
+                           const MsgQ_t queue,
+                           const uint32_t delay,
+                           const uint32_t period )
 {
-    return (uint8_t)mock_c()->actualCall("os_msg_post")
-                             ->returnIntValueOrDefault(MSG_QUEUE_POSTED);
+    return (MsgQResult_t)mock_c()->actualCall("os_msg_post")
+                                  ->returnIntValueOrDefault(MSG_QUEUE_POSTED);
 }
 
-uint8_t os_msg_receive( Msg_t *msg,
-                        const MsgQ_t queue )
+MsgQResult_t os_msg_receive( Msg_t *msg,
+                              const MsgQ_t queue )
 {
-    return (uint8_t)mock_c()->actualCall("os_msg_receive")
-                             ->returnIntValueOrDefault(MSG_QUEUE_EMPTY);
+    return (MsgQResult_t)mock_c()->actualCall("os_msg_receive")
+                                  ->returnIntValueOrDefault(MSG_QUEUE_EMPTY);
 }

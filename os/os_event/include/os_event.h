@@ -173,7 +173,7 @@ void os_wait_event( uint8_t tid,
 
 /*****************************************************************************/
 /*
-  TODO
+   @brief Marks the specified event as signaled so waiting tasks can be readied.
 */
 /*****************************************************************************/
 void os_signal_event( Evt_t event_id );
@@ -201,7 +201,8 @@ void os_wait_multiple( bool waitForAll, ... );
 
 /*****************************************************************************/
 /*
-  TODO
+   @brief Records which task (or ISR_TID) signaled the event, so callers of
+          event_signaling_taskId_get() can identify the source.
 */
 /*****************************************************************************/
 void os_event_set_signaling_tid( Evt_t event_id, uint8_t tid );

@@ -38,6 +38,8 @@ static void *tick(void *interval_ms)
             usleep(interval_us);
         }
     }
+
+    return NULL;
 }
 
 void set_tick_limit_before_exit(const int32_t limit)

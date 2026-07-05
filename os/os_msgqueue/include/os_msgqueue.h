@@ -27,22 +27,21 @@ typedef struct
 typedef uint8_t MsgQ_t;
 
 
-//TODO(@mthompkins): Give this a name
-enum {
+typedef enum {
     MSG_QUEUE_UNDEF,
     MSG_QUEUE_DEF,
     MSG_QUEUE_EMPTY,
     MSG_QUEUE_FULL,
     MSG_QUEUE_RECEIVED,
     MSG_QUEUE_POSTED
-};
+} MsgQResult_t;
 
 
 
 // TODO(mtchompkins) I highly suspect alot of this can be wrapped into a
 // function that the macro calls
 #define OS_MSG_Q_POST(task_id, msg, delay, period, async )     do {\
-                                                                uint8_t os_posted;\
+                                                                MsgQResult_t os_posted;\
                                                                 MsgQ_t queue;\
                                                                 queue = os_msgQ_find(task_id);\
                                                                 os_task_set_wait_queue(os_get_running_tid(), queue);\
@@ -53,9 +52,9 @@ enum {
                                                                     os_posted = os_msg_post( (Msg_t*)&msg, os_msgQ_find(task_id), delay, period );\
                                                                     if ( os_posted == MSG_QUEUE_FULL ){\
                                                                         if ( async == 0 ) {\
-                                                                            os_task_set_msg_result(os_get_running_tid(), os_posted);\
+                                                                            os_task_set_msg_result(os_get_running_tid(), (uint8_t)os_posted);\
                                                                             event_wait(event);\
-                                                                            os_posted = os_task_get_msg_result(os_get_running_tid());\
+                                                                            os_posted = (MsgQResult_t)os_task_get_msg_result(os_get_running_tid());\
                                                                             event = os_task_get_change_event(os_get_running_tid());\
                                                                         }\
                                                                         else {\
@@ -72,7 +71,7 @@ enum {
 
 
 #define OS_MSG_Q_RECEIVE(task_id, pMsg, async, cb)  do {\
-                                                    uint8_t os_received;\
+                                                    MsgQResult_t os_received;\
                                                     MsgQ_t queue;\
                                                     queue = os_msgQ_find(task_id);\
                                                     os_task_set_wait_queue(os_get_running_tid(), queue);\
@@ -83,12 +82,12 @@ enum {
                                                         os_received = os_msg_receive((Msg_t*)pMsg, os_msgQ_find(task_id));\
                                                         if ( os_received == MSG_QUEUE_EMPTY ){\
                                                             if ( async == 0 ) {\
-                                                                os_task_set_msg_result(os_get_running_tid(), os_received);\
+                                                                os_task_set_msg_result(os_get_running_tid(), (uint8_t)os_received);\
                                                                 if (cb) {\
                                                                  ((void (*)())cb)();\
                                                                 }\
                                                                 event_wait(event);\
-                                                                os_received = os_task_get_msg_result(os_get_running_tid());\
+                                                                os_received = (MsgQResult_t)os_task_get_msg_result(os_get_running_tid());\
                                                                 event = os_task_get_change_event(os_get_running_tid());\
                                                             }\
                                                             else {\
@@ -108,7 +107,7 @@ enum {
 
 /*****************************************************************************/
 /*
-   @brief
+   @brief Initializes the message queue component; resets all queues.
 */
 /*****************************************************************************/
 void os_msgQ_init( void );
@@ -142,15 +141,7 @@ MsgQ_t os_msgQ_find( const uint8_t task_id );
 
 /*****************************************************************************/
 /*
-   @brief
-*/
-/*****************************************************************************/
-//Sem_t os_msgQ_sem_get( MsgQ_t queue );
-
-
-/*****************************************************************************/
-/*
-   @brief
+   @brief Returns the change event associated with the specified queue.
 */
 /*****************************************************************************/
 Evt_t os_msgQ_event_get( const MsgQ_t queue );
@@ -158,7 +149,8 @@ Evt_t os_msgQ_event_get( const MsgQ_t queue );
 
 /*****************************************************************************/
 /*
-   @brief
+   @brief Advances delayed messages in the queue by one tick, signaling the
+          change event when a message's delay reaches zero.
 */
 /*****************************************************************************/
 void os_msgQ_tick( const MsgQ_t queue );
@@ -166,22 +158,25 @@ void os_msgQ_tick( const MsgQ_t queue );
 
 /*****************************************************************************/
 /*
-   @brief
+   @brief Posts a message to the specified queue with an optional delay and
+          reload period. Returns MSG_QUEUE_POSTED on success.
 */
 /*****************************************************************************/
-uint8_t os_msg_post( Msg_t *msg,
-                     const MsgQ_t queue,
-                     const uint32_t delay,
-                     const uint32_t period );
+MsgQResult_t os_msg_post( Msg_t *msg,
+                           const MsgQ_t queue,
+                           const uint32_t delay,
+                           const uint32_t period );
 
 
 /*****************************************************************************/
 /*
-   @brief
+   @brief Receives the next available message from the specified queue.
+          Returns MSG_QUEUE_RECEIVED on success, MSG_QUEUE_EMPTY if none
+          available, or MSG_QUEUE_UNDEF for an invalid queue.
 */
 /*****************************************************************************/
-uint8_t os_msg_receive( Msg_t *msg,
-                        const MsgQ_t queue );
+MsgQResult_t os_msg_receive( Msg_t *msg,
+                              const MsgQ_t queue );
 
 
 #ifdef __cplusplus
