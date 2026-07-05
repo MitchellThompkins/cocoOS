@@ -192,7 +192,7 @@ TEST_GROUP(Integration)
 // Tests
 // ---------------------------------------------------------------------------
 
-TEST(Integration, all_macros_compile_and_run)
+TEST(Integration, public_api_smoke_test)
 {
     UT_CATALOG_ID("KERNEL-1");
     UT_CATALOG_ID("KERNEL-2");
