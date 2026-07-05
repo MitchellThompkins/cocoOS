@@ -8,7 +8,7 @@ target_link_libraries(test_integration
         platform
         user_os_config
 
-        # All real impls — no mocks; the point is that macros compile and run
+        # All real impls, no mocks. The point is that macros compile and run.
         os_kernel_impl
         os_task_impl
         os_event_impl

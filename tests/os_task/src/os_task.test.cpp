@@ -437,7 +437,7 @@ TEST(TestOsTask, task_create_clears_wait_queue)
     // Re-initialize the task list (simulates fresh boot)
     os_task_init();
 
-    // Re-create a task — it gets tid 0 again; wait queue must be clean
+    // Re-create a task, it gets tid 0 again, wait queue must be clean
     const auto tid2 = os_task_create( dummy_task, NULL, 1, NULL, 0, 0 );
     CHECK_EQUAL( 0, tid2 );
     CHECK_EQUAL( READY, task_state_get(tid2) );
@@ -539,7 +539,7 @@ TEST(TestOsTask, task_suspend_and_resume)
     const auto id0 = os_task_create( dummy_task, NULL, 1, NULL, 0, 0 );
     const auto id1 = os_task_create( dummy_task, NULL, 2, NULL, 0, 0 );
 
-    // (a) READY task → SUSPENDED, savedState = READY
+    // (a) READY task becomes SUSPENDED, savedState is READY
     os_task_suspend( id0 );
     CHECK_EQUAL( SUSPENDED, task_state_get(id0) );
 
@@ -547,7 +547,7 @@ TEST(TestOsTask, task_suspend_and_resume)
     os_task_resume( id0 );
     CHECK_EQUAL( READY, task_state_get(id0) );
 
-    // (b) Task in WAITING_SEM → suspend sets savedState READY and internal_state 0
+    // (b) Task in WAITING_SEM, suspend sets savedState READY and internal_state 0
     os_task_wait_sem_set( id0, 0 );
     CHECK_EQUAL( WAITING_SEM, task_state_get(id0) );
 
@@ -558,7 +558,7 @@ TEST(TestOsTask, task_suspend_and_resume)
     os_task_resume( id0 );
     CHECK_EQUAL( READY, task_state_get(id0) );
 
-    // (c) KILLED task → suspend is a no-op
+    // (c) KILLED task, suspend is a no-op
     os_task_kill( id1 );
     CHECK_EQUAL( KILLED, task_state_get(id1) );
     os_task_suspend( id1 );
@@ -632,7 +632,7 @@ TEST(TestOsTask, task_wait_time_set)
     task_tick( clockId, 1 );
     CHECK_EQUAL( time - 1, os_task_timeout_get(tid) );
 
-    // Tick until expiry → task becomes READY
+    // Tick until expiry, task becomes READY
     task_tick( clockId, time - 1 );
     CHECK_EQUAL( READY, task_state_get(tid) );
 }

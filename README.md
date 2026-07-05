@@ -21,7 +21,7 @@ cocoOS is extremely portable to any target which makes it a perfect choice durin
 
 ## Configuration
 
-To set up cocoOS you must define 6 macros. They are **required** — the build
+To set up cocoOS you must define 6 macros. They are **required**. The build
 fails with `#error` if any are absent. Place them in a user-provided header
 named `user_os_config.h` (see `tests/user_config/user_os_config.h` for an
 example) and ensure that header is on the include path.
@@ -69,7 +69,7 @@ int main(void)
 
 `os_start(tick_limit)` accepts a tick limit. Passing `0` runs the scheduler
 indefinitely. Passing a positive value causes `os_start` to return after that
-many scheduling passes — useful for unit tests.
+many scheduling passes, useful for unit tests.
 
 This is the preferred order of initialization. The os_start() function will call os_enable_interrupts() that can be used to enable the clock interrupt driving the os_tick().
 
@@ -80,12 +80,12 @@ This is the preferred order of initialization. The os_start() function will call
 os_task_create( proc, data, prio, msgPool, poolSize, msgSize );
 ```
 
-- `proc` — task function pointer
-- `data` — pointer to task-private data (passed back via `task_get_data()`)
-- `prio` — unique priority (lower number = higher priority)
-- `msgPool` — pointer to a `Msg_t` array for the task's message queue, or `NULL`
-- `poolSize` — number of messages in the pool (0 if no queue)
-- `msgSize` — size of each message struct (0 if no queue)
+- `proc` is the task function pointer
+- `data` is a pointer to task-private data (passed back via `task_get_data()`)
+- `prio` is the unique priority (lower number means higher priority)
+- `msgPool` is a pointer to a `Msg_t` array for the task's message queue, or `NULL`
+- `poolSize` is the number of messages in the pool (0 if no queue)
+- `msgSize` is the size of each message struct (0 if no queue)
 
 
 ## Time

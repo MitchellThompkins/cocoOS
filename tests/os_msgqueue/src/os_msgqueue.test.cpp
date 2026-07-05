@@ -210,7 +210,7 @@ TEST(TestOsMsgqueue, test_os_create_limit)
         os_msgQ_create((Msg_t*)bufs[i], 2, sizeof(TestMsg_t), (uint8_t)i);
     }
 
-    // One more queue exceeds N_QUEUES — assert fires, returns 1
+    // One more queue exceeds N_QUEUES, assert fires and returns 1
     mock().expectOneCall("os_on_assert");
     const auto excess = os_msgQ_create((Msg_t*)bufs[0], 2, sizeof(TestMsg_t), 99);
     CHECK_EQUAL(1, excess);
@@ -221,7 +221,7 @@ TEST(TestOsMsgqueue, test_os_find)
 {
     UT_CATALOG_ID("MSGQUEUE-5");
 
-    // No queues yet → unknown task returns NO_QUEUE
+    // No queues yet, unknown task returns NO_QUEUE
     CHECK_EQUAL(NO_QUEUE, os_msgQ_find(7));
 
     static TestMsg_t buf_a[4], buf_b[4];
@@ -244,7 +244,7 @@ TEST(TestOsMsgqueue, test_os_event_get)
 {
     UT_CATALOG_ID("MSGQUEUE-6");
 
-    // No queues → any index returns NO_EVENT
+    // No queues, any index returns NO_EVENT
     CHECK_EQUAL(NO_EVENT, os_msgQ_event_get(0));
 
     static TestMsg_t buf[4];
@@ -254,7 +254,7 @@ TEST(TestOsMsgqueue, test_os_event_get)
 
     CHECK_EQUAL(3, os_msgQ_event_get(q));
 
-    // Queue id beyond nQueues → NO_EVENT
+    // Queue id beyond nQueues returns NO_EVENT
     CHECK_EQUAL(NO_EVENT, os_msgQ_event_get((MsgQ_t)(q + 1)));
 }
 
@@ -272,12 +272,12 @@ TEST(TestOsMsgqueue, test_os_tick)
     TestMsg_t msg = make_msg(0xAB, 0x00, /*delay=*/2, /*reload=*/0);
     os_msg_post((Msg_t*)&msg, queue, 2, 0);
 
-    // Tick 1: delay → 1; message not yet deliverable
+    // Tick 1, delay becomes 1, message not yet deliverable
     os_msgQ_tick(queue);
     TestMsg_t rx {};
     CHECK_EQUAL(MSG_QUEUE_EMPTY, os_msg_receive((Msg_t*)&rx, queue));
 
-    // Tick 2: delay → 0; change event is signaled
+    // Tick 2, delay becomes 0, change event is signaled
     mock().expectOneCall("os_signal_event");
     mock().expectOneCall("os_event_set_signaling_tid");
     os_msgQ_tick(queue);
@@ -297,7 +297,7 @@ TEST(TestOsMsgqueue, test_os_rcv_undef)
     CHECK_EQUAL(MSG_QUEUE_UNDEF, os_msg_receive((Msg_t*)&rx, 0));
     CHECK_EQUAL(MSG_QUEUE_UNDEF, os_msg_receive((Msg_t*)&rx, (MsgQ_t)NO_QUEUE));
 
-    // Create one queue (id=0, nQueues=1); id==1 is still out of range
+    // Create one queue at id 0, nQueues is 1, id 1 is still out of range
     static TestMsg_t buf[4];
     mock().expectOneCall("event_create");
     mock().setData("event_create_return", 0);

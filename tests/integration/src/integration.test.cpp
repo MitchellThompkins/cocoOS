@@ -7,17 +7,11 @@
 #include "os_sem.h"
 #include "os_assert.h"
 
-// ---------------------------------------------------------------------------
-// Message signal IDs
-// ---------------------------------------------------------------------------
-
 #define SIG_SYNC     ((uint8_t)1)
 #define SIG_DELAYED  ((uint8_t)2)
 #define SIG_PERIODIC ((uint8_t)3)
 
-// ---------------------------------------------------------------------------
-// Shared state (static — coroutine locals don't survive a yield)
-// ---------------------------------------------------------------------------
+// Shared state, static. Coroutine locals do not survive a yield.
 
 static uint8_t recv_tid;
 static uint8_t send_tid;
@@ -43,11 +37,9 @@ extern "C" void integration_assert_cb(const char* /*file*/,
     g_assert_fired = true;
 }
 
-// ---------------------------------------------------------------------------
-// Task procedures — every user-facing macro exercised at least once
-// ---------------------------------------------------------------------------
+// Task procedures, every user-facing macro exercised at least once
 
-// recv_task (prio 1, highest): blocking receive + async poll
+// recv_task, prio 1, blocking receive and async poll
 static void recv_task(void)
 {
     static Msg_t m;
@@ -55,7 +47,7 @@ static void recv_task(void)
 
     for (;;)
     {
-        msg_receive(recv_tid, &m);     // exercises msg_receive (blocks until msg)
+        msg_receive(recv_tid, &m);     // exercises msg_receive, blocks until msg
         received_total++;
         switch (m.signal)
         {
@@ -65,7 +57,7 @@ static void recv_task(void)
             default: break;
         }
 
-        // non-blocking poll right after — exercises msg_receive_async
+        // non-blocking poll exercises msg_receive_async
         msg_receive_async(recv_tid, &m);
         if (m.signal != NO_MSG_ID)
         {
@@ -84,38 +76,38 @@ static void recv_task(void)
     task_close();
 }
 
-// send_task (prio 2): posts all message variants, then waits on sem and event
+// send_task, prio 2, posts all message variants then waits on sem and event
 static void send_task(void)
 {
     static Msg_t m;
     task_open();
 
-    // msg_post — synchronous, no delay
+    // msg_post, synchronous, no delay
     m.signal = SIG_SYNC;
     msg_post(recv_tid, m);
 
-    // msg_post_in — arrives after 3 ticks
+    // msg_post_in, arrives after 3 ticks
     m.signal = SIG_DELAYED;
     msg_post_in(recv_tid, m, 3);
 
-    // msg_post_every — first arrives after 5 ticks, then every 5 ticks
+    // msg_post_every, first arrives after 5 ticks then every 5 ticks
     m.signal = SIG_PERIODIC;
     msg_post_every(recv_tid, m, 5);
 
-    // msg_post_async — non-blocking; returns MSG_QUEUE_UNDEF if queue full
+    // msg_post_async, non-blocking, returns MSG_QUEUE_UNDEF if queue full
     m.signal = SIG_SYNC;
     msg_post_async(recv_tid, m);
 
-    // sem_wait — blocks until ctrl_task calls sem_signal
+    // sem_wait, blocks until ctrl_task calls sem_signal
     sem_wait(sem);
 
-    // event_wait — blocks until ctrl_task calls event_signal
+    // event_wait, blocks until ctrl_task calls event_signal
     event_wait(evt);
 
     task_close();
 }
 
-// ctrl_task (prio 3, lowest): drives semaphore/event; tests task_suspend/resume
+// ctrl_task, prio 3, drives semaphore and event, tests task_suspend and task_resume
 static void ctrl_task(void)
 {
     task_open();
@@ -123,7 +115,7 @@ static void ctrl_task(void)
     // Let messages flow before touching sync primitives
     task_wait(4);
 
-    // Suspend send_task briefly to exercise task_suspend/task_resume macros.
+    // Suspend send_task briefly to exercise task_suspend and task_resume.
     // send_task is currently blocked on sem_wait so suspending it is safe.
     task_suspend(send_tid);
     task_wait(2);
@@ -140,9 +132,7 @@ static void ctrl_task(void)
     task_close();
 }
 
-// ---------------------------------------------------------------------------
 // Test driver helper
-// ---------------------------------------------------------------------------
 
 static void step(uint16_t n)
 {
@@ -153,9 +143,7 @@ static void step(uint16_t n)
     }
 }
 
-// ---------------------------------------------------------------------------
 // Test group
-// ---------------------------------------------------------------------------
 
 TEST_GROUP(Integration)
 {
@@ -172,7 +160,7 @@ TEST_GROUP(Integration)
 
         os_init();
 
-        sem = sem_bin_create(0);    // starts locked — send_task blocks until signaled
+        sem = sem_bin_create(0);    // starts locked, send_task blocks until signaled
         evt = event_create();
 
         recv_tid = os_task_create(recv_task, NULL, 1,
@@ -188,16 +176,14 @@ TEST_GROUP(Integration)
     }
 };
 
-// ---------------------------------------------------------------------------
 // Tests
-// ---------------------------------------------------------------------------
 
 TEST(Integration, public_api_smoke_test)
 {
     UT_CATALOG_ID("KERNEL-1");
     UT_CATALOG_ID("KERNEL-2");
 
-    // 30 ticks: enough for sync(0), delayed(3), periodic(5,10,…), sem/event(~8)
+    // 30 ticks, enough for sync at 0, delayed at 3, periodic at 5 and 10, sem and event around tick 8
     step(30);
 
     // sync message posted at tick 0, received by tick 1
@@ -209,6 +195,6 @@ TEST(Integration, public_api_smoke_test)
     // periodic message first arrives at tick 5
     CHECK(received_periodic >= 1);
 
-    // total sanity: at minimum sync + delayed + periodic
+    // total sanity, at minimum sync and delayed and periodic
     CHECK(received_total >= 3);
 }

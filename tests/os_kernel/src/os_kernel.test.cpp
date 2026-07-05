@@ -281,7 +281,7 @@ TEST(TestOsKernel, test_os_sub_tick)
     CHECK_EQUAL( (uint32_t)(40-clock_step_second),  os_task_timeout_get(id2) );
 }
 
-// Strong override of the weak os_cbkSleep — counts calls for KERNEL-14
+// Strong override of the weak os_cbkSleep, counts calls for KERNEL-14
 static uint32_t sleep_cb_count {0};
 extern "C" void os_cbkSleep( void )
 {
@@ -423,10 +423,9 @@ TEST(TestOsKernel, sleep_callback_invoked_when_no_task_ready)
 
     sleep_cb_count = 0;
 
-    // Single step: task runs (increments count), then waits 20 ticks
-    // Next step: no READY tasks → os_cbkSleep is invoked
+    // Single step, task runs, then waits 20 ticks
     step_os(1);  // task runs, enters wait
-    step_os(1);  // no task ready → os_cbkSleep called
+    step_os(1);  // no task ready, os_cbkSleep called
 
     CHECK_TRUE( sleep_cb_count > 0 );
 }
@@ -447,12 +446,12 @@ TEST(TestOsKernel, os_sub_tick_increments_sub_clock_tasks)
     const uint8_t sub_id {7};
     os_task_wait_time_set( 0, sub_id, 2 );  // task 0: sub-clock 7, time=2
 
-    // Sub-clock tick 1: task 0 time 2→1, not ready yet
+    // Sub-clock tick 1, task 0 time from 2 to 1, not ready yet
     os_sub_tick( sub_id );
     CHECK_EQUAL( 1, os_task_timeout_get(0) );
     CHECK_EQUAL( WAITING_TIME, task_state_get(0) );
 
-    // Sub-clock tick 2: task 0 time 1→0, becomes READY
+    // Sub-clock tick 2, task 0 time from 1 to 0, becomes READY
     os_sub_tick( sub_id );
     CHECK_EQUAL( READY, task_state_get(0) );
 
