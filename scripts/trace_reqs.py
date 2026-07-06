@@ -40,7 +40,7 @@ def trace_tests(req: str, test: List[str]) -> int:
 
     with open(req, 'r') as f:
         reader = csv.DictReader(f)
-        req_id_rows = [row['test_case_id'] for row in reader]
+        req_id_rows = [row['requirement_id'] for row in reader]
 
     # Detect duplicate requirement IDs
     seen = set()

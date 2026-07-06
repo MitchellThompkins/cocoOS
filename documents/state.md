@@ -157,6 +157,33 @@ Added `test_integration` to both build preset target lists in `CMakePresets.json
 
 ---
 
+## Phase 9 — Requirements Quality Fixes
+
+### documents/requirements.csv
+
+Full rewrite applying all findings from `documents/req-findings.md` (now deleted):
+
+- **Column rename**: `test_case_id` → `requirement_id`. Updated `scripts/trace_reqs.py` in lockstep (`row['test_case_id']` → `row['requirement_id']`).
+- **Style normalization**: Every row rewritten as a "shall" sentence. Product name normalized to `cocoOS` throughout (was also `CocoOS` / `CocoOs`).
+- **TASK-1**: "bad data" replaced with the three concrete triggers: null task procedure, duplicate priority, exceeding N_TASKS.
+- **TASK-2**: Added observable consequence — os_assert is triggered.
+- **TASK-3 through TASK-16, TASK-18 through TASK-23**: Rewrote noun-phrase and terse descriptions as proper "shall" sentences naming the specific function.
+- **TASK-13**: Updated function name from `task_wait_sem_set` to `os_task_wait_sem_set` to match the renamed implementation.
+- **TASK-17 deleted**: Described the private `task_killed_set` function; observable behavior already covered by TASK-7. Removed the corresponding duplicate test `task_kill_traced_as_task17` from `tests/os_task/src/os_task.test.cpp`. Gaps in TASK numbering are intentional; `trace_reqs.py` does not require contiguity.
+- **TASK-19**: "all tasks" corrected to "the specified task" — `os_task_clear_wait_queue` takes a single `tid`.
+- **TASK-22**: Function name `task_tick` added to the description.
+- **KERNEL-1**: "stops and the re-starts" → "suspends the current task and resumes its execution after the specified number of ticks".
+- **KERNEL-2**: "tasks that do not execute only once" → "tasks without an infinite loop execute their body once and stop".
+- **MSGQUEUE-10**: Clarified as the "all-delayed → EMPTY" case.
+- **MSGQUEUE-11**: Clarified as the "skip delayed to deliver ready" case (ordering/skip behavior). Added an explicit assertion to `test_os_rcv` in `tests/os_msgqueue/src/os_msgqueue.test.cpp`: posts a delayed message followed by an immediate message, then asserts that `os_msg_receive` delivers the immediate one — demonstrating that earlier delayed messages are skipped.
+- **EVENT-5**: "invokes the behaviors described by `os_task_wait_event`" cross-reference replaced with inline description: resets event signaling tid to NO_TID, puts task into WAITING_EVENT_TIMEOUT or WAITING_EVENT depending on timeout, executes callback if provided.
+- **SEM-1**: Minor copy fix ("value or true or false" → "value of true or false").
+- **EVENT-4**: Removed stray double-space.
+
+Total requirement count: 78 rows (was 79; TASK-17 deleted). `check-trace` reports "All requirements are traced".
+
+---
+
 ## Phase 8 — Explicit Function-Level Test Coverage
 
 ### Dead code removed

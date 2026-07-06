@@ -573,21 +573,6 @@ TEST(TestOsTask, task_suspend_and_resume)
     CHECK_EQUAL( READY, task_state_get(id0) );
 }
 
-TEST(TestOsTask, task_kill_traced_as_task17)
-{
-    UT_CATALOG_ID("TASK-17");
-
-    mock().expectOneCall("os_init");
-    os_init();
-
-    mock().expectOneCall("os_running");
-    const auto tid = os_task_create( dummy_task, NULL, 1, NULL, 0, 0 );
-
-    os_task_kill( tid );
-    CHECK_EQUAL( KILLED, task_state_get(tid) );
-    CHECK_TRUE( task_is_killed(tid) );
-}
-
 TEST(TestOsTask, task_clear_wait_queue)
 {
     UT_CATALOG_ID("TASK-19");

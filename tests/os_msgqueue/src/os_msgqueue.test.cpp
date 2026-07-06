@@ -154,6 +154,16 @@ TEST(TestOsMsgqueue, test_os_rcv)
     CHECK_EQUAL(MSG_QUEUE_RECEIVED, result);
     CHECK_EQUAL(0xAA, rx.base.signal);
 
+    // MSGQUEUE-11: a ready message is delivered even when an older delayed
+    // message is ahead of it in the queue
+    TestMsg_t ahead_delayed = make_msg(0xCC, 0x44, /*delay=*/5, /*reload=*/0);
+    TestMsg_t behind_ready  = make_msg(0xEE, 0x55);
+    os_msg_post( (Msg_t*)&ahead_delayed, queue, 5, 0 );
+    os_msg_post( (Msg_t*)&behind_ready,  queue, 0, 0 );
+    result = os_msg_receive( (Msg_t*)&rx, queue );
+    CHECK_EQUAL(MSG_QUEUE_RECEIVED, result);
+    CHECK_EQUAL(0xEE, rx.base.signal);
+
     // Post a periodic message; after receipt it should be re-queued
     TestMsg_t periodic = make_msg(0xBB, 0x33, /*delay=*/2, /*reload=*/2);
     os_msg_post( (Msg_t*)&periodic, queue, 2, 2 );
