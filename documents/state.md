@@ -157,6 +157,45 @@ Added `test_integration` to both build preset target lists in `CMakePresets.json
 
 ---
 
+## Phase 11 items — Coverage script, TASK-14 cleanup, event_wait_timeout_ex
+
+### scripts/check_function_coverage.py (new)
+
+New script that mechanically enforces the "every public function has a direct
+test" rule. For each of the six components it reads the defined `T` symbols from
+`build/x86_64/os/<comp>/lib<comp>_impl.a` via `nm -g --defined-only`, then
+checks whether each symbol name appears as a direct call in
+`tests/<comp>/src/<comp>.test.cpp`. Prints a green "All public functions are
+directly tested" message on success or a red list of misses and exits non-zero.
+Supports an `ALLOWLIST` set for symbols intentionally tested indirectly (currently
+empty). CLI: `python3 scripts/check_function_coverage.py [--build-dir <path>]`.
+
+### makefile
+
+Added `check-coverage` target (installs termcolor if needed, then runs the script
+against `build/x86_64`). Updated the `ci` target command from
+`make build.all && make test && make check-trace` to also include `&& make check-coverage`.
+
+### TASK-14 deleted (documents/requirements.csv + tests/os_task/src/os_task.test.cpp)
+
+TASK-14 ("shall provide a function `task_ready_set`") described the file-static
+internal `task_ready_set`, which is the same observable behavior already covered
+by TASK-29 ("shall provide `os_task_ready_set`" -- the public function). Deleted
+the CSV row and removed both `UT_CATALOG_ID("TASK-14")` tags (from
+`release_task_prio_waiting_on_semaphore` and `task_waiting_semaphore`).
+`check-trace` stays green; total requirement count is now 77.
+
+### tests/integration/src/integration.test.cpp
+
+Added `event_wait_timeout_ex_callback_and_early_signal` (EVENT-5, TASK-21):
+the one remaining unexpanded user-facing macro. Creates a waiter task that calls
+`event_wait_timeout_ex(evt, 10, cb)` and a signaler that fires at tick 4.
+Asserts the callback fires during the first `unit_test_os_schedule()` call
+(before the task yields), then asserts the task resumes with remaining timeout
+ticks greater than zero (signaled early, not timed out).
+
+---
+
 ## Phase 10 — Integration Smoke Test Macro Coverage
 
 ### tests/integration/src/integration.test.cpp

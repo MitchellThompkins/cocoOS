@@ -547,6 +547,61 @@ TEST(Integration, event_wait_ex_callback_fires_before_block)
     unit_test_os_schedule();
 }
 
+// event_wait_timeout_ex: timeout path + callback together
+
+static bool     g_timeout_ex_cb_fired;
+static bool     g_timeout_ex_woke;
+static uint32_t g_timeout_ex_remaining;
+static Evt_t    g_timeout_ex_evt;
+
+static void timeout_ex_cb(void) { g_timeout_ex_cb_fired = true; }
+
+static void timeout_ex_task(void)
+{
+    task_open();
+    event_wait_timeout_ex(g_timeout_ex_evt, 10, timeout_ex_cb);
+    g_timeout_ex_remaining = event_get_timeout();
+    g_timeout_ex_woke      = true;
+    task_close();
+}
+
+static void timeout_ex_signaler(void)
+{
+    task_open();
+    task_wait(4);
+    event_signal(g_timeout_ex_evt);
+    task_close();
+}
+
+TEST(Integration, event_wait_timeout_ex_callback_and_early_signal)
+{
+    UT_CATALOG_ID("EVENT-5");
+    UT_CATALOG_ID("TASK-21");
+
+    os_init();
+    g_timeout_ex_cb_fired  = false;
+    g_timeout_ex_woke      = false;
+    g_timeout_ex_remaining = 0;
+    g_timeout_ex_evt       = event_create();
+
+    os_task_create(timeout_ex_task,     NULL, 1, NULL, 0, 0);
+    os_task_create(timeout_ex_signaler, NULL, 2, NULL, 0, 0);
+
+    // First step: task runs to event_wait_timeout_ex; callback fires, task blocks
+    unit_test_os_schedule();
+    CHECK_TRUE(g_timeout_ex_cb_fired);
+
+    // Signaler fires after 4 ticks; task resumes with remaining ticks > 0
+    for (int i = 0; i < 8; i++)
+    {
+        os_tick();
+        unit_test_os_schedule();
+    }
+
+    CHECK_TRUE(g_timeout_ex_woke);
+    CHECK(g_timeout_ex_remaining > 0u);
+}
+
 // msg_receive_ex: callback fires when the queue is empty before the task yields
 
 static bool    g_msg_ex_cb_fired;

@@ -52,7 +52,7 @@ container.run:
 # Full CI pass inside the container
 .PHONY: ci
 ci:
-	$(MAKE) container.run CMD='make build.all && make test && make check-trace'
+	$(MAKE) container.run CMD='make build.all && make test && make check-trace && make check-coverage'
 
 
 #######################################
@@ -73,6 +73,11 @@ check-trace:
 			cpputest_TestOsMsgqueue.xml \
 			cpputest_TestOsUtils.xml \
 			cpputest_Integration.xml
+
+.PHONY: check-coverage
+check-coverage:
+	python3 -c 'import termcolor' 2>/dev/null || python3 -m pip install termcolor
+	python3 scripts/check_function_coverage.py --build-dir build/x86_64
 
 .PHONY: clean
 clean:

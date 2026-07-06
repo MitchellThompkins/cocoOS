@@ -156,7 +156,6 @@ TEST(TestOsTask, next_highest_prio_task)
 TEST(TestOsTask, release_task_prio_waiting_on_semaphore)
 {
     UT_CATALOG_ID("TASK-11");
-    UT_CATALOG_ID("TASK-14");
 
     mock().expectOneCall("os_init");
     os_init();
@@ -193,7 +192,6 @@ TEST(TestOsTask, task_waiting_semaphore)
 {
     UT_CATALOG_ID("TASK-12");
     UT_CATALOG_ID("TASK-13");
-    UT_CATALOG_ID("TASK-14");
 
     mock().expectOneCall("os_init");
     os_init();
