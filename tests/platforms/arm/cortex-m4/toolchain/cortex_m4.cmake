@@ -7,7 +7,7 @@ set(CMAKE_EXECUTABLE_SUFFIX_ASM .elf)
 
 list(APPEND CMAKE_ASM_SOURCE_FILE_EXTENSIONS "arm")
 
-set(CMAKE_EXE_LINKER_FLAGS "--specs=rdimon.specs")
+set(CMAKE_EXE_LINKER_FLAGS "--specs=rdimon.specs -nostartfiles")
 
 set(CMAKE_C_FLAGS_INIT "-march=armv7-m -mthumb")
 set(CMAKE_CXX_FLAGS_INIT "${CMAKE_C_FLAGS_INIT}")

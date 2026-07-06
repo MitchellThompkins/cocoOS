@@ -10,6 +10,13 @@
             "machine": "xilinx-zynq-a9",
             "cpu": "cortex-a9",
             "memory": "12M"
+        },
+        {
+            "type": "qemu-system-arm",
+            "dir": "build/m4",
+            "machine": "mps2-an386",
+            "cpu": "cortex-m4",
+            "memory": "16M"
         }
     ]
 }

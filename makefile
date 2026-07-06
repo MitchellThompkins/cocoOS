@@ -6,7 +6,7 @@ GID=$(shell id -g)
 #######################################
 
 .PHONY: build.all
-build.all: build.a9 build.x86_64
+build.all: build.a9 build.m4 build.x86_64
 
 build.cmake/%/CMakeCache.txt:
 	cmake --preset $*

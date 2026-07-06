@@ -42,6 +42,22 @@
                 "CFLAGS": "-O0 -g3",
                 "CXXFLAGS": "-O0 -g3"
             }
+        },
+        {
+            "name": "cortex-m4",
+            "inherits": "default",
+            "toolchainFile": "tests/platforms/arm/cortex-m4/toolchain/cortex_m4.cmake",
+            "cacheVariables": {
+                "PLATFORM": "CORTEX_M4"
+            }
+        },
+        {
+            "name": "m4",
+            "inherits": "cortex-m4",
+            "environment": {
+                "CFLAGS": "-O0 -g3",
+                "CXXFLAGS": "-O0 -g3"
+            }
         }
     ],
     "buildPresets": [
@@ -70,6 +86,19 @@
                 "test_integration"
             ],
             "configurePreset": "a9"
+        },
+        {
+            "name": "m4",
+            "targets": [
+                "test_os_task",
+                "test_os_kernel",
+                "test_os_event",
+                "test_os_sem",
+                "test_os_msgqueue",
+                "test_os_utils",
+                "test_integration"
+            ],
+            "configurePreset": "m4"
         }
     ]
 }
