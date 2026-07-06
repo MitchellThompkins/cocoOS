@@ -70,7 +70,8 @@ check-trace:
 			cpputest_TestOsTask.xml \
 			cpputest_TestOsKernel.xml \
 			cpputest_TestOsSem.xml \
-			cpputest_TestOsMsgqueue.xml
+			cpputest_TestOsMsgqueue.xml \
+			cpputest_TestOsUtils.xml
 
 .PHONY: clean
 clean:

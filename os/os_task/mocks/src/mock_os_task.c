@@ -112,12 +112,6 @@ void task_run( void )
 }
 
 
-void os_task_run_test( const uint8_t id )
-{
-    mock_c()->actualCall("os_task_run_test");
-}
-
-
 uint16_t task_internal_state_get( uint8_t tid )
 {
     return (uint16_t)mock_c()->actualCall("task_internal_state_get")
@@ -215,13 +209,6 @@ TaskState_t task_state_get( uint8_t tid )
 {
     return (TaskState_t)mock_c()->actualCall("task_state_get")
                                 ->returnIntValueOrDefault(READY);
-}
-
-
-bool task_should_run_test(const uint16_t id)
-{
-    return (bool)mock_c()->actualCall("task_should_run_test")
-                          ->returnIntValueOrDefault(0);
 }
 
 

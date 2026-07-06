@@ -22,6 +22,7 @@ void os_on_assert_attach_callback( void (*callback)(const char*, uint16_t, const
     if ( !(test) ) {os_on_assert(__FILE__, __LINE__, #test); return rtn;}
 #else
 #define os_assert( test )
+#define os_assert_with_return( test, rtn )
 #endif
 
 #ifdef __cplusplus

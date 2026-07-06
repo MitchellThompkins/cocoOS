@@ -22,6 +22,9 @@ static void dummy_task(void)
     task_close();
 }
 
+static bool s_flag_task_ran = false;
+static void flag_task(void) { s_flag_task_ran = true; }
+
 TEST_GROUP(TestOsTask)
 {
     void setup()
@@ -695,4 +698,123 @@ TEST(TestOsTask, task_tick_ticks_message_queue)
 
     // Sub-clock tick (clockId=1): task_tick must NOT call os_msgQ_tick
     task_tick( 1, 1 );
+}
+
+TEST(TestOsTask, wait_queue_accessor_pair)
+{
+    UT_CATALOG_ID("TASK-26");
+
+    mock().expectOneCall("os_init");
+    os_init();
+
+    mock().expectNCalls(2, "os_running");
+    const auto tid0 = os_task_create( dummy_task, NULL, 1, NULL, 0, 0 );
+    const auto tid1 = os_task_create( dummy_task, NULL, 2, NULL, 0, 0 );
+
+    const MsgQ_t q0 = 3;
+    const MsgQ_t q1 = 7;
+
+    os_task_set_wait_queue( tid0, q0 );
+    os_task_set_wait_queue( tid1, q1 );
+
+    CHECK_EQUAL( q0, os_task_get_wait_queue( tid0 ) );
+    CHECK_EQUAL( q1, os_task_get_wait_queue( tid1 ) );
+}
+
+TEST(TestOsTask, change_event_accessor_pair)
+{
+    UT_CATALOG_ID("TASK-27");
+
+    mock().expectOneCall("os_init");
+    os_init();
+
+    mock().expectNCalls(2, "os_running");
+    const auto tid0 = os_task_create( dummy_task, NULL, 1, NULL, 0, 0 );
+    const auto tid1 = os_task_create( dummy_task, NULL, 2, NULL, 0, 0 );
+
+    const Evt_t e0 = 2;
+    const Evt_t e1 = 5;
+
+    os_task_set_change_event( tid0, e0 );
+    os_task_set_change_event( tid1, e1 );
+
+    CHECK_EQUAL( e0, os_task_get_change_event( tid0 ) );
+    CHECK_EQUAL( e1, os_task_get_change_event( tid1 ) );
+}
+
+TEST(TestOsTask, msg_result_accessor_pair)
+{
+    UT_CATALOG_ID("TASK-28");
+
+    mock().expectOneCall("os_init");
+    os_init();
+
+    mock().expectNCalls(2, "os_running");
+    const auto tid0 = os_task_create( dummy_task, NULL, 1, NULL, 0, 0 );
+    const auto tid1 = os_task_create( dummy_task, NULL, 2, NULL, 0, 0 );
+
+    const uint8_t r0 = 1;
+    const uint8_t r1 = 2;
+
+    os_task_set_msg_result( tid0, r0 );
+    os_task_set_msg_result( tid1, r1 );
+
+    CHECK_EQUAL( r0, os_task_get_msg_result( tid0 ) );
+    CHECK_EQUAL( r1, os_task_get_msg_result( tid1 ) );
+}
+
+TEST(TestOsTask, ready_set_puts_task_in_ready_state)
+{
+    UT_CATALOG_ID("TASK-29");
+
+    mock().expectOneCall("os_init");
+    os_init();
+
+    mock().expectOneCall("os_running");
+    const auto tid = os_task_create( dummy_task, NULL, 1, NULL, 0, 0 );
+
+    os_task_suspend( tid );
+    CHECK_EQUAL( SUSPENDED, task_state_get( tid ) );
+
+    os_task_ready_set( tid );
+    CHECK_EQUAL( READY, task_state_get( tid ) );
+}
+
+TEST(TestOsTask, internal_state_set_and_get)
+{
+    UT_CATALOG_ID("TASK-30");
+
+    mock().expectOneCall("os_init");
+    os_init();
+
+    mock().expectOneCall("os_running");
+    const auto tid = os_task_create( dummy_task, NULL, 1, NULL, 0, 0 );
+
+    const uint16_t state_a = 42;
+    os_task_internal_state_set( tid, state_a );
+    CHECK_EQUAL( state_a, task_internal_state_get( tid ) );
+
+    // OS_YIELD re-entry: value round-trips exactly
+    const uint16_t state_b = 99;
+    os_task_internal_state_set( tid, state_b );
+    CHECK_EQUAL( state_b, task_internal_state_get( tid ) );
+}
+
+TEST(TestOsTask, task_run_executes_running_task_proc)
+{
+    UT_CATALOG_ID("TASK-31");
+
+    mock().expectOneCall("os_init");
+    os_init();
+
+    mock().expectOneCall("os_running");
+    const auto tid = os_task_create( flag_task, NULL, 1, NULL, 0, 0 );
+
+    s_flag_task_ran = false;
+    mock().setData( "running_tid_from_get", (int)tid );
+    mock().expectOneCall( "os_get_running_tid" );
+
+    task_run();
+
+    CHECK_TRUE( s_flag_task_ran );
 }

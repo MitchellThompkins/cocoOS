@@ -6,6 +6,7 @@ add_subdirectory(os_event)
 add_subdirectory(os_kernel)
 add_subdirectory(os_sem)
 add_subdirectory(os_msgqueue)
+add_subdirectory(os_utils)
 add_subdirectory(integration)
 
 include(FetchContent)

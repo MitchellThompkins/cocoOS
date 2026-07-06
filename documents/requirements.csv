@@ -24,6 +24,12 @@ TASK-22,cocoOS shall provide a function to increment the time for all tasks whos
 TASK-23,"CocoOS shall provide a function `os_task_signal_event` which will, for all tasks, mark them as no longer waiting for an event, and if there are no other tasks waiting for it, or if the specified event for this task was specified as a single event, then the task will be place into the READY state."
 TASK-24,"cocoOS shall provide a function `task_tick` which, for each task in the WAITING_EVENT_TIMEOUT state whose timer for the specified clock has expired, shall clear the task's event wait queue and set the task to the READY state."
 TASK-25,"cocoOS shall provide a function `task_tick` which, for each task that has an associated message queue, shall call `os_msgQ_tick` on every master clock (clockId 0) tick."
+TASK-26,cocoOS shall provide `os_task_set_wait_queue` and `os_task_get_wait_queue` accessors that store and retrieve the message queue a task is waiting on independently per task.
+TASK-27,cocoOS shall provide `os_task_set_change_event` and `os_task_get_change_event` accessors that store and retrieve the change event associated with a task's pending message queue operation independently per task.
+TASK-28,cocoOS shall provide `os_task_set_msg_result` and `os_task_get_msg_result` accessors that store and retrieve the result of a task's last message queue operation independently per task.
+TASK-29,`os_task_ready_set` shall unconditionally put the specified task into the READY state.
+TASK-30,`os_task_internal_state_set` shall store the coroutine re-entry label for the specified task such that `task_internal_state_get` returns the same value.
+TASK-31,`task_run` shall invoke the task procedure of the task identified by the current running task ID.
 KERNEL-1,cocoOS shall provide a task_wait() macro which allow discrete well-formed user-provided tasks that stops and the re-starts task execution at the specified interval
 KERNEL-2,cocoOS shall honor that tasks which implement infinite loops will execute continuously and tasks that do not execute only once
 KERNEL-3,cocoOS shall provide an os_tick() function which decrements the time waiting for any task in a wait state
@@ -69,3 +75,6 @@ SEM-3,cocoOS shall provide a function called `os_sem_increment` which increments
 SEM-4,cocoOS shall provide a function called `os_sem_decrement` which decrements the value of the specified semaphore by 1
 SEM-5,cocoOS shall provide a function `os_sem_larger_than_zero` which determines if the specified semaphore has a value which is larger than zero
 SEM-6,cocoOS shall provide a function `os_sem_value_get` which returns the value of the specified semaphore
+UTILS-1,"`os_assert(cond)` shall call `os_on_assert` with `__FILE__`, `__LINE__`, and the stringized expression when `cond` is false, and shall be a no-op when `cond` is true."
+UTILS-2,"When a callback is attached via `os_on_assert_attach_callback`, `os_on_assert` shall invoke it with the file, line, and expression arguments and then return; without a callback `os_on_assert` shall not return. Attaching a new callback replaces the previous one."
+UTILS-3,"`os_assert_with_return(cond, val)` shall call `os_on_assert` and return `val` from the enclosing function when `cond` is false."
