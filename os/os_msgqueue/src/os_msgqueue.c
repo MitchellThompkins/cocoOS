@@ -1,3 +1,4 @@
+#include "os_assert.h"
 #include "os_defines.h"
 #include "os_msgqueue.h"
 
@@ -5,7 +6,8 @@
 extern "C" {
 #endif
 
-typedef struct {
+typedef struct
+{
     Mem_t *list;            ///< Storage buffer for messages
     uint16_t messageSize;
     uint8_t head;           ///< Queue head
@@ -15,7 +17,8 @@ typedef struct {
 } OSQueue_t;
 
 
-typedef struct {
+typedef struct
+{
     OSQueue_t q;
     uint8_t taskId;         ///< The task owning this queue
     Evt_t change;           ///< Queue change event
@@ -27,18 +30,18 @@ typedef struct {
 static uint8_t MsgQAllDelayed( OSQueue_t *q );
 static uint8_t queue_push(OSQueue_t *queue, Msg_t *msg );
 
-/* List of task message queues */
+// List of task message queues
 static OSMsgQ_t msgQList[ N_QUEUES ];
 static MsgQ_t nQueues;
 #endif
 
 
-
-void os_msgQ_init() {
+void os_msgQ_init()
+{
 #if( N_QUEUES > 0 )
-    uint8_t i;
     nQueues = 0;
-    for ( i = 0; i < N_QUEUES; ++i  ) {
+    for ( uint8_t i = 0; i < N_QUEUES; ++i  )
+    {
         msgQList[ i ].q.list = 0;
         msgQList[ i ].q.head = 0;
         msgQList[ i ].q.tail = 0;
@@ -50,9 +53,15 @@ void os_msgQ_init() {
 #endif
 }
 
-MsgQ_t os_msgQ_create( Msg_t *buffer, uint8_t nMessages, uint16_t msgSize, uint8_t task_id ) {
+
+MsgQ_t os_msgQ_create( const Msg_t *const buffer,
+                       const uint8_t nMessages,
+                       const uint16_t msgSize,
+                       const uint8_t task_id )
+{
 #if( N_QUEUES > 0 )
     os_assert_with_return( nQueues < N_QUEUES, 1 );
+
     msgQList[ nQueues ].q.list = (Mem_t*)buffer;
     msgQList[ nQueues ].q.head = 1;
     msgQList[ nQueues ].q.tail = 0;
@@ -68,13 +77,14 @@ MsgQ_t os_msgQ_create( Msg_t *buffer, uint8_t nMessages, uint16_t msgSize, uint8
 #endif
 }
 
-// Find the queue belonging to this task_id
-MsgQ_t os_msgQ_find(uint8_t task_id) {
-#if( N_QUEUES > 0 )
-    MsgQ_t queue;
 
-    for (queue = 0; queue < nQueues; queue++) {
-        if ( msgQList[ queue ].taskId == task_id ) {
+MsgQ_t os_msgQ_find(const uint8_t task_id)
+{
+#if( N_QUEUES > 0 )
+    for(MsgQ_t queue = 0; queue < nQueues; queue++)
+    {
+        if ( msgQList[ queue ].taskId == task_id )
+        {
             return queue;
         }
     }
@@ -83,90 +93,125 @@ MsgQ_t os_msgQ_find(uint8_t task_id) {
     return NO_QUEUE;
 }
 
-Evt_t os_msgQ_event_get( MsgQ_t queue ) {
+
+Evt_t os_msgQ_event_get( const MsgQ_t queue )
+{
 #if( N_QUEUES > 0 )
-    if ( queue >= nQueues ) {
+    if ( queue >= nQueues )
+    {
         return NO_EVENT;
     }
+
     return msgQList[ queue ].change;
 #else
     return NO_EVENT;
 #endif
 }
 
-uint8_t os_msg_post( Msg_t *msg, MsgQ_t queue, uint32_t delay, uint32_t period ) {
-    #if( N_QUEUES > 0 )
 
-    if ( queue >= nQueues ) {
+MsgQResult_t os_msg_post( Msg_t *msg,
+                           const MsgQ_t queue,
+                           const uint32_t delay,
+                           const uint32_t period )
+{
+#if( N_QUEUES > 0 )
+
+    if ( queue >= nQueues )
+    {
         return MSG_QUEUE_UNDEF;
     }
 
     msg->delay = delay;
     msg->reload = period;
-    return queue_push(&msgQList[ queue ].q, msg);
 
+    return queue_push(&msgQList[ queue ].q, msg);
 #else
     return 0;
 #endif
 }
 
+
 #if( N_QUEUES > 0 )
-static uint8_t queue_push(OSQueue_t *queue, Msg_t *msg ) {
+static uint8_t queue_push(OSQueue_t *queue, Msg_t *msg )
+{
 
-	if ( 0 == queue->size ) return MSG_QUEUE_UNDEF;
+    if ( 0 == queue->size )
+    {
+        return MSG_QUEUE_UNDEF;
+    }
 
-	uint8_t head = queue->head;
+    uint8_t head = queue->head;
 
-	if (head == queue->tail) return MSG_QUEUE_FULL;
+    if (head == queue->tail)
+    {
+        return MSG_QUEUE_FULL;
+    }
 
-	uint16_t msgSz = queue->messageSize;
+    uint16_t msgSz = queue->messageSize;
 
-	uint8_t *src = (uint8_t*)msg;
-	uint8_t *dst = (uint8_t*)((Mem_t)queue->list + head * msgSz);
+    uint8_t *src = (uint8_t*)msg;
+    uint8_t *dst = (uint8_t*)((Mem_t)queue->list + head * msgSz);
 
-	while ( msgSz--) {
+    while ( msgSz--)
+    {
         *dst++ = *src++;
     }
 
-	queue->head = (++head) % queue->size;
+    queue->head = (++head) % queue->size;
 
-	return MSG_QUEUE_POSTED;
+    return MSG_QUEUE_POSTED;
 
 }
 #endif
 
-uint8_t os_msg_receive( Msg_t *msg, MsgQ_t queue ) {
+
+MsgQResult_t os_msg_receive( Msg_t *msg,
+                              const MsgQ_t queue )
+{
     #if( N_QUEUES > 0 )
 
     OSQueue_t *q;
     uint8_t *src;
     uint8_t found;
 
-    if ( queue >= nQueues ) {
+    if ( queue >= nQueues )
+    {
         return MSG_QUEUE_UNDEF;
     }
 
     q = &msgQList[ queue ].q;
+
+    if ( 0 == q->size )
+    {
+        return MSG_QUEUE_UNDEF;
+    }
+
     uint8_t tail = q->tail;
 
-    if ((tail+1) % q->size == q->head) return MSG_QUEUE_EMPTY;
-
-    /* If all messages have a delay > 0 we consider the queue as empty */
-    if ( MsgQAllDelayed( q ) == 1 ) {
+    if ((tail+1) % q->size == q->head)
+    {
         return MSG_QUEUE_EMPTY;
     }
 
-    /* At least one message is ready to be delivered. Find it! */
+    // If all messages have a delay > 0 we consider the queue as empty
+    if ( MsgQAllDelayed( q ) == 1 )
+    {
+        return MSG_QUEUE_EMPTY;
+    }
+
+    // At least one message is ready to be delivered. Find it!
     found = 0;
     uint16_t msgSz = q->messageSize;
 
-    while ( found == 0 ) {
-    	tail = (tail+1) % q->size;
+    while ( found == 0 )
+    {
+        tail = (tail+1) % q->size;
         src = (uint8_t*)( (Mem_t)q->list + tail * msgSz );
 
         uint8_t *dst = (uint8_t*)msg;
-        while (msgSz--) {
-        	*dst++ = *src++;
+        while (msgSz--)
+        {
+            *dst++ = *src++;
         }
 
         // restore msgSz
@@ -175,26 +220,31 @@ uint8_t os_msg_receive( Msg_t *msg, MsgQ_t queue ) {
         uint8_t messagePeriodic = ( msg->reload > 0 );
         uint8_t messageTimedOut = ( msg->delay == 0 );
 
-        if ( messageTimedOut ){
+        if ( messageTimedOut )
+        {
             found = 1;
-            if ( messagePeriodic ) {
+            if ( messagePeriodic )
+            {
                 msg->delay = msg->reload;
             }
         }
 
-        /* Put the message back at head position if delay > 0, or if it is a periodic message that timed out */
-        if (( !messageTimedOut ) || ( messagePeriodic && messageTimedOut )) {
+        // Put the message back at head position if delay > 0, or if it is a
+        // periodic message that timed out
+        if (( !messageTimedOut ) || ( messagePeriodic && messageTimedOut ))
+        {
             dst = (uint8_t*)( (Mem_t)q->list + q->head * msgSz );
             src = (uint8_t*)msg;
 
-            while(msgSz--) {
-            	*dst++ = *src++;
+            while(msgSz--)
+            {
+                *dst++ = *src++;
             }
 
             // restore msgSz
             msgSz = q->messageSize;
 
-            /* Look for buffer wrap around */
+            // Look for buffer wrap around
             q->head = (q->head+1) % q->size;
 
         }
@@ -207,36 +257,47 @@ uint8_t os_msg_receive( Msg_t *msg, MsgQ_t queue ) {
 #endif
 }
 
-void os_msgQ_tick( MsgQ_t queue ) {
+
+void os_msgQ_tick( const MsgQ_t queue )
+{
 #if( N_QUEUES > 0 )
     uint8_t nextMessage;
     Msg_t *pMsg;
     OSQueue_t *q = &msgQList[ queue ].q;
+
+    if ( 0 == q->size )
+    {
+        return;
+    }
+
     nextMessage = (q->tail+1) % q->size;
 
     uint8_t head = q->head;
     uint16_t msgSz = q->messageSize;
 
-    while ( nextMessage != head ) {
+    while ( nextMessage != head )
+    {
         pMsg = (Msg_t*)( (Mem_t)q->list + nextMessage * msgSz );
 
-        if ( pMsg->delay > 0 ) {
+        if ( pMsg->delay > 0 )
+        {
             --(pMsg->delay);
-            if ( pMsg->delay == 0 ) {
-                event_ISR_signal( msgQList[ queue ].change );
+            if ( pMsg->delay == 0 )
+            {
+                os_signal_event( msgQList[ queue ].change );
+                os_event_set_signaling_tid( msgQList[ queue ].change, ISR_TID );
             }
         }
         nextMessage = (nextMessage + 1) % q->size;
 
     }
-#endif    
+#endif
 }
 
 
 #if( N_QUEUES > 0 )
-
-
-static uint8_t MsgQAllDelayed(OSQueue_t *q) {
+static uint8_t MsgQAllDelayed(OSQueue_t *q)
+{
     uint32_t nextMessage;
     Msg_t *pMsg;
     uint8_t result;
@@ -258,8 +319,6 @@ static uint8_t MsgQAllDelayed(OSQueue_t *q) {
 
     return result;
 }
-
-
 #endif
 
 #ifdef __cplusplus

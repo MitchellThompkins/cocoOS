@@ -1,5 +1,6 @@
 #include "CppUTestExt/MockSupport_c.h"
 
+#include "os_defines.h"
 #include "os_event.h"
 
 void os_event_init( void )
@@ -33,11 +34,12 @@ void os_event_set_signaling_tid( Evt_t ev, uint8_t tid )
 
 Evt_t event_last_signaled_get(void)
 {
-    mock_c()->actualCall("event_last_signaled_get");
+    return (Evt_t)mock_c()->actualCall("event_last_signaled_get")
+                           ->returnIntValueOrDefault(NO_EVENT);
 }
 
 Evt_t event_create( void )
 {
     int v = (int)mock_c()->getData("event_create_return").value.intValue;
-    mock_c()->actualCall("event_create")->returnIntValueOrDefault(v);
+    return (Evt_t)mock_c()->actualCall("event_create")->returnIntValueOrDefault(v);
 }

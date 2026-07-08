@@ -25,9 +25,9 @@ build.graph:
 ### test #########################
 #######################################
 .PHONY: test
-test: 
-	python3 -m pip install termcolor 
-	python3 scripts/test.py -t tests/tests.json 
+test:
+	python3 -c 'import termcolor' 2>/dev/null || python3 -m pip install termcolor
+	python3 scripts/test.py -t tests/tests.json
 
 
 #######################################
@@ -40,7 +40,19 @@ container.pull:
 
 .PHONY: container.start
 container.start:
-	docker-compose -f docker-compose.yml run --rm dev_env 'sh -x'
+	docker compose -f docker-compose.yml run --rm dev_env 'sh -x'
+
+# Run an arbitrary command inside the dev container, e.g.:
+#   make container.run CMD='make build.a9'
+.PHONY: container.run
+container.run:
+	MY_UID=$(UID) MY_GID=$(GID) USER=$(shell whoami) \
+	docker compose -f docker-compose.yml run --rm -T dev_env '$(CMD)'
+
+# Full CI pass inside the container
+.PHONY: ci
+ci:
+	$(MAKE) container.run CMD='make build.all && make test && make check-trace && make check-coverage'
 
 
 #######################################
@@ -50,14 +62,23 @@ container.start:
 #TODO(@mthompkins): Use poetry to manage deps
 .PHONY: check-trace
 check-trace:
-	python3 -m pip install termcolor 
+	python3 -c 'import termcolor' 2>/dev/null || python3 -m pip install termcolor
 	python3 scripts/trace_reqs.py \
 		--req documents/requirements.csv \
 		--test \
 			cpputest_TestOsEvent.xml \
 			cpputest_TestOsTask.xml \
-			cpputest_TestOsKernel.xml
-	
+			cpputest_TestOsKernel.xml \
+			cpputest_TestOsSem.xml \
+			cpputest_TestOsMsgqueue.xml \
+			cpputest_TestOsUtils.xml \
+			cpputest_Integration.xml
+
+.PHONY: check-coverage
+check-coverage:
+	python3 -c 'import termcolor' 2>/dev/null || python3 -m pip install termcolor
+	python3 scripts/check_function_coverage.py --build-dir build/x86_64
+
 .PHONY: clean
 clean:
 	rm -rf build/

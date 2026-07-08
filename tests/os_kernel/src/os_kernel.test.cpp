@@ -79,7 +79,7 @@ static void dummy_task_check_id(void)
 {
     task_open();
 
-    const int* this_id = (int*)task_get_data();
+    const uint8_t* this_id = (uint8_t*)task_get_data();
     task_ran = true;
     CHECK_EQUAL(*this_id, os_get_running_tid());
 
@@ -90,7 +90,7 @@ TEST_GROUP(TestOsKernel)
 {
     void setup()
     {
-        for(int i{0}; i<sizeof(running_count)/sizeof(running_count[0]); i++)
+        for(size_t i{0}; i<sizeof(running_count)/sizeof(running_count[0]); i++)
         {
             running_count[i]=0;
         }
@@ -102,6 +102,7 @@ TEST_GROUP(TestOsKernel)
 
     void teardown()
     {
+        mock().checkExpectations();
         mock().clear();
     }
 };
@@ -113,13 +114,12 @@ TEST(TestOsKernel, simple_verify_schedule)
 
     mock().expectOneCall("os_sem_init");
     mock().expectOneCall("os_event_init");
-    mock().expectOneCall("os_msgQ_init");
-    mock().expectOneCall("os_task_init");
+    mock().ignoreOtherCalls();
     os_init();
 
-    const auto id0 {os_task_create( dummy_task0, NULL, 3, NULL, 0, 0 )};
-    const auto id1 {os_task_create( dummy_task1, NULL, 2, NULL, 0, 0 )};
-    const auto id2 {os_task_create( dummy_task2, NULL, 1, NULL, 0, 0 )};
+    (void)os_task_create( dummy_task0, NULL, 3, NULL, 0, 0 );
+    (void)os_task_create( dummy_task1, NULL, 2, NULL, 0, 0 );
+    (void)os_task_create( dummy_task2, NULL, 1, NULL, 0, 0 );
 
     step_os(3);
     CHECK_EQUAL(1, running_count[0]);
@@ -148,11 +148,10 @@ TEST(TestOsKernel, verify_single_task_execution)
 
     mock().expectOneCall("os_sem_init");
     mock().expectOneCall("os_event_init");
-    mock().expectOneCall("os_msgQ_init");
-    mock().expectOneCall("os_task_init");
+    mock().ignoreOtherCalls();
     os_init();
 
-    const auto id {os_task_create( dummy_task3, NULL, 1, NULL, 0, 0 )};
+    (void)os_task_create( dummy_task3, NULL, 1, NULL, 0, 0 );
 
     step_os(5);
     CHECK_EQUAL(1, running_count[3]);
@@ -173,8 +172,7 @@ TEST(TestOsKernel, test_os_tick)
 
     mock().expectOneCall("os_sem_init");
     mock().expectOneCall("os_event_init");
-    mock().expectOneCall("os_msgQ_init");
-    mock().expectOneCall("os_task_init");
+    mock().ignoreOtherCalls();
     os_init();
 
     const auto id {os_task_create( dummy_task2, NULL, 1, NULL, 0, 0 )};
@@ -197,8 +195,7 @@ TEST(TestOsKernel, test_os_running)
 
     mock().expectOneCall("os_sem_init");
     mock().expectOneCall("os_event_init");
-    mock().expectOneCall("os_msgQ_init");
-    mock().expectOneCall("os_task_init");
+    mock().ignoreOtherCalls();
     os_init();
 
     CHECK_EQUAL(0, os_running());
@@ -219,13 +216,12 @@ TEST(TestOsKernel, test_os_running_id)
 
     mock().expectOneCall("os_sem_init");
     mock().expectOneCall("os_event_init");
-    mock().expectOneCall("os_msgQ_init");
-    mock().expectOneCall("os_task_init");
+    mock().ignoreOtherCalls();
     os_init();
 
     CHECK_EQUAL(NO_TID, os_get_running_tid());
 
-    uint16_t expectedId;
+    uint8_t expectedId;
     const auto id {os_task_create( dummy_task_check_id, &expectedId, 1, NULL, 0, 0 )};
     expectedId = id;
 
@@ -239,8 +235,7 @@ TEST(TestOsKernel, test_os_sub_tick)
 
     mock().expectOneCall("os_sem_init");
     mock().expectOneCall("os_event_init");
-    mock().expectOneCall("os_msgQ_init");
-    mock().expectOneCall("os_task_init");
+    mock().ignoreOtherCalls();
     os_init();
 
     const auto id0 {os_task_create( dummy_task0, NULL, 3, NULL, 0, 0 )};
@@ -262,26 +257,207 @@ TEST(TestOsKernel, test_os_sub_tick)
     const uint8_t clock_step_first {3};
     os_sub_nTick(clock_id0, clock_step_first);
 
-    CHECK_EQUAL( 20-clock_step_first, os_task_timeout_get(id0) );
-    CHECK_EQUAL( 30-clock_step_first, os_task_timeout_get(id1) );
-    CHECK_EQUAL( 40, os_task_timeout_get(id2) );
+    CHECK_EQUAL( (uint32_t)(20-clock_step_first), os_task_timeout_get(id0) );
+    CHECK_EQUAL( (uint32_t)(30-clock_step_first), os_task_timeout_get(id1) );
+    CHECK_EQUAL( (uint32_t)40,                    os_task_timeout_get(id2) );
 
     uint8_t clock_step_second = 7;
     os_sub_nTick(clock_id1, clock_step_second);
 
-    CHECK_EQUAL( 20-clock_step_first,  os_task_timeout_get(id0) );
-    CHECK_EQUAL( 30-clock_step_first,  os_task_timeout_get(id1) );
-    CHECK_EQUAL( 40-clock_step_second, os_task_timeout_get(id2) );
+    CHECK_EQUAL( (uint32_t)(20-clock_step_first), os_task_timeout_get(id0) );
+    CHECK_EQUAL( (uint32_t)(30-clock_step_first), os_task_timeout_get(id1) );
+    CHECK_EQUAL( (uint32_t)(40-clock_step_second), os_task_timeout_get(id2) );
 
     // Make sure clocks didn't step when master clock ticks
     os_tick();
-    CHECK_EQUAL( 20-clock_step_first,  os_task_timeout_get(id0) );
-    CHECK_EQUAL( 30-clock_step_first,  os_task_timeout_get(id1) );
-    CHECK_EQUAL( 40-clock_step_second, os_task_timeout_get(id2) );
+    CHECK_EQUAL( (uint32_t)(20-clock_step_first), os_task_timeout_get(id0) );
+    CHECK_EQUAL( (uint32_t)(30-clock_step_first), os_task_timeout_get(id1) );
+    CHECK_EQUAL( (uint32_t)(40-clock_step_second), os_task_timeout_get(id2) );
 
     // Make sure only specified clock decrements by 1
     os_sub_tick(clock_id0);
-    CHECK_EQUAL( 20-clock_step_first-1,  os_task_timeout_get(id0) );
-    CHECK_EQUAL( 30-clock_step_first-1,  os_task_timeout_get(id1) );
-    CHECK_EQUAL( 40-clock_step_second,   os_task_timeout_get(id2) );
+    CHECK_EQUAL( (uint32_t)(20-clock_step_first-1), os_task_timeout_get(id0) );
+    CHECK_EQUAL( (uint32_t)(30-clock_step_first-1), os_task_timeout_get(id1) );
+    CHECK_EQUAL( (uint32_t)(40-clock_step_second),  os_task_timeout_get(id2) );
+}
+
+// Strong override of the weak os_cbkSleep, counts calls for KERNEL-14
+static uint32_t sleep_cb_count {0};
+extern "C" void os_cbkSleep( void )
+{
+    sleep_cb_count++;
+}
+
+TEST(TestOsKernel, os_init_initializes_subsystems)
+{
+    UT_CATALOG_ID("KERNEL-7");
+
+    // os_task_init and os_msgQ_init are real (resolve from real impls due to
+    // transitive link via os_task_impl), so we cannot expect them as mock calls.
+    mock().expectOneCall("os_sem_init");
+    mock().expectOneCall("os_event_init");
+    mock().ignoreOtherCalls();
+    os_init();
+
+    // os_running and os_get_running_tid reset to initial values
+    CHECK_EQUAL( 0, os_running() );
+    CHECK_EQUAL( NO_TID, os_get_running_tid() );
+}
+
+TEST(TestOsKernel, os_start_runs_for_tick_limit)
+{
+    UT_CATALOG_ID("KERNEL-8");
+
+    mock().expectOneCall("os_sem_init");
+    mock().expectOneCall("os_event_init");
+    mock().ignoreOtherCalls();
+    os_init();
+
+    (void)os_task_create( dummy_task0, NULL, 1, NULL, 0, 0 );
+
+    static constexpr uint16_t interval_ms {1};
+    set_tick_limit_before_exit(500);
+    platform_setup_timer(interval_ms);
+    platform_enable_timer();
+
+    const uint32_t limit {10};
+    os_start( limit );
+
+    CHECK_EQUAL( 1, os_running() );
+    CHECK_TRUE( running_count[0] > 0 );
+}
+
+static uint32_t lock_count   {0};
+static uint32_t unlock_count {0};
+static void test_lock(void)   { lock_count++;   }
+static void test_unlock(void) { unlock_count++; }
+
+TEST(TestOsKernel, os_start_locking_calls_lock_unlock)
+{
+    UT_CATALOG_ID("KERNEL-9");
+
+    mock().expectOneCall("os_sem_init");
+    mock().expectOneCall("os_event_init");
+    mock().ignoreOtherCalls();
+    os_init();
+
+    os_task_create( dummy_task0, NULL, 1, NULL, 0, 0 );
+
+    lock_count   = 0;
+    unlock_count = 0;
+
+    set_tick_limit_before_exit(500);
+    platform_setup_timer(1);
+    platform_enable_timer();
+
+    const uint32_t limit {5};
+    os_start_locking( limit, test_lock, test_unlock );
+
+    CHECK_EQUAL( lock_count, unlock_count );
+    CHECK_TRUE( lock_count > 0 );
+}
+
+TEST(TestOsKernel, scheduler_runs_highest_prio_task)
+{
+    UT_CATALOG_ID("KERNEL-10");
+
+    mock().expectOneCall("os_sem_init");
+    mock().expectOneCall("os_event_init");
+    mock().ignoreOtherCalls();
+    os_init();
+
+    // id0 has lower priority (higher number), id1 has higher priority (lower number)
+    os_task_create( dummy_task0, NULL, 2, NULL, 0, 0 );  // lower prio
+    os_task_create( dummy_task1, NULL, 1, NULL, 0, 0 );  // higher prio
+
+    step_os(1);
+
+    // The higher-prio task (id1 / dummy_task1) ran first
+    CHECK_EQUAL( 0, running_count[0] );
+    CHECK_EQUAL( 1, running_count[1] );
+}
+
+TEST(TestOsKernel, running_tid_set_during_task_execution)
+{
+    UT_CATALOG_ID("KERNEL-12");
+
+    mock().expectOneCall("os_sem_init");
+    mock().expectOneCall("os_event_init");
+    mock().ignoreOtherCalls();
+    os_init();
+
+    uint8_t expectedId;
+    const auto id = os_task_create( dummy_task_check_id, &expectedId, 1, NULL, 0, 0 );
+    expectedId = id;
+
+    step_os(1);
+    CHECK_TRUE( task_ran );
+    // Idle: running tid must be NO_TID
+    CHECK_EQUAL( NO_TID, os_get_running_tid() );
+}
+
+TEST(TestOsKernel, os_free_tid_clears_running_tid)
+{
+    UT_CATALOG_ID("KERNEL-13");
+
+    mock().expectOneCall("os_sem_init");
+    mock().expectOneCall("os_event_init");
+    mock().ignoreOtherCalls();
+    os_init();
+
+    os_free_tid();
+    CHECK_EQUAL( NO_TID, os_get_running_tid() );
+}
+
+TEST(TestOsKernel, sleep_callback_invoked_when_no_task_ready)
+{
+    UT_CATALOG_ID("KERNEL-14");
+
+    mock().expectOneCall("os_sem_init");
+    mock().expectOneCall("os_event_init");
+    mock().ignoreOtherCalls();
+    os_init();
+
+    // A task waiting for time leaves no READY tasks between ticks
+    (void)os_task_create( dummy_task2, NULL, 1, NULL, 0, 0 );
+
+    sleep_cb_count = 0;
+
+    // Single step, task runs, then waits 20 ticks
+    step_os(1);  // task runs, enters wait
+    step_os(1);  // no task ready, os_cbkSleep called
+
+    CHECK_TRUE( sleep_cb_count > 0 );
+}
+
+TEST(TestOsKernel, os_sub_tick_increments_sub_clock_tasks)
+{
+    UT_CATALOG_ID("KERNEL-15");
+
+    mock().expectOneCall("os_sem_init");
+    mock().expectOneCall("os_event_init");
+    mock().ignoreOtherCalls();
+    os_init();
+
+    os_task_create( dummy_task0, NULL, 3, NULL, 0, 0 );
+    os_task_create( dummy_task1, NULL, 2, NULL, 0, 0 );
+    os_task_create( dummy_task2, NULL, 1, NULL, 0, 0 );
+
+    const uint8_t sub_id {7};
+    os_task_wait_time_set( 0, sub_id, 2 );  // task 0: sub-clock 7, time=2
+
+    // Sub-clock tick 1, task 0 time from 2 to 1, not ready yet
+    os_sub_tick( sub_id );
+    CHECK_EQUAL( 1, os_task_timeout_get(0) );
+    CHECK_EQUAL( WAITING_TIME, task_state_get(0) );
+
+    // Sub-clock tick 2, task 0 time from 1 to 0, becomes READY
+    os_sub_tick( sub_id );
+    CHECK_EQUAL( READY, task_state_get(0) );
+
+    // os_sub_tick(0) (master clock id) does NOT affect tasks on sub-clocks
+    os_task_wait_time_set( 1, sub_id, 2 );
+    CHECK_EQUAL( 2, os_task_timeout_get(1) );
+    os_sub_tick( 0 );  // master clock: should be ignored
+    CHECK_EQUAL( 2, os_task_timeout_get(1) );
 }

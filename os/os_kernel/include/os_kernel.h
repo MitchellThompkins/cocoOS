@@ -843,7 +843,7 @@ static void task2(void) {
 *
 */
 /*********************************************************************************/
-#define msg_receive_async( task_id, pMsg )        OS_MSG_Q_RECEIVE( task_id, pMsg, 1 )
+#define msg_receive_async( task_id, pMsg )        OS_MSG_Q_RECEIVE( task_id, pMsg, 1, 0 )
 
 uint8_t os_running( void );
 

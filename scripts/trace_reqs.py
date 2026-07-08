@@ -40,9 +40,30 @@ def trace_tests(req: str, test: List[str]) -> int:
 
     with open(req, 'r') as f:
         reader = csv.DictReader(f)
-        req_list = [row['test_case_id'] for row in reader]
+        req_id_rows = [row['requirement_id'] for row in reader]
 
+    # Detect duplicate requirement IDs
+    seen = set()
+    duplicates = []
+    for rid in req_id_rows:
+        if rid in seen:
+            duplicates.append(rid)
+        seen.add(rid)
+
+    if duplicates:
+        print( colored("The following requirement IDs are duplicated in the CSV:", 'yellow') )
+        for rid in sorted(set(duplicates)):
+            print( colored(f"\t{rid}", 'red') )
+
+    req_list = req_id_rows
     missing_traces = sorted(set(req_list) - set(test_id_list))
+
+    # Warn on trace IDs present in XML but absent from the CSV
+    unknown_traces = sorted(set(test_id_list) - set(req_list))
+    if unknown_traces:
+        print( colored("The following test trace IDs are not in the requirements CSV:", 'yellow') )
+        for tid in unknown_traces:
+            print( colored(f"\t{tid}", 'yellow') )
 
     if len(missing_traces) != 0:
         print( colored("The following requirements are not traced to a test:",
@@ -52,6 +73,8 @@ def trace_tests(req: str, test: List[str]) -> int:
     else:
         print( colored("All requirements are traced", 'green'))
 
+    if duplicates or missing_traces:
+        return 1
     return 0
 
 if __name__ == '__main__':

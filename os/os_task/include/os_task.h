@@ -60,8 +60,8 @@ uint8_t next_ready_task( void );
 
 void os_task_ready_set( uint8_t tid );
 
-void task_wait_sem_set( uint8_t tid,
-                        Sem_t sem );
+void os_task_wait_sem_set( uint8_t tid,
+                           Sem_t sem );
 
 void os_task_suspend( uint8_t tid );
 
@@ -109,15 +109,13 @@ void os_task_signal_event( const Evt_t eventId );
 
 void task_run( void );
 
-void os_task_run_test( const uint8_t id );
-
 uint16_t task_internal_state_get( uint8_t tid );
 
 void os_task_internal_state_set( const uint8_t tid, const uint16_t state );
 
 void os_task_release_waiting_task( Sem_t sem );
 
-uint8_t os_task_waiting_this_semaphore( Sem_t sem );
+int16_t os_task_waiting_this_semaphore( Sem_t sem );
 
 MsgQ_t os_task_msgQ_get( const uint8_t tid );
 
@@ -140,8 +138,6 @@ uint8_t os_task_create( taskproctype taskproc, void *data, uint8_t prio, Msg_t* 
 void *task_get_data( void );
 
 TaskState_t task_state_get( uint8_t tid );
-
-bool task_should_run_test(const uint16_t id);
 
 bool task_is_killed(const uint16_t id);
 

@@ -21,14 +21,17 @@ cocoOS is extremely portable to any target which makes it a perfect choice durin
 
 ## Configuration
 
-To setup cocoOS you have to define 6 macros. They can be setup in os_defines.h, or as defined as compiler flags, e.g. `-DN_TASKS=2...` If not defines as flags, they will be set to default values according to the list below:
+To set up cocoOS you must define 6 macros. They are **required**. The build
+fails with `#error` if any are absent. Place them in a user-provided header
+named `user_os_config.h` (see `tests/user_config/user_os_config.h` for an
+example) and ensure that header is on the include path.
 
-    - N_TASKS: maximum number of tasks            (0-254, default=1)
-    - N_QUEUES: maxmimum number of message queues (0-254, default=0)
-    - N_SEMAPHORES: maximum number of semaphores  (0-254, default=0)
-    - N_EVENTS: maximum number of events          (0-254, default=0)
-    - ROUND_ROBIN: should round robin scheduling be used ? (0)
-    - Mem_t: address type, e.g. uint32_t          (uint32_t)
+    - N_TASKS: maximum number of tasks            (0-254)
+    - N_QUEUES: maximum number of message queues  (0-254)
+    - N_SEMAPHORES: maximum number of semaphores  (0-254)
+    - N_EVENTS: maximum number of events          (0-254)
+    - ROUND_ROBIN: use round-robin scheduling?    (0 or 1)
+    - Mem_t: address type, e.g. uint32_t
 
 Asserts will fire if the maximum numbers are violated during runtime. 
 
@@ -39,8 +42,7 @@ To save RAM it is recommended to keep these values as low as possible.
 
 As usual you have to setup your system, ports, clocks etc in the beginning of your main function. 
 
-Then you setup the cocoOS kernel with a call to os_init() and proceeds with
-
+Then you setup the cocoOS kernel with a call to os_init() and proceed with
 creating all tasks, semaphores and events.
 
 
@@ -51,22 +53,39 @@ int main(void)
     system_init();
 
     /* Initialize cocoOS */
-
     os_init();
 
     /* Create kernel objects */
     os_task_create( taskProc, &taskData, 1, NULL, 0, 0 );
     mySem = sem_bin_create( 1 );
 
-
-    os_start();
+    /* Pass 0 to run forever; pass a positive limit for bounded execution */
+    os_start( 0 );
 
     /* Will never end up here */
     return 0;
 }
 ```
 
+`os_start(tick_limit)` accepts a tick limit. Passing `0` runs the scheduler
+indefinitely. Passing a positive value causes `os_start` to return after that
+many scheduling passes, useful for unit tests.
+
 This is the preferred order of initialization. The os_start() function will call os_enable_interrupts() that can be used to enable the clock interrupt driving the os_tick().
+
+
+## Task creation
+
+```c
+os_task_create( proc, data, prio, msgPool, poolSize, msgSize );
+```
+
+- `proc` is the task function pointer
+- `data` is a pointer to task-private data (passed back via `task_get_data()`)
+- `prio` is the unique priority (lower number means higher priority)
+- `msgPool` is a pointer to a `Msg_t` array for the task's message queue, or `NULL`
+- `poolSize` is the number of messages in the pool (0 if no queue)
+- `msgSize` is the size of each message struct (0 if no queue)
 
 
 ## Time
@@ -134,8 +153,7 @@ int main(void)
     /* Create kernel objects */
     os_task_create( hello_task, &taskData, 1, NULL, 0, 0 ); 
 
-
-    os_start();
+    os_start( 0 );
     /* Will never end up here */
     return 0;
 }
@@ -165,11 +183,11 @@ When a task has finished it gives the CPU control to another task by calling one
     - msg_receive()
 
 
-Normally the scheduler will give the cpu to the highest priority task ready for execution. It is possible to choose a round robin scheduling algorithm by putting the following line in os_defines.h:
+Normally the scheduler will give the cpu to the highest priority task ready for execution. It is possible to choose a round robin scheduling algorithm by setting `ROUND_ROBIN=1` in `user_os_config.h`.
 
 
 ## ROUND_ROBIN
-When round robin is used, the scheduler to scan the list of tasks and run the next found task in the ready state ignoring the prio level of the tasks.
+When round robin is used, the scheduler scans the list of tasks and runs the next found task in the ready state ignoring the priority level of the tasks.
 
 ## event_wait() and event_wait_ex()
 A task can be set to wait for an event to be signaled, by calling event_wait(). If the event is signaled from another task, everything works as expected: when the event is signaled, the waiting task is ready for execution again.
@@ -212,3 +230,43 @@ void task()
 ```
 
 
+# Building & Running the Tests
+
+## Requirements
+
+The build requires the `ghcr.io/mitchellthompkins/embedded_sdk:latest` Docker
+image (contains arm-none-eabi toolchain + QEMU). The host needs Docker and
+`make`; no embedded toolchain is needed on the host.
+
+Pull the image once:
+
+```sh
+make container.pull
+```
+
+## Running CI
+
+A single command builds both platforms (x86_64 host + Cortex-A9 under QEMU),
+runs all test suites, and checks requirements traceability:
+
+```sh
+make ci
+```
+
+To run an arbitrary command inside the container:
+
+```sh
+make container.run CMD='make build.a9'
+```
+
+## Requirements traceability
+
+Behavioral requirements live in `documents/requirements.csv`. Every unit test
+that covers a requirement tags itself with:
+
+```cpp
+UT_CATALOG_ID("REQ-ID");
+```
+
+After running `make test`, run `make check-trace` to verify every requirement
+is covered by at least one passing test. `make ci` runs both automatically.

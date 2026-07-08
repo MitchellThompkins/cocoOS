@@ -239,6 +239,8 @@ error_code_t init_gtimer(
     write_reg32(
             &(gt_regs->timer_counter.upper32),
             upper32 );
+
+    return NO_ERR;
 }
 
 void toggle_gtimer(

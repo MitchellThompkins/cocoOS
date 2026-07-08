@@ -12,7 +12,7 @@ extern "C" {
 *
 */
 /*********************************************************************************/
-void os_cbkSleep( void )
+__attribute__((weak)) void os_cbkSleep( void )
 {
     // Enter low power mode here
 }

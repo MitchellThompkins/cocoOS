@@ -46,7 +46,7 @@ static uint16_t last_running_task = 0;
 
 void os_task_init( void )
 {
-    last_running_task = 0;
+    last_running_task = NO_TID;
 
     nTasks = 0;
     tcb *task;
@@ -79,25 +79,39 @@ void os_task_init( void )
 }
 
 
-/************************************************************** *******************/
-/*  uint8_t os_task_create( taskproctype taskproc, void *data, uint8_t prio, Msg_t *msgPool, uint8_t poolSize, uint16_t msgSize )
-*   
-*   Creates a task scheduled by the os. The task is put in the ready state.
-*
-*   @param taskproc Function pointer to the task procedure.
-*   @param data [optional] Pointer to task data
-*   @param prio Task priority on a scale 0-255 where 0 is the highest priority.
-*   @param msgPool [optional] Pointer to the message pool, containing messages. Ignored if poolSize is 0.
-*   @param poolSize [optional] Size, in nr of messages, of the message pool. Set to 0 if no message pool needed for the task
-*   @param msgSize [optional] Size of the message type held in the message queue
-*   @return Task id of the created task.
-*
-*   @remarks \b Usage: @n Should be called early in system setup, before starting the task
-*   execution. Only one task per priority level is allowed.
-*
-*   @code
-*   static uint8_t taskId;
-*   static Msg_t msgpool_1[ POOL_SIZE ];
+/******************************************************************************/
+/*
+ uint8_t os_task_create( taskproctype taskproc,
+                         void *data,
+                         uint8_t prio,
+                         Msg_t *msgPool,
+                         uint8_t poolSize,
+                         uint16_t msgSize )
+
+  Creates a task scheduled by the os. The task is put in the ready state.
+
+  @param taskproc Function pointer to the task procedure.
+
+  @param data [optional] Pointer to task data
+
+  @param prio Task priority on a scale 0-255 where 0 is the highest priority.
+
+  @param msgPool [optional] Pointer to the message pool, containing messages.
+  Ignored if poolSize is 0.
+
+  @param poolSize [optional] Size, in nr of messages, of the message pool. Set
+  to 0 if no message pool needed for the task
+
+  @param msgSize [optional] Size of the message type held in the message queue
+
+  @return Task id of the created task.
+
+  @remarks \b Usage: @n Should be called early in system setup, before
+  starting the task execution. Only one task per priority level is allowed.
+
+  @code
+  static uint8_t taskId;
+  static Msg_t msgpool_1[ POOL_SIZE ];
 
 int main(void) {
     system_init();
@@ -107,7 +121,7 @@ int main(void) {
 }
 @endcode
 */
-/*********************************************************************************/
+/******************************************************************************/
 uint8_t os_task_create(
         taskproctype taskproc,
         void *data,
@@ -139,7 +153,7 @@ uint8_t os_task_create(
     task->prio = prio;
     task->state = READY;
     task->savedState = READY;
-    task->semaphore = 0;
+    task->semaphore = NO_SEM;
     task->internal_state = 0;
     task->taskproc = taskproc;
     task->waitSingleEvent = false;
@@ -402,27 +416,22 @@ void os_task_release_waiting_task( Sem_t sem )
 }
 
 
-// Checks if any task is waiting for this semaphore
-uint8_t os_task_waiting_this_semaphore( Sem_t sem )
+// Returns the tid of the task waiting for this semaphore, or -1 if none
+int16_t os_task_waiting_this_semaphore( Sem_t sem )
 {
     uint8_t tid;
     tcb *task;
-    uint8_t taskIsWaitingForThisSemaphore;
-    uint8_t result = 0;
 
     for ( tid = 0; tid != nTasks; ++tid )
     {
         task = &task_list[ tid ];
-        taskIsWaitingForThisSemaphore = (( task->state == WAITING_SEM ) && ( task->semaphore == sem ) );
-
-        if ( taskIsWaitingForThisSemaphore == 1 )
+        if ( task->state == WAITING_SEM && task->semaphore == sem )
         {
-            result = 1;
-            break;
+            return (int16_t)task->tid;
         }
     }
 
-    return result;
+    return -1;
 }
 
 // TODO(@mthompkins): This is a thin wrapper around a call to this function, so
@@ -700,7 +709,7 @@ uint32_t os_task_timeout_get(uint8_t tid)
 }
 
 // Sets the task to wait for semaphore state
-void task_wait_sem_set( uint8_t tid, Sem_t sem )
+void os_task_wait_sem_set( uint8_t tid, Sem_t sem )
 {
     os_assert( tid < nTasks );
 
@@ -742,21 +751,9 @@ static void task_waiting_event_timeout_set( tcb *task )
 }
 
 
-bool task_should_run_test(const uint16_t id)
-{
-    const uint8_t state = task_internal_state_get(id);
-    return state==0 || state==99;
-}
-
 bool task_is_killed(const uint16_t id)
 {
-    const uint8_t state = task_internal_state_get(id);
-    return state==KILLED;
-}
-
-void task_set_no_running_task(void)
-{
-    last_running_task = NO_TID;
+    return task_list[id].state == KILLED;
 }
 
 #ifdef __cplusplus
