@@ -8,16 +8,14 @@ on:
 jobs:
     build_and_test:
         runs-on: ubuntu-latest
+        container:
+            image: ghcr.io/mitchellthompkins/embedded_sdk:latest
         steps:
             - name: checkout
               uses: actions/checkout@df4cb1c069e1874edd31b4311f1884172cec0e10 # actions/checkout@v6.0.3
 
             - name: build
-              uses: MitchellThompkins/cocoOS_github_action@v0.0.3
-              with:
-                command: make build.all
+              run: make build.all
 
             - name: test
-              uses: MitchellThompkins/cocoOS_github_action@v0.0.3
-              with:
-                command: make test check-trace check-coverage
+              run: make test check-trace check-coverage
